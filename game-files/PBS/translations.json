@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "version": "2.0.0",
+    "description": "Key-based multi-language translation dictionary for Pokémon Essentials"
+  },
+  "translations": {
+    "MSG_NOT_READY": {
+      "en": "Looks like this is not ready...",
+      "he": "נראה שזה עדיין לא מוכן..."
+    },
+    "MSG_GOOD_MORNING": {
+      "en": "Good Morning. You are late for your shift.",
+      "he": "בוקר טוב. אתה מאחר למשמרת."
+    },
+    "MSG_SHONTAL_INTRO": {
+      "en": "Yesterday Shontal Netz plugged her straightener into the power grid and ran out our supply! She is a sparkling unicorn and refuses to go outside to get electricity powder from the Karahana because there is too much dust and it ruins her facial skin. Save the camp and go get us electricity powder before we have to see Shontal furious with curly hair!",
+      "he": "אתמול שונטל נץ חיברה את המחליק שלה לחשמל ונגמרה לנו האספקה, היא חד קרן מנצנץ ולא מוכנה לצאת וללכת להביא אבקת חשמל מהקראחנה כי יש יותר מידי פודרה וזה הורס לה את העור פנים. תציל את המחנה ולך תביא לנו אבקת חשמל לפני שנצטרף לראות את שונטאל עם תלתלים עצבנית"
+    },
+    "MSG_CHAIRS_PROPORTION": {
+      "en": "The chairs here have a proportion problem.",
+      "he": "לכיסאות כאן יש בעיית פרופורציה."
+    },
+    "MSG_IS_THIS_YOUR_SEAT": {
+      "en": "Is this your sit? Oh... bummer.. I'll go somewhere else.",
+      "he": "זה המקום שלך? אוי... באסה.. אלך במקום אחר."
+    },
+    "MSG_HAAAAAAAAA": {
+      "en": "haaaaaaaaa!",
+      "he": "האהאהאהאהא!"
+    },
+    "MSG_HERE_IS_BEER": {
+      "en": "Here is your beer, Let me know If you would like another one.",
+      "he": "הנה הבירה שלך, תודיע לי אם תרצה עוד אחת."
+    },
+    "MSG_A_BEER_GO_TO_SEAT": {
+      "en": "A beer? Go to your sit and I'll give you one.",
+      "he": "בירה? תקרא לי מהכסא שלך ואני אתן לך אחת."
+    },
+    "MSG_NOT_GETTING_UP": {
+      "en": "I'm really not getting up from here for you.",
+      "he": "אני ממש לא קמה מפה בשבילך"
+    },
+    "BATHROOM_LINE_ACTION": {
+      "en": "<TRANSLATE>",
+      "he": "שונטל תקועה בשירותים מהבוקר, מעניין מה קורה שם."
+    },
+    "BATHROOM_LINE_BLOCK": {
+      "en": "<TRANSLATE>",
+      "he": "את ממש ממש ממש לא עוקפת אותי בתור לשירותים"
+    },
+    "IN_BATHROOM_CALL": {
+      "en": "<TRANSLATE>",
+      "he": "אוי, אוי, אוי"
+    },
+    "IN_BATHROOM": {
+      "en": "<TRANSLATE>",
+      "he": "שונטל: אני לא יוצאת מפה כשהשיער שלי ככה, לא אכפת לי מהתור ולא מאף אחד, לא יוצאת עד שמישהו יביא לי משהו שאפשר לסדר איתו את השיער שלי."
+    },
+    "EXAMPLE": {
+      "en": "<TRANSLATE>",
+      "he": "<TRANSLATE>"
+    }
+  }
+}

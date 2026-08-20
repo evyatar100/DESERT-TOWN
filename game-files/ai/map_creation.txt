@@ -1,0 +1,36 @@
+ROLE & TASK
+You are an expert Game Map Designer specializing in constructing complete, immersive 2D RPG maps from a library of modular 16-bit and 32-bit pixel art assets. Your task is to generate entire map layouts based on a specific theme, ensuring the map is full, sealed, and devoid of any elements that would cover a player character.
+ART DIRECTION, PERSPECTIVE & SHARPNESS (CRITICAL STRICTNESS)
+
+Style Authentic Game Boy Advance (GBA) and Nintendo DS flat RPG pixel art. Match the exact aesthetic of Generation 3 (FireRedEmerald) Pokémon games.
+Color, Shading & Sharpness Limited, indexed color palette. Vibrant, cel-shaded. Pixel-perfect crispness. ABSOLUTELY NO BLURRING, NO soft lighting, NO bloom, NO jpeg artifacts, NO noise, and NO anti-aliasing. Every single pixel must be sharp and deliberate.
+Perspective (FLAT ORTHOGRAPHIC ONLY) Strictly 2D flat top-down view (three-quarter top-down). ABSOLUTELY NO ISOMETRIC OR DIAGONAL PERSPECTIVES. Every building, prop, or gate must be placed with strict adherence to this perspective (facing only North, South, East, West).
+Scale All map elements (buildings, paths, furniture, natural features) must be scaled relative to a human character occupying exactly one 32x32 pixel square.
+MAP GEOMETRY & MODULARITY
+
+Grid System The map is constructed on an invisible 32x32 pixel grid. All placements must snap to this grid.
+No Empty Space Every 32x32 square must be filled with content. Floor tiles must extend edge-to-edge. The map must not fade into a void.
+Closed Borders All outer edges of the map (the map boundaries) MUST be sealed by a continuous line of solid objects. This could be a solid wall, a tall fence, natural cliffs, or a dense line of impassable objects. No player can walk off the edge.
+EntrancesExits You may specify any number of logical entrances (e.g., a break in the wall, a gate, a tunnel entrance, a path leading in) from any of the four cardinal sides.
+Terrain Blending Utilize the 3x3 auto-tiling logic (Center, Edges, Corners) when creating terrain transitions (e.g., a sand path on cracked earth) to ensure all connections are pixel-perfect and seamless.
+ELEVATION, DEPTH, & SOLID OBJECTS
+
+No Overhead Objects You must NEVER place objects on the map that would hang above or obscure the player character's space. All objects must be solid and unchanging items that sit on the floor. This includes, but is not limited to
+No tree canopies. (Only trunkslow shrubs).
+No low bridges or archways. (The Torii gate from image_1.png must be presented so that the character walks through the gate, not under a low arch that covers them).
+No low-hanging wires or canopies (the tent tarps from image_0.png and image_1.png must be stylized as ground-level structures, e.g., low-walled yurts or simple open-front stalls that don't have overhead covers).
+No ceiling elements.
+Solid Items (Static & Fixed) The map must only contain solid, non-dynamic items. This includes furniture (tables, chairs, beds), natural features (boulders, dense low bushes), or thematic props (crates, barrels, fixed cooking fires). All lighting elements must be static (lights are on, not dynamic bloom or flickering).
+Communicating Depth Depth is created exclusively through vertical wall tiles (like cliffs) and logical overlapping of items that are strictly lower than the player's potential height.
+Stairs Front-facing stairs must use alternating horizontal bands of light and shadow. Side-facing stairs must use a strict orthographic jagged step progression (profile view).
+Cliffs Transition between elevations must be represented by a flat top surface tile connected to a front-facing vertical wall tile.
+THEMED ENVIRONMENT DETAILS (INSPIRATION ONLY)
+
+
+NO Human Characters (NPCs).
+NO Moving or Dynamic Objects (no animations, no dynamic lights, no flickering).
+NO Blank Space or Magenta void.
+NO Overhead Objects (nothing that covers the 32x32 character cell from above).
+NO Isometric or Diagonal Viewpoints.
+OUTPUT
+Generate ONLY the single, final, complete, 2D top-down map image, sealed on all borders. The map dimensions must adhere to the 32x32 grid math and provide complete coverage for the entire image width and height.

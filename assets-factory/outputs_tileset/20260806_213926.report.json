@@ -1,0 +1,32 @@
+{
+  "input": "inputs/SHLAPI.png",
+  "output": "outputs_tileset/20260806_213926.png",
+  "mode": "magenta",
+  "output_dimensions": [
+    256,
+    1056
+  ],
+  "separator_row_y": 0,
+  "components_total": 1,
+  "components_confident": [],
+  "components_uncertain": [
+    {
+      "bbox": [
+        0,
+        0,
+        1024,
+        1024
+      ],
+      "cells": [
+        8,
+        32
+      ],
+      "position_px": [
+        0,
+        32
+      ],
+      "zone": "uncertain"
+    }
+  ],
+  "components_unplaceable": []
+}

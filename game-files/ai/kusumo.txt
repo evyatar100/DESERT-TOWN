@@ -1,0 +1,22 @@
+Theme: A Japanese-inspired Burning Man desert theme camp. The aesthetic should blend traditional Japanese cultural elements with rugged, dusty desert survival gear. Expect a mix of bamboo, dusty canvas, rebar, and vibrant neon LED lighting typical of playa nights.
+
+Environment & Layout: The ground tiles should reflect a dry, cracked desert floor (playa dust )COVERED WITH CARPETS OR NETS OR ALL KINS OF RUBBER AND OTHER FLOORS. with distinct, well-worn walking routes and pathways navigating through the camp.
+
+Objects to Include (Strictly adhering to the 32x32 grid logic):
+
+Tents: Various desert camping tents in multiple dimensions (2x2, 3x3, 3x4, and 4x4 grid units). Provide variations in color and include orthogonal directional facings (front, side, back). All tents must be decorated with glowing LED light strings.
+
+Shade Structures: Overhead shade canopies built from stretched canvas and poles, designed to cover the camp's communal areas.
+
+
+Perimeter Fencing: Camp boundaries built from dusty tarps tied to poles. Must include all necessary directional variations (straight horizontal, straight vertical, corners, and intersections).
+
+Entrance: A traditional Japanese Torii gate, heavily weathered by the desert and wrapped in glowing LED lights.
+
+Living Room Area: An outdoor communal lounge featuring dusty rugs, low Japanese tables (chabudai), and scattered floor cushions.
+
+Kitchen & Utility: A functional camp kitchen setup with prep tables and camping gear. Include large, cubic water tanks (IBC totes) sitting on wooden pallets.
+
+Sanitation Facilities: Rustic wooden bathroom stalls and a wooden portable toilet, all with clearly visible front-facing doors.
+
+Sumo Arena: A classic Sumo wrestling ring (dohyo) adapted for the desert camp, defined by thick ropes and a distinct sand texture.

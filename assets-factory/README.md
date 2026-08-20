@@ -40,21 +40,21 @@ python fix_tileset.py input.png --report report.json
 
 The output PNG can be dropped straight into RPG Maker XP. Everything in the top zone is a confident placement; everything in the bottom zone (below the cyan separator) is grid-snapped and usable too, just worth a glance since it didn't hit the tight tolerance. Check `output.report.json`'s `components_unplaceable` list for the rare object that couldn't ship at all — usually worth a quick manual crop or a re-prompt of just that object.
 
-## Map mode (`fix_map.py`)
+## Map mode (`create_tileset.py`)
 
-The tileset pipeline above is for **spritesheet-style inputs**: individual objects scattered on a magenta/transparent background that need segmenting and chroma-keying. Some Gemini outputs are a different shape entirely — a **fully-composited map image**: a complete, already-arranged top-down scene (tents, paths, structures already in their final positions), fully opaque, nothing to segment or key out. For that case, use `fix_map.py`:
-
-```bash
-python fix_map.py input.png
-```
-
-By default, output goes to `outputs_map/<timestamp>.png`. Override with an explicit path:
+The tileset pipeline above is for **spritesheet-style inputs**: individual objects scattered on a magenta/transparent background that need segmenting and chroma-keying. Some Gemini outputs are a different shape entirely — a **fully-composited map image**: a complete, already-arranged top-down scene (tents, paths, structures already in their final positions), fully opaque, nothing to segment or key out. For that case, use `create_tileset.py`:
 
 ```bash
-python fix_map.py input.png output.png
+python create_tileset.py input.png
 ```
 
-`fix_map.py` is a separate, much simpler script — **no resizing/resampling of pixel content anywhere**, pure crop-and-reassemble at 1:1 scale:
+By default, output goes to `tilesets/<input_name>_ts.png`. Override with an explicit path:
+
+```bash
+python create_tileset.py input.png output.png
+```
+
+`create_tileset.py` is a separate, much simpler script — **no resizing/resampling of pixel content anywhere**, pure crop-and-reassemble at 1:1 scale:
 
 1. Loads the image as-is (no background/transparency handling).
 2. **Pads height** to the next exact 32px multiple if needed (transparent margin on the bottom edge — never crops content).
@@ -64,15 +64,15 @@ python fix_map.py input.png output.png
 
 Output is always exactly 256px wide; height is (sum of padded strip heights) + (32px × separator count), which lands on an exact 32px multiple by construction. No segmentation, no chroma-key, no confident/uncertain zones, no `.report.json` — just a log line stating original dims → strip count → output dims.
 
-**What this is (and isn't):** the output is a **tileset sheet extracted from the map** — unique 32×32 tiles, sliced from the source and stacked into strips — for import into RPG Maker XP / Pokémon Essentials as a real tileset. It is **not** a drop-in parallax background, and it is **not** a finished playable map either: you use the engine's own map editor to manually paint those tiles back into roughly the source layout (the original map image is your visual reference), and — in Essentials specifically — per-tile terrain tags (grass encounters, ledges, surf) still have to be assigned by hand, on every map, no matter how well this tool slices the source image. There's no way to infer "this pixel region is walkable grass" vs. "this is a wall" from color/shape alone. `fix_map.py` gets the image into an importable tileset shape; it doesn't finish the map.
+**What this is (and isn't):** the output is a **tileset sheet extracted from the map** — unique 32×32 tiles, sliced from the source and stacked into strips — for import into RPG Maker XP / Pokémon Essentials as a real tileset. It is **not** a drop-in parallax background, and it is **not** a finished playable map either: you use the engine's own map editor to manually paint those tiles back into roughly the source layout (the original map image is your visual reference), and — in Essentials specifically — per-tile terrain tags (grass encounters, ledges, surf) still have to be assigned by hand, on every map, no matter how well this tool slices the source image. There's no way to infer "this pixel region is walkable grass" vs. "this is a wall" from color/shape alone. `create_tileset.py` gets the image into an importable tileset shape; it doesn't finish the map.
 
 ### Example
 
-| Before (composited map, 2048×2048) | After (`fix_map.py`, sliced tileset sheet, 256×16608) |
+| Before (composited map, 2048×2048) | After (`create_tileset.py`, sliced tileset sheet, 256×16608) |
 |---|---|
 | ![before](examples/map_before.png) | ![after strips](examples/map_after.png) |
 
-The source is a single 2048px-wide scene — not importable as a tileset at all (way over the 256px limit). `fix_map.py` slices it into 8 strips of 256×2048 (2048 ÷ 256 exactly, no padding needed on this one) and stacks them top-to-bottom with 7 cyan separator rows between them, at 1:1 pixel scale — no resizing, no blur, every source pixel lands exactly where it started, just relocated into an importable shape.
+The source is a single 2048px-wide scene — not importable as a tileset at all (way over the 256px limit). `create_tileset.py` slices it into 8 strips of 256×2048 (2048 ÷ 256 exactly, no padding needed on this one) and stacks them top-to-bottom with 7 cyan separator rows between them, at 1:1 pixel scale — no resizing, no blur, every source pixel lands exactly where it started, just relocated into an importable shape.
 
 ## Character mode (`fix_character.py`)
 
@@ -128,4 +128,4 @@ Alignment uses phase correlation on grayscale (integer pixel shift). The diff th
 ## Notes
 
 - Pure Python image processing (Pillow/numpy/scipy) — no GPU, no ML model, runs anywhere Python does.
-- Four focused scripts (`fix_tileset.py`, `fix_map.py`, `fix_character.py`, `diff_objects.py`) plus shared `utils.py`. Single file in, single file out (fix_map.py's folder-batch input is the one exception). No review UI, no re-prompting Gemini for you.
+- Four focused scripts (`fix_tileset.py`, `create_tileset.py`, `fix_character.py`, `diff_objects.py`) plus shared `utils.py`. Single file in, single file out (create_tileset.py's folder-batch input is the one exception). No review UI, no re-prompting Gemini for you.

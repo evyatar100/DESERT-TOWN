@@ -1,22 +1,12 @@
 #!/usr/bin/env python3
-"""fix_map.py -- slice-and-stack a fully-composited map image into an
+"""create_tileset.py -- slice-and-stack a fully-composited map image into an
 RPG-Maker-XP-importable tileset sheet (exactly 256px wide, 32px-multiple tall).
 
 Usage:
-    python fix_map.py input.png [output.png]
-    python fix_map.py input_folder/ [output.png]
+    python create_tileset.py input.png [output.png]
+    python create_tileset.py input_folder/ [output.png]
 
-Default output: outputs_map/<timestamp>.png
-
-No chroma-key, no segmentation. By default, pure crop-and-reassemble at 1:1
-scale; optionally rescale from a different input grid size to 32px tiles via
-nearest-neighbor. Slices the source into 256px-wide vertical strips left to
-right, then stacks them top to bottom with cyan separator rows between strips.
-
-When the input is a folder, every image inside it (sorted by name) is
-processed the same way and all resulting 8-column (256px-wide) parts are
-concatenated top to bottom, with cyan separator rows between images, into a
-single output sheet.
+Default output: tilesets/<input_name>_ts.png
 """
 
 from __future__ import annotations
@@ -33,12 +23,12 @@ from PIL import Image
 from utils import (
     GRID_SIZE,
     OUTPUT_WIDTH,
-    OUTPUTS_MAP_DIR,
     atomic_write_png,
     build_separator_row,
-    default_output_path,
     load_image,
 )
+
+IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 
 
 def compute_padded_height(h: int) -> int:
@@ -86,9 +76,6 @@ def stack_strips_with_separators(strips: list[np.ndarray]) -> np.ndarray:
     return np.concatenate(parts, axis=0)
 
 
-IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
-
-
 def build_sheet(rgba: np.ndarray) -> np.ndarray:
     """Pad, slice into 256px strips and stack them into one 256px-wide sheet."""
     padded = pad_canvas_height(rgba, compute_padded_height(rgba.shape[0]))
@@ -109,7 +96,7 @@ def scale_to_output_grid(source_image: Image.Image, input_grid_size: int) -> Ima
 
 
 def run(input_path: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -> None:
-    source_image = load_image(input_path, "fix_map")
+    source_image = load_image(input_path, "create_tileset")
     orig_w, orig_h = source_image.size
     source_image = scale_to_output_grid(source_image, input_grid_size)
     rgba = np.array(source_image)
@@ -130,7 +117,7 @@ def run(input_path: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -
                 else ""
             )
             print(
-                f"fix_map: {scale_note}{w}x{h} already exactly {OUTPUT_WIDTH}px "
+                f"create_tileset: {scale_note}{w}x{h} already exactly {OUTPUT_WIDTH}px "
                 f"wide and height is a {GRID_SIZE}px multiple -- passed through "
                 f"unchanged -> {output_path}"
             )
@@ -144,7 +131,7 @@ def run(input_path: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -
             else ""
         )
         print(
-            f"fix_map: {scale_note}{w}x{h} already exactly {OUTPUT_WIDTH}px wide "
+            f"create_tileset: {scale_note}{w}x{h} already exactly {OUTPUT_WIDTH}px wide "
             f"-- padded height {h}->{padded_h} to land on the {GRID_SIZE}px "
             f"grid, no slicing -> {output_path}"
         )
@@ -164,7 +151,7 @@ def run(input_path: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -
         else f"{w}x{h} "
     )
     print(
-        f"fix_map: {scale_note}(padded to {w}x{padded_h}) -- sliced into "
+        f"create_tileset: {scale_note}(padded to {w}x{padded_h}) -- sliced into "
         f"{len(strips)} strip(s) of {OUTPUT_WIDTH}px width, stacked with "
         f"{max(0, len(strips) - 1)} separator row(s) -> {canvas.shape[1]}x"
         f"{canvas.shape[0]} -> {output_path}"
@@ -172,23 +159,23 @@ def run(input_path: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -
 
 
 def run_folder(input_dir: Path, output_path: Path, input_grid_size: int = GRID_SIZE) -> None:
-    """Apply the fix_map operation to every image in input_dir and concatenate
+    """Apply the create_tileset operation to every image in input_dir and concatenate
     all resulting 256px-wide (8-column) sheets top to bottom into one output."""
     image_paths = sorted(
         p for p in input_dir.iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
     )
     if not image_paths:
-        print(f"fix_map: no images found in folder: {input_dir}", file=sys.stderr)
+        print(f"create_tileset: no images found in folder: {input_dir}", file=sys.stderr)
         sys.exit(2)
 
     sheets: list[np.ndarray] = []
     for image_path in image_paths:
-        source_image = load_image(image_path, "fix_map")
+        source_image = load_image(image_path, "create_tileset")
         source_image = scale_to_output_grid(source_image, input_grid_size)
         sheet = build_sheet(np.array(source_image))
         sheets.append(sheet)
         print(
-            f"fix_map: {image_path.name} -> {sheet.shape[1]}x{sheet.shape[0]}"
+            f"create_tileset: {image_path.name} -> {sheet.shape[1]}x{sheet.shape[0]}"
         )
 
     canvas = stack_strips_with_separators(sheets)
@@ -198,10 +185,60 @@ def run_folder(input_dir: Path, output_path: Path, input_grid_size: int = GRID_S
 
     atomic_write_png(canvas, output_path)
     print(
-        f"fix_map: concatenated {len(sheets)} image(s) from {input_dir} with "
+        f"create_tileset: concatenated {len(sheets)} image(s) from {input_dir} with "
         f"{len(sheets) - 1} separator row(s) -> {canvas.shape[1]}x{canvas.shape[0]} "
         f"-> {output_path}"
     )
+
+
+def get_target_tilesets_dir() -> Path:
+    """Locate the DESERT-TOWN/game-files/Graphics/Tilesets directory."""
+    script_dir = Path(__file__).resolve().parent
+    cand1 = script_dir.parent / "game-files" / "Graphics" / "Tilesets"
+    if cand1.exists():
+        return cand1
+
+    cand2 = Path("DESERT-TOWN/game-files/Graphics/Tilesets").resolve()
+    if cand2.exists():
+        return cand2
+
+    cand3 = Path(r"\DESERT-TOWN\game-files\Graphics\Tilesets").resolve()
+    if cand3.exists():
+        return cand3
+
+    return cand1
+
+
+def prompt_copy_to_tilesets(output_path: Path, auto_yes: bool = False) -> None:
+    """Ask (y/N) to copy output PNG to DESERT-TOWN/game-files/Graphics/Tilesets."""
+    target_dir = get_target_tilesets_dir()
+    target_path = target_dir / output_path.name
+
+    if auto_yes:
+        choice = "y"
+    else:
+        try:
+            prompt_msg = f"Copy '{output_path.name}' to {target_dir}? (y/N): "
+            response = input(prompt_msg).strip().lower()
+            choice = response
+        except (EOFError, KeyboardInterrupt):
+            choice = "n"
+            print()
+
+    if choice in ("y", "yes"):
+        target_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(output_path, target_path)
+        print(f"Copied to {target_path}")
+    else:
+        print("Skipped copying to game Tilesets directory.")
+
+
+def get_default_output_path(input_path: Path) -> Path:
+    """Return tileset_dir / <input_stem>_ts.png."""
+    tileset_dir = Path("tilesets") if Path("tilesets").exists() else Path("tileset")
+    tileset_dir.mkdir(parents=True, exist_ok=True)
+    filename = f"{input_path.stem}_ts.png"
+    return tileset_dir / filename
 
 
 def main() -> None:
@@ -216,7 +253,7 @@ def main() -> None:
         nargs="?",
         type=Path,
         default=None,
-        help="Output PNG (default: outputs_map/<timestamp>.png)",
+        help="Output PNG or directory (default: tilesets/<input_name>_ts.png)",
     )
     parser.add_argument(
         "--input-grid-size",
@@ -224,13 +261,28 @@ def main() -> None:
         default=GRID_SIZE,
         help=f"Grid/tile size in the input image in px (default: {GRID_SIZE}; no scaling)",
     )
+    parser.add_argument(
+        "-y", "--yes",
+        action="store_true",
+        help="Automatically copy output to \\DESERT-TOWN\\game-files\\Graphics\\Tilesets without asking",
+    )
     args = parser.parse_args()
 
-    output_path = args.output or default_output_path(OUTPUTS_MAP_DIR)
+    if args.output is None:
+        output_path = get_default_output_path(args.input)
+    elif args.output.is_dir() or str(args.output).endswith(("/", "\\")):
+        args.output.mkdir(parents=True, exist_ok=True)
+        output_path = args.output / f"{args.input.stem}_ts.png"
+    else:
+        args.output.parent.mkdir(parents=True, exist_ok=True)
+        output_path = args.output
+
     if args.input.is_dir():
         run_folder(args.input, output_path, input_grid_size=args.input_grid_size)
     else:
         run(args.input, output_path, input_grid_size=args.input_grid_size)
+
+    prompt_copy_to_tilesets(output_path, auto_yes=args.yes)
 
 
 if __name__ == "__main__":

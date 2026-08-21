@@ -1,1 +1,0 @@
-# DT528 connectivity test -- confirms the droplet can push to this repo over HTTPS with GITHUB_PUSH_TOKEN. Safe to ignore; a follow-up commit removes this file.

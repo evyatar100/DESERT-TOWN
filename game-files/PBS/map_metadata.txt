@@ -416,3 +416,7 @@ Outdoor = true
 [084]   # demo-camp4
 Name = demo-camp4
 Outdoor = true
+#-------------------------------
+[086]   # spacesheep-camp
+Name = Space-Sheep Camp
+Outdoor = true

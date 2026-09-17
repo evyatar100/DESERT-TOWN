@@ -59,6 +59,14 @@
     "EXAMPLE": {
       "en": "<TRANSLATE>",
       "he": "<TRANSLATE>"
+    },
+    "ALIAN-ENTERENCE": {
+      "en": "What's your name? My name is Or Nania.\nAh, you're the DJ who promised to come, one of the aliens put something fucked up and all the sheep ran away. Quickly get up to the station",
+      "he": "וואצ יור ניים? מיי ניים איז אורנניא.\nאה אתה הדי ג'יי שהבטיח להגיע, אחד החייזרים שם איזה משהו דפוק וכל הכבשים ברחו. זריז תעלה לעמדה"
+    },
+    "ALIAN-C": {
+      "en": "How did we get here if all overseas allocations ran out? In a spaceship",
+      "he": "איך הגענו אם כל הקצאות החו\"ל נגמרו? בחללית"
     }
   }
 }

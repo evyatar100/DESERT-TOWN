@@ -16,7 +16,8 @@ module HebrewTranslationTest
       :test_nil_and_empty_handling,
       :test_hebrew_right_alignment_detection,
       :test_shontal_translation,
-      :test_demo_camp4_translations
+      :test_demo_camp4_translations,
+      :test_spacesheep_camp_translations
     ]
 
     puts "\n" + "=" * 60
@@ -109,6 +110,12 @@ module HebrewTranslationTest
     return t1 == "לכיסאות כאן יש בעיית פרופורציה." &&
            t2 == "בירה? לך למקום שלך ואני אתן לך אחת." &&
            t3 == "האהאהאהאהא!"
+  end
+
+  def self.test_spacesheep_camp_translations
+    t1 = HebrewText.translate("ALIAN-ENTERENCE")
+    t2 = HebrewText.translate("ALIAN-C")
+    return t1.include?("אורנניא") && t2.include?("בחללית")
   end
 end
 

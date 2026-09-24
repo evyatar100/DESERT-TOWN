@@ -67,6 +67,166 @@
     "ALIAN-C": {
       "en": "How did we get here if all overseas allocations ran out? In a spaceship",
       "he": "איך הגענו אם כל הקצאות החו\"ל נגמרו? בחללית"
+    },
+    "MSG_FOUND_20SHECKEL_BILL": {
+      "en": "Found a 20Sheckel-Bill!",
+      "he": "נמצא שטר של 20 שקלים!"
+    },
+    "REPEL": {
+      "en": "Repel",
+      "he": "דוחה"
+    },
+    "REPEL_DESC": {
+      "en": "An item that prevents weak wild Pokémon from appearing for 100 steps after its use.",
+      "he": "פריט שמונע הופעת פוקמונים פראיים חלשים במשך 100 צעדים לאחר השימוש."
+    },
+    "ELECTRICPOWDER": {
+      "en": "Electric Powder",
+      "he": "אבקת חשמל"
+    },
+    "ELECTRICPOWDER_DESC": {
+      "en": "A mysterious powder containing electric charge.",
+      "he": "אבקה מסתורית המכילה מטען חשמלי."
+    },
+    "BICYCLE": {
+      "en": "Bicycle",
+      "he": "אופניים"
+    },
+    "CLOSE BAG": {
+      "en": "CLOSE BAG",
+      "he": "סגור תיק"
+    },
+    "Close bag.": {
+      "en": "Close bag.",
+      "he": "סגור את התיק."
+    },
+    "TWENTYSHECKELBILL": {
+      "en": "20Sheckel-Bill",
+      "he": "שטר של 20 שקלים"
+    },
+    "20Sheckel-Bill": {
+      "en": "20Sheckel-Bill",
+      "he": "שטר של 20 שקלים"
+    },
+    "20Sheckel-Bills": {
+      "en": "20Sheckel-Bills",
+      "he": "שטרי 20 שקלים"
+    },
+    "TWENTYSHECKELBILL_DESC": {
+      "en": "A 20 Sheckel bill. A key item that can be collected and stored in the bag.",
+      "he": "שטר של 20 שקלים. חפץ מפתח שניתן לאסוף ולשמור בתיק."
+    },
+    "A 20 Sheckel bill. A key item that can be collected and stored in the bag.": {
+      "en": "A 20 Sheckel bill. A key item that can be collected and stored in the bag.",
+      "he": "שטר של 20 שקלים. חפץ מפתח שניתן לאסוף ולשמור בתיק."
+    },
+    "You obtained a \\c[1]{1}\\c[0]!": {
+      "en": "You obtained a \\c[1]{1}\\c[0]!",
+      "he": "קיבלת \\c[1]{1}\\c[0]!"
+    },
+    "You obtained an \\c[1]{1}\\c[0]!": {
+      "en": "You obtained an \\c[1]{1}\\c[0]!",
+      "he": "קיבלת \\c[1]{1}\\c[0]!"
+    },
+    "You obtained \\c[1]{1}\\c[0]!": {
+      "en": "You obtained \\c[1]{1}\\c[0]!",
+      "he": "קיבלת \\c[1]{1}\\c[0]!"
+    },
+    "You obtained {1} \\c[1]{2}\\c[0]!": {
+      "en": "You obtained {1} \\c[1]{2}\\c[0]!",
+      "he": "קיבלת {1} \\c[1]{2}\\c[0]!"
+    },
+    "You obtained \\c[1]{1} {2}\\c[0]!": {
+      "en": "You obtained \\c[1]{1} {2}\\c[0]!",
+      "he": "קיבלת \\c[1]{1} {2}\\c[0]!"
+    },
+    "You obtained {1} \\c[1]{2} {3}\\c[0]!": {
+      "en": "You obtained {1} \\c[1]{2} {3}\\c[0]!",
+      "he": "קיבלת {1} \\c[1]{2} {3}\\c[0]!"
+    },
+    "You found a \\c[1]{1}\\c[0]!": {
+      "en": "You found a \\c[1]{1}\\c[0]!",
+      "he": "מצאת \\c[1]{1}\\c[0]!"
+    },
+    "You found an \\c[1]{1}\\c[0]!": {
+      "en": "You found an \\c[1]{1}\\c[0]!",
+      "he": "מצאת \\c[1]{1}\\c[0]!"
+    },
+    "You found \\c[1]{1}\\c[0]!": {
+      "en": "You found \\c[1]{1}\\c[0]!",
+      "he": "מצאת \\c[1]{1}\\c[0]!"
+    },
+    "You found {1} \\c[1]{2}\\c[0]!": {
+      "en": "You found {1} \\c[1]{2}\\c[0]!",
+      "he": "מצאת {1} \\c[1]{2}\\c[0]!"
+    },
+    "You found \\c[1]{1} {2}\\c[0]!": {
+      "en": "You found \\c[1]{1} {2}\\c[0]!",
+      "he": "מצאת \\c[1]{1} {2}\\c[0]!"
+    },
+    "You found {1} \\c[1]{2} {3}\\c[0]!": {
+      "en": "You found {1} \\c[1]{2} {3}\\c[0]!",
+      "he": "מצאת {1} \\c[1]{2} {3}\\c[0]!"
+    },
+    "You put the {1} in\\nyour Bag's <icon=bagPocket{2}>\\c[1]{3}\\c[0] pocket.": {
+      "en": "You put the {1} in\\nyour Bag's <icon=bagPocket{2}>\\c[1]{3}\\c[0] pocket.",
+      "he": "שמת את \\c[1]{1}\\c[0] בתיק\\nבכיס <icon=bagPocket{2}>\\c[1]{3}\\c[0]."
+    },
+    "You put the {1} in\\nyour Bag's pocket.": {
+      "en": "You put the {1} in\\nyour Bag's pocket.",
+      "he": "שמת את \\c[1]{1}\\c[0] בתיק."
+    },
+    "You picked the \\c[1]{1}\\c[0].": {
+      "en": "You picked the \\c[1]{1}\\c[0].",
+      "he": "קטפת את ה-\\c[1]{1}\\c[0]."
+    },
+    "You picked the {1} \\c[1]{2}\\c[0].": {
+      "en": "You picked the {1} \\c[1]{2}\\c[0].",
+      "he": "קטפת {1} \\c[1]{2}\\c[0]."
+    },
+    "Too bad...\\nThe Bag is full...": {
+      "en": "Too bad...\\nThe Bag is full...",
+      "he": "חבל...\\nהתיק מלא..."
+    },
+    "But your Bag is full...": {
+      "en": "But your Bag is full...",
+      "he": "אבל התיק שלך מלא..."
+    },
+    "You have no room in your Bag.": {
+      "en": "You have no room in your Bag.",
+      "he": "אין לך מקום בתיק."
+    },
+    "Key Items": {
+      "en": "Key Items",
+      "he": "חפצי מפתח"
+    },
+    "Items": {
+      "en": "Items",
+      "he": "חפצים"
+    },
+    "Medicine": {
+      "en": "Medicine",
+      "he": "תרופות"
+    },
+    "Poké Balls": {
+      "en": "Poké Balls",
+      "he": "פוקדורים"
+    },
+    "TMs & HMs": {
+      "en": "TMs & HMs",
+      "he": "TMs & HMs"
+    },
+    "Berries": {
+      "en": "Berries",
+      "he": "גרגירים"
+    },
+    "Mail": {
+      "en": "Mail",
+      "he": "מכתבים"
+    },
+    "Battle Items": {
+      "en": "Battle Items",
+      "he": "חפצי קרב"
     }
   }
 }

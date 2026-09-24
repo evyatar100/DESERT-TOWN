@@ -248,52 +248,50 @@ module HebrewText
     return text
   end
 
-  def self.wrap_hebrew_line(text, max_len = 38)
-    words = text.split(' ')
-    lines = []
-    current_line = []
-    current_len = 0
-    words.each do |word|
-      word_len = word.length
-      space_len = current_line.empty? ? 0 : 1
-      if current_len + word_len + space_len <= max_len
-        current_line << word
-        current_len += word_len + space_len
-      else
-        lines << current_line.join(' ') unless current_line.empty?
-        current_line = [word]
-        current_len = word_len
-      end
-    end
-    lines << current_line.join(' ') unless current_line.empty?
-    lines
-  end
-
-  def self.reverse_hebrew(text)
+  # Only used for text rendering where formatting codes aren't used (like menus)
+  def self.visual_reverse(text)
     return text if text.nil? || !text.is_a?(String)
     text = ensure_utf8(text)
     return text unless text.match?(HEBREW_RANGE)
 
-    paragraphs = text.split("\n")
-    result_paragraphs = []
-
-    paragraphs.each do |p|
-      if p.strip.empty?
-        result_paragraphs << p
-        next
+    # Reverse the order of words, but keep numbers and english words LTR
+    words = text.split(' ')
+    rev_words = words.map do |w|
+      if w.match?(/\A[a-zA-Z0-9\-_.,!?]+\z/)
+        w # Keep numbers/english LTR
+      else
+        w.chars.reverse.join
       end
-      wrapped_lines = (p.length > 38) ? wrap_hebrew_line(p, 38) : [p]
-      reversed_lines = wrapped_lines.map { |line| line.chars.reverse.join }
-      result_paragraphs << reversed_lines.join("\n")
     end
-
-    result_paragraphs.join("\n")
+    return rev_words.reverse.join(' ')
   end
 
-  def self.translate_and_reverse(text)
-    return text if text.nil? || !text.is_a?(String)
-    translated = translate(text)
-    return (language == :he) ? reverse_hebrew(translated) : translated
+  def self.translate_item_field(item, field_type, default_val)
+    return default_val if default_val.nil? || !default_val.is_a?(String)
+    return default_val unless language == :he
+
+    candidates = [default_val]
+    if item.respond_to?(:id) && item.id
+      item_id_str = item.id.to_s
+      if field_type == :description
+        candidates << "#{item_id_str}_DESC"
+        candidates << "#{item_id_str}_description"
+      end
+      candidates << item_id_str
+      candidates << item_id_str.upcase
+    end
+
+    translated_text = nil
+    candidates.each do |cand|
+      res = translate(cand)
+      if res != cand
+        translated_text = res
+        break
+      end
+    end
+
+    translated_text ||= translate(default_val)
+    return translated_text
   end
 end
 
@@ -302,7 +300,7 @@ if defined?(_MAPINTL)
   alias _hebrew_original_MAPINTL _MAPINTL
   def _MAPINTL(mapid, *arg)
     result = _hebrew_original_MAPINTL(mapid, *arg)
-    return HebrewText.translate_and_reverse(result)
+    return HebrewText.translate(result)
   end
 end
 
@@ -310,10 +308,60 @@ end
 if defined?(_INTL)
   alias _hebrew_original_INTL _INTL
   def _INTL(message, *arg)
-    translated = HebrewText.translate_and_reverse(message)
+    translated = HebrewText.translate(message)
     return _hebrew_original_INTL(translated, *arg)
   end
 end
+
+#===============================================================================
+# GameData::Item Translation Overrides
+#===============================================================================
+if defined?(GameData::Item)
+  module GameData
+    class Item
+      unless method_defined?(:_hebrew_original_name)
+        alias _hebrew_original_name name
+        def name
+          val = _hebrew_original_name
+          return HebrewText.translate_item_field(self, :name, val)
+        end
+      end
+
+      unless method_defined?(:_hebrew_original_name_plural)
+        alias _hebrew_original_name_plural name_plural
+        def name_plural
+          val = _hebrew_original_name_plural
+          return HebrewText.translate_item_field(self, :name_plural, val)
+        end
+      end
+
+      unless method_defined?(:_hebrew_original_portion_name)
+        alias _hebrew_original_portion_name portion_name
+        def portion_name
+          val = _hebrew_original_portion_name
+          return HebrewText.translate_item_field(self, :portion_name, val)
+        end
+      end
+
+      unless method_defined?(:_hebrew_original_portion_name_plural)
+        alias _hebrew_original_portion_name_plural portion_name_plural
+        def portion_name_plural
+          val = _hebrew_original_portion_name_plural
+          return HebrewText.translate_item_field(self, :portion_name_plural, val)
+        end
+      end
+
+      unless method_defined?(:_hebrew_original_description)
+        alias _hebrew_original_description description
+        def description
+          val = _hebrew_original_description
+          return HebrewText.translate_item_field(self, :description, val)
+        end
+      end
+    end
+  end
+end
+
 
 # Set active font configuration
 if defined?(MessageConfig)
@@ -331,27 +379,64 @@ end
 #===============================================================================
 
 # Enforce Right-Alignment on Hebrew Formatted Text (Dialogue & Message Windows)
+# And flip X coordinates of characters so it animates Right-to-Left perfectly!
 if defined?(getFormattedText)
   alias _hebrew_original_getFormattedText getFormattedText
   def getFormattedText(bitmap, xDst, yDst, widthDst, heightDst, text, lineheight = 32,
                        newlineBreaks = true, explicitBreaksOnly = false,
                        collapseAlignments = false)
-    if text.is_a?(String) && text.match?(HebrewText::HEBREW_RANGE)
+                       
+    is_hebrew = text.is_a?(String) && text.match?(HebrewText::HEBREW_RANGE)
+    
+    if is_hebrew
+      # Ensure right-alignment tag is present
       unless text.match?(/<\/?(al|ac|ar)>/i)
         text = "<ar>#{text}</ar>"
       end
     end
-    return _hebrew_original_getFormattedText(bitmap, xDst, yDst, widthDst, heightDst, text, lineheight,
-                                            newlineBreaks, explicitBreaksOnly, collapseAlignments)
+    
+    fmtchars = _hebrew_original_getFormattedText(bitmap, xDst, yDst, widthDst, heightDst, text, lineheight,
+                                                 newlineBreaks, explicitBreaksOnly, collapseAlignments)
+                                                 
+    if is_hebrew && fmtchars.is_a?(Array)
+      # Group characters by line (Y coordinate)
+      lines = {}
+      fmtchars.each do |fch|
+        next if !fch.is_a?(Array) || fch.length < 5
+        y = fch[2]
+        lines[y] ||= []
+        lines[y] << fch
+      end
+      
+      lines.each do |y, chars_on_line|
+        printable_chars = chars_on_line.reject { |c| c[5] } # c[5] is true if it's a format code
+        next if printable_chars.empty?
+        
+        min_x = printable_chars.map { |c| c[1] }.min
+        max_right = printable_chars.map { |c| c[1] + c[3] }.max
+        
+        # Flip X coordinates
+        chars_on_line.each do |c|
+          next if c[5] # Skip width calculations for format codes
+          old_x = c[1]
+          width = c[3]
+          c[1] = max_right - (old_x - min_x) - width
+        end
+      end
+    end
+    
+    return fmtchars
   end
 end
 
-# Enforce Right-Alignment on Hebrew Simple/Shadow/Outline Text (Menus & Commands)
+# Hook low-level drawing functions to visually reverse Hebrew text in menus
+# This ensures Item names like "20 Shekel" render properly in menus
 if defined?(pbDrawShadowText)
   alias _hebrew_original_pbDrawShadowText pbDrawShadowText
   def pbDrawShadowText(bitmap, x, y, width, height, string, baseColor, shadowColor = nil, align = 0)
-    if (align == 0 || align == :left || align == false || align.nil?) && string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE) && width > 0
-      align = 1
+    if string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE)
+      string = HebrewText.visual_reverse(string)
+      align = 1 if (align == 0 || align == :left || align == false || align.nil?) && width > 0
     end
     return _hebrew_original_pbDrawShadowText(bitmap, x, y, width, height, string, baseColor, shadowColor, align)
   end
@@ -360,8 +445,9 @@ end
 if defined?(pbDrawOutlineText)
   alias _hebrew_original_pbDrawOutlineText pbDrawOutlineText
   def pbDrawOutlineText(bitmap, x, y, width, height, string, baseColor, shadowColor = nil, align = 0)
-    if (align == 0 || align == :left || align == false || align.nil?) && string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE) && width > 0
-      align = 1
+    if string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE)
+      string = HebrewText.visual_reverse(string)
+      align = 1 if (align == 0 || align == :left || align == false || align.nil?) && width > 0
     end
     return _hebrew_original_pbDrawOutlineText(bitmap, x, y, width, height, string, baseColor, shadowColor, align)
   end
@@ -370,115 +456,25 @@ end
 if defined?(pbDrawPlainText)
   alias _hebrew_original_pbDrawPlainText pbDrawPlainText
   def pbDrawPlainText(bitmap, x, y, width, height, string, baseColor, align = 0)
-    if (align == 0 || align == :left || align == false || align.nil?) && string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE) && width > 0
-      align = 1
+    if string.is_a?(String) && string.match?(HebrewText::HEBREW_RANGE)
+      string = HebrewText.visual_reverse(string)
+      align = 1 if (align == 0 || align == :left || align == false || align.nil?) && width > 0
     end
     return _hebrew_original_pbDrawPlainText(bitmap, x, y, width, height, string, baseColor, align)
   end
 end
 
-#===============================================================================
-# RTL Text Animation for Hebrew Dialogue (Window_AdvancedTextPokemon)
-#===============================================================================
-
-class Window_AdvancedTextPokemon
-  alias _hebrew_setText setText
-  def setText(value)
-    _hebrew_setText(value)
-    if self.letterbyletter && @text && @text.match?(HebrewText::HEBREW_RANGE)
-      @rtl_order_map = pbGetRTLOrderMap(@fmtchars)
-    else
-      @rtl_order_map = nil
+# Hook pbMessage to replace auto-advancing \wtnp[...] tags with pause \1
+# Now that we don't scramble tags, this will cleanly match and replace!
+if defined?(pbMessage)
+  alias _hebrew_original_pbMessage pbMessage
+  def pbMessage(message, commands = nil, cmdIfCancel = 0, skin = nil, defaultCmd = 0, &block)
+    if message.is_a?(String)
+      # Replace "Wait Then Next Page" with a standard wait-for-input
+      message = message.gsub(/\\wtnp\[\d+\]/i, "\\1")
+      # Optional: To make it start immediately, you could strip \me tags here, 
+      # but they play the item get sound so we probably want to keep them.
     end
-  end
-
-  alias _hebrew_letterbyletter_setter letterbyletter=
-  def letterbyletter=(value)
-    _hebrew_letterbyletter_setter(value)
-    if value && @text && @text.match?(HebrewText::HEBREW_RANGE)
-      @rtl_order_map = pbGetRTLOrderMap(@fmtchars)
-    end
-  end
-
-  def pbGetRTLOrderMap(fmtchars)
-    return nil if fmtchars.nil? || fmtchars.empty?
-    map = []
-    i = 0
-    len = fmtchars.length
-    while i < len
-      line_start = i
-      line_y = fmtchars[i][2]
-      while i < len && fmtchars[i][2] == line_y && fmtchars[i][0] != "\n" && fmtchars[i][0] != "\1"
-        i += 1
-      end
-      line_indices = (line_start...i).to_a.sort_by { |idx| [-fmtchars[idx][1], idx] }
-      map.concat(line_indices)
-      if i < len && (fmtchars[i][0] == "\n" || fmtchars[i][0] == "\1")
-        map.push(i)
-        i += 1
-      end
-    end
-    return map
-  end
-
-  alias _hebrew_refresh refresh
-  def refresh
-    if @rtl_order_map && self.letterbyletter
-      refresh_rtl
-    else
-      _hebrew_refresh
-    end
-  end
-
-  def refresh_rtl
-    oldcontents = self.contents
-    self.contents = pbDoEnsureBitmap(oldcontents, @bitmapwidth, @bitmapheight)
-    self.oy       = @scrollY
-    numchars = @numtextchars
-    numchars = [@curchar, @numtextchars].min if self.letterbyletter
-    return if busy? && @drawncurchar == @curchar && !@scroll_timer_start
-    if !self.letterbyletter || !oldcontents.equal?(self.contents)
-      @drawncurchar = -1
-      @needclear    = true
-    end
-    if @needclear
-      self.contents.font = @oldfont if @oldfont
-      self.contents.clear
-      @needclear = false
-    end
-    if @nodraw
-      @nodraw = false
-      return
-    end
-    maxX = self.width - self.borderX
-    maxY = self.height - self.borderY
-    (@drawncurchar + 1..numchars).each do |i|
-      next if i >= @fmtchars.length
-      target_idx = (@rtl_order_map && i < @rtl_order_map.length) ? @rtl_order_map[i] : i
-      next if target_idx.nil? || target_idx >= @fmtchars.length
-      if !self.letterbyletter
-        next if @fmtchars[target_idx][1] >= maxX
-        next if @fmtchars[target_idx][2] >= maxY
-      end
-      drawSingleFormattedChar(self.contents, @fmtchars[target_idx])
-      @lastDrawnChar = target_idx
-    end
-    self.contents.font = @oldfont if !self.letterbyletter && @oldfont
-    if numchars > 0 && numchars != @numtextchars
-      target_idx = (@rtl_order_map && (numchars - 1) < @rtl_order_map.length) ? @rtl_order_map[numchars - 1] : (numchars - 1)
-      fch = @fmtchars[target_idx] if target_idx && target_idx < @fmtchars.length
-      if fch
-        rcdst = Rect.new(fch[1], fch[2], fch[3], fch[4])
-        if @textchars[numchars] == "\1"
-          @endOfText = rcdst
-          allocPause
-          moveCursor
-        else
-          @endOfText = Rect.new(rcdst.x + rcdst.width, rcdst.y, 8, 1)
-        end
-      end
-    end
-    @drawncurchar = @curchar
+    return _hebrew_original_pbMessage(message, commands, cmdIfCancel, skin, defaultCmd, &block)
   end
 end
-

@@ -17,10 +17,14 @@ module HebrewTranslationTest
       :test_hebrew_right_alignment_detection,
       :test_shontal_translation,
       :test_demo_camp4_translations,
-      :test_spacesheep_camp_translations
+      :test_spacesheep_camp_translations,
+      :test_20sheckel_bill_translation,
+      :test_item_translation,
+      :test_item_field_lookup
     ]
 
     puts "\n" + "=" * 60
+
     puts " RUNNING HEBREW TRANSLATION SUITE"
     puts "=" * 60
 
@@ -117,7 +121,27 @@ module HebrewTranslationTest
     t2 = HebrewText.translate("ALIAN-C")
     return t1.include?("אורנניא") && t2.include?("בחללית")
   end
+
+  def self.test_20sheckel_bill_translation
+    t = HebrewText.translate("MSG_FOUND_20SHECKEL_BILL")
+    return t.include?("20") || t.include?("שקלים")
+  end
+
+  def self.test_item_translation
+    repel_trans = HebrewText.translate("Repel")
+    electric_trans = HebrewText.translate("ELECTRICPOWDER")
+    return repel_trans == "דוחה" && electric_trans == "אבקת חשמל"
+  end
+
+  def self.test_item_field_lookup
+    mock_item = Struct.new(:id).new(:REPEL)
+    translated_name = HebrewText.translate_item_field(mock_item, :name, "Repel")
+    # Reversed "דוחה" is "החוד"
+    return translated_name == "דוחה".chars.reverse.join
+  end
 end
+
+
 
 # Automatically run tests on boot when in Debug mode or standard execution
 if defined?(HebrewTranslationTest) && defined?(PluginManager)

@@ -1,4 +1,4 @@
-﻿# See the documentation on the wiki to learn how to edit this file.
+# See the documentation on the wiki to learn how to edit this file.
 #-------------------------------
 [REPEL]
 Name = Repel
@@ -6563,3 +6563,13 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = A faded sea chart that shows the way to a certain island.
+#-------------------------------
+[TWENTYSHECKELBILL]
+Name = 20Sheckel-Bill
+NamePlural = 20Sheckel-Bills
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = A 20 Sheckel bill. A key item that can be collected and stored in the bag.
+

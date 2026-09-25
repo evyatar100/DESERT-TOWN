@@ -119,3 +119,57 @@ class PokemonBag_Scene
     end
   end
 end
+
+#===============================================================================
+# Window_PokemonBag - Item Quantity & Display
+#===============================================================================
+class Window_PokemonBag < Window_DrawableCommand
+  alias burningman_drawItem drawItem unless method_defined?(:burningman_drawItem)
+
+  def drawItem(index, _count, rect)
+    textpos = []
+    rect = Rect.new(rect.x + 16, rect.y + 16, rect.width - 16, rect.height)
+    thispocket = @bag.pockets[@pocket]
+    if index == self.itemCount - 1
+      textpos.push([_INTL("CLOSE BAG"), rect.x, rect.y + 2, :left, self.baseColor, self.shadowColor])
+    else
+      item = (@filterlist) ? thispocket[@filterlist[@pocket][index]][0] : thispocket[index][0]
+      baseColor   = self.baseColor
+      shadowColor = self.shadowColor
+      if @sorting && index == self.index
+        baseColor   = Color.new(224, 0, 0)
+        shadowColor = Color.new(248, 144, 144)
+      end
+      textpos.push(
+        [@adapter.getDisplayName(item), rect.x, rect.y + 2, :left, baseColor, shadowColor]
+      )
+      item_data = GameData::Item.get(item)
+      qty = (@filterlist) ? thispocket[@filterlist[@pocket][index]][1] : thispocket[index][1]
+      show_qty = item_data.show_quantity? || qty > 1
+
+      if show_qty
+        qtytext = _ISPRINTF("x{1: 3d}", qty)
+        xQty    = rect.x + rect.width - self.contents.text_size(qtytext).width - 16
+        textpos.push([qtytext, xQty, rect.y + 2, :left, baseColor, shadowColor])
+      end
+
+      if item_data.is_important?
+        reg_x = rect.x + rect.width - 72
+        reg_x -= (self.contents.text_size(qtytext).width + 4) if show_qty
+        if @bag.registered?(item)
+          pbDrawImagePositions(
+            self.contents,
+            [[_INTL("Graphics/UI/Bag/icon_register"), reg_x, rect.y + 8, 0, 0, -1, 24]]
+          )
+        elsif pbCanRegisterItem?(item)
+          pbDrawImagePositions(
+            self.contents,
+            [[_INTL("Graphics/UI/Bag/icon_register"), reg_x, rect.y + 8, 0, 24, -1, 24]]
+          )
+        end
+      end
+    end
+    pbDrawTextPositions(self.contents, textpos)
+  end
+end
+

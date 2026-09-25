@@ -227,6 +227,14 @@
     "Battle Items": {
       "en": "Battle Items",
       "he": "חפצי קרב"
+    },
+    "That's too important to toss out!": {
+      "en": "That's too important to toss out!",
+      "he": "זה פריט חשוב מדי מכדי לזרוק אותו!"
+    },
+    "Toss": {
+      "en": "Toss",
+      "he": "זרוק"
     }
   }
 }

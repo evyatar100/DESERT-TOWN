@@ -567,6 +567,8 @@ if defined?(Window_PokemonBag)
           [@adapter.getDisplayName(item), xRight, rect.y + 2, :right, baseColor, shadowColor]
         )
         item_data = GameData::Item.get(item)
+        qty = (@filterlist) ? thispocket[@filterlist[@pocket][index]][1] : thispocket[index][1]
+        show_qty = item_data.show_quantity? || qty > 1
         showing_register_icon = false
         if item_data.is_important?
           if @bag.registered?(item)
@@ -583,10 +585,10 @@ if defined?(Window_PokemonBag)
             showing_register_icon = true
           end
         end
-        if item_data.show_quantity? && !showing_register_icon
-          qty = (@filterlist) ? thispocket[@filterlist[@pocket][index]][1] : thispocket[index][1]
+        if show_qty
           qtytext = _ISPRINTF("x{1: 3d}", qty)
-          textpos.push([qtytext, rect.x, rect.y + 2, :left, baseColor, shadowColor])
+          xQty = (showing_register_icon) ? rect.x + 60 : rect.x
+          textpos.push([qtytext, xQty, rect.y + 2, :left, baseColor, shadowColor])
         end
       end
       pbDrawTextPositions(self.contents, textpos)

@@ -6569,7 +6569,7 @@ Name = 20Sheckel-Bill
 NamePlural = 20Sheckel-Bills
 Pocket = 8
 Price = 0
-FieldUse = Direct
 Flags = KeyItem
+ShowQuantity = true
 Description = A 20 Sheckel bill. A key item that can be collected and stored in the bag.
 

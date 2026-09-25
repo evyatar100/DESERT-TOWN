@@ -96,14 +96,35 @@ def test_ice_camp_map_event():
 
     assert has_pickup_cmd, "Script command pbReceiveItem(:TWENTYSHECKELBILL) missing from event!"
 
-    # Assert event allows collecting ANY number of bills (no permanent lock out switch page)
-    if len(pages) > 1:
-        # Check if secondary pages permanently lock out interaction
-        last_page = pages[-1]
-        last_cmds = last_page.attributes.get('@list', [])
-        assert len(last_cmds) > 0, "Last page commands empty"
+    # Assert event disappears after pickup (Self Switch A activates blank second page)
+    assert len(pages) >= 2, "Event must have at least 2 pages so it can disappear after pickup"
+    
+    # Check that page 0 turns on Self Switch A
+    has_self_switch_cmd = False
+    for cmd in cmds:
+        code = cmd.attributes.get('@code')
+        params = cmd.attributes.get('@parameters', [])
+        if code == 123: # Control Self Switch
+            if params and (params[0] == b'A' or params[0] == 'A') and params[1] == 0:
+                has_self_switch_cmd = True
+    assert has_self_switch_cmd, "Page 0 must turn Self Switch A ON (code 123 with ['A', 0]) to disappear after pickup"
 
-    print(f"  [ASSERT PASS] Ice Camp (Map 091) Event at ({x},{y}) with graphic '{ch_name}' and script pickup command is valid.")
+    # Check that page 1 has condition Self Switch A ON and blank graphic
+    page1 = pages[1]
+    cond1 = page1.attributes.get('@condition')
+    assert cond1.attributes.get('@self_switch_valid') is True, "Page 1 condition must have self_switch_valid == True"
+    ch = cond1.attributes.get('@self_switch_ch')
+    if isinstance(ch, bytes):
+        ch = ch.decode('utf-8', errors='ignore')
+    assert ch == 'A', f"Page 1 condition self_switch_ch must be 'A', got {ch}"
+
+    graphic1 = page1.attributes.get('@graphic')
+    g_name = graphic1.attributes.get('@character_name') if graphic1 else b''
+    if isinstance(g_name, bytes):
+        g_name = g_name.decode('utf-8', errors='ignore')
+    assert g_name == "", f"Page 1 graphic must be empty to disappear, got '{g_name}'"
+
+    print(f"  [ASSERT PASS] Ice Camp (Map 091) Event at ({x},{y}) with graphic '{ch_name}', pickup script command, and disappearing self-switch page is valid.")
 
 def test_bag_storage_logic():
     # Simulate Python implementation of Pokemon Essentials ItemStorageHelper / Bag storage

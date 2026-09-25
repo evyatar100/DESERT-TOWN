@@ -535,3 +535,62 @@ if defined?(pbMessage)
     return _hebrew_original_pbMessage(message, commands, cmdIfCancel, skin, defaultCmd, &block)
   end
 end
+
+#===============================================================================
+# Hebrew Right-Alignment for Bag Item List
+#===============================================================================
+if defined?(Window_PokemonBag)
+  class Window_PokemonBag < Window_DrawableCommand
+    alias _hebrew_original_drawItem drawItem unless method_defined?(:_hebrew_original_drawItem)
+
+    def drawItem(index, _count, rect)
+      if HebrewText.language != :he
+        return _hebrew_original_drawItem(index, _count, rect)
+      end
+
+      textpos = []
+      rect = Rect.new(rect.x + 16, rect.y + 16, rect.width - 16, rect.height)
+      xRight = rect.x + rect.width - 16
+      thispocket = @bag.pockets[@pocket]
+
+      if index == self.itemCount - 1
+        textpos.push([_INTL("CLOSE BAG"), xRight, rect.y + 2, :right, self.baseColor, self.shadowColor])
+      else
+        item = (@filterlist) ? thispocket[@filterlist[@pocket][index]][0] : thispocket[index][0]
+        baseColor   = self.baseColor
+        shadowColor = self.shadowColor
+        if @sorting && index == self.index
+          baseColor   = Color.new(224, 0, 0)
+          shadowColor = Color.new(248, 144, 144)
+        end
+        textpos.push(
+          [@adapter.getDisplayName(item), xRight, rect.y + 2, :right, baseColor, shadowColor]
+        )
+        item_data = GameData::Item.get(item)
+        showing_register_icon = false
+        if item_data.is_important?
+          if @bag.registered?(item)
+            pbDrawImagePositions(
+              self.contents,
+              [[_INTL("Graphics/UI/Bag/icon_register"), rect.x, rect.y + 8, 0, 0, -1, 24]]
+            )
+            showing_register_icon = true
+          elsif pbCanRegisterItem?(item)
+            pbDrawImagePositions(
+              self.contents,
+              [[_INTL("Graphics/UI/Bag/icon_register"), rect.x, rect.y + 8, 0, 24, -1, 24]]
+            )
+            showing_register_icon = true
+          end
+        end
+        if item_data.show_quantity? && !showing_register_icon
+          qty = (@filterlist) ? thispocket[@filterlist[@pocket][index]][1] : thispocket[index][1]
+          qtytext = _ISPRINTF("x{1: 3d}", qty)
+          textpos.push([qtytext, rect.x, rect.y + 2, :left, baseColor, shadowColor])
+        end
+      end
+      pbDrawTextPositions(self.contents, textpos)
+    end
+  end
+end
+

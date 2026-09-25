@@ -409,18 +409,64 @@ if defined?(getFormattedText)
       end
       
       lines.each do |y, chars_on_line|
-        printable_chars = chars_on_line.reject { |c| c[5] } # c[5] is true if it's a format code
+        # Only compute bounding box for objects with actual width
+        printable_chars = chars_on_line.select { |c| c[3] > 0 }
         next if printable_chars.empty?
         
         min_x = printable_chars.map { |c| c[1] }.min
         max_right = printable_chars.map { |c| c[1] + c[3] }.max
         
-        # Flip X coordinates
+        blocks = []
+        current_block = []
+        is_ltr_block = false
+        
         chars_on_line.each do |c|
-          next if c[5] # Skip width calculations for format codes
-          old_x = c[1]
-          width = c[3]
-          c[1] = max_right - (old_x - min_x) - width
+          char_str = c[0]
+          
+          is_ltr = false
+          if c[5] # Graphic or Icon (e.g. bagPocket8)
+            is_ltr = true
+          elsif char_str.is_a?(String) && char_str.match?(/\A[a-zA-Z0-9.,!?%\-]+\z/)
+            is_ltr = true
+          end
+          
+          if current_block.empty?
+            is_ltr_block = is_ltr
+            current_block << c
+          elsif is_ltr_block == is_ltr
+            current_block << c
+          else
+            blocks << { chars: current_block, is_ltr: is_ltr_block }
+            is_ltr_block = is_ltr
+            current_block = [c]
+          end
+        end
+        blocks << { chars: current_block, is_ltr: is_ltr_block } unless current_block.empty?
+        
+        blocks.each do |block|
+          bchars = block[:chars]
+          # Bounding box of this block
+          b_min_x = bchars.map { |c| c[1] }.min
+          b_max_x = bchars.map { |c| c[1] + c[3] }.max
+          b_width = b_max_x - b_min_x
+          
+          # Target mirrored starting position
+          new_b_min_x = max_right - (b_min_x - min_x) - b_width
+          
+          if block[:is_ltr]
+            # Maintain internal Left-to-Right order (Numbers, English, Graphics)
+            bchars.each do |c|
+              offset = c[1] - b_min_x
+              c[1] = new_b_min_x + offset
+            end
+          else
+            # Reverse internal Right-to-Left order (Hebrew)
+            bchars.each do |c|
+              old_x = c[1]
+              width = c[3]
+              c[1] = new_b_min_x + (b_width - (old_x - b_min_x) - width)
+            end
+          end
         end
       end
     end
@@ -464,6 +510,19 @@ if defined?(pbDrawPlainText)
   end
 end
 
+# Hook drawTextEx to properly format, right-align and RTL Hebrew in unformatted windows (e.g. Bag item descriptions)
+if defined?(drawTextEx)
+  alias _hebrew_original_drawTextEx drawTextEx
+  def drawTextEx(bitmap, x, y, width, numlines, text, baseColor, shadowColor)
+    if text.is_a?(String) && text.match?(HebrewText::HEBREW_RANGE)
+      lineheight = 32
+      drawFormattedTextEx(bitmap, x, y, width, text, baseColor, shadowColor, lineheight)
+    else
+      _hebrew_original_drawTextEx(bitmap, x, y, width, numlines, text, baseColor, shadowColor)
+    end
+  end
+end
+
 # Hook pbMessage to replace auto-advancing \wtnp[...] tags with pause \1
 # Now that we don't scramble tags, this will cleanly match and replace!
 if defined?(pbMessage)
@@ -472,8 +531,6 @@ if defined?(pbMessage)
     if message.is_a?(String)
       # Replace "Wait Then Next Page" with a standard wait-for-input
       message = message.gsub(/\\wtnp\[\d+\]/i, "\\1")
-      # Optional: To make it start immediately, you could strip \me tags here, 
-      # but they play the item get sound so we probably want to keep them.
     end
     return _hebrew_original_pbMessage(message, commands, cmdIfCancel, skin, defaultCmd, &block)
   end

@@ -52,7 +52,7 @@ def test_graphics_assets():
     print(f"  [ASSERT PASS] Event character sprite asset {char_sprite} (128x128 RGBA) is valid.")
 
 def test_ice_camp_map_event():
-    map_path = os.path.join("Data", "Map091.rxdata")
+    map_path = os.path.join("Data", "Map088.rxdata") if os.path.exists(os.path.join("Data", "Map088.rxdata")) else os.path.join("Data", "Map091.rxdata")
     assert os.path.exists(map_path), f"Map data file {map_path} missing!"
 
     with open(map_path, "rb") as f:

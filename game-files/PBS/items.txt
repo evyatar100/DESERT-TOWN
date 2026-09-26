@@ -6572,4 +6572,13 @@ Price = 0
 Flags = KeyItem
 ShowQuantity = true
 Description = A 20 Sheckel bill. A key item that can be collected and stored in the bag.
+#-------------------------------
+[ICEBAG]
+Name = Bag of Ice
+NamePlural = Bags of Ice
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A bag of ice bought from the ice vendor.
+
 

@@ -44,27 +44,39 @@
 47,East,8,52,West,0
 # Route 8 (69) - Safari Zone outside (66)
 69,North,0,66,South,10
-# The Man (78) - front-demo (80)
-78,South,0,80,North,0
-# demo-camp4 (84) - front-demo (80)
-84,North,0,80,South,0
-# SPACESHEEP-FRONT (32) - front-demo (80)
-32,West,0,80,East,3
-# spacesheep-camp (86) - front-demo (80)
-86,West,32,80,East,0
-# long-arcade (85) - The Man (78)
-85,South,0,78,North,6
-# SPACESHEEP-FRONT (32) - The Man (78)
-32,West,0,78,East,35
-# spacesheep-camp (86) - The Man (78)
-86,West,0,78,East,0
-# spacesheep-camp (86) - long-arcade (85)
-86,North,0,85,South,26
 # SPACESHEEP-FRONT (32) - demo-camp4 (84)
-32,West,29,84,East,0
-# spacesheep-camp (86) - demo-camp4 (84)
-86,West,64,84,East,0
-# front-demo (80) - demo-arcade (82)
-80,83,15,82,0,0
+32,West,32,84,East,0
+# front-demo (80) - demo-camp4 (84)
+80,South,0,84,North,0
+# SPACESHHEP-FRONT (76) - demo-camp4 (84)
+76,East,32,84,West,0
+# front-demo (80) - SPACESHEEP-FRONT (32)
+80,East,0,32,West,0
+# The Man (78) - SPACESHEEP-FRONT (32)
+78,West,17,32,East,0
 # spacesheep-camp (86) - SPACESHEEP-FRONT (32)
-86,South,0,32,North,0
+86,South,16,32,North,0
+# Ice Camp (91) - SPACESHEEP-FRONT (32)
+91,South,91,32,North,0
+# mom-dad-out (90) - SPACESHEEP-FRONT (32)
+90,South,50,32,North,0
+# spacesheep-camp (86) - front-demo (80)
+86,South,0,80,North,16
+# SPACESHHEP-FRONT (76) - front-demo (80)
+76,East,0,80,West,0
+# Ice Camp (91) - front-demo (80)
+91,South,59,80,North,0
+# mom-dad-out (90) - front-demo (80)
+90,South,18,80,North,0
+# SPACESHHEP-FRONT (76) - spacesheep-camp (86)
+76,North,50,86,South,0
+# mom-dad-out (90) - spacesheep-camp (86)
+90,East,1,86,West,0
+# demo-arcade (82) - long-arcade (85)
+82,West,0,85,East,39
+# Ice Camp (91) - SPACESHHEP-FRONT (76)
+91,South,25,76,North,0
+# mom-dad-out (90) - SPACESHHEP-FRONT (76)
+90,South,0,76,North,16
+# mom-dad-out (90) - Ice Camp (91)
+90,West,1,91,East,0

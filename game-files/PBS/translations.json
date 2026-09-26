@@ -235,6 +235,98 @@
     "Toss": {
       "en": "Toss",
       "he": "זרוק"
+    },
+    "POPCORN_INTRO": {
+      "en": "Hiii. We sell ice here.. One bag of ice costs 100 shekels.",
+      "he": "היייי. פה מוכרים קרח.. שקית קרח אחת עולה 100 שקלים"
+    },
+    "POPCORN_CHOICE_1": {
+      "en": "Pay 100 shekels",
+      "he": "תשלום 100 שקלים"
+    },
+    "POPCORN_CHOICE_2": {
+      "en": "Why is there a line here?",
+      "he": "למה יש כאן תור?"
+    },
+    "POPCORN_CHOICE_3": {
+      "en": "How do I have 100 shekels?",
+      "he": "איך לי 100 שקלים"
+    },
+    "POPCORN_CHOICE_4": {
+      "en": "Money in Desert Town?",
+      "he": "כסף בדזרטאון?"
+    },
+    "POPCORN_CHOICE_5": {
+      "en": "Exit",
+      "he": "יציאה"
+    },
+    "POPCORN_RESPONSE_THANKS": {
+      "en": "Thank you very much",
+      "he": "תודה רבה"
+    },
+    "POPCORN_RESPONSE_NOT_ENOUGH": {
+      "en": "You don't have enough bills... A bag of ice costs 100 shekels (5 20-shekel bills).",
+      "he": "אין לך מספיק שטרות... שקית קרח עולה 100 שקלים."
+    },
+    "POPCORN_RESPONSE_LINE": {
+      "en": "The internet went down and all of them want to pay with Bit, currently accepting cash only. Not sure waiting will help them because this game is single player and not connected to the internet.",
+      "he": "כל אלו ממתינים שיחזור הביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט,המשחק הזה הוא סינגל פלייר."
+    },
+    "POPCORN_RESPONSE_NO_MONEY": {
+      "en": "Ummm, no one gets a bag from me for free. I have an offer but it's a bit dangerous, the ice delivery guy told me some bills fell across the ice factory... It's pretty slippery and cold inside and several people have already gotten stuck there, worth a try.",
+      "he": "אמממ, אף אחד לא מקבל ממני שקית בחינם. יש לי הצעה אבל היא קצת מסוכנת, מוביל הקרח אמר לי שנפלו כמה שטרות ברחבי מפעל הקרח... די מחליק וקר בפנים וכבר כמה אנשים נתקעו שם, שווה נסיון."
+    },
+    "POPCORN_RESPONSE_DESERTTOWN": {
+      "en": "Bills are scattered on the floor here and you are complaining?",
+      "he": "שטרות מפוזרים כאן על הרצפה ואתה מתלונן?"
+    },
+    "ICEBAG": {
+      "en": "Bag of Ice",
+      "he": "שקית קרח"
+    },
+    "Bag of Ice": {
+      "en": "Bag of Ice",
+      "he": "שקית קרח"
+    },
+    "Bags of Ice": {
+      "en": "Bags of Ice",
+      "he": "שקיות קרח"
+    },
+    "ICEBAG_DESC": {
+      "en": "A bag of ice bought from the ice vendor.",
+      "he": "שקית קרח שנקנתה ממוכר הקרח."
+    },
+    "שקית קרח": {
+      "en": "Bag of Ice",
+      "he": "שקית קרח"
+    },
+    "היייי. פה מוכרים קרח.. שקית קרח אחת עולה 100 שקלים": {
+      "en": "Hiii. We sell ice here.. One bag of ice costs 100 shekels.",
+      "he": "היייי. פה מוכרים קרח.. שקית קרח אחת עולה 100 שקלים."
+    },
+    "תשלום 100 שקלים": {
+      "en": "Pay 100 shekels",
+      "he": "תשלום 100 שקלים."
+    },
+    "למה יש כאן תור?": {
+      "en": "Why is there a line here?",
+      "he": "למה יש כאן תור?"
+    },
+    "איך לי 100 שקלים": {
+      "en": "How do I have 100 shekels?",
+      "he": "איך לי 100 שקלים."
+    },
+    "אין לי 100 שקלים": {
+      "en": "I don't have 100 shekels",
+      "he": "אין לי 100 שקלים."
+    },
+    "כסף בדזרטאון?": {
+      "en": "Money in Desert Town?",
+      "he": "כסף בדזרטאון?"
+    },
+    "תודה רבה": {
+      "en": "Thank you very much",
+      "he": "תודה רבה."
     }
   }
 }

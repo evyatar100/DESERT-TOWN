@@ -270,7 +270,7 @@
     },
     "POPCORN_RESPONSE_LINE": {
       "en": "The internet went down and all of them want to pay with Bit, currently accepting cash only. Not sure waiting will help them because this game is single player and not connected to the internet.",
-      "he": "כל אלו ממתינים שיחזור הביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט,המשחק הזה הוא סינגל פלייר."
+      "he": "האינטרנט נפל וכל אלו רוצים לשלם בביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט,המשחק הזה הוא סינגל פלייר."
     },
     "POPCORN_RESPONSE_NO_MONEY": {
       "en": "Ummm, no one gets a bag from me for free. I have an offer but it's a bit dangerous, the ice delivery guy told me some bills fell across the ice factory... It's pretty slippery and cold inside and several people have already gotten stuck there, worth a try.",
@@ -327,6 +327,14 @@
     "תודה רבה": {
       "en": "Thank you very much",
       "he": "תודה רבה."
+    },
+    "MSG_ICE_IN_TIMEOUT": {
+      "en": "Too much time in the ice factory, hypothermia brought you to a critical state. The factory crew rescued you outside.",
+      "he": "יותר מדי זמן במפעל הקרח, היפוטרמיה הביאה אותך למצב קריטי. צוות המפעל חילץ אותך החוצה"
+    },
+    "יותר מדי זמן במפעל הקרח, היפוטרמיה הביאה אותך למצב קריטי. צוות המפעל חילץ אותך החוצה": {
+      "en": "Too much time in the ice factory, hypothermia brought you to a critical state. The factory crew rescued you outside.",
+      "he": "יותר מדי זמן במפעל הקרח, היפוטרמיה הביאה אותך למצב קריטי. צוות המפעל חילץ אותך החוצה"
     }
   }
 }

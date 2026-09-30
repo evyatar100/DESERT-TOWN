@@ -420,3 +420,10 @@ Outdoor = true
 [086]   # spacesheep-camp
 Name = Space-Sheep Camp
 Outdoor = true
+#-------------------------------
+[093]   # party
+Outdoor = true
+#-------------------------------
+[094]   # Kusumo
+Name = 
+Outdoor = true

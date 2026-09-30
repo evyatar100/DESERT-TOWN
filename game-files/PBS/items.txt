@@ -6580,5 +6580,21 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = A bag of ice bought from the ice vendor.
+#-------------------------------
+[WHITEWATERBOTTLE]
+Name = White Water Bottle
+NamePlural = White Water Bottles
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A white water bottle. Essential for staying hydrated in the desert.
+#-------------------------------
+[USBDISK]
+Name = USB Flash Drive
+NamePlural = USB Flash Drives
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A USB flash drive. Just in case.
 
 

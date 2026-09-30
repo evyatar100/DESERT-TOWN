@@ -22,6 +22,7 @@ class PokemonBag_Scene
 
   alias burningman_pbStartScene pbStartScene
   def pbStartScene(bag, choosing = false, filterproc = nil, resetpocket = true)
+    BurningManBag.ensure_single_starter_items(bag) if defined?(BurningManBag)
     bag.last_viewed_pocket = KEY_ITEMS_POCKET if bag
     burningman_pbStartScene(bag, choosing, filterproc, resetpocket)
     @bag.last_viewed_pocket = KEY_ITEMS_POCKET if @bag
@@ -172,4 +173,160 @@ class Window_PokemonBag < Window_DrawableCommand
     pbDrawTextPositions(self.contents, textpos)
   end
 end
+
+#===============================================================================
+# PokemonBagScreen - Prevent Tossing Key / Important Items
+#===============================================================================
+class PokemonBagScreen
+  def pbStartScreen
+    @scene.pbStartScene(@bag)
+    item = nil
+    loop do
+      item = @scene.pbChooseItem
+      break if !item
+      itm = GameData::Item.get(item)
+      cmdRead     = -1
+      cmdUse      = -1
+      cmdRegister = -1
+      cmdGive     = -1
+      cmdToss     = -1
+      cmdDebug    = -1
+      commands = []
+      # Generate command list
+      commands[cmdRead = commands.length] = _INTL("Read") if itm.is_mail?
+      if ItemHandlers.hasOutHandler(item) || (itm.is_machine? && $player.party.length > 0)
+        if ItemHandlers.hasUseText(item)
+          commands[cmdUse = commands.length]    = ItemHandlers.getUseText(item)
+        else
+          commands[cmdUse = commands.length]    = _INTL("Use")
+        end
+      end
+      commands[cmdGive = commands.length]       = _INTL("Give") if $player.pokemon_party.length > 0 && itm.can_hold?
+      # Key items and important items CAN NEVER BE THROWN AWAY
+      commands[cmdToss = commands.length]       = _INTL("Toss") if !itm.is_important? && !itm.is_key_item?
+      if @bag.registered?(item)
+        commands[cmdRegister = commands.length] = _INTL("Deselect")
+      elsif pbCanRegisterItem?(item)
+        commands[cmdRegister = commands.length] = _INTL("Register")
+      end
+      commands[cmdDebug = commands.length]      = _INTL("Debug") if $DEBUG
+      commands[commands.length]                 = _INTL("Cancel")
+      # Show commands generated above
+      itemname = itm.name
+      command = @scene.pbShowCommands(_INTL("{1} is selected.", itemname), commands)
+      if cmdRead >= 0 && command == cmdRead   # Read mail
+        pbFadeOutIn do
+          pbDisplayMail(Mail.new(item, "", ""))
+        end
+      elsif cmdUse >= 0 && command == cmdUse   # Use item
+        ret = pbUseItem(@bag, item, @scene)
+        break if ret == 2   # End screen
+        @scene.pbRefresh
+        next
+      elsif cmdGive >= 0 && command == cmdGive   # Give item to Pokémon
+        if $player.pokemon_count == 0
+          @scene.pbDisplay(_INTL("There is no Pokémon."))
+        elsif itm.is_important? || itm.is_key_item?
+          @scene.pbDisplay(_INTL("The {1} can't be held.", itm.portion_name))
+        else
+          pbFadeOutIn do
+            sscene = PokemonParty_Scene.new
+            sscreen = PokemonPartyScreen.new(sscene, $player.party)
+            sscreen.pbPokemonGiveScreen(item)
+            @scene.pbRefresh
+          end
+        end
+      elsif cmdToss >= 0 && command == cmdToss   # Toss item
+        if itm.is_important? || itm.is_key_item?
+          @scene.pbDisplay(_INTL("That's too important to toss out!"))
+          next
+        end
+        qty = @bag.quantity(item)
+        if qty > 1
+          helptext = _INTL("Toss out how many {1}?", itm.portion_name_plural)
+          qty = @scene.pbChooseNumber(helptext, qty)
+        end
+        if qty > 0
+          itemname = (qty > 1) ? itm.portion_name_plural : itm.portion_name
+          if pbConfirm(_INTL("Is it OK to throw away {1} {2}?", qty, itemname))
+            pbDisplay(_INTL("Threw away {1} {2}.", qty, itemname))
+            qty.times { @bag.remove(item) }
+            @scene.pbRefresh
+          end
+        end
+      elsif cmdRegister >= 0 && command == cmdRegister   # Register item
+        if @bag.registered?(item)
+          @bag.unregister(item)
+        else
+          @bag.register(item)
+        end
+        @scene.pbRefresh
+      elsif cmdDebug >= 0 && command == cmdDebug   # Debug
+        command = 0
+        loop do
+          command = @scene.pbShowCommands(_INTL("Do what with {1}?", itemname),
+                                          [_INTL("Change quantity"),
+                                           _INTL("Make Mystery Gift"),
+                                           _INTL("Cancel")], command)
+          case command
+          when -1, 2
+            break
+          when 0
+            qty = @bag.quantity(item)
+            itemmax = @bag.max_per_slot(item)
+            qty = @scene.pbChooseNumber(_INTL("Choose new quantity (max. {1}).", itemmax), itemmax, qty)
+            if qty <= 0
+              @bag.remove(item, @bag.quantity(item))
+              break
+            elsif qty > 0
+              @bag.set_quantity(item, qty)
+              break
+            end
+          when 1
+            pbCreateMysteryGift(1, item)
+          end
+        end
+        @scene.pbRefresh
+      end
+    end
+    @scene.pbEndScene
+  end
+end
+
+#===============================================================================
+# Starter Items (Single Instance Guarantee)
+#===============================================================================
+module BurningManBag
+  STARTER_ITEMS = [:WHITEWATERBOTTLE, :USBDISK]
+
+  def self.ensure_single_starter_items(bag)
+    return if !bag
+    STARTER_ITEMS.each do |item_id|
+      next unless GameData::Item.exists?(item_id)
+      # Remove duplicate slots/quantities if more than 1 exists
+      while bag.quantity(item_id) > 1
+        bag.remove(item_id, 1)
+      end
+      # Add exactly one if player has none
+      bag.add(item_id) if bag.quantity(item_id) == 0
+    end
+  end
+end
+
+module Game
+  class << self
+    alias burningman_start_new start_new
+    def start_new
+      burningman_start_new
+      BurningManBag.ensure_single_starter_items($bag)
+    end
+
+    alias burningman_load load
+    def load(save_data)
+      burningman_load(save_data)
+      BurningManBag.ensure_single_starter_items($bag)
+    end
+  end
+end
+
 

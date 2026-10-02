@@ -54,6 +54,13 @@ By default, output goes to `tilesets/<input_name>_ts.png`. Override with an expl
 python create_tileset.py input.png output.png
 ```
 
+Pass `-y` to automatically copy the generated tileset into the game's `DESERT-TOWN/game-files/Graphics/Tilesets` directory without interactive confirmation:
+
+```bash
+python create_tileset.py input.png -y
+python create_tileset.py map_layers/PARTY -y
+```
+
 `create_tileset.py` is a separate, much simpler script — **no resizing/resampling of pixel content anywhere**, pure crop-and-reassemble at 1:1 scale:
 
 1. Loads the image as-is (no background/transparency handling).
@@ -61,6 +68,8 @@ python create_tileset.py input.png output.png
 3. **Slices into 256px-wide vertical strips**, left to right, full (padded) height each. This is the actual engine constraint: the RPG Maker XP / Pokémon Essentials tileset importer only accepts images that are **exactly 256px wide** — not "any clean 32px multiple," which is what an earlier version of this tool got wrong. If the source width isn't an exact multiple of 256, the last (rightmost) strip is narrower pre-slice; its right edge gets padded with transparent margin up to exactly 256px (never stretched to fill).
 4. **Stacks the strips vertically, top to bottom, in left-to-right source order** — strip 1 (leftmost 256px column) on top, strip 2 below it, and so on, like a long snake reading down the sheet. A solid cyan separator row (32px tall, full 256px width — same convention as the confident/uncertain zone divider in the default pipeline) is inserted between consecutive strips so it's easy to tell where one strip ends and the next begins.
 5. If the source is **already exactly 256px wide** (no slicing needed — e.g. the original spritesheet-style inputs), this degrades to: pad height only if needed, no strips, no separators, content otherwise unchanged.
+6. By default, images found in `map_layers/000generic` (e.g. `aviad_tiles.png`) are automatically appended to the end of the tileset, separated by a cyan separator row. Disable with `--no-generic`.
+7. **Safe overwrites**: If an output tileset or target file in `game-files/Graphics/Tilesets` already exists, it is automatically moved to the archive directory (`archive/tilesets/<name>_<timestamp>.png`) before being overwritten.
 
 Output is always exactly 256px wide; height is (sum of padded strip heights) + (32px × separator count), which lands on an exact 32px multiple by construction. No segmentation, no chroma-key, no confident/uncertain zones, no `.report.json` — just a log line stating original dims → strip count → output dims.
 

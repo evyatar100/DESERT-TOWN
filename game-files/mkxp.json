@@ -80,7 +80,7 @@
     // Index all accessible assets via their lower case path (emulates Windows
     // case insensitivity).
     //
-    // "pathCache": true,
+    "pathCache": true,
 
     //==========================================================================
     // Window size, scaling, rendering and frame rate.
@@ -90,7 +90,7 @@
     // Whether the game starts in full-screen mode (this can always be toggled
     // with Alt-Enter during runtime).
     //
-    // "fullscreen": false,
+    "fullscreen": true,
 
     // Whether you can toggle full-screen mode by pressing Alt + Enter with
     // either the left or right Alt key.

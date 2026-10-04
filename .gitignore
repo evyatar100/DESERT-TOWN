@@ -18,3 +18,6 @@ desktop.ini
 # Photoshop source files
 *.psd
 assets-factory/psd/
+
+# Downloaded map-export zips (imported with .claude/skills/map-zip-import)
+raw_downloaded_map/

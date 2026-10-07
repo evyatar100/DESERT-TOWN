@@ -138,3 +138,10 @@ Alignment uses phase correlation on grayscale (integer pixel shift). The diff th
 
 - Pure Python image processing (Pillow/numpy/scipy) — no GPU, no ML model, runs anywhere Python does.
 - Four focused scripts (`fix_tileset.py`, `create_tileset.py`, `fix_character.py`, `diff_objects.py`) plus shared `utils.py`. Single file in, single file out (create_tileset.py's folder-batch input is the one exception). No review UI, no re-prompting Gemini for you.
+
+## desert-town-mapgen (private submodule)
+
+`assets-factory/desert-town-mapgen` is a **private** repository. Cloning this
+repo without access to it leaves the directory empty, and the map generator
+will not run. If you need it, ask for a collaborator invite; otherwise ignore
+the empty directory — nothing else here depends on it.

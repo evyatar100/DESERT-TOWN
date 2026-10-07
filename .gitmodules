@@ -1,0 +1,3 @@
+[submodule "assets-factory/desert-town-mapgen"]
+	path = assets-factory/desert-town-mapgen
+	url = https://github.com/Toozig/desert-town-mapgen.git

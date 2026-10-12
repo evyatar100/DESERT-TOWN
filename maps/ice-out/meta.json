@@ -1,0 +1,16 @@
+{
+  "id": "ice-out",
+  "display_name": "Ice Camp",
+  "map_id": 91,
+  "tileset_name": "ice-out_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": "ice-in",
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": ""
+}

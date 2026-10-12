@@ -1,0 +1,16 @@
+{
+  "id": "man-map",
+  "display_name": "The Man",
+  "map_id": 78,
+  "tileset_name": "theman-tileeset",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "tileset_name guessed from game-files Graphics/Tilesets/theman-tileeset.png"
+}

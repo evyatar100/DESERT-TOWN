@@ -1,0 +1,16 @@
+{
+  "id": "demo-camp4",
+  "display_name": "demo-camp4",
+  "map_id": 84,
+  "tileset_name": "demo-camp4",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Layer assets migrated from map_layers/demo-camp4"
+}

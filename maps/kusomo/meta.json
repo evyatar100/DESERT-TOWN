@@ -1,0 +1,16 @@
+{
+  "id": "kusomo",
+  "display_name": "Kusumo",
+  "map_id": 94,
+  "tileset_name": "kusomo_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": ""
+}

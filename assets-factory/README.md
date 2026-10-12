@@ -58,8 +58,10 @@ Pass `-y` to automatically copy the generated tileset into the game's `DESERT-TO
 
 ```bash
 python create_tileset.py input.png -y
-python create_tileset.py map_layers/PARTY -y
+python create_tileset.py ../maps/PARTY -y
 ```
+
+Real map folders live under repo-root **`maps/`** (see [`../maps/AGENTS.md`](../maps/AGENTS.md)). Each map uses standardized layer names `base.png`, `layer2.png`, `layer3.png` (optional extras `layer3b.png`…). Shared generic tiles are in `maps/_generic/`.
 
 `create_tileset.py` is a separate, much simpler script — **no resizing/resampling of pixel content anywhere**, pure crop-and-reassemble at 1:1 scale:
 
@@ -68,8 +70,9 @@ python create_tileset.py map_layers/PARTY -y
 3. **Slices into 256px-wide vertical strips**, left to right, full (padded) height each. This is the actual engine constraint: the RPG Maker XP / Pokémon Essentials tileset importer only accepts images that are **exactly 256px wide** — not "any clean 32px multiple," which is what an earlier version of this tool got wrong. If the source width isn't an exact multiple of 256, the last (rightmost) strip is narrower pre-slice; its right edge gets padded with transparent margin up to exactly 256px (never stretched to fill).
 4. **Stacks the strips vertically, top to bottom, in left-to-right source order** — strip 1 (leftmost 256px column) on top, strip 2 below it, and so on, like a long snake reading down the sheet. A solid cyan separator row (32px tall, full 256px width — same convention as the confident/uncertain zone divider in the default pipeline) is inserted between consecutive strips so it's easy to tell where one strip ends and the next begins.
 5. If the source is **already exactly 256px wide** (no slicing needed — e.g. the original spritesheet-style inputs), this degrades to: pad height only if needed, no strips, no separators, content otherwise unchanged.
-6. By default, images found in `map_layers/000generic` (e.g. `aviad_tiles.png`) are automatically appended to the end of the tileset, separated by a cyan separator row. Disable with `--no-generic`.
+6. By default, images found in `maps/_generic` (e.g. `aviad_tiles.png`) are automatically appended to the end of the tileset, separated by a cyan separator row. Disable with `--no-generic`.
 7. **Safe overwrites**: If an output tileset or target file in `game-files/Graphics/Tilesets` already exists, it is automatically moved to the archive directory (`archive/tilesets/<name>_<timestamp>.png`) before being overwritten.
+8. Folder mode prefers `base.png` / `layer2.png` / `layer3.png` / `layer3b.png` and skips `tileset.png` and `*test*` images.
 
 Output is always exactly 256px wide; height is (sum of padded strip heights) + (32px × separator count), which lands on an exact 32px multiple by construction. No segmentation, no chroma-key, no confident/uncertain zones, no `.report.json` — just a log line stating original dims → strip count → output dims.
 

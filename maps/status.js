@@ -1,11 +1,11 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-12T19:26:47Z",
+  "generated_at": "2026-10-12T19:28:45Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 13,
+  "map_count": 14,
   "maps": [
     {
       "id": "demo-camp4",
@@ -573,6 +573,62 @@ window.MAP_STATUS = {
       },
       "event_connections": [],
       "event_count": 0,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
+      "id": "playa",
+      "display_name": "Playa",
+      "map_id": null,
+      "tileset_name": "playa_ts",
+      "is_outside": true,
+      "bgm": null,
+      "status": "stub",
+      "notes": "",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "width": 1344,
+        "height": 1664,
+        "tiles_w": 42,
+        "tiles_h": 52,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3b": false,
+      "tileset_ready": false,
+      "tileset_local": false,
+      "tileset_in_game": false,
+      "map_associated": false,
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": null,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

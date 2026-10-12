@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Desert Town — Map Connector</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside id="sidebar">
+      <header>
+        <h1>Map Connector</h1>
+        <p class="sub">Outside maps · 32→4 px · edge = connection</p>
+      </header>
+      <div class="toolbar">
+        <button type="button" id="btn-save">Save</button>
+        <button type="button" id="btn-reload" class="ghost">Reload</button>
+        <span id="status" aria-live="polite"></span>
+      </div>
+      <label class="search">
+        <span class="sr-only">Filter maps</span>
+        <input type="search" id="filter" placeholder="Filter maps…" />
+      </label>
+      <ul id="map-list"></ul>
+      <section id="conn-panel">
+        <h2>Connections</h2>
+        <ul id="conn-list"></ul>
+      </section>
+    </aside>
+    <main id="stage-wrap">
+      <canvas id="stage" tabindex="0"></canvas>
+    </main>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

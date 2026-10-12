@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Scan maps/ and write status.json for the GitHub Pages dashboard.
+"""Scan maps/ and write the dashboard data files.
+
+Writes status.json (fetched over HTTP / GitHub Pages) and status.js
+(loaded by a script tag so maps/index.html also works from file://).
 
 Usage (from repo root or maps/):
     python maps/build_status.py
@@ -80,35 +83,140 @@ def load_json(path: Path, default):
         return default
 
 
-def count_map_events(data_dir: Path, map_id: int | None) -> int | None:
-    if not map_id:
-        return None
-    path = data_dir / f"Map{int(map_id):03d}.rxdata"
-    if not path.is_file():
-        return None
-    try:
-        from rubymarshal.reader import load
-
-        with open(path, "rb") as f:
-            obj = load(f)
-        events = getattr(obj, "events", None)
-        if events is None and hasattr(obj, "attributes"):
-            events = obj.attributes.get("@events")
-        if isinstance(events, dict):
-            return len(events)
-        return 0
-    except Exception:
-        # Fallback: presence of file only
-        return None
-
-
 def map_file_exists(data_dir: Path, map_id: int | None) -> bool:
     if not map_id:
         return False
     return (data_dir / f"Map{int(map_id):03d}.rxdata").is_file()
 
 
-def scan_map(map_dir: Path, repo: Path) -> dict:
+def _attr(obj, name, default=None):
+    if obj is None or not hasattr(obj, "attributes"):
+        return default
+    value = obj.attributes.get(name, default)
+    if value is default and isinstance(name, str):
+        value = obj.attributes.get(name.encode(), default)
+    return value
+
+
+def load_rxdata(path: Path):
+    """Load a marshal file, including maps with circular move routes."""
+    repo = find_repo_root()
+    game_files = str(repo / "game-files")
+    if game_files not in sys.path:
+        sys.path.insert(0, game_files)
+    from tests.rx_loader import load_rxdata as _load
+
+    return _load(path)
+
+
+def decode_name(value) -> str:
+    if value is None:
+        return ""
+    if isinstance(value, bytes):
+        return value.decode("utf-8", "replace")
+    return str(value)
+
+
+def mapinfo_names(data_dir: Path) -> dict[int, str]:
+    path = data_dir / "MapInfos.rxdata"
+    if not path.is_file():
+        return {}
+    try:
+        obj = load_rxdata(path)
+    except Exception:
+        return {}
+    if not isinstance(obj, dict):
+        return {}
+    names: dict[int, str] = {}
+    for key, info in obj.items():
+        try:
+            mid = int(key)
+        except (TypeError, ValueError):
+            continue
+        name = decode_name(_attr(info, "@name", ""))
+        if name:
+            names[mid] = name
+    return names
+
+
+def transfer_targets(map_obj) -> list[int]:
+    """Map ids named by Transfer Player events (command 201, direct designation)."""
+    events = _attr(map_obj, "@events") or {}
+    if not isinstance(events, dict):
+        return []
+    dests: list[int] = []
+    seen: set[int] = set()
+    for event_id in sorted(events, key=lambda value: int(value)):
+        event = events[event_id]
+        for page in _attr(event, "@pages") or []:
+            for command in _attr(page, "@list") or []:
+                if _attr(command, "@code") != 201:
+                    continue
+                params = _attr(command, "@parameters") or []
+                if not params or params[0] != 0 or len(params) < 2:
+                    continue
+                try:
+                    dest = int(params[1])
+                except (TypeError, ValueError):
+                    continue
+                if dest not in seen:
+                    seen.add(dest)
+                    dests.append(dest)
+    return dests
+
+
+def event_summary(data_dir: Path, map_id: int | None) -> tuple[int | None, list[int]]:
+    if not map_id:
+        return None, []
+    path = data_dir / f"Map{int(map_id):03d}.rxdata"
+    if not path.is_file():
+        return None, []
+    try:
+        obj = load_rxdata(path)
+    except Exception:
+        return None, []
+    events = _attr(obj, "@events") or {}
+    count = len(events) if isinstance(events, dict) else 0
+    return count, transfer_targets(obj)
+
+
+def connection_labels(dest_ids: list[int], names_by_game_id: dict[int, str], infos: dict[int, str]) -> list[str]:
+    labels = []
+    for dest in dest_ids:
+        if dest in names_by_game_id:
+            labels.append(names_by_game_id[dest])
+        elif dest in infos:
+            labels.append(infos[dest])
+        else:
+            labels.append(f"Map {dest:03d}")
+    return labels
+
+
+def collect_map_dirs(maps_dir: Path) -> list[Path]:
+    dirs = []
+    for child in sorted(maps_dir.iterdir(), key=lambda p: p.name.lower()):
+        if not child.is_dir():
+            continue
+        if child.name.startswith("_") or child.name.startswith("."):
+            continue
+        if not (child / "meta.json").is_file():
+            continue
+        dirs.append(child)
+    return dirs
+
+
+def display_names_by_game_id(map_dirs: list[Path]) -> dict[int, str]:
+    names: dict[int, str] = {}
+    for map_dir in map_dirs:
+        meta = load_json(map_dir / "meta.json", {})
+        mid = meta.get("map_id")
+        if not mid:
+            continue
+        names[int(mid)] = meta.get("display_name") or meta.get("id") or map_dir.name
+    return names
+
+
+def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos: dict[int, str]) -> dict:
     meta = load_json(map_dir / "meta.json", {})
     chars = load_json(map_dir / "characters.json", [])
     if not isinstance(chars, list):
@@ -141,7 +249,10 @@ def scan_map(map_dir: Path, repo: Path) -> dict:
 
     data_dir = repo / "game-files" / "Data"
     has_map = map_file_exists(data_dir, map_id)
-    events = count_map_events(data_dir, map_id) if has_map else None
+    events, dests = event_summary(data_dir, map_id) if has_map else (None, [])
+    if map_id:
+        dests = [dest for dest in dests if dest != int(map_id)]
+    event_connections = connection_labels(dests, names_by_game_id, infos)
 
     connections = meta.get("connections") or {}
     connected = any(connections.get(d) for d in ("north", "south", "east", "west"))
@@ -172,6 +283,7 @@ def scan_map(map_dir: Path, repo: Path) -> dict:
         "map_associated": has_map,
         "connected": connected,
         "connections": connections,
+        "event_connections": event_connections,
         "event_count": events,
         "char_count": len(chars),
         "chars": char_names,
@@ -184,15 +296,10 @@ def main() -> int:
     repo = find_repo_root()
     data_dir = repo / "game-files" / "Data"
 
-    rows = []
-    for child in sorted(maps_dir.iterdir(), key=lambda p: p.name.lower()):
-        if not child.is_dir():
-            continue
-        if child.name.startswith("_") or child.name.startswith("."):
-            continue
-        if not (child / "meta.json").is_file():
-            continue
-        rows.append(scan_map(child, repo))
+    map_dirs = collect_map_dirs(maps_dir)
+    names_by_game_id = display_names_by_game_id(map_dirs)
+    infos = mapinfo_names(data_dir)
+    rows = [scan_map(child, repo, names_by_game_id, infos) for child in map_dirs]
 
     payload = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -203,9 +310,14 @@ def main() -> int:
         "game_data_present": data_dir.is_dir(),
     }
 
+    body = json.dumps(payload, indent=2)
     out = maps_dir / "status.json"
-    out.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
-    print(f"Wrote {out} ({len(rows)} maps)")
+    out.write_text(body + "\n", encoding="utf-8")
+    # Script-tag payload. Escape "<" so a map name cannot close the script.
+    js = "window.MAP_STATUS = " + body.replace("<", "\\u003c") + ";\n"
+    js_out = maps_dir / "status.js"
+    js_out.write_text(js, encoding="utf-8")
+    print(f"Wrote {out} and {js_out} ({len(rows)} maps)")
     return 0
 
 

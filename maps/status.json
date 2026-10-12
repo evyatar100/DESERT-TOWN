@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-12T06:32:41Z",
+  "generated_at": "2026-10-12T19:11:38Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -57,7 +57,10 @@
         "east": null,
         "west": null
       },
-      "event_count": null,
+      "event_connections": [
+        "demo-tent"
+      ],
+      "event_count": 14,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -112,6 +115,9 @@
         "east": null,
         "west": null
       },
+      "event_connections": [
+        "ice Elevator"
+      ],
       "event_count": 9,
       "char_count": 0,
       "chars": [],
@@ -167,6 +173,9 @@
         "east": null,
         "west": null
       },
+      "event_connections": [
+        "ice Elevator"
+      ],
       "event_count": 11,
       "char_count": 0,
       "chars": [],
@@ -222,6 +231,7 @@
         "east": null,
         "west": null
       },
+      "event_connections": [],
       "event_count": 0,
       "char_count": 0,
       "chars": [],
@@ -277,6 +287,7 @@
         "east": null,
         "west": null
       },
+      "event_connections": [],
       "event_count": 0,
       "char_count": 0,
       "chars": [],
@@ -332,6 +343,7 @@
         "east": null,
         "west": null
       },
+      "event_connections": [],
       "event_count": 2,
       "char_count": 0,
       "chars": [],
@@ -387,6 +399,9 @@
         "east": null,
         "west": "mom-dad-in"
       },
+      "event_connections": [
+        "mom-dad-in"
+      ],
       "event_count": 4,
       "char_count": 0,
       "chars": [],
@@ -442,6 +457,9 @@
         "east": "mom-dad",
         "west": null
       },
+      "event_connections": [
+        "mom-dad-out"
+      ],
       "event_count": 19,
       "char_count": 0,
       "chars": [],
@@ -497,6 +515,7 @@
         "east": null,
         "west": null
       },
+      "event_connections": [],
       "event_count": 0,
       "char_count": 0,
       "chars": [],
@@ -552,6 +571,7 @@
         "east": null,
         "west": null
       },
+      "event_connections": [],
       "event_count": 0,
       "char_count": 0,
       "chars": [],
@@ -607,6 +627,9 @@
         "east": null,
         "west": null
       },
+      "event_connections": [
+        "spacesheep-in-64"
+      ],
       "event_count": 15,
       "char_count": 0,
       "chars": [],

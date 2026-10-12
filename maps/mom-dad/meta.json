@@ -1,0 +1,16 @@
+{
+  "id": "mom-dad",
+  "display_name": "mom-dad-out",
+  "map_id": 90,
+  "tileset_name": "mom-dad_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": "mom-dad-in"
+  },
+  "status": "in_progress",
+  "notes": "tiles test.png left in folder; ignored by pipeline"
+}

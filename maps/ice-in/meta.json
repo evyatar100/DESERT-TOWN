@@ -1,0 +1,16 @@
+{
+  "id": "ice-in",
+  "display_name": "Ice In",
+  "map_id": 88,
+  "tileset_name": "ice-in_ts",
+  "is_outside": false,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": "ice-out",
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Has PSD source (ice-in) left in folder; ignore for pipeline"
+}

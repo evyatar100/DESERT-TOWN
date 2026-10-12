@@ -1,0 +1,16 @@
+{
+  "id": "mom-dad-in",
+  "display_name": "mom-dad-in",
+  "map_id": 89,
+  "tileset_name": "mom-dad-in_ts",
+  "is_outside": false,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": "mom-dad",
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": ""
+}

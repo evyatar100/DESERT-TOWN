@@ -17,6 +17,14 @@
         <button type="button" id="btn-reload" class="ghost">Reload</button>
         <span id="status" aria-live="polite"></span>
       </div>
+      <div class="toolbar zoom-bar">
+        <button type="button" id="btn-zoom-out" class="ghost" title="Zoom out (−)">−</button>
+        <button type="button" id="btn-zoom-reset" class="ghost" title="Reset zoom">
+          <span id="zoom-label">100%</span>
+        </button>
+        <button type="button" id="btn-zoom-in" class="ghost" title="Zoom in (+)">+</button>
+        <span class="hint">Ctrl+wheel zoom · arrows nudge 1 tile</span>
+      </div>
       <label class="search">
         <span class="sr-only">Filter maps</span>
         <input type="search" id="filter" placeholder="Filter maps…" />

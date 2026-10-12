@@ -1,5 +1,11 @@
+const BASE_DISPLAY_TILE = 4; // 32 game px → 4 screen px at zoom 1
+const ZOOM_MIN = 0.25;
+const ZOOM_MAX = 4;
+const ZOOM_STEP = 1.15;
+
 const state = {
-  displayTile: 4,
+  baseDisplayTile: BASE_DISPLAY_TILE,
+  zoom: 1,
   mapsMeta: [],
   layoutMaps: {},
   connections: [],
@@ -8,17 +14,15 @@ const state = {
   dirty: false,
   camX: 40,
   camY: 40,
-  // pan
   panning: false,
   panLastX: 0,
   panLastY: 0,
-  // drag map
   dragging: false,
   dragId: null,
   dragOriginTileX: 0,
   dragOriginTileY: 0,
-  dragPointerTileX: 0,
-  dragPointerTileY: 0,
+  dragGrabTileX: 0,
+  dragGrabTileY: 0,
 };
 
 const canvas = document.getElementById("stage");
@@ -27,11 +31,20 @@ const mapListEl = document.getElementById("map-list");
 const connListEl = document.getElementById("conn-list");
 const statusEl = document.getElementById("status");
 const filterEl = document.getElementById("filter");
+const zoomLabelEl = document.getElementById("zoom-label");
 const btnSave = document.getElementById("btn-save");
 const btnReload = document.getElementById("btn-reload");
+const btnZoomIn = document.getElementById("btn-zoom-in");
+const btnZoomOut = document.getElementById("btn-zoom-out");
+const btnZoomReset = document.getElementById("btn-zoom-reset");
 
 function setStatus(msg) {
   statusEl.textContent = msg || "";
+}
+
+/** Screen pixels per world tile at current zoom (must stay tied to whole tiles). */
+function tilePx() {
+  return state.baseDisplayTile * state.zoom;
 }
 
 function dpr() {
@@ -51,6 +64,25 @@ function resizeCanvas() {
   draw();
 }
 
+function updateZoomLabel() {
+  if (zoomLabelEl) {
+    zoomLabelEl.textContent = `${Math.round(state.zoom * 100)}%`;
+  }
+}
+
+function snapTile(n) {
+  return Math.trunc(Number(n)) || 0;
+}
+
+function normalizeMapPositions() {
+  for (const m of Object.values(state.layoutMaps)) {
+    m.x = snapTile(m.x);
+    m.y = snapTile(m.y);
+    m.tiles_w = snapTile(m.tiles_w);
+    m.tiles_h = snapTile(m.tiles_h);
+  }
+}
+
 function screenToWorld(sx, sy) {
   const rect = canvas.getBoundingClientRect();
   const x = sx - rect.left - state.camX;
@@ -58,15 +90,16 @@ function screenToWorld(sx, sy) {
   return { x, y };
 }
 
+/** Continuous world px → integer tile index (floor). */
 function worldToTile(wx, wy) {
-  const t = state.displayTile;
+  const t = tilePx();
   return { tx: Math.floor(wx / t), ty: Math.floor(wy / t) };
 }
 
 function mapRect(id) {
   const m = state.layoutMaps[id];
   if (!m) return null;
-  const t = state.displayTile;
+  const t = tilePx();
   return {
     x: m.x * t,
     y: m.y * t,
@@ -77,7 +110,6 @@ function mapRect(id) {
 }
 
 function hitTest(wx, wy) {
-  // top-most = last in sorted draw? iterate reverse of list order by y+x
   const ids = Object.keys(state.layoutMaps).sort((a, b) => {
     const A = state.layoutMaps[a];
     const B = state.layoutMaps[b];
@@ -108,6 +140,30 @@ function mapHasOverlap(id) {
     if (interiorsOverlap(a, b)) return true;
   }
   return false;
+}
+
+function setZoom(nextZoom, anchorScreenX, anchorScreenY) {
+  const prev = state.zoom;
+  const zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, nextZoom));
+  if (zoom === prev) {
+    updateZoomLabel();
+    return;
+  }
+
+  const rect = canvas.getBoundingClientRect();
+  const ax =
+    anchorScreenX != null ? anchorScreenX - rect.left : rect.width / 2;
+  const ay =
+    anchorScreenY != null ? anchorScreenY - rect.top : rect.height / 2;
+
+  // Keep the world point under the cursor/center fixed while zooming.
+  // Screen coords use pixels that already include zoom via tilePx().
+  const scale = zoom / prev;
+  state.camX = ax - (ax - state.camX) * scale;
+  state.camY = ay - (ay - state.camY) * scale;
+  state.zoom = zoom;
+  updateZoomLabel();
+  draw();
 }
 
 async function recomputeConnections() {
@@ -178,21 +234,24 @@ function selectMap(id, center = false) {
 }
 
 function drawGrid(viewW, viewH) {
-  const t = state.displayTile;
+  const t = tilePx();
+  if (t < 4) return; // skip dense grid when very zoomed out
   const x0 = Math.floor(-state.camX / t) * t;
   const y0 = Math.floor(-state.camY / t) * t;
   ctx.save();
   ctx.translate(state.camX, state.camY);
   ctx.strokeStyle = "rgba(255,255,255,0.06)";
-  ctx.lineWidth = 1;
+  ctx.lineWidth = 1 / state.zoom;
   ctx.beginPath();
-  for (let x = x0; x < x0 + viewW + t * 2; x += t) {
+  const spanX = viewW + t * 2;
+  const spanY = viewH + t * 2;
+  for (let x = x0; x < x0 + spanX; x += t) {
     ctx.moveTo(x + 0.5, y0);
-    ctx.lineTo(x + 0.5, y0 + viewH + t * 2);
+    ctx.lineTo(x + 0.5, y0 + spanY);
   }
-  for (let y = y0; y < y0 + viewH + t * 2; y += t) {
+  for (let y = y0; y < y0 + spanY; y += t) {
     ctx.moveTo(x0, y + 0.5);
-    ctx.lineTo(x0 + viewW + t * 2, y + 0.5);
+    ctx.lineTo(x0 + spanX, y + 0.5);
   }
   ctx.stroke();
   ctx.restore();
@@ -202,9 +261,8 @@ function drawConnection(c) {
   const a = mapRect(c.a);
   const b = mapRect(c.b);
   if (!a || !b) return;
-  const t = state.displayTile;
   ctx.strokeStyle = "rgba(88, 166, 255, 0.85)";
-  ctx.lineWidth = 3;
+  ctx.lineWidth = Math.max(2, 3 * state.zoom);
   ctx.beginPath();
 
   if (c.a_edge === "east" || c.a_edge === "west") {
@@ -221,8 +279,6 @@ function drawConnection(c) {
     ctx.lineTo(x2, y);
   }
   ctx.stroke();
-  // tiny offset ticks
-  void t;
 }
 
 function draw() {
@@ -240,6 +296,8 @@ function draw() {
     return A.y - B.y || A.x - B.x || a.localeCompare(b);
   });
 
+  const t = tilePx();
+
   for (const id of ids) {
     const r = mapRect(id);
     const img = state.images.get(id);
@@ -251,32 +309,32 @@ function draw() {
       ctx.fillRect(r.x, r.y, r.w, r.h);
     }
 
-    // per-map tile grid
-    ctx.strokeStyle = "rgba(0,0,0,0.25)";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    for (let i = 0; i <= r.tiles_w; i++) {
-      const x = r.x + i * state.displayTile + 0.5;
-      ctx.moveTo(x, r.y);
-      ctx.lineTo(x, r.y + r.h);
+    if (t >= 6) {
+      ctx.strokeStyle = "rgba(0,0,0,0.25)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      for (let i = 0; i <= r.tiles_w; i++) {
+        const x = r.x + i * t + 0.5;
+        ctx.moveTo(x, r.y);
+        ctx.lineTo(x, r.y + r.h);
+      }
+      for (let j = 0; j <= r.tiles_h; j++) {
+        const y = r.y + j * t + 0.5;
+        ctx.moveTo(r.x, y);
+        ctx.lineTo(r.x + r.w, y);
+      }
+      ctx.stroke();
     }
-    for (let j = 0; j <= r.tiles_h; j++) {
-      const y = r.y + j * state.displayTile + 0.5;
-      ctx.moveTo(r.x, y);
-      ctx.lineTo(r.x + r.w, y);
-    }
-    ctx.stroke();
 
     if (mapHasOverlap(id)) {
-      ctx.strokeStyle = "var(--danger)";
       ctx.strokeStyle = "#f85149";
-      ctx.lineWidth = 2;
+      ctx.lineWidth = Math.max(2, 2 * state.zoom);
       ctx.strokeRect(r.x + 1, r.y + 1, r.w - 2, r.h - 2);
     }
 
     if (id === state.selectedId) {
       ctx.strokeStyle = "#f0b429";
-      ctx.lineWidth = 4;
+      ctx.lineWidth = Math.max(3, 4 * state.zoom);
       ctx.strokeRect(r.x - 1, r.y - 1, r.w + 2, r.h + 2);
     } else {
       ctx.strokeStyle = "rgba(230,237,243,0.35)";
@@ -316,22 +374,25 @@ async function loadAll() {
   const mapsData = await mapsRes.json();
   const layout = await layoutRes.json();
 
-  state.displayTile = mapsData.display_tile_px || 4;
+  state.baseDisplayTile = mapsData.display_tile_px || BASE_DISPLAY_TILE;
   state.mapsMeta = mapsData.maps || [];
   state.layoutMaps = layout.maps || {};
+  normalizeMapPositions();
   state.connections = layout.connections || [];
   state.dirty = false;
   state.images.clear();
 
   renderMapList();
   renderConnList();
+  updateZoomLabel();
 
   await Promise.all(state.mapsMeta.map((m) => loadImage(m.id).catch(() => null)));
   draw();
-  setStatus(`${state.mapsMeta.length} outside maps`);
+  setStatus(`${state.mapsMeta.length} outside maps · move by whole tiles`);
 }
 
 async function save() {
+  normalizeMapPositions();
   btnSave.disabled = true;
   setStatus("Saving…");
   try {
@@ -343,6 +404,7 @@ async function save() {
     if (!res.ok) throw new Error(await res.text());
     const layout = await res.json();
     state.layoutMaps = layout.maps;
+    normalizeMapPositions();
     state.connections = layout.connections;
     state.dirty = false;
     renderConnList();
@@ -355,8 +417,22 @@ async function save() {
   }
 }
 
+function nudgeSelected(dx, dy) {
+  if (!state.selectedId || !state.layoutMaps[state.selectedId]) return;
+  const m = state.layoutMaps[state.selectedId];
+  m.x = snapTile(m.x) + dx;
+  m.y = snapTile(m.y) + dy;
+  state.dirty = true;
+  setStatus("Unsaved changes");
+  draw();
+  recomputeConnections().catch((err) =>
+    setStatus(`Recompute failed: ${err.message || err}`)
+  );
+}
+
 canvas.addEventListener("pointerdown", (e) => {
   canvas.setPointerCapture(e.pointerId);
+  canvas.focus();
   const { x, y } = screenToWorld(e.clientX, e.clientY);
   const id = hitTest(x, y);
 
@@ -370,13 +446,17 @@ canvas.addEventListener("pointerdown", (e) => {
 
   if (id) {
     selectMap(id, false);
+    const m = state.layoutMaps[id];
+    m.x = snapTile(m.x);
+    m.y = snapTile(m.y);
     state.dragging = true;
     state.dragId = id;
-    state.dragOriginTileX = state.layoutMaps[id].x;
-    state.dragOriginTileY = state.layoutMaps[id].y;
+    state.dragOriginTileX = m.x;
+    state.dragOriginTileY = m.y;
+    // Grab offset in whole tiles so the map jumps tile-by-tile with the cursor.
     const tile = worldToTile(x, y);
-    state.dragPointerTileX = tile.tx;
-    state.dragPointerTileY = tile.ty;
+    state.dragGrabTileX = tile.tx - m.x;
+    state.dragGrabTileY = tile.ty - m.y;
     canvas.classList.add("dragging");
   }
 });
@@ -393,11 +473,12 @@ canvas.addEventListener("pointermove", (e) => {
   if (!state.dragging || !state.dragId) return;
   const { x, y } = screenToWorld(e.clientX, e.clientY);
   const tile = worldToTile(x, y);
-  const dx = tile.tx - state.dragPointerTileX;
-  const dy = tile.ty - state.dragPointerTileY;
   const m = state.layoutMaps[state.dragId];
-  m.x = state.dragOriginTileX + dx;
-  m.y = state.dragOriginTileY + dy;
+  const nextX = snapTile(tile.tx - state.dragGrabTileX);
+  const nextY = snapTile(tile.ty - state.dragGrabTileY);
+  if (nextX === m.x && nextY === m.y) return;
+  m.x = nextX;
+  m.y = nextY;
   state.dirty = true;
   draw();
 });
@@ -409,6 +490,7 @@ async function endPointer() {
   state.dragId = null;
   canvas.classList.remove("dragging");
   if (wasDrag) {
+    normalizeMapPositions();
     try {
       await recomputeConnections();
       setStatus(state.dirty ? "Unsaved changes" : "");
@@ -427,6 +509,12 @@ canvas.addEventListener(
   "wheel",
   (e) => {
     e.preventDefault();
+    // Ctrl/Meta/Shift + wheel → zoom toward cursor; plain wheel → pan
+    if (e.ctrlKey || e.metaKey || e.shiftKey) {
+      const factor = e.deltaY < 0 ? ZOOM_STEP : 1 / ZOOM_STEP;
+      setZoom(state.zoom * factor, e.clientX, e.clientY);
+      return;
+    }
     state.camX -= e.deltaX;
     state.camY -= e.deltaY;
     draw();
@@ -434,11 +522,51 @@ canvas.addEventListener(
   { passive: false }
 );
 
+window.addEventListener("keydown", (e) => {
+  const tag = (e.target && e.target.tagName) || "";
+  if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+  if (e.key === "+" || e.key === "=") {
+    e.preventDefault();
+    setZoom(state.zoom * ZOOM_STEP);
+    return;
+  }
+  if (e.key === "-" || e.key === "_") {
+    e.preventDefault();
+    setZoom(state.zoom / ZOOM_STEP);
+    return;
+  }
+  if (e.key === "0" && (e.ctrlKey || e.metaKey)) {
+    e.preventDefault();
+    setZoom(1);
+    return;
+  }
+
+  if (!state.selectedId) return;
+  if (e.key === "ArrowLeft") {
+    e.preventDefault();
+    nudgeSelected(-1, 0);
+  } else if (e.key === "ArrowRight") {
+    e.preventDefault();
+    nudgeSelected(1, 0);
+  } else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    nudgeSelected(0, -1);
+  } else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    nudgeSelected(0, 1);
+  }
+});
+
 filterEl.addEventListener("input", renderMapList);
 btnSave.addEventListener("click", save);
 btnReload.addEventListener("click", () => loadAll().catch((e) => setStatus(String(e))));
+btnZoomIn.addEventListener("click", () => setZoom(state.zoom * ZOOM_STEP));
+btnZoomOut.addEventListener("click", () => setZoom(state.zoom / ZOOM_STEP));
+btnZoomReset.addEventListener("click", () => setZoom(1));
 
 window.addEventListener("resize", resizeCanvas);
 
+updateZoomLabel();
 resizeCanvas();
 loadAll().catch((e) => setStatus(String(e)));

@@ -19,7 +19,8 @@ Open **http://127.0.0.1:8101/**
 ## Usage
 
 - Side list: select a map (centers it on canvas).
-- Canvas: drag map to move (snaps to tile grid). Alt-drag / empty-drag / middle-click pans; wheel pans.
+- Canvas: drag map to move in **whole tiles only** (1 tile = 32 game px). Arrow keys nudge 1 tile.
+- Zoom: `+`/`−` buttons, `+`/`−` keys, or Ctrl/Shift+wheel (25%–400%). Pan: wheel, Alt-drag, empty-drag, middle-click.
 - Bold gold outline = selected. Blue segments = connections. Red outline = overlapping interiors.
 - **Save** writes `maps/world_layout.json` only (does not edit `meta.json`).
 

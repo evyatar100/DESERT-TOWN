@@ -187,7 +187,15 @@ def put_layout(body: dict[str, Any]) -> dict[str, Any]:
             raise HTTPException(400, f"missing map position: {mid}")
         pos = incoming[mid]
         try:
-            x, y = int(pos["x"]), int(pos["y"])
+            # Whole tiles only — reject fractional game-tile positions.
+            x_raw, y_raw = pos["x"], pos["y"]
+            x, y = int(x_raw), int(y_raw)
+            if float(x_raw) != x or float(y_raw) != y:
+                raise HTTPException(
+                    400, f"positions must be whole tiles (got {mid} at {x_raw},{y_raw})"
+                )
+        except HTTPException:
+            raise
         except (KeyError, TypeError, ValueError) as exc:
             raise HTTPException(400, f"invalid position for {mid}") from exc
         maps_out[mid] = {

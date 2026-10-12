@@ -1,0 +1,16 @@
+{
+  "id": "glass-a",
+  "display_name": "Glass A",
+  "map_id": null,
+  "tileset_name": "glass-a_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

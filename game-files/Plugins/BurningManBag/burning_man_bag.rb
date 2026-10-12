@@ -299,16 +299,19 @@ end
 module BurningManBag
   STARTER_ITEMS = [:WHITEWATERBOTTLE, :USBDISK]
 
+  # Clamp one item to a single copy. No game database required.
+  def self.normalize_starter_quantity(bag, item_id)
+    while bag.quantity(item_id) > 1
+      bag.remove(item_id, 1)
+    end
+    bag.add(item_id) if bag.quantity(item_id) == 0
+  end
+
   def self.ensure_single_starter_items(bag)
     return if !bag
     STARTER_ITEMS.each do |item_id|
-      next unless GameData::Item.exists?(item_id)
-      # Remove duplicate slots/quantities if more than 1 exists
-      while bag.quantity(item_id) > 1
-        bag.remove(item_id, 1)
-      end
-      # Add exactly one if player has none
-      bag.add(item_id) if bag.quantity(item_id) == 0
+      next unless defined?(GameData::Item) && GameData::Item.exists?(item_id)
+      normalize_starter_quantity(bag, item_id)
     end
   end
 end

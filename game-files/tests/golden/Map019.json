@@ -1,0 +1,886 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Exit",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                18,
+                3,
+                2,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 23,
+      "y": 10
+    },
+    {
+      "id": 2,
+      "name": "Vending machine size(3,1)",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                6,
+                -1,
+                8
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 1,
+              "parameters": [
+                "Start"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "It's a vending machine.\\nWhich drink would you like?"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\G"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 1,
+              "parameters": [
+                [
+                  "Fresh Water - $200",
+                  "Soda Pop - $300",
+                  "Lemonade - $350",
+                  "Cancel"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                0,
+                "Fresh Water - $200"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                7,
+                200,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                12,
+                "$bag.can_add?(:FRESHWATER)"
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 4,
+              "parameters": [
+                1,
+                0,
+                200
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$stats.drinks_bought += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$bag.add(:FRESHWATER)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GA Fresh Water dropped down!"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                2,
+                0,
+                10
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 5,
+              "parameters": [
+                12,
+                "$bag.can_add?(:FRESHWATER)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$stats.drinks_won += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$bag.add(:FRESHWATER)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 6,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 6,
+              "parameters": [
+                "\\GBonus! Another Fresh Water dropped down."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 119,
+              "indent": 4,
+              "parameters": [
+                "Start"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GYou have no room left in the Bag."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\GYou don't have enough money."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                1,
+                "Soda Pop - $300"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                7,
+                300,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                12,
+                "$bag.can_add?(:SODAPOP)"
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 4,
+              "parameters": [
+                1,
+                0,
+                300
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$stats.drinks_bought += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$bag.add(:SODAPOP)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GA Soda Pop dropped down!"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                2,
+                0,
+                10
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 5,
+              "parameters": [
+                12,
+                "$bag.can_add?(:SODAPOP)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$stats.drinks_won += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$bag.add(:SODAPOP)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 6,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 6,
+              "parameters": [
+                "\\GBonus! Another Soda Pop dropped down."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 119,
+              "indent": 4,
+              "parameters": [
+                "Start"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GYou have no room left in the Bag."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\GYou don't have enough money."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                2,
+                "Lemonade - $350"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                7,
+                350,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                12,
+                "$bag.can_add?(:LEMONADE)"
+              ]
+            },
+            {
+              "code": 125,
+              "indent": 4,
+              "parameters": [
+                1,
+                0,
+                350
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$stats.drinks_bought += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 4,
+              "parameters": [
+                "$bag.add(:LEMONADE)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 4,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GA Lemonade dropped down!"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                2,
+                0,
+                10
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 5,
+              "parameters": [
+                12,
+                "$bag.can_add?(:LEMONADE)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$stats.drinks_won += 1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 6,
+              "parameters": [
+                "$bag.add(:LEMONADE)"
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 6,
+              "parameters": [
+                {
+                  "@name": "Vending machine dispense",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 6,
+              "parameters": [
+                "\\GBonus! Another Lemonade dropped down."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 119,
+              "indent": 4,
+              "parameters": [
+                "Start"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\GYou have no room left in the Bag."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\GYou don't have enough money."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 1,
+              "parameters": [
+                3,
+                "Cancel"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\GDecided not to buy a drink."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 17,
+      "y": 7
+    },
+    {
+      "id": 5,
+      "name": "Floor sign",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\sign[signskin]Rooftop Square: Vending Machines"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 21,
+      "y": 7
+    }
+  ],
+  "map_id": 19
+}

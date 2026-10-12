@@ -90,6 +90,31 @@ button:disabled {
   color: var(--muted);
 }
 
+.zoom-bar {
+  align-items: center;
+}
+
+.zoom-bar #btn-zoom-out,
+.zoom-bar #btn-zoom-in {
+  min-width: 2rem;
+  padding-inline: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.zoom-bar #zoom-label {
+  font-variant-numeric: tabular-nums;
+  min-width: 3.2rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.zoom-bar .hint {
+  flex: 1 1 100%;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
 .search input {
   width: 100%;
   padding: 0.45rem 0.6rem;

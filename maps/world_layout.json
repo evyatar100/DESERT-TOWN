@@ -38,13 +38,6 @@
       "tiles_w": 35,
       "tiles_h": 32
     },
-    "SPACESHEEP": {
-      "id": "SPACESHEEP",
-      "x": 85,
-      "y": 369,
-      "tiles_w": 25,
-      "tiles_h": 62
-    },
     "Squere-road-temple": {
       "id": "Squere-road-temple",
       "x": 39,

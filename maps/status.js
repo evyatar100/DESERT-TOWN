@@ -974,7 +974,7 @@ window.MAP_STATUS = {
       "display_name": "SPACESHEEP-FRONT",
       "map_id": 32,
       "tileset_name": null,
-      "is_outside": true,
+      "is_outside": false,
       "bgm": null,
       "status": "in_progress",
       "notes": "No dedicated tileset built yet",

@@ -1,0 +1,16 @@
+{
+  "id": "Piramid",
+  "display_name": "Piramid",
+  "map_id": null,
+  "tileset_name": "Piramid_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

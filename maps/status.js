@@ -1,11 +1,11 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-13T20:23:41Z",
+  "generated_at": "2026-10-13T21:59:22Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 30,
+  "map_count": 31,
   "maps": [
     {
       "id": "candles",
@@ -142,6 +142,64 @@ window.MAP_STATUS = {
         "height": 992,
         "tiles_w": 28,
         "tiles_h": 31,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3b": false,
+      "tileset_ready": false,
+      "tileset_local": false,
+      "tileset_in_game": false,
+      "map_associated": false,
+      "game_tiles": null,
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": null,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
+      "id": "deep-playa-1b",
+      "display_name": "deep-playa 1b",
+      "map_id": null,
+      "tileset_name": "deep-playa-1b_ts",
+      "is_outside": true,
+      "bgm": null,
+      "status": "stub",
+      "deprecated": false,
+      "notes": "",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "width": 1024,
+        "height": 864,
+        "tiles_w": 32,
+        "tiles_h": 27,
         "size_ok": true
       },
       "has_layer2": false,
@@ -961,9 +1019,9 @@ window.MAP_STATUS = {
       "base": {
         "present": true,
         "width": 1312,
-        "height": 1024,
+        "height": 896,
         "tiles_w": 41,
-        "tiles_h": 32,
+        "tiles_h": 28,
         "size_ok": true
       },
       "has_layer2": false,
@@ -979,9 +1037,9 @@ window.MAP_STATUS = {
       "layer3": {
         "present": true,
         "width": 1312,
-        "height": 1024,
+        "height": 896,
         "tiles_w": 41,
-        "tiles_h": 32,
+        "tiles_h": 28,
         "size_ok": true
       },
       "has_layer3b": false,
@@ -990,8 +1048,8 @@ window.MAP_STATUS = {
       "tileset_in_game": true,
       "map_associated": true,
       "game_tiles": {
-        "tiles_w": 42,
-        "tiles_h": 36
+        "tiles_w": 41,
+        "tiles_h": 28
       },
       "connected": true,
       "connections": {
@@ -1109,11 +1167,8 @@ window.MAP_STATUS = {
       "tileset_ready": true,
       "tileset_local": true,
       "tileset_in_game": true,
-      "map_associated": true,
-      "game_tiles": {
-        "tiles_w": 61,
-        "tiles_h": 49
-      },
+      "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1122,7 +1177,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": null,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1173,7 +1228,7 @@ window.MAP_STATUS = {
       "map_associated": true,
       "game_tiles": {
         "tiles_w": 35,
-        "tiles_h": 43
+        "tiles_h": 42
       },
       "connected": false,
       "connections": {
@@ -1764,14 +1819,14 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "present": true,
+        "width": 1024,
+        "height": 1792,
+        "tiles_w": 32,
+        "tiles_h": 56,
+        "size_ok": true
       },
       "has_layer3b": false,
       "tileset_ready": false,

@@ -9,7 +9,7 @@ A simple local web app to lay out **outside** Desert Town maps on a shared canva
 3. Overlay a **4×4 display grid** at zoom 100% (one cell = one map tile = 32 game pixels).
 4. **Side panel** lists all outside maps; click selects a map.
 5. **Canvas** drag moves the selected map in **whole tiles only** (never sub-tile / partial 32px); arrow keys nudge 1 tile; **bold outline** on the selected map.
-6. **Zoom** in/out on the canvas (buttons, `+`/`−`, Ctrl+wheel) without changing stored tile coordinates.
+6. **Zoom** is visualization only: it scales on-screen drawing / pan, and must never change stored tile `x`/`y` in `world_layout.json`.
 7. If two map rectangles **share a border segment** (touch, no interior overlap), they are **connected**.
 8. **Save** writes only [`world_layout.json`](world_layout.json) — do **not** edit per-map `meta.json` in this tool.
 9. A later script will turn this file into Essentials / RPG Maker connection format.

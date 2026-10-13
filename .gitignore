@@ -14,3 +14,7 @@ desktop.ini
 
 # Backup files
 *.bak
+
+# Photoshop source files
+*.psd
+assets-factory/psd/

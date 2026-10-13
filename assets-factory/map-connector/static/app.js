@@ -100,12 +100,13 @@ function mapRect(id) {
   const m = state.layoutMaps[id];
   if (!m) return null;
   const t = tilePx();
+  // Pixel rect must come after ...m so tile x/y do not overwrite screen coords.
   return {
+    ...m,
     x: m.x * t,
     y: m.y * t,
     w: m.tiles_w * t,
     h: m.tiles_h * t,
-    ...m,
   };
 }
 

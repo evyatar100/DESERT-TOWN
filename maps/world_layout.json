@@ -75,10 +75,10 @@
     },
     "demo-camp4": {
       "id": "demo-camp4",
-      "x": 38,
-      "y": 0,
-      "tiles_w": 64,
-      "tiles_h": 64
+      "x": 177,
+      "y": 140,
+      "tiles_w": 32,
+      "tiles_h": 32
     },
     "Echer": {
       "id": "Echer",
@@ -89,8 +89,8 @@
     },
     "Freecamp": {
       "id": "Freecamp",
-      "x": 89,
-      "y": 146,
+      "x": 104,
+      "y": 126,
       "tiles_w": 73,
       "tiles_h": 46
     },
@@ -103,8 +103,8 @@
     },
     "ice-out": {
       "id": "ice-out",
-      "x": 86,
-      "y": 114,
+      "x": 104,
+      "y": 94,
       "tiles_w": 41,
       "tiles_h": 32
     },
@@ -115,13 +115,6 @@
       "tiles_w": 22,
       "tiles_h": 52
     },
-    "kusomo": {
-      "id": "kusomo",
-      "x": 473,
-      "y": 239,
-      "tiles_w": 61,
-      "tiles_h": 49
-    },
     "kusomo2": {
       "id": "kusomo2",
       "x": 209,
@@ -129,17 +122,10 @@
       "tiles_w": 35,
       "tiles_h": 42
     },
-    "man-map": {
-      "id": "man-map",
-      "x": 564,
-      "y": 199,
-      "tiles_w": 64,
-      "tiles_h": 64
-    },
     "mom-dad": {
       "id": "mom-dad",
-      "x": 127,
-      "y": 110,
+      "x": 145,
+      "y": 90,
       "tiles_w": 34,
       "tiles_h": 36
     },
@@ -184,6 +170,20 @@
       "y": 84,
       "tiles_w": 32,
       "tiles_h": 56
+    },
+    "man-map": {
+      "id": "man-map",
+      "x": 564,
+      "y": 199,
+      "tiles_w": 64,
+      "tiles_h": 64
+    },
+    "kusomo": {
+      "id": "kusomo",
+      "x": 473,
+      "y": 239,
+      "tiles_w": 61,
+      "tiles_h": 49
     }
   },
   "connections": [
@@ -213,16 +213,24 @@
     },
     {
       "a": "Freecamp",
-      "a_edge": "north",
-      "a_offset": 0,
-      "b": "ice-out",
-      "b_edge": "south",
-      "b_offset": 3
+      "a_edge": "east",
+      "a_offset": 14,
+      "b": "demo-camp4",
+      "b_edge": "west",
+      "b_offset": 0
     },
     {
       "a": "Freecamp",
       "a_edge": "north",
-      "a_offset": 38,
+      "a_offset": 0,
+      "b": "ice-out",
+      "b_edge": "south",
+      "b_offset": 0
+    },
+    {
+      "a": "Freecamp",
+      "a_edge": "north",
+      "a_offset": 41,
       "b": "mom-dad",
       "b_edge": "south",
       "b_offset": 0
@@ -482,6 +490,14 @@
       "b": "deep-playa-9",
       "b_edge": "east",
       "b_offset": 0
+    },
+    {
+      "a": "demo-camp4",
+      "a_edge": "east",
+      "a_offset": 0,
+      "b": "kusomo2",
+      "b_edge": "west",
+      "b_offset": 9
     },
     {
       "a": "glass-a",

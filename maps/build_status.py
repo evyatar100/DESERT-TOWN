@@ -165,19 +165,31 @@ def transfer_targets(map_obj) -> list[int]:
     return dests
 
 
-def event_summary(data_dir: Path, map_id: int | None) -> tuple[int | None, list[int]]:
+def game_tile_size(map_obj) -> dict | None:
+    """Width and height in tiles of a map loaded from MapXXX.rxdata."""
+    try:
+        tiles_w = int(_attr(map_obj, "@width"))
+        tiles_h = int(_attr(map_obj, "@height"))
+    except (TypeError, ValueError):
+        return None
+    if tiles_w <= 0 or tiles_h <= 0:
+        return None
+    return {"tiles_w": tiles_w, "tiles_h": tiles_h}
+
+
+def event_summary(data_dir: Path, map_id: int | None) -> tuple[int | None, list[int], dict | None]:
     if not map_id:
-        return None, []
+        return None, [], None
     path = data_dir / f"Map{int(map_id):03d}.rxdata"
     if not path.is_file():
-        return None, []
+        return None, [], None
     try:
         obj = load_rxdata(path)
     except Exception:
-        return None, []
+        return None, [], None
     events = _attr(obj, "@events") or {}
     count = len(events) if isinstance(events, dict) else 0
-    return count, transfer_targets(obj)
+    return count, transfer_targets(obj), game_tile_size(obj)
 
 
 def connection_labels(dest_ids: list[int], names_by_game_id: dict[int, str], infos: dict[int, str]) -> list[str]:
@@ -249,7 +261,7 @@ def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos:
 
     data_dir = repo / "game-files" / "Data"
     has_map = map_file_exists(data_dir, map_id)
-    events, dests = event_summary(data_dir, map_id) if has_map else (None, [])
+    events, dests, game_tiles = event_summary(data_dir, map_id) if has_map else (None, [], None)
     if map_id:
         dests = [dest for dest in dests if dest != int(map_id)]
     event_connections = connection_labels(dests, names_by_game_id, infos)
@@ -282,6 +294,7 @@ def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos:
         "tileset_local": local_tileset,
         "tileset_in_game": game_tileset,
         "map_associated": has_map,
+        "game_tiles": game_tiles,
         "connected": connected,
         "connections": connections,
         "event_connections": event_connections,

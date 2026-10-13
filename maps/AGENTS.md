@@ -91,7 +91,7 @@ python maps/build_status.py
 ## Status page
 
 Open `maps/index.html` locally or via GitHub Pages (serve repo, path `/maps/`).
-It loads `status.json` and shows readiness columns (base, L2, L3, tileset, in-game copy, map link, connections, events, chars).
+It loads `status.json` and shows readiness columns (base image size, L2, L3, tileset, in-game copy, map link, loaded map size in tiles, connections, events, chars). The **Game size** column is the `@width` × `@height` of `MapXXX.rxdata` for maps that are loaded in the game, and is blank when the map file is not linked. It is highlighted when that size differs from the source image.
 
 ## Agent rules
 

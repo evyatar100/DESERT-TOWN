@@ -191,6 +191,7 @@
       <thead>
         <tr>
           <th>Map</th>
+          <th>Size</th>
           <th>Outside</th>
           <th>BGM</th>
           <th>Base</th>
@@ -199,6 +200,7 @@
           <th>Tileset</th>
           <th>In game</th>
           <th>Map ID</th>
+          <th title="Tile size of the map loaded in the game">Game size</th>
           <th>Connected</th>
           <th>Event connection</th>
           <th>Events</th>
@@ -224,6 +226,26 @@
     };
 
     const dash = (v) => (v === null || v === undefined || v === "" ? "—" : v);
+
+    function sizeLabel(m) {
+      const b = m.base;
+      if (!b || b.tiles_w == null || b.tiles_h == null) return { text: "—", title: "" };
+      const text = `${b.tiles_w}×${b.tiles_h}`;
+      const title = b.width && b.height ? `${b.width}×${b.height} px` : "";
+      return { text, title };
+    }
+
+    function gameSizeLabel(m) {
+      const g = m.game_tiles;
+      if (!g || g.tiles_w == null || g.tiles_h == null) return { text: "—", title: "", mismatch: false };
+      const text = `${g.tiles_w}×${g.tiles_h}`;
+      const b = m.base;
+      const mismatch = !!(b && b.tiles_w != null && (b.tiles_w !== g.tiles_w || b.tiles_h !== g.tiles_h));
+      const title = mismatch
+        ? `Loaded map is ${text} tiles; source image is ${b.tiles_w}×${b.tiles_h}`
+        : "Loaded map size in tiles";
+      return { text, title, mismatch };
+    }
 
     let allMaps = [];
     let generatedAt = "—";
@@ -262,12 +284,15 @@
         const eventLinks = (m.event_connections && m.event_connections.length)
           ? m.event_connections.join(", ")
           : "—";
+        const size = sizeLabel(m);
+        const gameSize = gameSizeLabel(m);
         tr.innerHTML = `
           <td>
             <span class="map-name">${escapeHtml(m.display_name || m.id)}</span>
             ${m.deprecated ? '<span class="pill deprecated">deprecated</span>' : ""}
             <span class="sub">${escapeHtml(m.id)}</span>
           </td>
+          <td title="${escapeHtml(size.title)}">${escapeHtml(size.text)}</td>
           <td>${m.is_outside === true ? "out" : m.is_outside === false ? "in" : "—"}</td>
           <td>${escapeHtml(dash(m.bgm))}</td>
           <td>${baseCell}</td>
@@ -276,6 +301,7 @@
           <td>${yesNo(!!m.tileset_ready)}</td>
           <td>${yesNo(!!m.tileset_in_game)}</td>
           <td>${m.map_associated ? escapeHtml(String(m.map_id)) : yesNo(false)}</td>
+          <td title="${escapeHtml(gameSize.title)}"${gameSize.mismatch ? ' class="status-in_progress"' : ""}>${escapeHtml(gameSize.text)}</td>
           <td>${yesNo(!!m.connected)}</td>
           <td title="${escapeHtml(eventLinks)}">${escapeHtml(eventLinks)}</td>
           <td>${m.event_count === null || m.event_count === undefined ? "—" : m.event_count}</td>

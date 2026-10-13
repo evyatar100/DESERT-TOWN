@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T19:45:11Z",
+  "generated_at": "2026-10-13T20:23:41Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -51,6 +51,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -108,6 +109,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -165,6 +167,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -222,6 +225,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -279,6 +283,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -336,6 +341,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -393,6 +399,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -450,6 +457,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -507,6 +515,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -564,6 +573,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -621,6 +631,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -649,10 +660,10 @@
       "base_size_ok": true,
       "base": {
         "present": true,
-        "width": 2048,
-        "height": 2048,
-        "tiles_w": 64,
-        "tiles_h": 64,
+        "width": 1024,
+        "height": 1024,
+        "tiles_w": 32,
+        "tiles_h": 32,
         "size_ok": true
       },
       "has_layer2": false,
@@ -667,10 +678,10 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
-        "width": 2048,
-        "height": 2048,
-        "tiles_w": 64,
-        "tiles_h": 64,
+        "width": 1024,
+        "height": 1024,
+        "tiles_w": 32,
+        "tiles_h": 32,
         "size_ok": true
       },
       "has_layer3b": false,
@@ -678,6 +689,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 32
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -737,6 +752,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -794,6 +810,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -851,6 +868,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -908,6 +926,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 47,
+        "tiles_h": 26
+      },
       "connected": true,
       "connections": {
         "north": null,
@@ -967,6 +989,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 42,
+        "tiles_h": 36
+      },
       "connected": true,
       "connections": {
         "north": "ice-in",
@@ -1026,6 +1052,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1083,6 +1110,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 61,
+        "tiles_h": 49
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1140,6 +1171,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 35,
+        "tiles_h": 43
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1197,6 +1232,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 32
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1254,6 +1293,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 34,
+        "tiles_h": 36
+      },
       "connected": true,
       "connections": {
         "north": null,
@@ -1313,6 +1356,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 32
+      },
       "connected": true,
       "connections": {
         "north": null,
@@ -1372,6 +1419,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1429,6 +1477,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 60,
+        "tiles_h": 47
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1486,6 +1538,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1543,6 +1596,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1600,6 +1654,10 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 20,
+        "tiles_h": 15
+      },
       "connected": true,
       "connections": {
         "north": null,
@@ -1657,6 +1715,10 @@
       "tileset_local": true,
       "tileset_in_game": true,
       "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 35,
+        "tiles_h": 35
+      },
       "connected": true,
       "connections": {
         "north": "SPACESHEEP",
@@ -1716,6 +1778,7 @@
       "tileset_local": false,
       "tileset_in_game": false,
       "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,

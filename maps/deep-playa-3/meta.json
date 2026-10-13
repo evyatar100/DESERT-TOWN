@@ -1,0 +1,16 @@
+{
+  "id": "deep-playa-3",
+  "display_name": "deep-playa 3",
+  "map_id": null,
+  "tileset_name": "deep-playa-3_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

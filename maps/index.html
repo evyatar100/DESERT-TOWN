@@ -136,6 +136,18 @@
     .status-in_progress { color: var(--warn); }
     .status-playable { color: var(--sand); }
     .status-done { color: var(--ok); }
+    .status-deprecated { color: var(--miss); }
+
+    .show-deprecated {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--sand-dim);
+      font-size: 0.85rem;
+      user-select: none;
+    }
+    tr.deprecated td { opacity: 0.55; }
+    .pill.deprecated { background: var(--miss-bg); color: var(--miss); }
 
     .err {
       padding: 1.5rem;
@@ -168,6 +180,10 @@
       <option value="playable">playable</option>
       <option value="done">done</option>
     </select>
+    <label class="show-deprecated">
+      <input id="showDeprecated" type="checkbox" />
+      Show deprecated
+    </label>
   </div>
 
   <main>
@@ -210,14 +226,23 @@
     const dash = (v) => (v === null || v === undefined || v === "" ? "—" : v);
 
     let allMaps = [];
+    let generatedAt = "—";
 
     function render() {
       const q = document.getElementById("filter").value.trim().toLowerCase();
       const st = document.getElementById("statusFilter").value;
+      const showDeprecated = document.getElementById("showDeprecated").checked;
       const tbody = document.getElementById("rows");
       tbody.innerHTML = "";
 
+      const hidden = allMaps.filter((m) => m.deprecated).length;
+      const live = allMaps.length - hidden;
+      document.getElementById("generated").textContent = showDeprecated || !hidden
+        ? `${allMaps.length} maps · generated ${generatedAt}`
+        : `${live} maps · ${hidden} deprecated hidden · generated ${generatedAt}`;
+
       const filtered = allMaps.filter((m) => {
+        if (!showDeprecated && m.deprecated) return false;
         if (st && m.status !== st) return false;
         if (!q) return true;
         const hay = `${m.id} ${m.display_name} ${(m.chars || []).join(" ")} ${(m.event_connections || []).join(" ")}`.toLowerCase();
@@ -226,6 +251,7 @@
 
       for (const m of filtered) {
         const tr = document.createElement("tr");
+        if (m.deprecated) tr.classList.add("deprecated");
         const baseOk = m.has_base && m.base_size_ok;
         const baseCell = m.has_base
           ? (baseOk ? yesNo(true) : '<span class="pill warn">small</span>')
@@ -239,6 +265,7 @@
         tr.innerHTML = `
           <td>
             <span class="map-name">${escapeHtml(m.display_name || m.id)}</span>
+            ${m.deprecated ? '<span class="pill deprecated">deprecated</span>' : ""}
             <span class="sub">${escapeHtml(m.id)}</span>
           </td>
           <td>${m.is_outside === true ? "out" : m.is_outside === false ? "in" : "—"}</td>
@@ -276,8 +303,7 @@
           data = await res.json();
         }
         allMaps = data.maps || [];
-        document.getElementById("generated").textContent =
-          `${data.map_count} maps · generated ${data.generated_at || "—"}`;
+        generatedAt = data.generated_at || "—";
         render();
       } catch (e) {
         document.getElementById("err").hidden = false;
@@ -289,6 +315,7 @@
 
     document.getElementById("filter").addEventListener("input", render);
     document.getElementById("statusFilter").addEventListener("change", render);
+    document.getElementById("showDeprecated").addEventListener("change", render);
     boot();
   </script>
 </body>

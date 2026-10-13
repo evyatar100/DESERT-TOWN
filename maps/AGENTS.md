@@ -41,6 +41,7 @@ Outside-map world layout UI: `world-app/` (see `CONNECTOR_INTENTIONS.md`).
   "bgm": null,
   "connections": { "north": null, "south": null, "east": null, "west": null },
   "status": "in_progress",
+  "deprecated": false,
   "notes": ""
 }
 ```
@@ -55,6 +56,7 @@ Outside-map world layout UI: `world-app/` (see `CONNECTOR_INTENTIONS.md`).
 | `bgm` | BGM filename stem, or `null` |
 | `connections` | Neighbor **map folder ids** (N/S/E/W) |
 | `status` | `stub` \| `in_progress` \| `playable` \| `done` |
+| `deprecated` | `true` hides the map from world-app and from `index.html` unless “Show deprecated” is checked. Omit or `false` for live maps. |
 
 ## `characters.json`
 

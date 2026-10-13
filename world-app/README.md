@@ -28,7 +28,7 @@ Open **http://127.0.0.1:8101/**
 
 | Method | Path | Notes |
 |---|---|---|
-| GET | `/api/maps` | Outside maps + tile sizes |
+| GET | `/api/maps` | Outside maps + tile sizes (skips `deprecated: true`) |
 | GET | `/api/maps/{id}/base?scaled=1` | Scaled preview (4 px/tile) |
 | GET | `/api/layout` | Load/merge layout |
 | PUT | `/api/layout` | Save positions + recompute connections |

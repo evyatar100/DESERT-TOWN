@@ -4,7 +4,7 @@ A simple local web app to lay out **outside** Desert Town maps on a shared canva
 
 ## Goals
 
-1. Show every map under `maps/` with `is_outside: true` and a `base.png`.
+1. Show every map under `maps/` with `is_outside: true`, a `base.png`, and `deprecated` not set. Deprecated maps stay in `meta.json` and out of the canvas and side list.
 2. Draw each base at reduced resolution (**32×32 game tiles → 4×4 display pixels**).
 3. Overlay a **4×4 display grid** at zoom 100% (one cell = one map tile = 32 game pixels).
 4. **Side panel** lists all outside maps; click selects a map.

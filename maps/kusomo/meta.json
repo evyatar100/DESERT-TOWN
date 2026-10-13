@@ -12,5 +12,6 @@
     "west": null
   },
   "status": "in_progress",
+  "deprecated": true,
   "notes": ""
 }

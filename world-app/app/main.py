@@ -32,6 +32,34 @@ def _png_size(path: Path) -> tuple[int, int]:
     return int(w), int(h)
 
 
+def _read_meta(folder: Path) -> dict[str, Any] | None:
+    try:
+        meta = json.loads((folder / "meta.json").read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    if not isinstance(meta, dict):
+        return None
+    return meta
+
+
+def _deprecated_ids() -> set[str]:
+    """Folder ids whose meta.json sets deprecated. Positions for these stay in the layout file."""
+    found: set[str] = set()
+    if not MAPS_DIR.is_dir():
+        return found
+    for meta_path in MAPS_DIR.glob("*/meta.json"):
+        folder = meta_path.parent
+        if folder.name.startswith("_") or folder.name.startswith("."):
+            continue
+        meta = _read_meta(folder)
+        if not meta or not meta.get("deprecated"):
+            continue
+        mid = meta.get("id") or folder.name
+        if isinstance(mid, str) and mid:
+            found.add(mid)
+    return found
+
+
 def _scan_outside_maps() -> list[dict[str, Any]]:
     results: list[dict[str, Any]] = []
     if not MAPS_DIR.is_dir():
@@ -40,9 +68,10 @@ def _scan_outside_maps() -> list[dict[str, Any]]:
         folder = meta_path.parent
         if folder.name.startswith("_") or folder.name.startswith("."):
             continue
-        try:
-            meta = json.loads(meta_path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
+        meta = _read_meta(folder)
+        if meta is None:
+            continue
+        if meta.get("deprecated"):
             continue
         if not meta.get("is_outside"):
             continue
@@ -206,18 +235,34 @@ def put_layout(body: dict[str, Any]) -> dict[str, Any]:
             "tiles_h": int(meta["tiles_h"]),
         }
 
-    layout = {
+    # Keep saved positions for deprecated maps, but do not return them to the canvas.
+    stored = _load_stored() or {}
+    stored_maps = stored.get("maps") if isinstance(stored.get("maps"), dict) else {}
+    kept: dict[str, dict[str, Any]] = {}
+    for mid in _deprecated_ids():
+        prev = stored_maps.get(mid)
+        if isinstance(prev, dict):
+            kept[mid] = prev
+
+    active_connections = compute_connections(maps_out)
+    written = {
+        "version": LAYOUT_VERSION,
+        "tile_px": TILE_PX,
+        "display_tile_px": DISPLAY_TILE_PX,
+        "maps": {**maps_out, **kept},
+        "connections": active_connections,
+    }
+    LAYOUT_PATH.write_text(
+        json.dumps(written, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+    return {
         "version": LAYOUT_VERSION,
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": maps_out,
-        "connections": compute_connections(maps_out),
+        "connections": active_connections,
     }
-    LAYOUT_PATH.write_text(
-        json.dumps(layout, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8",
-    )
-    return layout
 
 
 @app.post("/api/layout/recompute")

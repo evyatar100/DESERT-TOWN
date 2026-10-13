@@ -267,6 +267,7 @@ def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos:
         "is_outside": meta.get("is_outside"),
         "bgm": meta.get("bgm"),
         "status": meta.get("status") or "stub",
+        "deprecated": bool(meta.get("deprecated")),
         "notes": meta.get("notes") or "",
         "has_name": bool(meta.get("display_name")),
         "has_base": base["present"],

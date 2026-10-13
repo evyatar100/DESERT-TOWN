@@ -1,0 +1,2332 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Exit",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                2,
+                17,
+                7,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 9
+    },
+    {
+      "id": 2,
+      "name": "Daisy",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rDaisy: Hi, \\PN!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rDaisy: Would you like me to groom one of your "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "Pokémon?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rDaisy: Which Pokémon do you want me to groom?"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbChooseNonEggPokemon(1, 2)"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                4
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rDaisy: Oh, okay then."
+              ]
+            },
+            {
+              "code": 115,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pkmn = pbGetPokemon(1)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pkmn.changeHappiness(\"groom\")"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pkmn.beauty += 40"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rDaisy: There! \\v[2] looks a lot happier and prettier "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "now!"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rDaisy: Oh, okay then."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 5,
+      "y": 4
+    },
+    {
+      "id": 3,
+      "name": "Dr Footstep",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bDr. Footstep: Hi! I rate the footprints of Pokémon!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bDr. Footstep: Can I rate your Pokémon for you?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bDr. Footstep: Which Pokémon do you want me to "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "rate?"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbChooseNonEggPokemon(1, 2)"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                4
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Maybe next time, then."
+              ]
+            },
+            {
+              "code": 115,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pkmn = pbGetPokemon(1)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "h = pkmn.happiness"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 1 if h >= 1"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 2 if h >= 50"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 3 if h >= 100"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 4 if h >= 150"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 5 if h >= 200"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "stage = 6 if h >= 255"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(3, stage)"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: By any chance, you... Are you a very "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "strict person? I feel that your \\v[2] really doesn't like "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "you..."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Hmmm... Your \\v[2] may not like you "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "very much."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: The relationship is neither good nor "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "bad... Your \\v[2] looks neutral."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Your \\v[2] is a little friendly to you... "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "That's what I'm getting."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Your \\v[2] is friendly to you. It must be "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "happy with you."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Your \\v[2] is quite friendly to you! You "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "must be a kind person!"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                6,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bDr. Footstep: Your \\v[2] is super friendly to you! I'm "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "a bit jealous!"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                12,
+                "!pbGetPokemon(1).hasRibbon?(:FOOTPRINT)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\bDr. Footstep: I shall reward your \\v[2] with a ribbon!"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 3,
+              "parameters": [
+                "pkmn = pbGetPokemon(1)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "pkmn.giveRibbon(:FOOTPRINT)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\PN received the Footprint Ribbon."
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "\\me[Item get]\\wtnp[20]"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\PN put the Footprint Ribbon on \\v[2]."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bDr. Footstep: Maybe next time, then."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 1,
+      "y": 4
+    },
+    {
+      "id": 4,
+      "name": "Effort ribbon giver",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Looks at the total EVs of the lead Pokémon, and "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "rewards a ribbon to it if the total is maxed (equal to "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Pokemon::EV_LIMIT, which is 510 by default)."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pkmn = $player.first_pokemon"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "total = 0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "pkmn.ev.each_value { |v| total += v }"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "maxed = 0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "if total >= Pokemon::EV_LIMIT"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  maxed = 1"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "end"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "maxed = 2 if pkmn.hasRibbon?(:EFFORT)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "pbSet(1, pkmn.name)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "pbSet(2, maxed)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rOh?\\nYour \\v[1]..."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                2,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Pokémon already has an Effort Ribbon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rOh! Your \\v[1], that Effort Ribbon looks good on it!"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                2,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 2,
+              "parameters": [
+                "Pokémon has full EVs and does not already have an "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 2,
+              "parameters": [
+                "Effort Ribbon - give it that ribbon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rWent for it stupendously!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rAs its reward, please give it this Effort Ribbon."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 2,
+              "parameters": [
+                "pkmn = $player.first_pokemon"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 2,
+              "parameters": [
+                "pkmn.giveRibbon(:EFFORT)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\PN received the Effort Ribbon."
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "\\me[Item get]\\wtnp[20]"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\PN put the Effort Ribbon on \\v[1]."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 2,
+              "parameters": [
+                "Pokémon does not have full EVs."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rYou have to go for it a little harder."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rIf you do, I'll give your Pokémon something nice."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 2,
+      "y": 4
+    },
+    {
+      "id": 5,
+      "name": "Contest ribbon giver",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Gives or upgrades a contest ribbon for the lead "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Pokémon."
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "The method upgradeRibbon either upgrades an "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "existing ribbon to the next one listed, or gives the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "first ribbon if the Pokémon has none of them."
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Returns nil if couldn't add/upgrade a ribbon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rHi! I'm the Contest Lady!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rI give out contest ribbons. Do you want one?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pkmn = $player.first_pokemon"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "ret = pkmn.upgradeRibbon("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  :HOENNCOOL,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  :HOENNCOOLSUPER,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  :HOENNCOOLHYPER,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  :HOENNCOOLMASTER"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                ")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbSet(1, ret || :NONE)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(2, pkmn.name)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "if ret"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  data = GameData::Ribbon.get(ret)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  pbSet(3, data.name)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "end"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "pbGet(1) == :NONE"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rSorry, your \\v[2] already has the highest ranked "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "Cool Ribbon."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\PN received the \\v[3]."
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "\\me[Item get]\\wtnp[40]"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\PN put the \\v[3] on \\v[2]."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rThat's your choice."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 4
+    },
+    {
+      "id": 6,
+      "name": "Stats judge",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bIf you'd like, I could judge the intriguing potential of "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "your Pokémon."
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bWhich Pokémon would you like me to judge?"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbChooseNonEggPokemon(1, 2)"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                1,
+                0,
+                0,
+                4
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\b...Oh? You don't need me to judge. I get it."
+              ]
+            },
+            {
+              "code": 115,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Say something depending on the total number of IVs "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "the Pokémon has."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "ivs = pbGetPokemon(1).calcIV"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "total = 0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "ivs.each_value { |v| total += v }"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(2, total)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bI see, I see..."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                1,
+                0,
+                150,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bThis Pokémon's potential is outstanding overall."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                1,
+                1,
+                0,
+                120,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\bThis Pokémon's potential is relatively superior "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 3,
+              "parameters": [
+                "overall."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                1,
+                0,
+                90,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\bThis Pokémon's potential is above average overall."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\bThis Pokémon's potential is decent overall."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bThat's my determination, and it's final."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Find out which stat(s) have the highest value, and "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "show a message about each of them."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pkmn = pbGetPokemon(1)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "ivs  = pkmn.calcIV"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "best = []"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "val  = -1"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "[:HP, :ATTACK, :DEFENSE,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                " :SPECIAL_ATTACK, :SPECIAL_DEFENSE,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                " :SPEED].each do |s|"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  if ivs[s] > val"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "    best = [s]"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "    val  = ivs[s]"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  elsif ivs[s] == val"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "    best.push(s)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  end"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "end"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbSet(2, best)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(3, val)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "data = GameData::Stat.get(best[0])"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(4, data.name)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "pbSet(5, best.length - 1)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bIncidentally, I would say the best potential lies in its "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "\\v[4] stat."
+              ]
+            },
+            {
+              "code": 112,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                1,
+                5,
+                0,
+                0,
+                3
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 3,
+              "parameters": [
+                "best = pbGet(2)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "best[0] = nil"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "best.compact!"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 3,
+              "parameters": [
+                "num = {"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :HP              => 0,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :ATTACK          => 1,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :DEFENSE         => 2,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :SPEED           => 3,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :SPECIAL_ATTACK  => 4,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "  :SPECIAL_DEFENSE => 5"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "}[best[0]]"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 3,
+              "parameters": [
+                "pbSet(4, num)"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 3,
+              "parameters": [
+                5,
+                5,
+                2,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                4,
+                0,
+                1,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\bAnd its Attack stat is also good."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 4,
+              "parameters": [
+                1,
+                4,
+                0,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 5,
+              "parameters": [
+                "\\bI see, its Defense stat is also good."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 5,
+              "parameters": [
+                1,
+                4,
+                0,
+                3,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 6,
+              "parameters": [
+                "\\bWell, its Speed stat is also good."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 6,
+              "parameters": [
+                1,
+                4,
+                0,
+                4,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 7,
+              "parameters": [
+                "\\bIts Special Attack stat is equally good."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 7,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 7,
+              "parameters": [
+                1,
+                4,
+                0,
+                5,
+                0
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 8,
+              "parameters": [
+                "\\bIts Special Defense stat is good as well."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 8,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 7,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 8,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 7,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 7,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 6,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 5,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 113,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 413,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Show a message depending on the value of the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "highest stat IV."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                3,
+                0,
+                30,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bIt can't be better in that regard. That's how I judged "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 2,
+              "parameters": [
+                1,
+                3,
+                0,
+                25,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 3,
+              "parameters": [
+                "\\bIt's fantastic in that regard. That's how I judged it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 111,
+              "indent": 3,
+              "parameters": [
+                1,
+                3,
+                0,
+                15,
+                3
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\bIt's very good in that regard. That's how I judged it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 4,
+              "parameters": [
+                "\\bIt's rather decent in that regard. That's how I judged "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 4,
+              "parameters": [
+                "it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 4,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 3,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\b...Oh? You don't need me to judge. I get it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 4
+    }
+  ],
+  "map_id": 8
+}

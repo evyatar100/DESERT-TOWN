@@ -1,21 +1,23 @@
 #!/usr/bin/env python3
 """
-create_map_from_layers.py -- Create RPG Maker XP tileset and map from map_layers directory.
+create_map_from_layers.py -- Create RPG Maker XP tileset and map from a maps/ directory.
 
-Given a directory in map_layers containing composited layer images (e.g., KUSUMO2-a.png, KUSUMO2-b.png):
+Given a map folder (e.g. maps/kusomo) with standardized layers base.png / layer2.png /
+layer3.png (or legacy alphabetically sorted images):
 1. Calls create_tileset.py <DIR> to build and deploy the tileset sheet.
 2. Allocates a new tileset slot in Data/Tilesets.rxdata (named after the directory)
-   and sets priority of all tiles from the second image (layer 3) to 2.
+   and sets priority of overlay tiles (layer2 / layer3) appropriately.
 3. Allocates a new map slot in Data/MapInfos.rxdata (named after the directory).
-4. Populates Layer 1 with exact tile IDs from the first image.
-5. Populates Layer 3 with exact tile IDs from the second image (only non-transparent tiles).
-6. Writes Data/MapXXX.rxdata.
+4. Populates Layer 1 from base (or first image).
+5. Populates Layer 2 from layer2.png when present (non-transparent tiles).
+6. Populates Layer 3 from layer3(+ ) images (non-transparent tiles).
+7. Writes Data/MapXXX.rxdata.
 
 Usage:
     python create_map_from_layers.py <DIR> [options]
 
 Example:
-    python assets-factory/create_map_from_layers.py assets-factory/map_layers/kusomo2
+    python assets-factory/create_map_from_layers.py maps/kusomo2
 """
 
 from __future__ import annotations
@@ -35,9 +37,13 @@ from rubymarshal.classes import RubyObject, UserDef
 from rubymarshal.reader import load
 from rubymarshal.writer import write
 
-IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".bmp"}
 GRID_SIZE = 32
 STRIP_WIDTH_TILES = 8  # 256px / 32px
+
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+from map_layer_paths import STANDARD_LAYER_NAMES, discover_layer_images, layer_role  # noqa: E402
 
 
 # --------------------------------------------------------------------------
@@ -203,16 +209,23 @@ def process_map_layers(
     tilesets_gfx_dir = find_graphics_tilesets_dir(project_root)
     create_tileset_script = find_create_tileset_script(project_root)
 
-    # 1. Discover and validate images
-    images = sorted(p for p in input_dir.iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS)
+    # 1. Discover and validate images (prefer base/layer2/layer3 naming)
+    images = discover_layer_images(input_dir)
     if not images:
         print(f"[-] Error: No images found in {input_dir}", file=sys.stderr)
         sys.exit(1)
 
+    using_standard = any(p.name.lower() == "base.png" for p in images) or any(
+        p.name.lower() in {n.lower() for n in STANDARD_LAYER_NAMES} for p in images
+    )
+    image_roles: list[tuple[str, int]] = [
+        layer_role(p, i, using_standard) for i, p in enumerate(images)
+    ]
+
     print(f"[+] Found {len(images)} image(s):")
     for i, img_path in enumerate(images):
-        role = "Layer 1 (Background)" if i == 0 else f"Layer 3 (Foreground part {i})"
-        print(f"    [{i}] {img_path.name} -> {role}")
+        label, z = image_roles[i]
+        print(f"    [{i}] {img_path.name} -> {label} (map z={z})")
 
     # Load and check dimensions
     first_img = Image.open(images[0]).convert("RGBA")
@@ -291,22 +304,29 @@ def process_map_layers(
     passages_table = make_table_1d(total_tiles_in_ts, default_val=0)
     terrain_tags_table = make_table_1d(total_tiles_in_ts, default_val=0)
 
-    # Priorities table: set priority of all tiles from second image to `priority`
+    # Priorities: L2 tiles get priority 1; L3 tiles get `priority` (default 2)
     priorities = [0] * total_tiles_in_ts
-    pri_count = 0
-    for img_idx in range(1, len(images)):
+    pri_l2 = 0
+    pri_l3 = 0
+    for img_idx, (_label, z) in enumerate(image_roles):
+        if z == 0:
+            continue
+        tile_priority = 1 if z == 1 else priority
         for y in range(h_tiles):
             for x in range(w_tiles):
                 tid = slice_info.get_tile_id(img_idx, x, y)
                 if tid < total_tiles_in_ts:
-                    priorities[tid] = priority
-                    pri_count += 1
+                    priorities[tid] = tile_priority
+                    if z == 1:
+                        pri_l2 += 1
+                    else:
+                        pri_l3 += 1
 
     priorities_table = make_table_1d(total_tiles_in_ts, default_val=0)
     priorities_table._private_data = struct.pack("<5I", 1, total_tiles_in_ts, 1, 1, total_tiles_in_ts) + struct.pack(
         f"<{total_tiles_in_ts}H", *priorities
     )
-    print(f"[+] Set priority = {priority} for {pri_count} tiles from layer 3 image(s)")
+    print(f"[+] Set priority=1 for {pri_l2} L2 tiles; priority={priority} for {pri_l3} L3 tiles")
 
     # Tileset graphic name without extension in RPG Maker XP
     ts_name_no_ext = Path(tileset_png_name).stem
@@ -373,43 +393,44 @@ def process_map_layers(
     # ----------------------------------------------------------------------
     # Step 4 & 5: Populate Layer 1 and Layer 3, and save MapXXX.rxdata
     # ----------------------------------------------------------------------
-    print("\n--- Step 4 & 5: Populating map layer data ---")
+    print("\n--- Step 4–6: Populating map layer data ---")
     total_map_tiles = w_tiles * h_tiles * 3
     map_data = [0] * total_map_tiles
+    plane = w_tiles * h_tiles
 
-    # Step 4: Layer 1 (Background)
-    # Coordinate index formula: x + y * w_tiles + z * (w_tiles * h_tiles)
-    l1_count = 0
-    for y in range(h_tiles):
-        for x in range(w_tiles):
-            tid = slice_info.get_tile_id(0, x, y)
-            idx = x + y * w_tiles + 0 * (w_tiles * h_tiles)
-            map_data[idx] = tid
-            l1_count += 1
-    print(f"[+] Layer 1 populated: {l1_count} tiles")
-
-    # Step 5: Layer 3 (Foreground non-transparent tiles)
-    l3_count = 0
-    for img_idx in range(1, len(images)):
+    def paint_opaque(img_idx: int, z: int) -> int:
         fg_img = Image.open(images[img_idx]).convert("RGBA")
         fg_arr = np.array(fg_img)
-
+        count = 0
         for y in range(h_tiles):
             for x in range(w_tiles):
-                # Check 32x32 tile bounding box in pixel coordinates
                 y_start = y * GRID_SIZE
                 y_end = min(y_start + GRID_SIZE, fg_arr.shape[0])
                 x_start = x * GRID_SIZE
                 x_end = min(x_start + GRID_SIZE, fg_arr.shape[1])
-
                 tile_block = fg_arr[y_start:y_end, x_start:x_end]
-                # Non-transparent check: any pixel with alpha > 0
                 if np.any(tile_block[..., 3] > 0):
                     tid = slice_info.get_tile_id(img_idx, x, y)
-                    idx = x + y * w_tiles + 2 * (w_tiles * h_tiles)
-                    map_data[idx] = tid
-                    l3_count += 1
+                    map_data[x + y * w_tiles + z * plane] = tid
+                    count += 1
+        return count
 
+    l1_count = l2_count = l3_count = 0
+    for img_idx, (_label, z) in enumerate(image_roles):
+        if z == 0:
+            # Base layer: every tile
+            for y in range(h_tiles):
+                for x in range(w_tiles):
+                    tid = slice_info.get_tile_id(img_idx, x, y)
+                    map_data[x + y * w_tiles + 0 * plane] = tid
+                    l1_count += 1
+        elif z == 1:
+            l2_count += paint_opaque(img_idx, 1)
+        else:
+            l3_count += paint_opaque(img_idx, 2)
+
+    print(f"[+] Layer 1 populated: {l1_count} tiles")
+    print(f"[+] Layer 2 populated: {l2_count} non-transparent tiles")
     print(f"[+] Layer 3 populated: {l3_count} non-transparent tiles")
 
     # Create Map object
@@ -448,7 +469,7 @@ def process_map_layers(
     print(f"Tileset ID  : {new_tileset_id} ({ts_name_no_ext})")
     print(f"Map ID      : {new_map_id:03d} ({map_rxdata_path.name})")
     print(f"Layer 1     : {l1_count} tiles")
-    print(f"Layer 2     : 0 tiles (empty)")
+    print(f"Layer 2     : {l2_count} non-transparent tiles (priority 1)")
     print(f"Layer 3     : {l3_count} non-transparent tiles (priority {priority})")
     print("All tasks completed successfully!")
 
@@ -457,12 +478,12 @@ def process_map_layers(
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Build an RPG Maker XP tileset and map from map_layers images."
+        description="Build an RPG Maker XP tileset and map from maps/ layer images."
     )
     parser.add_argument(
         "dir",
         type=Path,
-        help="Directory containing the layer images (e.g. assets-factory/map_layers/kusomo2)",
+        help="Directory containing the layer images (e.g. maps/kusomo2)",
     )
     parser.add_argument(
         "--name",

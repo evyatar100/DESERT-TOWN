@@ -1,0 +1,16 @@
+{
+  "id": "playa",
+  "display_name": "Playa",
+  "map_id": null,
+  "tileset_name": "playa_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

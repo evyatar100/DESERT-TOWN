@@ -1,0 +1,16 @@
+{
+  "id": "spacesheep-camp-b",
+  "display_name": "spacesheep-camp",
+  "map_id": 86,
+  "tileset_name": "spacesheep-camp-b_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": "SPACESHEEP",
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Has layer3b.png (third overlay). base/layer3 size mismatch historically \u2014 check before rebuild"
+}

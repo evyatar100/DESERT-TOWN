@@ -16,10 +16,33 @@ module IceInTimer
   @duration       = TIME_LIMIT
   @rescuing       = false
 
+  def self.clock_now
+    if defined?($stats) && $stats&.play_time
+      $stats.play_time
+    elsif defined?(System.uptime)
+      System.uptime
+    else
+      Time.now.to_i
+    end
+  end
+
+  # Remaining seconds from a start timestamp. No game objects required.
+  def self.seconds_remaining(now, timer_start, duration)
+    return duration unless timer_start
+    elapsed = now - timer_start
+    elapsed = 0 if elapsed < 0
+    rem = duration - elapsed
+    rem < 0 ? 0 : rem
+  end
+
+  def self.rescue_destination
+    [ICE_CAMP_MAP_ID, RESCUE_X, RESCUE_Y, 2]
+  end
+
   def self.start(duration = TIME_LIMIT)
     @active       = true
     @duration     = duration
-    @timer_start  = (defined?($stats) && $stats&.play_time) ? $stats.play_time : (defined?(System.uptime) ? System.uptime : Time.now.to_i)
+    @timer_start  = clock_now
     @rescuing     = false
 
     # Link to global game system so built-in Sprite_Timer displays on-screen MM:SS HUD
@@ -59,13 +82,12 @@ module IceInTimer
 
   def self.time_elapsed
     return 0 unless @timer_start
-    now = (defined?($stats) && $stats&.play_time) ? $stats.play_time : (defined?(System.uptime) ? System.uptime : Time.now.to_i)
-    return [now - @timer_start, 0].max
+    elapsed = clock_now - @timer_start
+    return elapsed < 0 ? 0 : elapsed
   end
 
   def self.time_remaining
-    rem = duration - time_elapsed
-    return [rem, 0].max
+    seconds_remaining(clock_now, @timer_start, duration)
   end
 
   def self.expired?
@@ -76,7 +98,7 @@ module IceInTimer
   # For testing/debug: set remaining seconds
   def self.set_time_remaining(seconds)
     return unless @active
-    now = (defined?($stats) && $stats&.play_time) ? $stats.play_time : (defined?(System.uptime) ? System.uptime : Time.now.to_i)
+    now = clock_now
     @duration    = seconds
     @timer_start = now
     if defined?($game_system) && $game_system
@@ -118,7 +140,8 @@ module IceInTimer
     end
 
     # 2. Move player to Ice Camp (Map 91) at (41, 35)
-    pbTransferPlayer(ICE_CAMP_MAP_ID, RESCUE_X, RESCUE_Y, 2)
+    map_id, x, y, direction = rescue_destination
+    pbTransferPlayer(map_id, x, y, direction)
 
     # Wait until player transfer completes
     if defined?($game_temp) && $game_temp

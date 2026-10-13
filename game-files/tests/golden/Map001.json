@@ -1,0 +1,1490 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Intro",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 104,
+              "indent": 0,
+              "parameters": [
+                1,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "<ac>\\c[8]\\l[3](Please refer to the\\nPokémon "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "Essentials Wiki\\nfor documentation.)"
+              ]
+            },
+            {
+              "code": 104,
+              "indent": 0,
+              "parameters": [
+                2,
+                0
+              ]
+            },
+            {
+              "code": 221,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 231,
+              "indent": 0,
+              "parameters": [
+                1,
+                "introbg",
+                0,
+                0,
+                0,
+                0,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 222,
+              "indent": 0,
+              "parameters": [
+                ""
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                18
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 0,
+              "parameters": [
+                2,
+                "introbase",
+                1,
+                0,
+                256,
+                256,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 0,
+              "parameters": [
+                3,
+                "introOak",
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                2,
+                15,
+                1,
+                0,
+                256,
+                256,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                15,
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                18
+              ]
+            },
+            {
+              "code": 241,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "New Start",
+                  "@pitch": 100,
+                  "@volume": 100,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bHello! Sorry to keep you waiting!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bWelcome to the world of Pokémon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bMy name is Oak."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bPeople call me the Pokémon Professor."
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "Help Choices"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bIf you need help, I am certainly capable of giving it."
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Controls",
+                  "Adventure",
+                  "No info needed"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Controls"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbEventScreen(ButtonEventScene)"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "Help Choices"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "Adventure"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bWell then, without further ado..."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  Tone.new(-255, -255, -255, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  10)"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 1,
+              "parameters": [
+                4,
+                "helpadventurebg",
+                0,
+                0,
+                0,
+                0,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 1,
+              "parameters": [
+                4,
+                10,
+                0,
+                0,
+                0,
+                0,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 104,
+              "indent": 1,
+              "parameters": [
+                1,
+                1
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[3]You are about to enter a world\\nwhere "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "you will embark on a grand\\nadventure of your very "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "own."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[5]Speak to people and check things\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "wherever you go, be it in towns,\\nroads or caves.\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "Gather information and hints from\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "every possible source."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[3]New paths will open to you when\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "you help people in need, overcome\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "challenges, and solve mysteries."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[7]At times, you will be challenged\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "by others to a battle.\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "At other times, wild creatures\\nmay stand in your way.\\n\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "By overcoming such hurdles,\\nyou will gain great power."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[2]However, your adventure is not\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "solely about becoming powerful."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "<ac>\\c[0]\\l[7]On your travels, we hope that\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "you will meet countless people\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "and, through them, achieve\\npersonal growth.\\n\\n"
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "This is the most important\\nobjective of this adventure."
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 1,
+              "parameters": [
+                4,
+                10,
+                0,
+                0,
+                0,
+                0,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 1,
+              "parameters": [
+                4
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  Tone.new(0, 0, 0, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 1,
+              "parameters": [
+                "  10)"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 104,
+              "indent": 1,
+              "parameters": [
+                2,
+                0
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "Help Choices"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "No info needed"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                5
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                3
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 0,
+              "parameters": [
+                3,
+                "introMarill",
+                1,
+                0,
+                256,
+                220,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                220,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bThis world is inhabited by creatures we call "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "Pokémon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bPeople and Pokémon live together by supporting "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "each other."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bSome people play with Pokémon, some battle with "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "them."
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                5
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                220,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                3
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 0,
+              "parameters": [
+                3,
+                "introOak",
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bBut we don't know everything about Pokémon yet."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bThere are still many mysteries to solve."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bThat's why I study Pokémon every day."
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                5
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                2,
+                10,
+                1,
+                0,
+                256,
+                256,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                172,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                3
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                15
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bAre you a boy or a girl?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Boy",
+                  "Girl"
+                ],
+                0
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Boy"
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Initializes player character 1."
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "[\"pbChangePlayer\" takes a value from 1 upwards. To "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "edit information about a player character, go to the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "Debug menu and choose \"PBS file editors...\" > \"Edit "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "metadata.txt\".]"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbChangePlayer(1)"
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 1,
+              "parameters": [
+                3,
+                "introBoy",
+                1,
+                0,
+                256,
+                178,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "Girl"
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Initializes player character 2."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbChangePlayer(2)"
+              ]
+            },
+            {
+              "code": 231,
+              "indent": 1,
+              "parameters": [
+                3,
+                "introGirl",
+                1,
+                0,
+                256,
+                178,
+                100,
+                100,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                2,
+                10,
+                1,
+                0,
+                256,
+                256,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 232,
+              "indent": 0,
+              "parameters": [
+                3,
+                10,
+                1,
+                0,
+                256,
+                178,
+                100,
+                100,
+                255,
+                0
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bNow what did you say your name was?"
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "Enter Name"
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Opens the name entry screen and initializes the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "trainer object"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbTrainerName"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                5
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bSo you're \\PN?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bWhat is your name?"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "Enter Name"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\b\\PN, are you ready?"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bYour very own Pokémon story is about to unfold."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bYou'll face fun times and tough challenges."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bA world of dreams and adventures with Pokémon "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "awaits! Let's go!"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bEnjoy the Starter Kit. You should give credit when "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "using it."
+              ]
+            },
+            {
+              "code": 242,
+              "indent": 0,
+              "parameters": [
+                4
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  Tone.new(-255, -255, -255, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  10)"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                2
+              ]
+            },
+            {
+              "code": 235,
+              "indent": 0,
+              "parameters": [
+                3
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                3,
+                25,
+                6,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  Tone.new(0, 0, 0, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  10)"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": 2,
+      "name": "Quick start intro",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "This is the Debug intro, used to quickly start a game. "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "The player's name and trainer type are chosen "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "automatically."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbChangePlayer(1)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbTrainerName(\"Red\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$player.has_running_shoes = true"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  Tone.new(-255, -255, -255, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                ")"
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                81,
+                9,
+                8,
+                2,
+                1
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll("
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  Tone.new(0, 0, 0, 0),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  10"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                ")"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                10
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 0,
+      "y": 14
+    }
+  ],
+  "map_id": 1
+}

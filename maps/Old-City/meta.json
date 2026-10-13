@@ -1,0 +1,16 @@
+{
+  "id": "Old-City",
+  "display_name": "Old-City",
+  "map_id": null,
+  "tileset_name": "Old-City_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

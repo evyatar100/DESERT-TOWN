@@ -1,0 +1,1895 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Nurse",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "This line of code sets the player's current position as "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "the spot they will return to after they lose a battle "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "and lack out."
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Page 2 of this event detects when this happens, and "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "heals the player's Pokémon and wishes them better "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "luck in future."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbSetPokemonCenter"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rHello, and welcome to the Pokémon Center."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rWe restore your tired Pokémon to full health."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rWould you like to rest your Pokémon?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Yes",
+                  "No"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Yes"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rOK, I'll take your Pokémon for a few seconds."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "$stats.poke_center_count += 1"
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 1,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Nurse turns to face the healing machine."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Nurse places Poké Balls on the healing machine one at "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "a time."
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                1,
+                1,
+                0,
+                7,
+                1
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                6,
+                6,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 1,
+              "parameters": [
+                "Place ball"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                6,
+                6,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@name": "Battle ball shake",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                1,
+                6,
+                1,
+                1,
+                4
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 2,
+              "parameters": [
+                "Place ball"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Healing animation and ME jingle."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                4,
+                {
+                  "@list": [
+                    {
+                      "@code": 33,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 33,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 249,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@name": "Pkmn healing",
+                  "@pitch": 100,
+                  "@volume": 100,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                58
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Poké Balls are removed from healing machine, nurse "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 1,
+              "parameters": [
+                "turns to face the player."
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 1,
+              "parameters": [
+                6,
+                6,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "get_character(4).pattern = 0"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                4,
+                {
+                  "@list": [
+                    {
+                      "@code": 34,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 34,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        15
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    15
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 1,
+              "parameters": [
+                "Pokérus check."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "pbPokerus?"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rYour Pokémon may be infected by Pokérus."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rLittle is known about the Pokérus except that they "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "are microscopic life-forms that attach to Pokémon."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rWhile infected, Pokémon are said to grow "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 2,
+              "parameters": [
+                "exceptionally well."
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 2,
+              "parameters": [
+                2,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rThank you for waiting."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rWe've restored your Pokémon to full health."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 2,
+              "parameters": [
+                "Nurse bows."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 2,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 41,
+                      "@parameters": [
+                        "NPC 16",
+                        0,
+                        2,
+                        1
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        10
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 41,
+                      "@parameters": [
+                        "NPC 16",
+                        0,
+                        2,
+                        0
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 2,
+              "parameters": [
+                {
+                  "@code": 41,
+                  "@parameters": [
+                    "NPC 16",
+                    0,
+                    2,
+                    1
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 2,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    10
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 2,
+              "parameters": [
+                {
+                  "@code": 41,
+                  "@parameters": [
+                    "NPC 16",
+                    0,
+                    2,
+                    0
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\rWe hope to see you again!"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "No"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\rWe hope to see you again!"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Every map you can end up in after having all your "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Pokémon faint (typically Poké Centers and home) "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "must have an Autorun event in it like this one."
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "This event fully heals all the player's Pokémon, says "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "something to that effect, and turns the \"Starting "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "over\" switch OFF again."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "For convenience, this can be a single page in an "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "NPC's event (e.g. Mom, a nurse)."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rFirst, you should restore your Pokémon to full "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 0,
+              "parameters": [
+                "health."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$stats.poke_center_count += 1"
+              ]
+            },
+            {
+              "code": 314,
+              "indent": 0,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Nurse turns to face the healing machine."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Nurse places Poké Balls on the healing machine one at "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "a time."
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                1,
+                1,
+                0,
+                7,
+                1
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                6,
+                6,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "Place ball"
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                6,
+                6,
+                1,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Battle ball shake",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                1,
+                6,
+                1,
+                1,
+                4
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "Place ball"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Healing animation and ME jingle."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                4,
+                {
+                  "@list": [
+                    {
+                      "@code": 33,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 33,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 249,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Pkmn healing",
+                  "@pitch": 100,
+                  "@volume": 100,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                58
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Poké Balls are removed from healing machine, nurse "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "turns to face the player."
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                6,
+                6,
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "get_character(4).pattern = 0"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                4,
+                {
+                  "@list": [
+                    {
+                      "@code": 34,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 34,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        15
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    15
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rYour Pokémon have been healed to perfect health."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "Nurse bows."
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 41,
+                      "@parameters": [
+                        "NPC 16",
+                        0,
+                        2,
+                        1
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        10
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 41,
+                      "@parameters": [
+                        "NPC 16",
+                        0,
+                        2,
+                        0
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 41,
+                  "@parameters": [
+                    "NPC 16",
+                    0,
+                    2,
+                    1
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    10
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 41,
+                  "@parameters": [
+                    "NPC 16",
+                    0,
+                    2,
+                    0
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\rWe hope you excel!"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                1,
+                1,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": true,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 7,
+      "y": 2
+    },
+    {
+      "id": 2,
+      "name": "Exit",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                52,
+                17,
+                13,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 7,
+      "y": 9
+    },
+    {
+      "id": 3,
+      "name": "PC",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbPokeCenterPC"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 11,
+      "y": 1
+    },
+    {
+      "id": 4,
+      "name": "Healing balls",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 43,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 1
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 2
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 3
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 4
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 5
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 6,
+            "variable_valid": true,
+            "variable_value": 6
+          }
+        }
+      ],
+      "x": 5,
+      "y": 2
+    },
+    {
+      "id": 5,
+      "name": "Bill",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbSet(2, pbGetStorageCreator)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bBill: Hello! I'm \\v[2]."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bI invented the Pokémon Storage System."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$player.seen_storage_creator = true"
+              ]
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "Choices"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bWhat do you want to know?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Wallpapers",
+                  "Cancel"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Wallpapers"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bAll storage box wallpapers need to be listed in "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "class PokemonStorage, in def allWallpapers."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bThey correspond to box_0.png, box_1.png, etc. in "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "order without gaps. These images are in the folder "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "Graphics/Pictures/Storage."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bStorage wallpapers are split into two categories: "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "basic and special.All basic wallpapers are listed "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "before the special wallpapers."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bBasic wallpapers are always accessible, and "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "boxes use these wallpapers by default. Numbers 0 "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "to 15 inclusive are basic wallpapers."
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bSpecial wallpapers start off locked and unavailable. "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "You can unlock them with pbUnlockWallpaper(id), "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "where id is the wallpaper's number."
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "Choices"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "Cancel"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 12,
+      "y": 5
+    },
+    {
+      "id": 6,
+      "name": "Town Map, size(2,1)",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "This event is size 2x1. It is 2 tiles wide and 1 tile tall. "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "An event's size can be set by adding \"size(x,y)\" in the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "event's name, where x and y are numbers."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "The event's placed position determines the bottom "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "left tile occupied by the event in-game."
+              ]
+            },
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "There are a lot of reasons to change an event's size. "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "Here, it is covering the whole wall map with just one "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "event, rather than needing two events that do the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "same thing."
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbShowMap"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 12,
+      "y": 1
+    }
+  ],
+  "map_id": 53
+}

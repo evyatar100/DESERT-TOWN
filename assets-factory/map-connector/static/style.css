@@ -1,0 +1,243 @@
+:root {
+  --bg: #1a1d21;
+  --panel: #24292f;
+  --border: #3d444d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #3fb950;
+  --select: #f0b429;
+  --conn: #58a6ff;
+  --grid: rgba(255, 255, 255, 0.08);
+  --danger: #f85149;
+  --font: "IBM Plex Sans", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+body {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100%;
+}
+
+#sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  overflow: auto;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.sub {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button {
+  appearance: none;
+  border: 1px solid var(--accent);
+  background: var(--accent);
+  color: #0d1117;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button.ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#status {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.zoom-bar {
+  align-items: center;
+}
+
+.zoom-bar #btn-zoom-out,
+.zoom-bar #btn-zoom-in {
+  min-width: 2rem;
+  padding-inline: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.zoom-bar #zoom-label {
+  font-variant-numeric: tabular-nums;
+  min-width: 3.2rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.zoom-bar .hint {
+  flex: 1 1 100%;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.search input {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+}
+
+#map-list,
+#conn-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#map-list {
+  flex: 0 1 auto;
+  max-height: 45vh;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+#map-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+#map-list li:last-child {
+  border-bottom: none;
+}
+
+#map-list li:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+#map-list li.selected {
+  background: rgba(240, 180, 41, 0.15);
+  box-shadow: inset 3px 0 0 var(--select);
+}
+
+#map-list .name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+#map-list .meta {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+#conn-panel h2 {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+#conn-list {
+  font-size: 0.75rem;
+  color: var(--muted);
+  max-height: 28vh;
+  overflow: auto;
+}
+
+#conn-list li {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  color: var(--conn);
+}
+
+#stage-wrap {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(63, 185, 80, 0.08), transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(88, 166, 255, 0.08), transparent 45%),
+    var(--bg);
+}
+
+#stage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+  outline: none;
+}
+
+#stage.dragging {
+  cursor: grabbing;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+@media (max-width: 800px) {
+  body {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  #sidebar {
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #stage-wrap {
+    min-height: 60vh;
+  }
+}

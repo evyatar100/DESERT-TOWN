@@ -1,0 +1,16 @@
+{
+  "id": "cats",
+  "display_name": "Cats",
+  "map_id": null,
+  "tileset_name": "cats_ts",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "stub",
+  "notes": ""
+}

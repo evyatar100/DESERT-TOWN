@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Desert Town — Map Status</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg0: #1a1410;
+      --bg1: #241c16;
+      --sand: #e8d5b5;
+      --sand-dim: #b9a48a;
+      --ink: #f3ebe0;
+      --ok: #3d9a6a;
+      --ok-bg: rgba(61, 154, 106, 0.18);
+      --miss: #8a6f58;
+      --miss-bg: rgba(138, 111, 88, 0.15);
+      --warn: #c4923a;
+      --line: rgba(232, 213, 181, 0.14);
+      --accent: #d4683a;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(ellipse 90% 60% at 10% -10%, rgba(212, 104, 58, 0.22), transparent 55%),
+        radial-gradient(ellipse 70% 50% at 100% 0%, rgba(61, 154, 106, 0.12), transparent 50%),
+        linear-gradient(180deg, var(--bg1), var(--bg0) 40%);
+    }
+
+    header {
+      padding: 2.5rem 1.5rem 1.25rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header h1 {
+      font-family: Syne, sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      letter-spacing: -0.03em;
+      margin: 0 0 0.35rem;
+      color: var(--sand);
+    }
+    header p {
+      margin: 0;
+      color: var(--sand-dim);
+      max-width: 40rem;
+      line-height: 1.45;
+    }
+    .meta-line {
+      margin-top: 0.85rem;
+      font-size: 0.85rem;
+      color: var(--sand-dim);
+    }
+
+    .toolbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    .toolbar input, .toolbar select {
+      background: rgba(0,0,0,0.28);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      border-radius: 6px;
+      padding: 0.5rem 0.75rem;
+      font: inherit;
+    }
+    .toolbar input { min-width: 14rem; flex: 1; }
+
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.65rem 0.55rem;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    th {
+      color: var(--sand-dim);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      position: sticky;
+      top: 0;
+      background: var(--bg1);
+    }
+    tr:hover td { background: rgba(255,255,255,0.03); }
+    .map-name {
+      font-weight: 600;
+      color: var(--sand);
+    }
+    .sub {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--sand-dim);
+      font-weight: 400;
+    }
+
+    .pill {
+      display: inline-block;
+      min-width: 2.1rem;
+      text-align: center;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .pill.yes { background: var(--ok-bg); color: var(--ok); }
+    .pill.no { background: var(--miss-bg); color: var(--miss); }
+    .pill.warn { background: rgba(196, 146, 58, 0.2); color: var(--warn); }
+
+    .status-stub { color: var(--miss); }
+    .status-in_progress { color: var(--warn); }
+    .status-playable { color: var(--sand); }
+    .status-done { color: var(--ok); }
+
+    .err {
+      padding: 1.5rem;
+      color: var(--warn);
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 2rem;
+      color: var(--sand-dim);
+      font-size: 0.8rem;
+    }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Desert Town Maps</h1>
+    <p>Readiness board for real game maps under <code>maps/</code>. Essentials defaults are not tracked here.</p>
+    <div class="meta-line" id="generated">Loading status.json…</div>
+  </header>
+
+  <div class="toolbar">
+    <input id="filter" type="search" placeholder="Filter by name…" />
+    <select id="statusFilter">
+      <option value="">All statuses</option>
+      <option value="stub">stub</option>
+      <option value="in_progress">in_progress</option>
+      <option value="playable">playable</option>
+      <option value="done">done</option>
+    </select>
+  </div>
+
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Map</th>
+          <th>Outside</th>
+          <th>BGM</th>
+          <th>Base</th>
+          <th>L2</th>
+          <th>L3</th>
+          <th>Tileset</th>
+          <th>In game</th>
+          <th>Map ID</th>
+          <th>Connected</th>
+          <th>Event connection</th>
+          <th>Events</th>
+          <th>Chars</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <div class="err" id="err" hidden></div>
+  </main>
+
+  <footer>
+    Regenerated by <code>python maps/build_status.py</code>. See <a href="AGENTS.md">AGENTS.md</a>.
+  </footer>
+
+  <script src="status.js"></script>
+  <script>
+    const yesNo = (v, warn = false) => {
+      if (v === true) return '<span class="pill yes">yes</span>';
+      if (warn) return '<span class="pill warn">?</span>';
+      return '<span class="pill no">no</span>';
+    };
+
+    const dash = (v) => (v === null || v === undefined || v === "" ? "—" : v);
+
+    let allMaps = [];
+
+    function render() {
+      const q = document.getElementById("filter").value.trim().toLowerCase();
+      const st = document.getElementById("statusFilter").value;
+      const tbody = document.getElementById("rows");
+      tbody.innerHTML = "";
+
+      const filtered = allMaps.filter((m) => {
+        if (st && m.status !== st) return false;
+        if (!q) return true;
+        const hay = `${m.id} ${m.display_name} ${(m.chars || []).join(" ")} ${(m.event_connections || []).join(" ")}`.toLowerCase();
+        return hay.includes(q);
+      });
+
+      for (const m of filtered) {
+        const tr = document.createElement("tr");
+        const baseOk = m.has_base && m.base_size_ok;
+        const baseCell = m.has_base
+          ? (baseOk ? yesNo(true) : '<span class="pill warn">small</span>')
+          : yesNo(false);
+        const charList = (m.chars && m.chars.length)
+          ? m.chars.join(", ")
+          : "—";
+        const eventLinks = (m.event_connections && m.event_connections.length)
+          ? m.event_connections.join(", ")
+          : "—";
+        tr.innerHTML = `
+          <td>
+            <span class="map-name">${escapeHtml(m.display_name || m.id)}</span>
+            <span class="sub">${escapeHtml(m.id)}</span>
+          </td>
+          <td>${m.is_outside === true ? "out" : m.is_outside === false ? "in" : "—"}</td>
+          <td>${escapeHtml(dash(m.bgm))}</td>
+          <td>${baseCell}</td>
+          <td>${yesNo(!!m.has_layer2)}</td>
+          <td>${yesNo(!!m.has_layer3)}</td>
+          <td>${yesNo(!!m.tileset_ready)}</td>
+          <td>${yesNo(!!m.tileset_in_game)}</td>
+          <td>${m.map_associated ? escapeHtml(String(m.map_id)) : yesNo(false)}</td>
+          <td>${yesNo(!!m.connected)}</td>
+          <td title="${escapeHtml(eventLinks)}">${escapeHtml(eventLinks)}</td>
+          <td>${m.event_count === null || m.event_count === undefined ? "—" : m.event_count}</td>
+          <td title="${escapeHtml(charList)}">${m.char_count || 0}</td>
+          <td class="status-${escapeHtml(m.status || "stub")}">${escapeHtml(m.status || "stub")}</td>
+        `;
+        tbody.appendChild(tr);
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    async function boot() {
+      try {
+        let data = window.MAP_STATUS;
+        if (!data) {
+          const res = await fetch("status.json", { cache: "no-store" });
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          data = await res.json();
+        }
+        allMaps = data.maps || [];
+        document.getElementById("generated").textContent =
+          `${data.map_count} maps · generated ${data.generated_at || "—"}`;
+        render();
+      } catch (e) {
+        document.getElementById("err").hidden = false;
+        document.getElementById("err").textContent =
+          `Could not load status.json (${e.message}). Run: python maps/build_status.py`;
+        document.getElementById("generated").textContent = "status.json missing";
+      }
+    }
+
+    document.getElementById("filter").addEventListener("input", render);
+    document.getElementById("statusFilter").addEventListener("change", render);
+    boot();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1350 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "Door",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                69,
+                31,
+                15,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "get_self.onEvent?"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.hide_followers"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 44,
+                      "@parameters": [
+                        {
+                          "@name": "Door exit",
+                          "@pitch": 100,
+                          "@volume": 80,
+                          "_class": "RPG::AudioFile"
+                        }
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 44,
+                  "@parameters": [
+                    {
+                      "@name": "Door exit",
+                      "@pitch": 100,
+                      "@volume": 80,
+                      "_class": "RPG::AudioFile"
+                    }
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.put_followers_on_player"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "setTempSwitchOn(\"A\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 22,
+            "switch1_valid": true,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 2
+    },
+    {
+      "id": 2,
+      "name": "Sailor",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "hide_choice(2,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  !$bag.has?(:AURORATICKET))"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "hide_choice(3,"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  !$bag.has?(:OLDSEAMAP))"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "\\bAhoy, there!\\nWhere do you want to sail?"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "Tiall Region",
+                  "Berth Island",
+                  "Faraday Island",
+                  "Exit"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "Tiall Region"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bThe Tiall Region it is. All aboard!"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                2,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 42,
+                      "@parameters": [
+                        0
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 42,
+                  "@parameters": [
+                    0
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                75,
+                17,
+                11,
+                2,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "Berth Island"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bBerth Island it is. All aboard!"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                51,
+                51,
+                0
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                2,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 42,
+                      "@parameters": [
+                        0
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 42,
+                  "@parameters": [
+                    0
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                72,
+                14,
+                23,
+                8,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "Faraday Island"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bFaraday Island it is. All aboard!"
+              ]
+            },
+            {
+              "code": 121,
+              "indent": 1,
+              "parameters": [
+                52,
+                52,
+                0
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                2,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 42,
+                      "@parameters": [
+                        0
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 42,
+                  "@parameters": [
+                    0
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 250,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 1,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 1,
+              "parameters": [
+                0,
+                73,
+                14,
+                23,
+                8,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 1,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "Exit"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bLet me know if you want to set sail."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 6
+    },
+    {
+      "id": 3,
+      "name": "Aurora Ticket NPC",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$bag.has?(:AURORATICKET)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bI've already given you an Aurora Ticket. Have you "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "gone to Berth Island yet?"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bHere, have this Aurora Ticket."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "pbReceiveItem(:AURORATICKET)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bYou can use that to sail to Berth Island."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bOh, you don't have any space in your Bag for it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 6,
+      "y": 5
+    },
+    {
+      "id": 4,
+      "name": "Old Sea Map NPC",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "$bag.has?(:OLDSEAMAP)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bI've already given you an Old Sea Map. Have you "
+              ]
+            },
+            {
+              "code": 401,
+              "indent": 1,
+              "parameters": [
+                "gone to Faraday Island yet?"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 1,
+              "parameters": [
+                "\\bHere, have this Old Sea Map."
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "pbReceiveItem(:OLDSEAMAP)"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bYou can use that to sail to Faraday Island."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 101,
+              "indent": 2,
+              "parameters": [
+                "\\bOh, you don't have any space in your Bag for it."
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 10,
+      "y": 5
+    }
+  ],
+  "map_id": 71
+}

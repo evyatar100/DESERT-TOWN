@@ -9,8 +9,10 @@ Usage:
 
 Features:
     - Slices wide maps into 256px-wide strips stacked with cyan separator rows.
-    - Automatically appends generic tiles from map_layers/000generic to the end
-      (default: True; disable with --no-generic).
+    - Automatically appends generic tiles from maps/_generic (or legacy
+      map_layers/000generic) to the end (default: True; disable with --no-generic).
+    - Folder mode prefers standardized layer names: base.png, layer2.png,
+      layer3.png, layer3b.png, … (skips tileset.png and *test* images).
     - If an output file or target game tileset already exists, it is automatically
       moved to the archive directory with a timestamp before being overwritten.
     - Pass -y / --yes to automatically copy the resulting tileset into the game's
@@ -107,21 +109,13 @@ def scale_to_output_grid(source_image: Image.Image, input_grid_size: int) -> Ima
 
 
 def get_default_generic_dir() -> Path:
-    """Locate the assets-factory/map_layers/000generic directory."""
+    """Locate maps/_generic (preferred) or legacy map_layers/000generic."""
     script_dir = Path(__file__).resolve().parent
-    cand1 = script_dir / "map_layers" / "000generic"
-    if cand1.exists():
-        return cand1
+    if str(script_dir) not in sys.path:
+        sys.path.insert(0, str(script_dir))
+    from map_layer_paths import get_default_generic_dir as _generic
 
-    cand2 = Path("DESERT-TOWN/assets-factory/map_layers/000generic").resolve()
-    if cand2.exists():
-        return cand2
-
-    cand3 = Path(r"\DESERT-TOWN\assets-factory\map_layers\000generic").resolve()
-    if cand3.exists():
-        return cand3
-
-    return cand1
+    return _generic(script_dir)
 
 
 def is_same_or_child(target: Path, parent: Path) -> bool:
@@ -306,9 +300,11 @@ def run_folder(
     """Apply the create_tileset operation to every image in input_dir and concatenate
     all resulting 256px-wide (8-column) sheets top to bottom into one output,
     followed by generic sheets if include_generic is True."""
-    image_paths = sorted(
-        p for p in input_dir.iterdir() if p.is_file() and p.suffix.lower() in IMAGE_EXTENSIONS
-    )
+    # Prefer standardized maps/ layer names (base, layer2, layer3…) when present.
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    from map_layer_paths import discover_layer_images
+
+    image_paths = discover_layer_images(input_dir)
     if not image_paths:
         print(f"create_tileset: no images found in folder: {input_dir}", file=sys.stderr)
         sys.exit(2)
@@ -448,13 +444,13 @@ def main() -> None:
         dest="include_generic",
         action=argparse.BooleanOptionalAction,
         default=True,
-        help="Append generic tileset images from map_layers/000generic to the end (default: True, use --no-generic to disable)",
+        help="Append generic tileset images from maps/_generic to the end (default: True, use --no-generic to disable)",
     )
     parser.add_argument(
         "--generic-dir",
         type=Path,
         default=None,
-        help="Directory containing generic tileset images (default: map_layers/000generic)",
+        help="Directory containing generic tileset images (default: maps/_generic)",
     )
     parser.add_argument(
         "--archive-dir",

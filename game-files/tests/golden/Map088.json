@@ -1,0 +1,2172 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "name": "ice-block-2",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 18,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 18,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 4,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 4,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 4,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 4,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 29,
+      "y": 4
+    },
+    {
+      "id": 2,
+      "name": "ince-block-1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 2,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 4,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 2,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 4,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                102,
+                102,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 3,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 4,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": false,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 3,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 4,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 121,
+              "indent": 0,
+              "parameters": [
+                102,
+                102,
+                1
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 102,
+            "switch1_valid": true,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 44,
+      "y": 4
+    },
+    {
+      "id": 3,
+      "name": "EV003",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 45,
+      "y": 23
+    },
+    {
+      "id": 4,
+      "name": "Elevator door",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 108,
+              "indent": 0,
+              "parameters": [
+                "This sets the player's current floor, so that the "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "elevator knows how many floors to go up/down (this "
+              ]
+            },
+            {
+              "code": 408,
+              "indent": 0,
+              "parameters": [
+                "affects the wall animation)."
+              ]
+            },
+            {
+              "code": 122,
+              "indent": 0,
+              "parameters": [
+                10,
+                10,
+                0,
+                0,
+                -5
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 44,
+                      "@parameters": [
+                        {
+                          "@name": "Door slide",
+                          "@pitch": 100,
+                          "@volume": 100,
+                          "_class": "RPG::AudioFile"
+                        }
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 18,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 19,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 44,
+                  "@parameters": [
+                    {
+                      "@name": "Door slide",
+                      "@pitch": 100,
+                      "@volume": 100,
+                      "_class": "RPG::AudioFile"
+                    }
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 18,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 19,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 37,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 4,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 38,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 37,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 4,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 38,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 208,
+              "indent": 0,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "Followers.follow_into_door"
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 209,
+              "indent": 0,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 18,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 18,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 0,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                92,
+                2,
+                5,
+                8,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "get_self.onEvent?"
+              ]
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.hide_followers"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 44,
+                      "@parameters": [
+                        {
+                          "@name": "Door slide",
+                          "@pitch": 100,
+                          "@volume": 100,
+                          "_class": "RPG::AudioFile"
+                        }
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 18,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 19,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 44,
+                  "@parameters": [
+                    {
+                      "@name": "Door slide",
+                      "@pitch": 100,
+                      "@volume": 100,
+                      "_class": "RPG::AudioFile"
+                    }
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 18,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 19,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 208,
+              "indent": 1,
+              "parameters": [
+                1
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 1,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.put_followers_on_player"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                0,
+                {
+                  "@list": [
+                    {
+                      "@code": 18,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 17,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 16,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 15,
+                      "@parameters": [
+                        2
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 18,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 17,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 16,
+                  "@parameters": [],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                {
+                  "@code": 15,
+                  "@parameters": [
+                    2
+                  ],
+                  "_class": "RPG::MoveCommand"
+                }
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "setTempSwitchOn(\"A\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 22,
+            "switch1_valid": true,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 28,
+      "y": 18
+    },
+    {
+      "id": 6,
+      "name": "20 Sheckel Bill 1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbReceiveItem(:TWENTYSHECKELBILL)"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 7,
+      "y": 3
+    },
+    {
+      "id": 7,
+      "name": "20 Sheckel Bill 1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbReceiveItem(:TWENTYSHECKELBILL)"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 32,
+      "y": 16
+    },
+    {
+      "id": 8,
+      "name": "20 Sheckel Bill 1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbReceiveItem(:TWENTYSHECKELBILL)"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 44,
+      "y": 16
+    },
+    {
+      "id": 9,
+      "name": "20 Sheckel Bill 1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbReceiveItem(:TWENTYSHECKELBILL)"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 15
+    },
+    {
+      "id": 10,
+      "name": "20 Sheckel Bill 1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbReceiveItem(:TWENTYSHECKELBILL)"
+              ]
+            },
+            {
+              "code": 123,
+              "indent": 0,
+              "parameters": [
+                "A",
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": true,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 29,
+      "y": 3
+    }
+  ],
+  "map_id": 88
+}

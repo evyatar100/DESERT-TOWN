@@ -11,6 +11,8 @@ description: >-
 
 The **DesertTown Map Generator** is a standalone web application located in `assets-factory/desert-town-mapgen`. It allows uploading or generating base maps, slicing them onto the RPG Maker XP 32x32 grid, placing sprites, tracing objects with client-side MobileSAM (via ONNX Runtime Web), configuring walkability / passability, assigning layer priorities, and exporting a `.zip` bundle ready for RPG Maker XP's `Data/` directory.
 
+Canonical per-map source assets (layers, metadata, status) live under repo-root **`maps/`** — see [`maps/AGENTS.md`](../../../maps/AGENTS.md). Mapgen exports can be dropped into `maps/<map-id>/artifacts/`.
+
 ---
 
 ## Architecture Overview

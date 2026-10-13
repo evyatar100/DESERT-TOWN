@@ -1,0 +1,127 @@
+{
+  "version": 1,
+  "tile_px": 32,
+  "display_tile_px": 4,
+  "maps": {
+    "Echer": {
+      "id": "Echer",
+      "x": 0,
+      "y": 68,
+      "tiles_w": 39,
+      "tiles_h": 56
+    },
+    "Freecamp": {
+      "id": "Freecamp",
+      "x": 43,
+      "y": 68,
+      "tiles_w": 73,
+      "tiles_h": 46
+    },
+    "Old-City": {
+      "id": "Old-City",
+      "x": 0,
+      "y": 332,
+      "tiles_w": 35,
+      "tiles_h": 20
+    },
+    "PARTY": {
+      "id": "PARTY",
+      "x": 39,
+      "y": 332,
+      "tiles_w": 58,
+      "tiles_h": 33
+    },
+    "Piramid": {
+      "id": "Piramid",
+      "x": 0,
+      "y": 369,
+      "tiles_w": 35,
+      "tiles_h": 32
+    },
+    "Squere-road-temple": {
+      "id": "Squere-road-temple",
+      "x": 39,
+      "y": 435,
+      "tiles_w": 32,
+      "tiles_h": 56
+    },
+    "cats": {
+      "id": "cats",
+      "x": 0,
+      "y": 0,
+      "tiles_w": 34,
+      "tiles_h": 56
+    },
+    "demo-camp4": {
+      "id": "demo-camp4",
+      "x": 38,
+      "y": 0,
+      "tiles_w": 64,
+      "tiles_h": 64
+    },
+    "glass-a": {
+      "id": "glass-a",
+      "x": 0,
+      "y": 128,
+      "tiles_w": 93,
+      "tiles_h": 23
+    },
+    "ice-out": {
+      "id": "ice-out",
+      "x": 0,
+      "y": 155,
+      "tiles_w": 41,
+      "tiles_h": 32
+    },
+    "kim-area": {
+      "id": "kim-area",
+      "x": 45,
+      "y": 155,
+      "tiles_w": 22,
+      "tiles_h": 52
+    },
+    "kusomo": {
+      "id": "kusomo",
+      "x": 0,
+      "y": 211,
+      "tiles_w": 61,
+      "tiles_h": 49
+    },
+    "kusomo2": {
+      "id": "kusomo2",
+      "x": 65,
+      "y": 211,
+      "tiles_w": 35,
+      "tiles_h": 42
+    },
+    "man-map": {
+      "id": "man-map",
+      "x": 0,
+      "y": 264,
+      "tiles_w": 64,
+      "tiles_h": 64
+    },
+    "mom-dad": {
+      "id": "mom-dad",
+      "x": 68,
+      "y": 264,
+      "tiles_w": 34,
+      "tiles_h": 36
+    },
+    "playa": {
+      "id": "playa",
+      "x": 39,
+      "y": 369,
+      "tiles_w": 42,
+      "tiles_h": 52
+    },
+    "spacesheep-camp-b": {
+      "id": "spacesheep-camp-b",
+      "x": 0,
+      "y": 435,
+      "tiles_w": 35,
+      "tiles_h": 35
+    }
+  },
+  "connections": []
+}

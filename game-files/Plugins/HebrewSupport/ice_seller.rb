@@ -2,6 +2,27 @@
 # Popcorn / Ice Seller NPC Dialogue & Choice Handler (Map 091 - Ice Out)
 #===============================================================================
 
+module IceSellerRules
+  BILLS_REQUIRED = 5
+
+  # Pure decision for one menu pick. The caller still shows messages and edits the bag.
+  # Returns :purchase, :not_enough, :line, :no_money, :deserttown, or :exit.
+  def self.decide(choice, bill_count)
+    case choice
+    when 0
+      bill_count.to_i >= BILLS_REQUIRED ? :purchase : :not_enough
+    when 1
+      :line
+    when 2
+      :no_money
+    when 3
+      :deserttown
+    else
+      :exit
+    end
+  end
+end
+
 def pbIceSeller
   # 1. Opening dialogue
   pbMessage(_INTL("POPCORN_INTRO"))
@@ -18,30 +39,28 @@ def pbIceSeller
 
     # Show commands. Cancel button (B/Esc) selects Choice 5 (cmdIfCancel = 5)
     choice = pbShowCommands(nil, commands, 5)
+    bills = $bag.quantity(:TWENTYSHECKELBILL)
 
-    case choice
-    when 0
-      # 1. תשלום 100 שקלים: Check if player has 5 "20 SHECKEL BILLS"
-      bills = $bag.quantity(:TWENTYSHECKELBILL)
-      if bills >= 5
-        $bag.remove(:TWENTYSHECKELBILL, 5)
-        pbReceiveItem(:ICEBAG)
-        pbMessage(_INTL("POPCORN_RESPONSE_THANKS"))
-        break
-      else
-        pbMessage(_INTL("POPCORN_RESPONSE_NOT_ENOUGH"))
-      end
-    when 1
-      # 2. למה יש כאן תור?
+    case IceSellerRules.decide(choice, bills)
+    when :purchase
+      # תשלום 100 שקלים: 5 "20 SHECKEL BILLS"
+      $bag.remove(:TWENTYSHECKELBILL, IceSellerRules::BILLS_REQUIRED)
+      pbReceiveItem(:ICEBAG)
+      pbMessage(_INTL("POPCORN_RESPONSE_THANKS"))
+      break
+    when :not_enough
+      pbMessage(_INTL("POPCORN_RESPONSE_NOT_ENOUGH"))
+    when :line
+      # למה יש כאן תור?
       pbMessage(_INTL("POPCORN_RESPONSE_LINE"))
-    when 2
-      # 3. איך לי 100 שקלים
+    when :no_money
+      # איך לי 100 שקלים
       pbMessage(_INTL("POPCORN_RESPONSE_NO_MONEY"))
-    when 3
-      # 4. כסף בדזרטאון?
+    when :deserttown
+      # כסף בדזרטאון?
       pbMessage(_INTL("POPCORN_RESPONSE_DESERTTOWN"))
     else
-      # 5. יציאה (or Cancel)
+      # יציאה (or Cancel)
       break
     end
   end

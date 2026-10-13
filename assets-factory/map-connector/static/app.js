@@ -3,16 +3,18 @@ const ZOOM_MIN = 0.25;
 const ZOOM_MAX = 4;
 const ZOOM_STEP = 1.15;
 
+// Real layout: layoutMaps[id].{x,y} are whole game tiles (saved to world_layout.json).
+// Visualization only: zoom + camX/camY. Zoom never mutates layoutMaps x/y.
 const state = {
   baseDisplayTile: BASE_DISPLAY_TILE,
-  zoom: 1,
+  zoom: 1, // view scale only
   mapsMeta: [],
-  layoutMaps: {},
+  layoutMaps: {}, // tile positions — source of truth
   connections: [],
   images: new Map(),
   selectedId: null,
   dirty: false,
-  camX: 40,
+  camX: 40, // pan in screen px
   camY: 40,
   panning: false,
   panLastX: 0,
@@ -42,7 +44,7 @@ function setStatus(msg) {
   statusEl.textContent = msg || "";
 }
 
-/** Screen pixels per world tile at current zoom (must stay tied to whole tiles). */
+/** Screen pixels per layout tile at current zoom (visualization scale only). */
 function tilePx() {
   return state.baseDisplayTile * state.zoom;
 }
@@ -96,13 +98,16 @@ function worldToTile(wx, wy) {
   return { tx: Math.floor(wx / t), ty: Math.floor(wy / t) };
 }
 
+/** Visualization rect in screen pixels. Does not change stored tile x/y. */
 function mapRect(id) {
   const m = state.layoutMaps[id];
   if (!m) return null;
   const t = tilePx();
-  // Pixel rect must come after ...m so tile x/y do not overwrite screen coords.
   return {
-    ...m,
+    tileX: m.x,
+    tileY: m.y,
+    tiles_w: m.tiles_w,
+    tiles_h: m.tiles_h,
     x: m.x * t,
     y: m.y * t,
     w: m.tiles_w * t,
@@ -144,6 +149,7 @@ function mapHasOverlap(id) {
 }
 
 function setZoom(nextZoom, anchorScreenX, anchorScreenY) {
+  // View-only: adjust zoom + camera. Never touch layoutMaps tile x/y.
   const prev = state.zoom;
   const zoom = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, nextZoom));
   if (zoom === prev) {
@@ -157,8 +163,7 @@ function setZoom(nextZoom, anchorScreenX, anchorScreenY) {
   const ay =
     anchorScreenY != null ? anchorScreenY - rect.top : rect.height / 2;
 
-  // Keep the world point under the cursor/center fixed while zooming.
-  // Screen coords use pixels that already include zoom via tilePx().
+  // Keep the same layout point under the cursor/center on screen.
   const scale = zoom / prev;
   state.camX = ax - (ax - state.camX) * scale;
   state.camY = ay - (ay - state.camY) * scale;

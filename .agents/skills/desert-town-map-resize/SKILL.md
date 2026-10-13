@@ -6,7 +6,9 @@ description: >-
   the edges. Keeps passages, priorities, and terrain tags on the tiles that
   remain, and drops the tiles that were cut off. Use when the user wants to
   replace a map's source images, cut or add lines from the side, resize a
-  create_map_from_layers map, or move tile tags after cropping.
+  create_map_from_layers map, or move tile tags after cropping. When the game
+  map already matches the new images and only the tileset is still sliced
+  from a larger picture, use desert-town-tileset-resync instead.
 ---
 
 # Update a map by removing, adding, or shifting tile lines
@@ -16,6 +18,8 @@ Use this when a map already built by `assets-factory/create_map_from_layers.py` 
 The same map id and the same tileset id are kept. Do not run `create_map_from_layers.py` again for this. That allocates a new map and a new tileset and leaves the tags behind.
 
 This is not for desert-town-mapgen sessions. That app has its own resize path.
+
+When the game map already matches the new images and the tileset graphic is still sliced from a larger picture, use [desert-town-tileset-resync](../desert-town-tileset-resync/SKILL.md). This skill resizes the map file. That one keeps the map size and rebuilds the tileset.
 
 ## What to collect
 

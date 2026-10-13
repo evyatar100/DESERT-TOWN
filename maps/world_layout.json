@@ -17,6 +17,13 @@
       "tiles_w": 28,
       "tiles_h": 31
     },
+    "deep-playa-1b": {
+      "id": "deep-playa-1b",
+      "x": 244,
+      "y": 57,
+      "tiles_w": 32,
+      "tiles_h": 27
+    },
     "deep-playa-2": {
       "id": "deep-playa-2",
       "x": 304,
@@ -106,7 +113,7 @@
       "x": 104,
       "y": 94,
       "tiles_w": 41,
-      "tiles_h": 32
+      "tiles_h": 28
     },
     "kim-area": {
       "id": "kim-area",
@@ -222,14 +229,6 @@
     {
       "a": "Freecamp",
       "a_edge": "north",
-      "a_offset": 0,
-      "b": "ice-out",
-      "b_edge": "south",
-      "b_offset": 0
-    },
-    {
-      "a": "Freecamp",
-      "a_edge": "north",
       "a_offset": 41,
       "b": "mom-dad",
       "b_edge": "south",
@@ -325,6 +324,14 @@
     },
     {
       "a": "Squere-road-temple",
+      "a_edge": "north",
+      "a_offset": 0,
+      "b": "deep-playa-1b",
+      "b_edge": "south",
+      "b_offset": 0
+    },
+    {
+      "a": "Squere-road-temple",
       "a_edge": "west",
       "a_offset": 47,
       "b": "kusomo2",
@@ -373,6 +380,14 @@
     },
     {
       "a": "deep-playa-1a",
+      "a_edge": "west",
+      "a_offset": 0,
+      "b": "deep-playa-1b",
+      "b_edge": "east",
+      "b_offset": 0
+    },
+    {
+      "a": "deep-playa-1a",
       "a_edge": "east",
       "a_offset": 0,
       "b": "deep-playa-2",
@@ -393,6 +408,14 @@
       "a_offset": 0,
       "b": "playa",
       "b_edge": "north",
+      "b_offset": 0
+    },
+    {
+      "a": "deep-playa-1b",
+      "a_edge": "north",
+      "a_offset": 21,
+      "b": "deep-playa-4",
+      "b_edge": "south",
       "b_offset": 0
     },
     {

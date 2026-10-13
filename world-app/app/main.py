@@ -21,7 +21,7 @@ from .paths import (
     TILE_PX,
 )
 
-app = FastAPI(title="Desert Town Map Connector", version="1.0.0")
+app = FastAPI(title="world-app", version="1.0.0")
 
 
 def _png_size(path: Path) -> tuple[int, int]:

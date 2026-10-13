@@ -1,13 +1,13 @@
-# Map Connector
+# world-app
 
-Local web UI to place outside maps on a canvas, detect edge connections (multiple neighbors per side with offsets), and save [`maps/world_layout.json`](../../maps/world_layout.json).
+Local web UI to place outside maps on a canvas, detect edge connections (multiple neighbors per side with offsets), and save [`maps/world_layout.json`](../maps/world_layout.json).
 
-See intentions: [`maps/CONNECTOR_INTENTIONS.md`](../../maps/CONNECTOR_INTENTIONS.md).
+See intentions: [`maps/CONNECTOR_INTENTIONS.md`](../maps/CONNECTOR_INTENTIONS.md).
 
 ## Run
 
 ```bash
-cd assets-factory/map-connector
+cd world-app
 python3 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt

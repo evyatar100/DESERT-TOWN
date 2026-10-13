@@ -1,4 +1,4 @@
-# Map Connector — Intentions
+# world-app — Intentions
 
 A simple local web app to lay out **outside** Desert Town maps on a shared canvas, detect edge adjacency (including **multiple neighbors per side** with offsets), and persist that layout for a later export into Pokémon Essentials `map_connections.txt`.
 
@@ -68,7 +68,7 @@ Maps differ in size. Several smaller maps may touch different stretches of the s
 
 ## App location
 
-`assets-factory/map-connector/` — small FastAPI backend + static HTML/canvas frontend.
+`world-app/` — small FastAPI backend + static HTML/canvas frontend.
 
 - List outside maps and serve `base.png` (scaled for display).
 - `GET` / `PUT` `maps/world_layout.json`.

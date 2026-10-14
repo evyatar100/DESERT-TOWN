@@ -423,3 +423,12 @@ Outdoor = true
 #-------------------------------
 [093]   # party
 Outdoor = true
+#-------------------------------
+[096]   # Squere Road Temple
+Outdoor = true
+#-------------------------------
+[097]   # Kim Area
+Outdoor = true
+#-------------------------------
+[098]   # Playa
+Outdoor = true

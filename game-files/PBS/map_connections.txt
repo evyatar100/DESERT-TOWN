@@ -54,3 +54,9 @@
 91,East,0,90,West,8
 # kusomo2 (95) - spacesheep-camp (86)
 95,North,0,86,South,0
+# party (93) - Playa (98)
+93,North,32,98,South,0
+# Squere Road Temple (96) - Playa (98)
+96,East,4,98,West,0
+# Kim Area (97) - Playa (98)
+97,West,0,98,East,0

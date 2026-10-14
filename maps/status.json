@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-14T11:18:26Z",
+  "generated_at": "2026-10-14T19:21:41Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -1383,10 +1383,10 @@
       "base_size_ok": true,
       "base": {
         "present": true,
-        "width": 1088,
-        "height": 1152,
-        "tiles_w": 34,
-        "tiles_h": 36,
+        "width": 1024,
+        "height": 992,
+        "tiles_w": 32,
+        "tiles_h": 31,
         "size_ok": true
       },
       "has_layer2": false,
@@ -1401,10 +1401,10 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
-        "width": 1088,
-        "height": 1152,
-        "tiles_w": 34,
-        "tiles_h": 36,
+        "width": 1024,
+        "height": 992,
+        "tiles_w": 32,
+        "tiles_h": 31,
         "size_ok": true
       },
       "has_layer3b": false,
@@ -1413,8 +1413,8 @@
       "tileset_in_game": true,
       "map_associated": true,
       "game_tiles": {
-        "tiles_w": 34,
-        "tiles_h": 36
+        "tiles_w": 32,
+        "tiles_h": 31
       },
       "connected": true,
       "connections": {

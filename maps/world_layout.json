@@ -133,8 +133,8 @@
       "id": "mom-dad",
       "x": 145,
       "y": 90,
-      "tiles_w": 34,
-      "tiles_h": 36
+      "tiles_w": 32,
+      "tiles_h": 31
     },
     "Old-City": {
       "id": "Old-City",

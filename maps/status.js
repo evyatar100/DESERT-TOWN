@@ -1,11 +1,11 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-14T07:43:09Z",
+  "generated_at": "2026-10-14T11:05:26Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 31,
+  "map_count": 32,
   "maps": [
     {
       "id": "candles",
@@ -820,6 +820,67 @@ window.MAP_STATUS = {
       },
       "event_connections": [],
       "event_count": null,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
+      "id": "entrance-covered-camp",
+      "display_name": "Entrance to covered camp",
+      "map_id": 452431,
+      "tileset_name": "Tileset_map-slot452431-session_2",
+      "is_outside": true,
+      "bgm": null,
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Map452431 from the Desert Town export. Layer 3 holds the traced objects.",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "width": 1152,
+        "height": 704,
+        "tiles_w": 36,
+        "tiles_h": 22,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": true,
+      "layer3": {
+        "present": true,
+        "width": 1152,
+        "height": 704,
+        "tiles_w": 36,
+        "tiles_h": 22,
+        "size_ok": true
+      },
+      "has_layer3b": false,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 36,
+        "tiles_h": 22
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

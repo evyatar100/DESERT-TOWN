@@ -1,0 +1,16 @@
+{
+  "id": "entrance-covered-camp",
+  "display_name": "Entrance to covered camp",
+  "map_id": 452431,
+  "tileset_name": "Tileset_map-slot452431-session_2",
+  "is_outside": true,
+  "bgm": null,
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Map452431 from the Desert Town export. Layer 3 holds the traced objects."
+}

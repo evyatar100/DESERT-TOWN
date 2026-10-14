@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-13T22:26:04Z",
+  "generated_at": "2026-10-14T05:59:04Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -1069,11 +1069,11 @@
     {
       "id": "kim-area",
       "display_name": "Kim Area",
-      "map_id": null,
-      "tileset_name": "kim-area_ts",
+      "map_id": 97,
+      "tileset_name": "Kim Area_ts",
       "is_outside": true,
       "bgm": null,
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -1096,21 +1096,24 @@
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "present": true,
+        "width": 704,
+        "height": 1664,
+        "tiles_w": 22,
+        "tiles_h": 52,
+        "size_ok": true
       },
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 22,
+        "tiles_h": 52
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1119,7 +1122,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1127,7 +1130,7 @@
     {
       "id": "kusomo",
       "display_name": "Kusumo",
-      "map_id": 94,
+      "map_id": null,
       "tileset_name": "kusomo_ts",
       "is_outside": true,
       "bgm": null,
@@ -1792,11 +1795,11 @@
     {
       "id": "Squere-road-temple",
       "display_name": "Squere Road Temple",
-      "map_id": null,
-      "tileset_name": "Squere-road-temple_ts",
+      "map_id": 96,
+      "tileset_name": "Squere Road Temple_ts",
       "is_outside": true,
       "bgm": null,
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -1829,11 +1832,14 @@
         "size_ok": true
       },
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 56
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1842,7 +1848,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

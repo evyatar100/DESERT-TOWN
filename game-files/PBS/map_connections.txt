@@ -24,16 +24,10 @@
 21,East,0,23,West,1
 # Route 2 (21) - Route 7 (47)
 21,East,77,47,West,0
-# gen3 (22) - Playa (33)
-22,East,0,33,West,0
-# Kusomo1 (43) - gen3 (22)
-43,West,30,22,East,0
 # Route 3 (31) - Lerucean Town (23)
 31,South,32,23,North,0
 # Route 3 (31) - Ingido Plateau outside (35)
 31,West,0,35,East,10
-# Kusomo1 (43) - Playa (33)
-43,South,0,33,North,0
 # Ingido Plateau outside (35) - Route 4 (39)
 35,West,11,39,East,0
 # Route 5 (41) - Route 4 Cycling Road (40)
@@ -46,29 +40,17 @@
 69,North,0,66,South,10
 # demo-arcade (82) - long-arcade (85)
 82,West,0,85,East,39
-# SPACESHEEP-FRONT (32) - demo-camp4 (84)
-32,South,0,84,North,12
-# SPACESHHEP-FRONT (76) - demo-camp4 (84)
-76,East,15,84,West,0
-# Ice Camp (91) - demo-camp4 (84)
-91,East,51,84,West,0
-# Kusumo (94) - demo-camp4 (84)
-94,West,17,84,East,0
-# Ice Camp (91) - SPACESHEEP-FRONT (32)
-91,South,54,32,North,0
-# mom-dad-out (90) - SPACESHEEP-FRONT (32)
-90,South,12,32,North,0
-# Kusumo (94) - SPACESHEEP-FRONT (32)
-94,West,2,32,East,0
-# Ice Camp (91) - SPACESHHEP-FRONT (76)
-91,South,8,76,North,0
-# mom-dad-out (90) - SPACESHHEP-FRONT (76)
-90,West,36,76,East,0
-# demo-camp4 (84) - spacesheep-camp (86)
-84,33,0,86,0,45
-# mom-dad-out (90) - Ice Camp (91)
-90,West,0,91,East,0
-# Kusumo (94) - The Man (78)
-94,East,0,78,West,19
-# party (93) - The Man (78)
-93,North,13,78,South,0
+# party (93) - Squere Road Temple (96)
+93,North,0,96,South,0
+# party (93) - kusomo2 (95)
+93,West,0,95,East,9
+# Squere Road Temple (96) - kusomo2 (95)
+96,West,47,95,East,0
+# Squere Road Temple (96) - spacesheep-camp (86)
+96,West,12,86,East,0
+# demo-camp4 (84) - kusomo2 (95)
+84,East,0,95,West,9
+# Ice Camp (91) - mom-dad-out (90)
+91,East,0,90,West,8
+# kusomo2 (95) - spacesheep-camp (86)
+95,North,0,86,South,0

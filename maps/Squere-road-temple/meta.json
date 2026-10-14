@@ -1,8 +1,8 @@
 {
   "id": "Squere-road-temple",
   "display_name": "Squere Road Temple",
-  "map_id": null,
-  "tileset_name": "Squere-road-temple_ts",
+  "map_id": 96,
+  "tileset_name": "Squere Road Temple_ts",
   "is_outside": true,
   "bgm": null,
   "connections": {
@@ -11,6 +11,6 @@
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

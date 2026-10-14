@@ -1,8 +1,8 @@
 {
   "id": "kim-area",
   "display_name": "Kim Area",
-  "map_id": null,
-  "tileset_name": "kim-area_ts",
+  "map_id": 97,
+  "tileset_name": "Kim Area_ts",
   "is_outside": true,
   "bgm": null,
   "connections": {
@@ -11,6 +11,6 @@
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

@@ -9,6 +9,7 @@
   --conn: #58a6ff;
   --grid: rgba(255, 255, 255, 0.08);
   --danger: #f85149;
+  --in-game: #c084fc;
   --font: "IBM Plex Sans", "Segoe UI", sans-serif;
 }
 
@@ -125,6 +126,40 @@ button:disabled {
   font: inherit;
 }
 
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  accent-color: var(--in-game);
+  width: 0.95rem;
+  height: 0.95rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.toggle .swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--in-game);
+  border-radius: 2px;
+  flex: 0 0 auto;
+}
+
+#toggle-connections {
+  accent-color: var(--conn);
+}
+
+label[for="toggle-connections"] .swatch {
+  border-color: var(--conn);
+}
+
 #map-list,
 #conn-list {
   list-style: none;
@@ -160,6 +195,10 @@ button:disabled {
 #map-list li.selected {
   background: rgba(240, 180, 41, 0.15);
   box-shadow: inset 3px 0 0 var(--select);
+}
+
+#map-list li.in-game:not(.selected) {
+  box-shadow: inset 3px 0 0 var(--in-game);
 }
 
 #map-list .name {

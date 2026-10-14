@@ -25,6 +25,8 @@ const state = {
   dragOriginTileY: 0,
   dragGrabTileX: 0,
   dragGrabTileY: 0,
+  showInGame: false,
+  showConnections: true,
 };
 
 const canvas = document.getElementById("stage");
@@ -39,6 +41,11 @@ const btnReload = document.getElementById("btn-reload");
 const btnZoomIn = document.getElementById("btn-zoom-in");
 const btnZoomOut = document.getElementById("btn-zoom-out");
 const btnZoomReset = document.getElementById("btn-zoom-reset");
+const toggleInGame = document.getElementById("toggle-in-game");
+const toggleConnections = document.getElementById("toggle-connections");
+const IN_GAME_FRAME = "#c084fc";
+const IN_GAME_PREF = "world-app-show-in-game";
+const CONNECTIONS_PREF = "world-app-show-connections";
 
 function setStatus(msg) {
   statusEl.textContent = msg || "";
@@ -195,6 +202,7 @@ function renderMapList() {
     const li = document.createElement("li");
     li.dataset.id = m.id;
     if (m.id === state.selectedId) li.classList.add("selected");
+    if (state.showInGame && m.in_game) li.classList.add("in-game");
     li.innerHTML = `<span class="name">${escapeHtml(m.display_name)}</span>
       <span class="meta">${escapeHtml(m.id)} · ${m.tiles_w}×${m.tiles_h} tiles</span>`;
     li.addEventListener("click", () => selectMap(m.id, true));
@@ -338,19 +346,29 @@ function draw() {
       ctx.strokeRect(r.x + 1, r.y + 1, r.w - 2, r.h - 2);
     }
 
-    if (id === state.selectedId) {
-      ctx.strokeStyle = "#f0b429";
-      ctx.lineWidth = Math.max(3, 4 * state.zoom);
-      ctx.strokeRect(r.x - 1, r.y - 1, r.w + 2, r.h + 2);
-    } else {
+    const meta = state.mapsMeta.find((m) => m.id === id);
+    const inGame = Boolean(state.showInGame && meta && meta.in_game);
+    if (inGame) {
+      ctx.strokeStyle = IN_GAME_FRAME;
+      ctx.lineWidth = Math.max(2, 3 * state.zoom);
+      ctx.strokeRect(r.x + 0.5, r.y + 0.5, r.w - 1, r.h - 1);
+    } else if (id !== state.selectedId) {
       ctx.strokeStyle = "rgba(230,237,243,0.35)";
       ctx.lineWidth = 1;
       ctx.strokeRect(r.x + 0.5, r.y + 0.5, r.w - 1, r.h - 1);
     }
+
+    if (id === state.selectedId) {
+      ctx.strokeStyle = "#f0b429";
+      ctx.lineWidth = Math.max(3, 4 * state.zoom);
+      ctx.strokeRect(r.x - 1, r.y - 1, r.w + 2, r.h + 2);
+    }
   }
 
-  for (const c of state.connections) {
-    drawConnection(c);
+  if (state.showConnections) {
+    for (const c of state.connections) {
+      drawConnection(c);
+    }
   }
 
   ctx.restore();
@@ -564,7 +582,49 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+function loadInGamePref() {
+  try {
+    state.showInGame = localStorage.getItem(IN_GAME_PREF) === "1";
+  } catch {
+    state.showInGame = false;
+  }
+  if (toggleInGame) toggleInGame.checked = state.showInGame;
+}
+
+function loadConnectionsPref() {
+  try {
+    const stored = localStorage.getItem(CONNECTIONS_PREF);
+    state.showConnections = stored == null ? true : stored === "1";
+  } catch {
+    state.showConnections = true;
+  }
+  if (toggleConnections) toggleConnections.checked = state.showConnections;
+}
+
 filterEl.addEventListener("input", renderMapList);
+if (toggleInGame) {
+  toggleInGame.addEventListener("change", () => {
+    state.showInGame = toggleInGame.checked;
+    try {
+      localStorage.setItem(IN_GAME_PREF, state.showInGame ? "1" : "0");
+    } catch {
+      /* ignore private-mode storage failures */
+    }
+    renderMapList();
+    draw();
+  });
+}
+if (toggleConnections) {
+  toggleConnections.addEventListener("change", () => {
+    state.showConnections = toggleConnections.checked;
+    try {
+      localStorage.setItem(CONNECTIONS_PREF, state.showConnections ? "1" : "0");
+    } catch {
+      /* ignore private-mode storage failures */
+    }
+    draw();
+  });
+}
 btnSave.addEventListener("click", save);
 btnReload.addEventListener("click", () => loadAll().catch((e) => setStatus(String(e))));
 btnZoomIn.addEventListener("click", () => setZoom(state.zoom * ZOOM_STEP));
@@ -573,6 +633,8 @@ btnZoomReset.addEventListener("click", () => setZoom(1));
 
 window.addEventListener("resize", resizeCanvas);
 
+loadInGamePref();
+loadConnectionsPref();
 updateZoomLabel();
 resizeCanvas();
 loadAll().catch((e) => setStatus(String(e)));

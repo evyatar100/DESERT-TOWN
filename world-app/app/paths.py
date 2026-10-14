@@ -4,6 +4,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[2]
 MAPS_DIR = REPO_ROOT / "maps"
 LAYOUT_PATH = MAPS_DIR / "world_layout.json"
+GAME_DATA_DIR = REPO_ROOT / "game-files" / "Data"
 STATIC_DIR = Path(__file__).resolve().parents[1] / "static"
 
 TILE_PX = 32

@@ -14,6 +14,7 @@ from PIL import Image
 from .connections import auto_place, compute_connections
 from .paths import (
     DISPLAY_TILE_PX,
+    GAME_DATA_DIR,
     LAYOUT_PATH,
     LAYOUT_VERSION,
     MAPS_DIR,
@@ -40,6 +41,19 @@ def _read_meta(folder: Path) -> dict[str, Any] | None:
     if not isinstance(meta, dict):
         return None
     return meta
+
+
+def map_loaded_in_game(map_id: Any) -> bool:
+    """True when meta map_id has a MapXXX.rxdata file in the game data folder."""
+    if map_id is None or isinstance(map_id, bool):
+        return False
+    try:
+        mid = int(map_id)
+    except (TypeError, ValueError):
+        return False
+    if mid <= 0:
+        return False
+    return (GAME_DATA_DIR / f"Map{mid:03d}.rxdata").is_file()
 
 
 def _deprecated_ids() -> set[str]:
@@ -92,6 +106,7 @@ def _scan_outside_maps() -> list[dict[str, Any]]:
                 "folder": folder.name,
                 "display_name": meta.get("display_name") or mid,
                 "map_id": meta.get("map_id"),
+                "in_game": map_loaded_in_game(meta.get("map_id")),
                 "tiles_w": tw,
                 "tiles_h": th,
                 "pixel_w": pw,

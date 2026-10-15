@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-14T19:21:41Z",
+  "generated_at": "2026-10-14T20:05:15Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -719,9 +719,9 @@ window.MAP_STATUS = {
       "base": {
         "present": true,
         "width": 1024,
-        "height": 1024,
+        "height": 1376,
         "tiles_w": 32,
-        "tiles_h": 32,
+        "tiles_h": 43,
         "size_ok": true
       },
       "has_layer2": false,
@@ -737,9 +737,9 @@ window.MAP_STATUS = {
       "layer3": {
         "present": true,
         "width": 1024,
-        "height": 1024,
+        "height": 1376,
         "tiles_w": 32,
-        "tiles_h": 32,
+        "tiles_h": 43,
         "size_ok": true
       },
       "has_layer3b": false,
@@ -749,7 +749,7 @@ window.MAP_STATUS = {
       "map_associated": true,
       "game_tiles": {
         "tiles_w": 32,
-        "tiles_h": 32
+        "tiles_h": 43
       },
       "connected": false,
       "connections": {
@@ -839,9 +839,9 @@ window.MAP_STATUS = {
       "base_size_ok": true,
       "base": {
         "present": true,
-        "width": 1152,
+        "width": 1024,
         "height": 704,
-        "tiles_w": 36,
+        "tiles_w": 32,
         "tiles_h": 22,
         "size_ok": true
       },
@@ -857,9 +857,9 @@ window.MAP_STATUS = {
       "has_layer3": true,
       "layer3": {
         "present": true,
-        "width": 1152,
+        "width": 1024,
         "height": 704,
-        "tiles_w": 36,
+        "tiles_w": 32,
         "tiles_h": 22,
         "size_ok": true
       },
@@ -869,7 +869,7 @@ window.MAP_STATUS = {
       "tileset_in_game": true,
       "map_associated": true,
       "game_tiles": {
-        "tiles_w": 36,
+        "tiles_w": 32,
         "tiles_h": 22
       },
       "connected": false,

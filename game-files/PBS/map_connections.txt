@@ -44,19 +44,27 @@
 93,North,0,96,South,0
 # party (93) - kusomo2 (95)
 93,West,0,95,East,9
-# Squere Road Temple (96) - kusomo2 (95)
-96,West,47,95,East,0
-# Squere Road Temple (96) - spacesheep-camp (86)
-96,West,12,86,East,0
-# demo-camp4 (84) - kusomo2 (95)
-84,East,0,95,West,9
-# Ice Camp (91) - mom-dad-out (90)
-91,East,0,90,West,8
-# kusomo2 (95) - spacesheep-camp (86)
-95,North,0,86,South,0
 # party (93) - Playa (98)
 93,North,32,98,South,0
+# Squere Road Temple (96) - kusomo2 (95)
+96,West,47,95,East,0
 # Squere Road Temple (96) - Playa (98)
 96,East,4,98,West,0
+# Squere Road Temple (96) - spacesheep-camp (86)
+96,West,12,86,East,0
+# demo-camp4 (84) - flamingods-out (452431)
+84,North,0,452431,South,0
+# demo-camp4 (84) - kusomo2 (95)
+84,East,0,95,West,1
+# flamingods-out (452431) - kusomo2 (95)
+452431,East,21,95,West,0
+# flamingods-out (452431) - mom-dad-out (90)
+452431,West,0,90,East,12
+# flamingods-out (452431) - spacesheep-camp (86)
+452431,East,0,86,West,14
+# Ice Camp (91) - mom-dad-out (90)
+91,East,0,90,West,3
 # Kim Area (97) - Playa (98)
 97,West,0,98,East,0
+# kusomo2 (95) - spacesheep-camp (86)
+95,North,0,86,South,0

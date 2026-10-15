@@ -83,9 +83,9 @@
     "demo-camp4": {
       "id": "demo-camp4",
       "x": 177,
-      "y": 140,
+      "y": 132,
       "tiles_w": 32,
-      "tiles_h": 32
+      "tiles_h": 43
     },
     "Echer": {
       "id": "Echer",
@@ -94,10 +94,17 @@
       "tiles_w": 39,
       "tiles_h": 56
     },
+    "flamingods-out": {
+      "id": "flamingods-out",
+      "x": 177,
+      "y": 110,
+      "tiles_w": 32,
+      "tiles_h": 22
+    },
     "Freecamp": {
       "id": "Freecamp",
       "x": 104,
-      "y": 126,
+      "y": 129,
       "tiles_w": 73,
       "tiles_h": 46
     },
@@ -111,7 +118,7 @@
     "ice-out": {
       "id": "ice-out",
       "x": 104,
-      "y": 98,
+      "y": 101,
       "tiles_w": 41,
       "tiles_h": 28
     },
@@ -132,7 +139,7 @@
     "mom-dad": {
       "id": "mom-dad",
       "x": 145,
-      "y": 90,
+      "y": 98,
       "tiles_w": 32,
       "tiles_h": 31
     },
@@ -221,10 +228,18 @@
     {
       "a": "Freecamp",
       "a_edge": "east",
-      "a_offset": 14,
+      "a_offset": 3,
       "b": "demo-camp4",
       "b_edge": "west",
       "b_offset": 0
+    },
+    {
+      "a": "Freecamp",
+      "a_edge": "east",
+      "a_offset": 0,
+      "b": "flamingods-out",
+      "b_edge": "west",
+      "b_offset": 19
     },
     {
       "a": "Freecamp",
@@ -524,11 +539,51 @@
     },
     {
       "a": "demo-camp4",
+      "a_edge": "north",
+      "a_offset": 0,
+      "b": "flamingods-out",
+      "b_edge": "south",
+      "b_offset": 0
+    },
+    {
+      "a": "demo-camp4",
+      "a_edge": "east",
+      "a_offset": 41,
+      "b": "glass-a",
+      "b_edge": "west",
+      "b_offset": 0
+    },
+    {
+      "a": "demo-camp4",
       "a_edge": "east",
       "a_offset": 0,
       "b": "kusomo2",
       "b_edge": "west",
-      "b_offset": 9
+      "b_offset": 1
+    },
+    {
+      "a": "flamingods-out",
+      "a_edge": "east",
+      "a_offset": 21,
+      "b": "kusomo2",
+      "b_edge": "west",
+      "b_offset": 0
+    },
+    {
+      "a": "flamingods-out",
+      "a_edge": "west",
+      "a_offset": 0,
+      "b": "mom-dad",
+      "b_edge": "east",
+      "b_offset": 12
+    },
+    {
+      "a": "flamingods-out",
+      "a_edge": "east",
+      "a_offset": 0,
+      "b": "spacesheep-camp-b",
+      "b_edge": "west",
+      "b_offset": 14
     },
     {
       "a": "glass-a",
@@ -544,7 +599,7 @@
       "a_offset": 0,
       "b": "mom-dad",
       "b_edge": "west",
-      "b_offset": 8
+      "b_offset": 3
     },
     {
       "a": "kim-area",

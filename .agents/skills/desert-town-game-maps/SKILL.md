@@ -7,7 +7,8 @@ description: >-
   actually exist in MapInfos. Use when adding a map to the game, syncing
   world layout connections, or when Essentials compile warns that a map in
   the connection data was not found or crashes with undefined method name
-  for nil in validate_compiled_map_metadata.
+  for nil in validate_compiled_map_metadata. If the folder is already in
+  MapInfos, stop; the script would allocate another map past id 452431.
 ---
 
 # Register maps and sync world connections
@@ -19,6 +20,16 @@ A map is in the game only when its id is a key in `game-files/Data/MapInfos.rxda
 ## Register a map
 
 Run from the repo root, one folder at a time. The script writes `Tilesets.rxdata` and `MapInfos.rxdata`; a second run in parallel will corrupt them.
+
+Search MapInfos for the folder name and inspect `MapXXX.rxdata` before running. `meta.json` `map_id` is only a hint: it can name a deleted map, and it can also already name the live one.
+
+If that name is already a MapInfos entry and the map file exists, stop. The folder already has its map. `create_map_from_layers.py` always allocates a new tileset and a new map. It does not update the old ones.
+
+The next map id is `max(MapInfos.keys()) + 1`, not the first free small id. Map 452431 (`flamingods-out`) is the highest key, so the next run allocates **452432** and skips the free ids (77, 79, 94, 99). The next tileset id is `len(Tilesets.rxdata)`. That length was 644 while tileset 643 was still `flamingods-out_ts`.
+
+Omitting `--name` writes `game-files/Graphics/Tilesets/<folder>_ts.png`. For `maps/flamingods-out` that is the file tileset 643 already uses. The script archives the PNG, rebuilds it, and gives the new tileset default layer-3 priority 2. Priorities migrated onto 643 stay on 643's tables, but both tilesets share the new PNG. Map 452431 stays in MapInfos, so the folder then has two maps.
+
+Checked with RPGXP closed: Map 452431 is 32×22, tileset 643, parent 83 (`DESERT-TOWN`), order 91. Layer counts were 704, 0, and 326. That is the map for "create a new map from the tileset flamingods-out". Do not register it again.
 
 ```bash
 python assets-factory/create_map_from_layers.py maps/<id> --name "Display Name" --force

@@ -18,7 +18,7 @@ The same map id and the same tileset id are kept. The map's width and height sta
 
 Do not run `create_map_from_layers.py` again. That allocates a new map and a new tileset and leaves the tags behind.
 
-When the map file is still the old size, use [desert-town-map-resize](../desert-town-map-resize/SKILL.md) (`assets-factory/update_map_from_layers.py`). That script resizes the map. This one does not.
+When the map file is still the old size, use [desert-town-map-resize](../desert-town-map-resize/SKILL.md). `update_map_from_layers.py --yes` resizes the map by rewriting the whole file. A map whose events contain forward object links cannot take that rewrite. The resize skill patches `MapXXX.rxdata` in place instead. This skill does not resize the map.
 
 ## What to collect
 

@@ -5,7 +5,7 @@ description: >-
   assets-factory/create_map_from_layers.py, and write world-app connections
   from maps/world_layout.json into PBS/map_connections.txt for maps that
   actually exist in MapInfos. Use when adding a map to the game, syncing
-  world layout connections, or when Essentials compile warns that a map in
+  world layout connections, exporting the player Town Map, or when Essentials compile warns that a map in
   the connection data was not found or crashes with undefined method name
   for nil in validate_compiled_map_metadata. If the folder is already in
   MapInfos, stop; the script would allocate another map past id 452431.
@@ -67,6 +67,20 @@ Rules:
 - Map ids are fields 1 and 4 only. Fields 3 and 6 are offsets. `7,East,0,23,West,78` does not refer to map 78. `44,South,43,5,North,0` does not refer to map 43.
 
 `game-files/Data/map_connections.dat` is a Ruby marshal list of `[map, "N"|"S"|"E"|"W", offset, map, letter, offset]`. The compiler rebuilds it from the text file. A failed compile deletes the dat before it can rewrite it, so fix the text file and compile again. If you write the dat yourself, load and save it with `rubymarshal` and use the single-letter directions.
+
+## Export the player Town Map
+
+`maps/export_town_map.py` builds the map the player opens from `maps/world_layout.json` and each outside map's `base.png`.
+
+```bash
+python maps/export_town_map.py
+```
+
+It writes `game-files/Graphics/UI/Town Map/mapRegion2.png` and region `[2]` (`Desert Town`) in `game-files/PBS/town_map.txt`. Squares are 16×16 pixels, four world tiles across, the same 4 pixels per tile as the world-app preview. The picture is the crop of the non-deprecated maps, extended to the next whole square so the last tiles stay on the grid. Deprecated maps stay off the picture. Each occupied square is named from `meta.json` `display_name`.
+
+`MapPosition = 2,x,y` and `ShowArea = true` are written only for maps that exist in MapInfos. Indoor maps copy the outdoor neighbor named in `meta.json` `connections` and do not get `ShowArea`. Essen and Tiall stay regions `[0]` and `[1]`.
+
+Re-run the script after a world-app save, then compile (hold Ctrl while launching `Game.exe`). The player sees Desert Town while standing on a desert map. The Town Map item is put in the bag by BurningManBag.
 
 ## Compile failures
 

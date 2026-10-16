@@ -4,7 +4,7 @@
   "map_id": 32,
   "tileset_name": null,
   "is_outside": false,
-  "bgm": null,
+  "bgm": "Calm Camps Area",
   "connections": {
     "north": null,
     "south": "spacesheep-camp-b",

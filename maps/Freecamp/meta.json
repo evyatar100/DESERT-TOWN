@@ -1,16 +1,16 @@
 {
   "id": "Freecamp",
   "display_name": "Freecamp",
-  "map_id": null,
+  "map_id": 452432,
   "tileset_name": "Freecamp_ts",
   "is_outside": true,
-  "bgm": null,
+  "bgm": "Calm Camps Area",
   "connections": {
     "north": null,
     "south": null,
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

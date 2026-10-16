@@ -83,7 +83,7 @@ def build_meta(map_id: str, display_name: str, is_outside: bool, notes: str) -> 
         "map_id": None,
         "tileset_name": f"{map_id}_ts",
         "is_outside": is_outside,
-        "bgm": None,
+        "bgm": "Calm Camps Area",
         "connections": {"north": None, "south": None, "east": None, "west": None},
         "status": "stub",
         "notes": notes,

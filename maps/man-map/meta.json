@@ -4,7 +4,7 @@
   "map_id": 78,
   "tileset_name": "theman-tileeset",
   "is_outside": true,
-  "bgm": null,
+  "bgm": "Calm Camps Area",
   "connections": {
     "north": null,
     "south": null,

@@ -23,6 +23,7 @@ Example:
 from __future__ import annotations
 
 import argparse
+import json
 import math
 import os
 import shutil
@@ -39,6 +40,7 @@ from rubymarshal.writer import write
 
 GRID_SIZE = 32
 STRIP_WIDTH_TILES = 8  # 256px / 32px
+DEFAULT_MAP_BGM = "Calm Camps Area"
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 if str(_SCRIPT_DIR) not in sys.path:
@@ -171,6 +173,20 @@ class SheetSliceInfo:
         col = x % STRIP_WIDTH_TILES
         row = y
         return self.sheet_bases[image_index] + strip * self.strip_stride + row * STRIP_WIDTH_TILES + col
+
+
+def default_map_bgm(input_dir: Path) -> str:
+    """BGM stem for a new map. A maps/<id>/meta.json `bgm` overrides the default."""
+    meta_path = input_dir / "meta.json"
+    if meta_path.is_file():
+        try:
+            meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            meta = {}
+        name = meta.get("bgm") if isinstance(meta, dict) else None
+        if isinstance(name, str) and name.strip():
+            return name.strip()
+    return DEFAULT_MAP_BGM
 
 
 # --------------------------------------------------------------------------
@@ -435,7 +451,11 @@ def process_map_layers(
 
     # Create Map object
     map_table = make_table_3d(w_tiles, h_tiles, 3, map_data)
-    bgm_obj = RubyObject("RPG::AudioFile", {"@name": b"", "@volume": 100, "@pitch": 100})
+    bgm_name = default_map_bgm(input_dir)
+    bgm_obj = RubyObject(
+        "RPG::AudioFile",
+        {"@name": bgm_name.encode("utf-8"), "@volume": 100, "@pitch": 100},
+    )
     bgs_obj = RubyObject("RPG::AudioFile", {"@name": b"", "@volume": 80, "@pitch": 100})
 
     new_map_obj = RubyObject(
@@ -444,7 +464,7 @@ def process_map_layers(
             "@tileset_id": new_tileset_id,
             "@width": w_tiles,
             "@height": h_tiles,
-            "@autoplay_bgm": False,
+            "@autoplay_bgm": True,
             "@bgm": bgm_obj,
             "@autoplay_bgs": False,
             "@bgs": bgs_obj,

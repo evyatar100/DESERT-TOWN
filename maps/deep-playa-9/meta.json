@@ -4,7 +4,7 @@
   "map_id": null,
   "tileset_name": "deep-playa-9_ts",
   "is_outside": true,
-  "bgm": null,
+  "bgm": "Calm Camps Area",
   "connections": {
     "north": null,
     "south": null,

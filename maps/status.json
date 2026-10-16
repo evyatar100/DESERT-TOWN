@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T13:45:31Z",
+  "generated_at": "2026-10-16T14:52:08Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -199,11 +199,11 @@
     {
       "id": "deep-playa-1b",
       "display_name": "deep-playa 1b",
-      "map_id": null,
-      "tileset_name": "deep-playa-1b_ts",
+      "map_id": 452433,
+      "tileset_name": "deep-playa 1b_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -238,14 +238,17 @@
         "tiles_h": 27,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 27
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -254,7 +257,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -325,11 +328,11 @@
     {
       "id": "deep-playa-3",
       "display_name": "deep-playa 3",
-      "map_id": null,
-      "tileset_name": "deep-playa-3_ts",
+      "map_id": 452434,
+      "tileset_name": "deep-playa 3_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -364,14 +367,17 @@
         "tiles_h": 31,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 33,
+        "tiles_h": 31
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -380,7 +386,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -388,11 +394,11 @@
     {
       "id": "deep-playa-4",
       "display_name": "deep-playa 4",
-      "map_id": null,
-      "tileset_name": "deep-playa-4_ts",
+      "map_id": 452435,
+      "tileset_name": "deep-playa 4_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -427,14 +433,17 @@
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 39,
+        "tiles_h": 28
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -443,7 +452,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -451,11 +460,11 @@
     {
       "id": "deep-playa-5",
       "display_name": "deep-playa 5",
-      "map_id": null,
-      "tileset_name": "deep-playa-5_ts",
+      "map_id": 452436,
+      "tileset_name": "deep-playa 5_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -490,14 +499,17 @@
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 38,
+        "tiles_h": 28
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -506,7 +518,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -514,11 +526,11 @@
     {
       "id": "deep-playa-6",
       "display_name": "deep-playa 6",
-      "map_id": null,
-      "tileset_name": "deep-playa-6_ts",
+      "map_id": 452437,
+      "tileset_name": "deep-playa 6_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -553,14 +565,17 @@
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 33,
+        "tiles_h": 28
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -569,7 +584,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -577,11 +592,11 @@
     {
       "id": "deep-playa-7",
       "display_name": "deep-playa 7",
-      "map_id": null,
-      "tileset_name": "deep-playa-7_ts",
+      "map_id": 452438,
+      "tileset_name": "deep-playa 7_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -616,14 +631,17 @@
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 33,
+        "tiles_h": 28
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -632,7 +650,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

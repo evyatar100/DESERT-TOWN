@@ -40,18 +40,38 @@
 69,North,0,66,South,10
 # demo-arcade (82) - long-arcade (85)
 82,West,0,85,East,39
+# Freecamp (452432) - demo-camp4 (84)
+452432,East,3,84,West,0
+# Freecamp (452432) - flamingods-out (452431)
+452432,East,0,452431,West,19
+# Freecamp (452432) - Ice Camp (91)
+452432,North,0,91,South,0
+# Freecamp (452432) - mom-dad-out (90)
+452432,North,41,90,South,0
 # party (93) - Squere Road Temple (96)
 93,North,0,96,South,0
 # party (93) - kusomo2 (95)
 93,West,0,95,East,9
 # party (93) - Playa (98)
 93,North,32,98,South,0
+# Squere Road Temple (96) - deep-playa 1b (452433)
+96,North,0,452433,South,0
 # Squere Road Temple (96) - kusomo2 (95)
 96,West,47,95,East,0
 # Squere Road Temple (96) - Playa (98)
 96,East,4,98,West,0
 # Squere Road Temple (96) - spacesheep-camp (86)
 96,West,12,86,East,0
+# deep-playa 1b (452433) - deep-playa 4 (452435)
+452433,North,21,452435,South,0
+# deep-playa 3 (452434) - deep-playa 6 (452437)
+452434,North,0,452437,South,0
+# deep-playa 4 (452435) - deep-playa 5 (452436)
+452435,East,0,452436,West,0
+# deep-playa 5 (452436) - deep-playa 6 (452437)
+452436,East,0,452437,West,0
+# deep-playa 6 (452437) - deep-playa 7 (452438)
+452437,North,0,452438,South,0
 # demo-camp4 (84) - flamingods-out (452431)
 84,North,0,452431,South,0
 # demo-camp4 (84) - kusomo2 (95)
@@ -68,11 +88,3 @@
 97,West,0,98,East,0
 # kusomo2 (95) - spacesheep-camp (86)
 95,North,0,86,South,0
-# Freecamp (452432) - demo-camp4 (84)
-452432,East,3,84,West,0
-# Freecamp (452432) - flamingods-out (452431)
-452432,East,0,452431,West,19
-# Freecamp (452432) - Ice Camp (91)
-452432,North,0,91,South,0
-# Freecamp (452432) - mom-dad-out (90)
-452432,North,41,90,South,0

@@ -440,3 +440,30 @@ Outdoor = true
 [452432]   # Freecamp
 Name = Freecamp
 Outdoor = true
+#-------------------------------
+[452433]   # deep-playa 1b
+Name = deep-playa 1b
+Outdoor = true
+#-------------------------------
+[452434]   # deep-playa 3
+Name = deep-playa 3
+Outdoor = true
+#-------------------------------
+[452435]   # deep-playa 4
+Name = deep-playa 4
+Outdoor = true
+#-------------------------------
+[452436]   # deep-playa 5
+Name = deep-playa 5
+Outdoor = true
+#-------------------------------
+[452437]   # deep-playa 6
+Name = deep-playa 6
+Outdoor = true
+#-------------------------------
+[452438]   # deep-playa 7
+Name = deep-playa 7
+Outdoor = true
+#-------------------------------
+[452439]   # DEEPPLAYA
+Name = DEEPPLAYA

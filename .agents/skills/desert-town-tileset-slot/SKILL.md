@@ -63,3 +63,5 @@ On disk after that write:
 The picture is `game-files/Graphics/Tilesets/flamingods-out_ts.png` (256×7936, 248 rows, 2368 tiles). It was restored from commit `22a9402` after the working copy lost it. Slot 35 stays empty in the editor until that file is present and the project is opened again. `maps/flamingods-out` is the source folder for map 452431. Do not run `create_map_from_layers.py` on it.
 
 Leave `maps/flamingods-out` unregistered if the folder is restored. `create_map_from_layers.py` would add another map and another tileset and rewrite `flamingods-out_ts.png`.
+
+Slot 35 is flamingods-out only. A different map left on a deleted high slot (Freecamp, map 452432, was on 644) does not belong there. See [desert-town-missing-tileset](../desert-town-missing-tileset/SKILL.md).

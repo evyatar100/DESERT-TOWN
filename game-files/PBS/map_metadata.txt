@@ -416,19 +416,70 @@ Outdoor = true
 [084]   # demo-camp4
 Name = demo-camp4
 Outdoor = true
+ShowArea = true
+MapPosition = 2,22,38
 #-------------------------------
 [086]   # spacesheep-camp
 Name = Space-Sheep Camp
 Outdoor = true
+ShowArea = true
+MapPosition = 2,30,28
 #-------------------------------
 [093]   # party
 Outdoor = true
+ShowArea = true
+MapPosition = 2,42,38
 #-------------------------------
 [096]   # Squere Road Temple
 Outdoor = true
+ShowArea = true
+MapPosition = 2,39,27
 #-------------------------------
 [097]   # Kim Area
 Outdoor = true
+ShowArea = true
+MapPosition = 2,56,28
 #-------------------------------
 [098]   # Playa
 Outdoor = true
+ShowArea = true
+MapPosition = 2,48,28
+#-------------------------------
+[032]   # SPACESHEEP
+Name = SPACESHEEP-FRONT
+Outdoor = false
+MapPosition = 2,30,28
+#-------------------------------
+[088]   # ice-in
+Name = Ice In
+Outdoor = false
+MapPosition = 2,5,28
+#-------------------------------
+[089]   # mom-dad-in
+Name = mom-dad-in
+Outdoor = false
+MapPosition = 2,14,28
+#-------------------------------
+[090]   # mom-dad
+Name = mom-dad-out
+Outdoor = true
+ShowArea = true
+MapPosition = 2,14,28
+#-------------------------------
+[091]   # ice-out
+Name = Ice Camp
+Outdoor = true
+ShowArea = true
+MapPosition = 2,5,28
+#-------------------------------
+[095]   # kusomo2
+Name = kusomo2
+Outdoor = true
+ShowArea = true
+MapPosition = 2,30,37
+#-------------------------------
+[452431]   # flamingods-out
+Name = flamingods-out
+Outdoor = true
+ShowArea = true
+MapPosition = 2,22,30

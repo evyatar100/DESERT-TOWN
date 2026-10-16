@@ -186,6 +186,7 @@ pocket = QuantityBag.new({ WHITEWATERBOTTLE: 3, USBDISK: 0 })
 BurningManBag.ensure_single_starter_items(pocket)
 check(pocket.quantity(:WHITEWATERBOTTLE) == 1, "three bottles collapse to one")
 check(pocket.quantity(:USBDISK) == 1, "a missing disk is added once")
+check(pocket.quantity(:TOWNMAP) == 1, "a missing town map is added once")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

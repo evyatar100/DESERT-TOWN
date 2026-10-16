@@ -59,6 +59,7 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        self.assertIn(":TOWNMAP", bag)
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):

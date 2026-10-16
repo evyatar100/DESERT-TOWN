@@ -4,11 +4,14 @@ description: >-
   Register a maps/ folder into Pokémon Essentials with
   assets-factory/create_map_from_layers.py, and write world-app connections
   from maps/world_layout.json into PBS/map_connections.txt for maps that
-  actually exist in MapInfos. Use when adding a map to the game, syncing
-  world layout connections, or when Essentials compile warns that a map in
-  the connection data was not found or crashes with undefined method name
-  for nil in validate_compiled_map_metadata. If the folder is already in
-  MapInfos, stop; the script would allocate another map past id 452431.
+  actually exist in MapInfos. Also write non-bordering (diagonal / gap)
+  links as coordinate connections in PBS/map_connections_extra.txt, and draw
+  those gaps in world-app. Use when adding a map to the game, syncing world
+  layout connections, fixing a black corner between maps that do not share
+  an edge, or when Essentials compile warns that a map in the connection
+  data was not found or crashes with undefined method name for nil in
+  validate_compiled_map_metadata. If the folder is already in MapInfos, stop;
+  the script would allocate another map past id 452431.
 ---
 
 # Register maps and sync world connections
@@ -25,11 +28,11 @@ Search MapInfos for the folder name and inspect `MapXXX.rxdata` before running. 
 
 If that name is already a MapInfos entry and the map file exists, stop. The folder already has its map. `create_map_from_layers.py` always allocates a new tileset and a new map. It does not update the old ones.
 
-The next map id is `max(MapInfos.keys()) + 1`, not the first free small id. Map 452431 (`flamingods-out`) is the highest key, so the next run allocates **452432** and skips the free ids (77, 79, 94, 99). The next tileset id is `len(Tilesets.rxdata)`. That length was 644 while tileset 643 was still `flamingods-out_ts`.
+The next map id is `max(MapInfos.keys()) + 1`, not the first free small id. Map 452431 (`flamingods-out`) is the highest key, so the next run allocates **452432** and skips the free ids (77, 79, 94, 99). The next tileset id is `len(Tilesets.rxdata)`. That length is 644. Flamingods-out now occupies slot 35, inside the list the editor keeps. Slot 643 is the blank placeholder that used to be slot 35.
 
-Omitting `--name` writes `game-files/Graphics/Tilesets/<folder>_ts.png`. For `maps/flamingods-out` that is the file tileset 643 already uses. The script archives the PNG, rebuilds it, and gives the new tileset default layer-3 priority 2. Priorities migrated onto 643 stay on 643's tables, but both tilesets share the new PNG. Map 452431 stays in MapInfos, so the folder then has two maps.
+Omitting `--name` writes `game-files/Graphics/Tilesets/<folder>_ts.png`. For `maps/flamingods-out` that is the file tileset 35 already uses. The script archives the PNG, rebuilds it, and gives the new tileset default layer-3 priority 2. Priorities migrated onto 35 stay on 35's tables, but both tilesets share the new PNG. Map 452431 stays in MapInfos, so the folder then has two maps.
 
-Checked with RPGXP closed: Map 452431 is 32×22, tileset 643, parent 83 (`DESERT-TOWN`), order 91. Layer counts were 704, 0, and 326. That is the map for "create a new map from the tileset flamingods-out". Do not register it again.
+Checked with RPGXP closed: Map 452431 is 32×22, tileset 35, parent 83 (`DESERT-TOWN`), order 91. Layer counts were 704, 0, and 326. That is the map for "create a new map from the tileset flamingods-out". Do not register it again. See [desert-town-tileset-slot](../desert-town-tileset-slot/SKILL.md) for the move off slot 643.
 
 ```bash
 python assets-factory/create_map_from_layers.py maps/<id> --name "Display Name" --force
@@ -67,6 +70,27 @@ Rules:
 - Map ids are fields 1 and 4 only. Fields 3 and 6 are offsets. `7,East,0,23,West,78` does not refer to map 78. `44,South,43,5,North,0` does not refer to map 43.
 
 `game-files/Data/map_connections.dat` is a Ruby marshal list of `[map, "N"|"S"|"E"|"W", offset, map, letter, offset]`. The compiler rebuilds it from the text file. A failed compile deletes the dat before it can rewrite it, so fix the text file and compile again. If you write the dat yourself, load and save it with `rubymarshal` and use the single-letter directions.
+
+## Near connections (the diagonal)
+
+Essentials draws only maps that share a direct connection. Four maps in a 2×2 can share edges 1–2, 2–3, 3–4, and 1–4, so maps 1 and 3 are a few tiles apart and two hops in the graph. Standing on 1, map 3 is on screen and that corner is black tiles.
+
+A coordinate connection makes Essentials draw across that gap. It does not make the gap walkable. The player still transfers only by stepping onto the other map's rectangle, which is an edge neighbor.
+
+A pair is near when both maps are placed, they share no edge of length at least 1, their interiors do not overlap, and the Chebyshev gap is at most 14. 14 is half of the 16-tile screen plus the engine's 6-tile load margin (`CAMERA_NEAR_GAP` in `world-app/app/connections.py`). A corner that only touches (gap 0, no shared edge) counts. A gap of 15 does not.
+
+The line pins the first map's tile (0, 0) to (x, y) on the second map. x, y is the origin of the lower game id minus the origin of the other map. Negative numbers are allowed.
+
+```
+# demo-camp4 (84) - spacesheep-camp (86)
+84,0,0,86,-32,36
+```
+
+Write these lines to `game-files/PBS/map_connections_extra.txt` (CRLF). Leave `map_connections.txt` for shared edges. The compiler globs `PBS/map_connections_*.txt`, so the extra file is compiled with the edge file. The debug editor and an edge sync rewrite only `map_connections.txt`. Do not delete the extra file when you edit edges.
+
+Merge the same `[map, 0, 0, map, x, y]` records into `game-files/Data/map_connections.dat`. Drop previous coordinate records (slots 1, 2, 4, and 5 are integers) and keep the edge records (direction strings). Saving the layout in world-app does this through `sync_near_connections` in `world-app/app/near_sync.py`. Only folders whose `Data/MapXXX.rxdata` exists are written. Duplicate game ids are an error.
+
+World-app does not store near links in `world_layout.json`. GET `/api/layout`, PUT `/api/layout`, and POST `/api/layout/recompute` return `near_connections` for every placed outside map, including maps that are not in the game. The canvas draws them, while the Connections checkbox is on, as dashed orange lines between the closest points, stubbed into each map. A zero-length corner touch is an orange X. The sidebar lists them in orange as `a ↔ b · gap N`, under the blue edge lines. Hiding connections hides both.
 
 ## Compile failures
 

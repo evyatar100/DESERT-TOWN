@@ -7,6 +7,7 @@
   --accent: #3fb950;
   --select: #f0b429;
   --conn: #58a6ff;
+  --near: #f0883e;
   --grid: rgba(255, 255, 255, 0.08);
   --danger: #f85149;
   --in-game: #c084fc;
@@ -230,6 +231,10 @@ label[for="toggle-connections"] .swatch {
   padding: 0.35rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   color: var(--conn);
+}
+
+#conn-list li.near {
+  color: var(--near);
 }
 
 #stage-wrap {

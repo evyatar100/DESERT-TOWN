@@ -11,7 +11,8 @@ from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 from PIL import Image
 
-from .connections import auto_place, compute_connections
+from .connections import auto_place, compute_connections, compute_near_connections
+from .near_sync import sync_near_connections
 from .paths import (
     DISPLAY_TILE_PX,
     GAME_DATA_DIR,
@@ -116,6 +117,13 @@ def _scan_outside_maps() -> list[dict[str, Any]]:
     return results
 
 
+def _connection_fields(maps: dict[str, dict[str, Any]]) -> dict[str, Any]:
+    return {
+        "connections": compute_connections(maps),
+        "near_connections": compute_near_connections(maps),
+    }
+
+
 def _empty_layout(maps_meta: list[dict[str, Any]]) -> dict[str, Any]:
     placed = auto_place(maps_meta)
     return {
@@ -123,7 +131,7 @@ def _empty_layout(maps_meta: list[dict[str, Any]]) -> dict[str, Any]:
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": placed,
-        "connections": compute_connections(placed),
+        **_connection_fields(placed),
     }
 
 
@@ -162,7 +170,7 @@ def _merge_layout(
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": maps_out,
-        "connections": compute_connections(maps_out),
+        **_connection_fields(maps_out),
     }
 
 
@@ -259,24 +267,25 @@ def put_layout(body: dict[str, Any]) -> dict[str, Any]:
         if isinstance(prev, dict):
             kept[mid] = prev
 
-    active_connections = compute_connections(maps_out)
+    active_fields = _connection_fields(maps_out)
     written = {
         "version": LAYOUT_VERSION,
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": {**maps_out, **kept},
-        "connections": active_connections,
+        "connections": active_fields["connections"],
     }
     LAYOUT_PATH.write_text(
         json.dumps(written, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8",
     )
+    sync_near_connections(written)
     return {
         "version": LAYOUT_VERSION,
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": maps_out,
-        "connections": active_connections,
+        **active_fields,
     }
 
 
@@ -299,7 +308,7 @@ def recompute(body: dict[str, Any]) -> dict[str, Any]:
         "tile_px": TILE_PX,
         "display_tile_px": DISPLAY_TILE_PX,
         "maps": maps_out,
-        "connections": compute_connections(maps_out),
+        **_connection_fields(maps_out),
     }
 
 

@@ -1,0 +1,10 @@
+# Non-bordering map connections (coordinate form).
+# The debug editor rewrites only map_connections.txt, so these lines live here.
+# Each line pins the first map's tile (0,0) to (x,y) on the second map.
+#-------------------------------
+# demo-camp4 (84) - spacesheep-camp (86)
+84,0,0,86,-32,36
+# demo-camp4 (84) - mom-dad-out (90)
+84,0,0,90,32,34
+# spacesheep-camp (86) - party (93)
+86,0,0,93,-35,-44

@@ -11,6 +11,7 @@ const state = {
   mapsMeta: [],
   layoutMaps: {}, // tile positions — source of truth
   connections: [],
+  nearConnections: [],
   images: new Map(),
   selectedId: null,
   dirty: false,
@@ -188,6 +189,7 @@ async function recomputeConnections() {
   if (!res.ok) throw new Error(await res.text());
   const data = await res.json();
   state.connections = data.connections || [];
+  state.nearConnections = data.near_connections || [];
   renderConnList();
 }
 
@@ -212,7 +214,7 @@ function renderMapList() {
 
 function renderConnList() {
   connListEl.innerHTML = "";
-  if (!state.connections.length) {
+  if (!state.connections.length && !state.nearConnections.length) {
     const li = document.createElement("li");
     li.style.color = "var(--muted)";
     li.textContent = "None — drag maps so edges touch.";
@@ -222,6 +224,12 @@ function renderConnList() {
   for (const c of state.connections) {
     const li = document.createElement("li");
     li.textContent = `${c.a} ${c.a_edge}@${c.a_offset} ↔ ${c.b} ${c.b_edge}@${c.b_offset}`;
+    connListEl.appendChild(li);
+  }
+  for (const c of state.nearConnections) {
+    const li = document.createElement("li");
+    li.className = "near";
+    li.textContent = `${c.a} ↔ ${c.b} · gap ${c.gap}`;
     connListEl.appendChild(li);
   }
 }
@@ -266,6 +274,72 @@ function drawGrid(viewW, viewH) {
   for (let y = y0; y < y0 + spanY; y += t) {
     ctx.moveTo(x0, y + 0.5);
     ctx.lineTo(x0 + spanX, y + 0.5);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+function gapSegment(a, b) {
+  const ax0 = a.x;
+  const ax1 = a.x + a.w;
+  const ay0 = a.y;
+  const ay1 = a.y + a.h;
+  const bx0 = b.x;
+  const bx1 = b.x + b.w;
+  const by0 = b.y;
+  const by1 = b.y + b.h;
+  const sepX = ax1 <= bx0 ? 1 : bx1 <= ax0 ? -1 : 0;
+  const sepY = ay1 <= by0 ? 1 : by1 <= ay0 ? -1 : 0;
+  if (sepX !== 0 && sepY !== 0) {
+    return {
+      x1: sepX > 0 ? ax1 : ax0,
+      y1: sepY > 0 ? ay1 : ay0,
+      x2: sepX > 0 ? bx0 : bx1,
+      y2: sepY > 0 ? by0 : by1,
+    };
+  }
+  if (sepX !== 0) {
+    const y = (Math.max(ay0, by0) + Math.min(ay1, by1)) / 2;
+    return {
+      x1: sepX > 0 ? ax1 : ax0,
+      y1: y,
+      x2: sepX > 0 ? bx0 : bx1,
+      y2: y,
+    };
+  }
+  const x = (Math.max(ax0, bx0) + Math.min(ax1, bx1)) / 2;
+  return {
+    x1: x,
+    y1: sepY > 0 ? ay1 : ay0,
+    x2: x,
+    y2: sepY > 0 ? by0 : by1,
+  };
+}
+
+function drawNearConnection(c) {
+  const a = mapRect(c.a);
+  const b = mapRect(c.b);
+  if (!a || !b) return;
+  const seg = gapSegment(a, b);
+  const dx = seg.x2 - seg.x1;
+  const dy = seg.y2 - seg.y1;
+  const len = Math.hypot(dx, dy);
+  const stub = Math.max(8, 6 * state.zoom);
+  ctx.save();
+  ctx.strokeStyle = "rgba(240, 136, 62, 0.95)";
+  ctx.lineWidth = Math.max(2, 2.5 * state.zoom);
+  ctx.setLineDash([8 * state.zoom, 5 * state.zoom]);
+  ctx.beginPath();
+  if (len < 1) {
+    ctx.moveTo(seg.x1 - stub, seg.y1 - stub);
+    ctx.lineTo(seg.x1 + stub, seg.y1 + stub);
+    ctx.moveTo(seg.x1 - stub, seg.y1 + stub);
+    ctx.lineTo(seg.x1 + stub, seg.y1 - stub);
+  } else {
+    const ux = dx / len;
+    const uy = dy / len;
+    ctx.moveTo(seg.x1 - ux * stub, seg.y1 - uy * stub);
+    ctx.lineTo(seg.x2 + ux * stub, seg.y2 + uy * stub);
   }
   ctx.stroke();
   ctx.restore();
@@ -369,6 +443,9 @@ function draw() {
     for (const c of state.connections) {
       drawConnection(c);
     }
+    for (const c of state.nearConnections) {
+      drawNearConnection(c);
+    }
   }
 
   ctx.restore();
@@ -403,6 +480,7 @@ async function loadAll() {
   state.layoutMaps = layout.maps || {};
   normalizeMapPositions();
   state.connections = layout.connections || [];
+  state.nearConnections = layout.near_connections || [];
   state.dirty = false;
   state.images.clear();
 
@@ -429,7 +507,8 @@ async function save() {
     const layout = await res.json();
     state.layoutMaps = layout.maps;
     normalizeMapPositions();
-    state.connections = layout.connections;
+    state.connections = layout.connections || [];
+    state.nearConnections = layout.near_connections || [];
     state.dirty = false;
     renderConnList();
     draw();

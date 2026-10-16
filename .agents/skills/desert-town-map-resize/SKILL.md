@@ -72,7 +72,7 @@ Close RPGXP first. See [rpgxp-map-tools](../rpgxp-map-tools/SKILL.md). If the ed
 - Tiles that fall off the map are not copied.
 - New cells get the `create_map_from_layers` defaults: foreground priority 2, everything else 0.
 - Autotile ids `0..383` stay on the same index. Generic tiles at the end of the sheet keep their tags when the generic graphic is unchanged.
-- Layers 1 and 3 are repainted from the new images. Layer 2 and events slide with the edit. Events that land outside the map are dropped and listed. Coordinates inside event commands are not rewritten.
+- Layers 1 and 3 are repainted from the new images. Layer 2 and events slide with the edit. Events that land outside the map are dropped and listed. Move routes and other command coordinates on those events stay as they are. A Transfer Player command that names this map does not. Follow [Transfer commands that land on this map](#transfer-commands-that-land-on-this-map).
 - BGM, encounters, tileset name, autotiles, panorama, and fog stay on the same records.
 
 The script backs up `MapXXX.rxdata` and `Tilesets.rxdata` to `.rxdata.bak`, rebuilds the tileset PNG through `create_tileset.py` (the old PNG is archived), then reloads the rxdata and checks the new size and a surviving terrain tag.
@@ -99,7 +99,7 @@ Marshal links are object ids, not byte offsets, so inserting bytes inside the ti
 1. Find the one `Table` blob. Its header is five little-endian uint32s: `dim=3`, width, height, `zsize=3`, `count=width*height*3`. The length prefix immediately before that header is `0x02` plus a little-endian uint16 while the blob is under 65536 bytes. A 32×32 map is 6164 bytes. A 32×43 map is 8276. Both still fit in that uint16, so the prefix stays 3 bytes.
 2. Find `@width` and `@height` on `RPG::Map`, and `@y` (and `@x` when the edit shifts x) on each `RPG::Event`. A size from 1 to 122 is one byte after the `i` type byte, and that byte is `value + 5`. Zero is the byte `0`. Check the old byte before changing it. There should be one map size and one `@y` per event.
 3. Patch those bytes at the original offsets. Then replace the length prefix and the blob with the new table. Patching after the splice with the old offsets writes the wrong place.
-4. Shift event `@x` and `@y` by the edit's `ox` and `oy`. Coordinates inside event commands stay as they are.
+4. Shift event `@x` and `@y` by the edit's `ox` and `oy`. Move routes and other coordinates inside those events stay as they are. Transfer destinations are the next section.
 
 Back up `MapXXX.rxdata` and `Tilesets.rxdata` first. If the reload check fails, copy both backups back. The tileset PNG is already archived by `create_tileset.py`. Reload with `CycleSafeReader` and check the new size, the event count, and that every kept cell's passage and priority moved from the old formula id to the new one. When nothing was removed, the blocked-ground count (passage 15) stays the same.
 
@@ -118,6 +118,19 @@ For an east/west link, `offset_a - offset_b = y_b - y_a`. Crossing keeps the sam
 3. `game-files/Data/map_connections.dat`. It is the list the game reads until the next compile. Load it, change the two offset integers, write it back with rubymarshal. Directions stay single letters.
 
 A neighbor that is only in the world layout, not in MapInfos, gets the layout offset updated and no PBS line. Do not run a full connection sync. That rewrites every link.
+
+## Transfer commands that land on this map
+
+Sliding the events on the resized map does not move a Transfer Player command. The destination tile is stored in the command. Search every `Map*.rxdata` and `CommonEvents.rxdata`, including the resized map. An event that already slid still carries the old destination.
+
+Command code is 201.
+
+- `parameters[0]` is 0 for a direct designation. `parameters[1]` is the map id, `[2]` is x, `[3]` is y, then direction and fade.
+- `parameters[0]` is 1 when the map and the coordinates are variable ids. Leave those alone.
+
+When `[0]` is 0 and `[1]` is the resized map, add `ox` to x and `oy` to y. A coordinate from 1 to 122 is a one-byte fixnum: type byte `i`, then `value + 5`. Find that parameter array and patch the byte. Do not rewrite the other map. A full rewrite corrupts a map whose events have forward links. Back up that `MapXXX.rxdata` first, then reload and read the command back.
+
+If the new x or y is outside the new map, stop and list the command. Do not clamp it.
 
 ## When the formula id is outside the graphic
 

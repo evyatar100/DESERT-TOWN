@@ -58,14 +58,37 @@ def image_size(path: Path) -> tuple[int, int] | None:
             return None
 
 
+def image_is_blank(path: Path) -> bool:
+    """True when every pixel is fully transparent. A placeholder layer is not art."""
+    try:
+        from PIL import Image
+
+        with Image.open(path) as im:
+            if "A" not in im.getbands():
+                return False
+            _lo, hi = im.getchannel("A").getextrema()
+            return hi == 0
+    except Exception:
+        return False
+
+
 def layer_ok(path: Path) -> dict:
     size = image_size(path)
     if size is None:
-        return {"present": False, "width": None, "height": None, "tiles_w": None, "tiles_h": None, "size_ok": False}
+        return {
+            "present": False,
+            "empty": False,
+            "width": None,
+            "height": None,
+            "tiles_w": None,
+            "tiles_h": None,
+            "size_ok": False,
+        }
     w, h = size
     tw, th = w // GRID, h // GRID
     return {
         "present": True,
+        "empty": image_is_blank(path),
         "width": w,
         "height": h,
         "tiles_w": tw,
@@ -177,19 +200,67 @@ def game_tile_size(map_obj) -> dict | None:
     return {"tiles_w": tiles_w, "tiles_h": tiles_h}
 
 
-def event_summary(data_dir: Path, map_id: int | None) -> tuple[int | None, list[int], dict | None]:
+def event_summary(data_dir: Path, map_id: int | None) -> tuple[int | None, list[int], dict | None, int | None]:
     if not map_id:
-        return None, [], None
+        return None, [], None, None
     path = data_dir / f"Map{int(map_id):03d}.rxdata"
     if not path.is_file():
-        return None, [], None
+        return None, [], None, None
     try:
         obj = load_rxdata(path)
     except Exception:
-        return None, [], None
+        return None, [], None, None
     events = _attr(obj, "@events") or {}
     count = len(events) if isinstance(events, dict) else 0
-    return count, transfer_targets(obj), game_tile_size(obj)
+    try:
+        tileset_id = int(_attr(obj, "@tileset_id"))
+    except (TypeError, ValueError):
+        tileset_id = None
+    return count, transfer_targets(obj), game_tile_size(obj), tileset_id
+
+
+def unpack_table_1d(table_obj) -> list[int]:
+    raw = table_obj._private_data
+    _dim, _xs, _ys, _zs, count = struct.unpack("<5I", raw[:20])
+    return list(struct.unpack(f"<{count}H", raw[20 : 20 + count * 2]))
+
+
+def load_tilesets(data_dir: Path):
+    path = data_dir / "Tilesets.rxdata"
+    if not path.is_file():
+        return None
+    try:
+        return load_rxdata(path)
+    except Exception:
+        return None
+
+
+def tileset_properties_set(tilesets, tileset_id: int | None, blank_overlay_tiles: int) -> bool | None:
+    """False when passages, terrain tags, and priorities are still loader defaults.
+
+    create_map_from_layers leaves passages and terrain tags at 0 and paints
+    priority 1 or 2 on every tile of an overlay image, including a blank one.
+    """
+    if tilesets is None or tileset_id is None:
+        return None
+    try:
+        tileset = tilesets[tileset_id]
+    except (IndexError, KeyError, TypeError):
+        return None
+    try:
+        passages = unpack_table_1d(_attr(tileset, "@passages"))
+        priorities = unpack_table_1d(_attr(tileset, "@priorities"))
+        terrain = unpack_table_1d(_attr(tileset, "@terrain_tags"))
+    except Exception:
+        return None
+    if any(value != 0 for value in passages) or any(value != 0 for value in terrain):
+        return True
+    nonzero = [value for value in priorities if value]
+    if not nonzero:
+        return False
+    if blank_overlay_tiles and len(nonzero) == blank_overlay_tiles and set(nonzero) <= {1, 2}:
+        return False
+    return True
 
 
 def connection_labels(dest_ids: list[int], names_by_game_id: dict[int, str], infos: dict[int, str]) -> list[str]:
@@ -228,7 +299,13 @@ def display_names_by_game_id(map_dirs: list[Path]) -> dict[int, str]:
     return names
 
 
-def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos: dict[int, str]) -> dict:
+def scan_map(
+    map_dir: Path,
+    repo: Path,
+    names_by_game_id: dict[int, str],
+    infos: dict[int, str],
+    tilesets,
+) -> dict:
     meta = load_json(map_dir / "meta.json", {})
     chars = load_json(map_dir / "characters.json", [])
     if not isinstance(chars, list):
@@ -261,7 +338,19 @@ def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos:
 
     data_dir = repo / "game-files" / "Data"
     has_map = map_file_exists(data_dir, map_id)
-    events, dests, game_tiles = event_summary(data_dir, map_id) if has_map else (None, [], None)
+    events, dests, game_tiles, tileset_id = (
+        event_summary(data_dir, map_id) if has_map else (None, [], None, None)
+    )
+    blank_overlay_tiles = 0
+    for layer in (layer2, layer3, layer3b):
+        if layer["empty"] and layer["tiles_w"] and layer["tiles_h"]:
+            blank_overlay_tiles += layer["tiles_w"] * layer["tiles_h"]
+    properties_set = tileset_properties_set(tilesets, tileset_id, blank_overlay_tiles) if has_map else None
+    warnings: list[str] = []
+    if layer3["empty"]:
+        warnings.append("Missing layer 3")
+    if properties_set is False:
+        warnings.append("Tileset properties not set")
     if map_id:
         dests = [dest for dest in dests if dest != int(map_id)]
     event_connections = connection_labels(dests, names_by_game_id, infos)
@@ -287,8 +376,10 @@ def scan_map(map_dir: Path, repo: Path, names_by_game_id: dict[int, str], infos:
         "base": base,
         "has_layer2": layer2["present"],
         "layer2": layer2,
-        "has_layer3": layer3["present"],
+        "has_layer3": layer3["present"] and not layer3["empty"],
         "layer3": layer3,
+        "tileset_properties_set": properties_set,
+        "warnings": warnings,
         "has_layer3b": layer3b["present"],
         "tileset_ready": tileset_ready,
         "tileset_local": local_tileset,
@@ -313,7 +404,8 @@ def main() -> int:
     map_dirs = collect_map_dirs(maps_dir)
     names_by_game_id = display_names_by_game_id(map_dirs)
     infos = mapinfo_names(data_dir)
-    rows = [scan_map(child, repo, names_by_game_id, infos) for child in map_dirs]
+    tilesets = load_tilesets(data_dir)
+    rows = [scan_map(child, repo, names_by_game_id, infos, tilesets) for child in map_dirs]
 
     payload = {
         "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

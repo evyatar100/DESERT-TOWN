@@ -68,3 +68,11 @@
 97,West,0,98,East,0
 # kusomo2 (95) - spacesheep-camp (86)
 95,North,0,86,South,0
+# Freecamp (452432) - demo-camp4 (84)
+452432,East,3,84,West,0
+# Freecamp (452432) - flamingods-out (452431)
+452432,East,0,452431,West,19
+# Freecamp (452432) - Ice Camp (91)
+452432,North,0,91,South,0
+# Freecamp (452432) - mom-dad-out (90)
+452432,North,41,90,South,0

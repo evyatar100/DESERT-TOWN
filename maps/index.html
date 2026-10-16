@@ -118,6 +118,14 @@
       color: var(--sand-dim);
       font-weight: 400;
     }
+    td.name-cell { white-space: normal; min-width: 14rem; }
+    .warn-line {
+      display: block;
+      margin-top: 0.2rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--warn);
+    }
 
     .pill {
       display: inline-block;
@@ -267,7 +275,7 @@
         if (!showDeprecated && m.deprecated) return false;
         if (st && m.status !== st) return false;
         if (!q) return true;
-        const hay = `${m.id} ${m.display_name} ${(m.chars || []).join(" ")} ${(m.event_connections || []).join(" ")}`.toLowerCase();
+        const hay = `${m.id} ${m.display_name} ${(m.warnings || []).join(" ")} ${(m.chars || []).join(" ")} ${(m.event_connections || []).join(" ")}`.toLowerCase();
         return hay.includes(q);
       });
 
@@ -286,18 +294,23 @@
           : "—";
         const size = sizeLabel(m);
         const gameSize = gameSizeLabel(m);
+        const warnings = (m.warnings || []).map((text) => `<span class="warn-line">${escapeHtml(text)}</span>`).join("");
+        const layer3Cell = m.layer3 && m.layer3.empty
+          ? '<span class="pill warn">missing</span>'
+          : yesNo(!!m.has_layer3);
         tr.innerHTML = `
-          <td>
+          <td class="name-cell">
             <span class="map-name">${escapeHtml(m.display_name || m.id)}</span>
             ${m.deprecated ? '<span class="pill deprecated">deprecated</span>' : ""}
             <span class="sub">${escapeHtml(m.id)}</span>
+            ${warnings}
           </td>
           <td title="${escapeHtml(size.title)}">${escapeHtml(size.text)}</td>
           <td>${m.is_outside === true ? "out" : m.is_outside === false ? "in" : "—"}</td>
           <td>${escapeHtml(dash(m.bgm))}</td>
           <td>${baseCell}</td>
           <td>${yesNo(!!m.has_layer2)}</td>
-          <td>${yesNo(!!m.has_layer3)}</td>
+          <td>${layer3Cell}</td>
           <td>${yesNo(!!m.tileset_ready)}</td>
           <td>${yesNo(!!m.tileset_in_game)}</td>
           <td>${m.map_associated ? escapeHtml(String(m.map_id)) : yesNo(false)}</td>

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-16T13:38:17Z",
+  "generated_at": "2026-10-16T13:45:31Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -22,6 +22,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1024,
         "tiles_w": 32,
@@ -31,6 +32,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -40,12 +42,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1024,
         "tiles_w": 32,
         "tiles_h": 32,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -80,6 +85,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1088,
         "height": 1792,
         "tiles_w": 34,
@@ -89,6 +95,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -98,12 +105,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1088,
         "height": 1792,
         "tiles_w": 34,
         "tiles_h": 56,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -138,6 +148,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 896,
         "height": 992,
         "tiles_w": 28,
@@ -147,6 +158,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -156,12 +168,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -196,6 +211,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 864,
         "tiles_w": 32,
@@ -205,6 +221,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -214,12 +231,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 864,
         "tiles_w": 32,
         "tiles_h": 27,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -254,6 +274,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1216,
         "height": 992,
         "tiles_w": 38,
@@ -263,6 +284,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -272,12 +294,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -312,6 +337,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 992,
         "tiles_w": 33,
@@ -321,6 +347,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -330,12 +357,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 992,
         "tiles_w": 33,
         "tiles_h": 31,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -370,6 +400,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1248,
         "height": 896,
         "tiles_w": 39,
@@ -379,6 +410,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -388,12 +420,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1248,
         "height": 896,
         "tiles_w": 39,
         "tiles_h": 28,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -428,6 +463,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1216,
         "height": 896,
         "tiles_w": 38,
@@ -437,6 +473,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -446,12 +483,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1216,
         "height": 896,
         "tiles_w": 38,
         "tiles_h": 28,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -486,6 +526,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 896,
         "tiles_w": 33,
@@ -495,6 +536,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -504,12 +546,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 896,
         "tiles_w": 33,
         "tiles_h": 28,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -544,6 +589,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 896,
         "tiles_w": 33,
@@ -553,6 +599,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -562,12 +609,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1056,
         "height": 896,
         "tiles_w": 33,
         "tiles_h": 28,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -602,6 +652,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1216,
         "height": 896,
         "tiles_w": 38,
@@ -611,6 +662,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -620,12 +672,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -660,6 +715,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1248,
         "height": 896,
         "tiles_w": 39,
@@ -669,6 +725,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -678,12 +735,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -718,6 +778,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1376,
         "tiles_w": 32,
@@ -727,6 +788,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -736,12 +798,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1376,
         "tiles_w": 32,
         "tiles_h": 43,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -781,6 +846,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1248,
         "height": 1792,
         "tiles_w": 39,
@@ -790,6 +856,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -799,12 +866,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -839,6 +909,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 704,
         "tiles_w": 32,
@@ -848,6 +919,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -857,12 +929,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 704,
         "tiles_w": 32,
         "tiles_h": 22,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -900,6 +975,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 2336,
         "height": 1472,
         "tiles_w": 73,
@@ -909,21 +985,28 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": true,
+      "has_layer3": false,
       "layer3": {
         "present": true,
+        "empty": true,
         "width": 2336,
         "height": 1472,
         "tiles_w": 73,
         "tiles_h": 46,
         "size_ok": true
       },
+      "tileset_properties_set": false,
+      "warnings": [
+        "Missing layer 3",
+        "Tileset properties not set"
+      ],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -961,6 +1044,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 2976,
         "height": 736,
         "tiles_w": 93,
@@ -970,6 +1054,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -979,12 +1064,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -1019,6 +1107,7 @@
       "base_size_ok": false,
       "base": {
         "present": true,
+        "empty": false,
         "width": 3100,
         "height": 1700,
         "tiles_w": 96,
@@ -1028,6 +1117,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1037,12 +1127,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 3100,
         "height": 1700,
         "tiles_w": 96,
         "tiles_h": 53,
         "size_ok": false
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1082,6 +1175,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1312,
         "height": 896,
         "tiles_w": 41,
@@ -1091,6 +1185,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1100,12 +1195,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1312,
         "height": 896,
         "tiles_w": 41,
         "tiles_h": 28,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1145,6 +1243,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 704,
         "height": 1664,
         "tiles_w": 22,
@@ -1154,6 +1253,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1163,12 +1263,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 704,
         "height": 1664,
         "tiles_w": 22,
         "tiles_h": 52,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1206,6 +1309,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1952,
         "height": 1568,
         "tiles_w": 61,
@@ -1215,6 +1319,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1224,12 +1329,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1952,
         "height": 1568,
         "tiles_w": 61,
         "tiles_h": 49,
         "size_ok": true
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1264,6 +1372,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1120,
         "height": 1344,
         "tiles_w": 35,
@@ -1273,6 +1382,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1282,12 +1392,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1120,
         "height": 1344,
         "tiles_w": 35,
         "tiles_h": 42,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1325,6 +1438,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 2048,
         "height": 2048,
         "tiles_w": 64,
@@ -1334,6 +1448,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1343,12 +1458,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 2048,
         "height": 2048,
         "tiles_w": 64,
         "tiles_h": 64,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1386,6 +1504,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 992,
         "tiles_w": 32,
@@ -1395,6 +1514,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1404,12 +1524,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 992,
         "tiles_w": 32,
         "tiles_h": 31,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1449,6 +1572,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1024,
         "tiles_w": 32,
@@ -1458,6 +1582,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1467,12 +1592,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1024,
         "tiles_w": 32,
         "tiles_h": 32,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1512,6 +1640,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1120,
         "height": 640,
         "tiles_w": 35,
@@ -1521,6 +1650,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1530,12 +1660,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -1570,6 +1703,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1856,
         "height": 1056,
         "tiles_w": 58,
@@ -1579,6 +1713,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1588,12 +1723,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1856,
         "height": 1056,
         "tiles_w": 58,
         "tiles_h": 33,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1631,6 +1769,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1120,
         "height": 1024,
         "tiles_w": 35,
@@ -1640,6 +1779,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1649,12 +1789,15 @@
       "has_layer3": false,
       "layer3": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
         "tiles_h": null,
         "size_ok": false
       },
+      "tileset_properties_set": null,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -1689,6 +1832,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1344,
         "height": 1664,
         "tiles_w": 42,
@@ -1698,6 +1842,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1707,12 +1852,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1344,
         "height": 1664,
         "tiles_w": 42,
         "tiles_h": 52,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1750,6 +1898,7 @@
       "base_size_ok": false,
       "base": {
         "present": true,
+        "empty": false,
         "width": 800,
         "height": 2000,
         "tiles_w": 25,
@@ -1759,6 +1908,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1768,12 +1918,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 800,
         "height": 2000,
         "tiles_w": 25,
         "tiles_h": 62,
         "size_ok": false
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": false,
       "tileset_local": false,
@@ -1811,6 +1964,7 @@
       "base_size_ok": false,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1148,
         "height": 1148,
         "tiles_w": 35,
@@ -1820,6 +1974,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1829,12 +1984,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1120,
         "height": 1120,
         "tiles_w": 35,
         "tiles_h": 35,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": true,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1874,6 +2032,7 @@
       "base_size_ok": true,
       "base": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1792,
         "tiles_w": 32,
@@ -1883,6 +2042,7 @@
       "has_layer2": false,
       "layer2": {
         "present": false,
+        "empty": false,
         "width": null,
         "height": null,
         "tiles_w": null,
@@ -1892,12 +2052,15 @@
       "has_layer3": true,
       "layer3": {
         "present": true,
+        "empty": false,
         "width": 1024,
         "height": 1792,
         "tiles_w": 32,
         "tiles_h": 56,
         "size_ok": true
       },
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,

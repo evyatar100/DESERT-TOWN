@@ -436,3 +436,7 @@ Outdoor = true
 [452431]   # flamingods-out
 Name = flamingods-out
 Outdoor = true
+#-------------------------------
+[452432]   # Freecamp
+Name = Freecamp
+Outdoor = true

@@ -98,3 +98,11 @@
 22,North,2,452434,South,0
 # Piramid (22) - Kim Area (97)
 22,West,0,97,East,0
+# deep-playa 4 (452435) - deep-playa 9 (452442)
+452435,North,0,452442,South,0
+# deep-playa 5 (452436) - deep-playa 8 (452441)
+452436,North,0,452441,South,0
+# deep-playa 7 (452438) - deep-playa 8 (452441)
+452438,West,0,452441,East,0
+# deep-playa 8 (452441) - deep-playa 9 (452442)
+452441,West,0,452442,East,0

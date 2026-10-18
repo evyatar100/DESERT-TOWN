@@ -46,6 +46,29 @@ from rubymarshal.writer import write
 
 AUTOTILE_IDS = 384
 BLOCKED = 15
+EDITOR_TILESET_SLOTS = 47  # RPG Maker XP's tileset list keeps slots 0-46; a save drops the rest
+
+
+def load_map(path: Path):
+    """Stock rubymarshal fails on maps whose events have forward links; the repo's loader handles them."""
+    try:
+        return load(open(path, "rb"))
+    except Exception:
+        sys.path.insert(0, str(Path("game-files/tests").resolve()))
+        from rx_loader import load_rxdata
+        return load_rxdata(path)
+
+
+def free_tileset_slot(tilesets, data: Path) -> int | None:
+    """First blank placeholder slot the editor keeps that no map uses."""
+    used = {load_map(f).attributes.get("@tileset_id") for f in data.glob("Map[0-9]*.rxdata")}
+    for i in range(1, min(len(tilesets), EDITOR_TILESET_SLOTS)):
+        t = tilesets[i]
+        if i in used:
+            continue
+        if t is None or (not t.attributes["@name"] and not t.attributes["@tileset_name"]):
+            return i
+    return None
 
 
 def is_rpgxp_running() -> bool:
@@ -153,7 +176,7 @@ def main() -> int:
         for map_id, info in infos.items():
             raw = info.attributes.get("@name")
             if (raw.decode("utf-8", "replace") if isinstance(raw, bytes) else str(raw)) == name:
-                ts_id = load(open(data / f"Map{map_id:03d}.rxdata", "rb")).attributes["@tileset_id"]
+                ts_id = load_map(data / f"Map{map_id:03d}.rxdata").attributes["@tileset_id"]
                 old_image = tilesets[ts_id].attributes["@tileset_name"]
                 old_image = old_image.decode() if isinstance(old_image, bytes) else str(old_image)
                 print(f"map {name!r} already exists as Map{map_id:03d} on tileset {ts_id}; updating it "
@@ -176,10 +199,7 @@ def main() -> int:
         terrain = unpack(a["@terrain_tags"])
         maps = []
         for f in sorted(data.glob("Map[0-9]*.rxdata")):
-            try:
-                m = load(open(f, "rb"))
-            except Exception:  # rubymarshal can't read some event-heavy maps; skip them
-                continue
+            m = load_map(f)
             if m.attributes.get("@tileset_id") == ts_id:
                 maps.append((f, m))
         ts_label = a["@name"].decode("utf-8", "replace") if isinstance(a["@name"], bytes) else str(a["@name"])
@@ -209,7 +229,10 @@ def main() -> int:
         if problems:
             sys.exit(f"Map id {map_id} is not safe: {[msg for _, msg in problems]}. "
                      f"Free ids: {state.free_ids()}")
-        ts_id = len(tilesets)
+        ts_id = free_tileset_slot(tilesets, data)
+        if ts_id is None:
+            sys.exit(f"No blank tileset slot under {EDITOR_TILESET_SLOTS}. In RPG Maker XP raise the "
+                     "tileset maximum (Database -> Tilesets -> Change Maximum), save, close, and rerun.")
         print(f"INSTALL as Map{map_id:03d} {name!r} with new tileset {ts_id}")
         if args.dry_run:
             return 0
@@ -222,7 +245,7 @@ def main() -> int:
         pack_1d(a["@passages"], new_pas)
         pack_1d(a["@priorities"], new_pri)
         pack_1d(a["@terrain_tags"], [0] * n)
-        tilesets.append(new)
+        tilesets[ts_id] = new
         shutil.copy2(png, gfx / png.name)
         with open(data / "Tilesets.rxdata", "wb") as f:
             write(f, tilesets)

@@ -46,6 +46,7 @@ from rubymarshal.writer import write
 
 AUTOTILE_IDS = 384
 BLOCKED = 15
+DIR_BITS = {"down": 0x01, "left": 0x02, "right": 0x04, "up": 0x08}
 EDITOR_TILESET_SLOTS = 47  # RPG Maker XP's tileset list keeps slots 0-46; a save drops the rest
 
 
@@ -100,7 +101,11 @@ def from_csv(text: str, n: int) -> tuple[list[int], list[int]]:
         i = int(row["tile_id"])
         if i >= n:
             continue
-        passages[i] = 0 if row["suggested_passable"].strip() == "yes" else BLOCKED
+        if row["suggested_passable"].strip() != "yes":
+            passages[i] = BLOCKED
+        else:  # hard borders: one-way edges the player can't cross
+            dirs = re.split(r"[\s;|/+]+", (row.get("suggested_blocked_dirs") or "").strip().lower())
+            passages[i] = sum(DIR_BITS[d] for d in set(dirs) if d in DIR_BITS)
         priorities[i] = int(row["suggested_priority"] or 0)
     return passages, priorities
 

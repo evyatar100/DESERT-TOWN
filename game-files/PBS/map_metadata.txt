@@ -483,3 +483,7 @@ Outdoor = true
 [108]   # deep-playa 9
 Name = deep-playa 9
 Outdoor = true
+#-------------------------------
+[33]   # deep-playa 1a
+Name = deep-playa 1a
+Outdoor = true

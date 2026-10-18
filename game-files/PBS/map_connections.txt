@@ -106,3 +106,11 @@
 106,West,0,107,East,0
 # deep-playa 8 (107) - deep-playa 9 (108)
 107,West,0,108,East,0
+# Squere Road Temple (96) - deep-playa 1a (33)
+96,East,0,33,West,27
+# deep-playa 1a (33) - deep-playa 1b (101)
+33,West,0,101,East,0
+# deep-playa 1a (33) - deep-playa 4 (103)
+33,North,0,103,South,11
+# deep-playa 1a (33) - Playa (98)
+33,South,0,98,North,0

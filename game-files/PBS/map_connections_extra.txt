@@ -2,6 +2,10 @@
 # The debug editor rewrites only map_connections.txt, so these lines live here.
 # Each line pins the first map's tile (0,0) to (x,y) on the second map.
 #-------------------------------
+# deep-playa 1a (33) - Kim Area (97)
+33,0,0,97,-42,-31
+# deep-playa 1a (33) - deep-playa 5 (104)
+33,0,0,104,-28,28
 # demo-camp4 (84) - spacesheep-camp (86)
 84,0,0,86,-32,36
 # demo-camp4 (84) - mom-dad-out (90)

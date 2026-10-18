@@ -200,6 +200,9 @@ def process_map_layers(
     parent_id: int = 0,
     include_generic: bool = True,
     force: bool = False,
+    tileset_id: int | None = None,
+    map_id: int | None = None,
+    order: int | None = None,
 ) -> tuple[int, int]:
     """Execute the pipeline and return (new_tileset_id, new_map_id)."""
     input_dir = input_dir.resolve()
@@ -314,7 +317,25 @@ def process_map_layers(
     shutil.copy2(tilesets_rxdata_path, tilesets_bak)
     print(f"[+] Backup saved: {tilesets_bak}")
 
-    new_tileset_id = len(tilesets_list)
+    if tileset_id is None:
+        new_tileset_id = len(tilesets_list)
+    else:
+        if tileset_id < 1:
+            print(f"[-] Error: tileset id {tileset_id} is not a usable slot.", file=sys.stderr)
+            sys.exit(1)
+        while len(tilesets_list) <= tileset_id:
+            tilesets_list.append(None)
+        existing = tilesets_list[tileset_id]
+        if existing is not None:
+            existing_name = existing.attributes.get("@name") if hasattr(existing, "attributes") else None
+            if isinstance(existing_name, bytes):
+                existing_name = existing_name.decode("utf-8", "replace")
+            print(
+                f"[-] Error: tileset slot {tileset_id} is already used ({existing_name!r}).",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        new_tileset_id = tileset_id
 
     # Initialize tables
     passages_table = make_table_1d(total_tiles_in_ts, default_val=0)
@@ -370,7 +391,10 @@ def process_map_layers(
         },
     )
 
-    tilesets_list.append(new_tileset_obj)
+    if tileset_id is None:
+        tilesets_list.append(new_tileset_obj)
+    else:
+        tilesets_list[new_tileset_id] = new_tileset_obj
     with open(tilesets_rxdata_path, "wb") as f:
         write(f, tilesets_list)
     print(f"[+] Saved Tilesets.rxdata: Allocated Tileset ID {new_tileset_id} ('{dir_name}')")
@@ -387,14 +411,24 @@ def process_map_layers(
     shutil.copy2(mapinfos_rxdata_path, mapinfos_bak)
     print(f"[+] Backup saved: {mapinfos_bak}")
 
-    new_map_id = max(map_infos.keys()) + 1 if map_infos else 1
+    if map_id is None:
+        new_map_id = max(map_infos.keys()) + 1 if map_infos else 1
+    else:
+        map_rxdata_candidate = data_dir / f"Map{map_id:03d}.rxdata"
+        if map_id in map_infos or map_rxdata_candidate.exists():
+            print(
+                f"[-] Error: map slot {map_id} is already used.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        new_map_id = map_id
 
     new_map_info = RubyObject(
         "RPG::MapInfo",
         {
             "@name": dir_name.encode("utf-8"),
             "@parent_id": parent_id,
-            "@order": new_map_id,
+            "@order": new_map_id if order is None else order,
             "@expanded": False,
             "@scroll_x": 0,
             "@scroll_y": 0,
@@ -536,6 +570,24 @@ def main():
         action="store_true",
         help="Proceed even if RPGXP.exe is detected as running",
     )
+    parser.add_argument(
+        "--tileset-id",
+        type=int,
+        default=None,
+        help="Write the tileset into this slot instead of appending one",
+    )
+    parser.add_argument(
+        "--map-id",
+        type=int,
+        default=None,
+        help="Write the map into this id instead of max(MapInfos)+1",
+    )
+    parser.add_argument(
+        "--order",
+        type=int,
+        default=None,
+        help="Map tree order (default: the new map id)",
+    )
 
     args = parser.parse_args()
     process_map_layers(
@@ -545,6 +597,9 @@ def main():
         parent_id=args.parent_id,
         include_generic=args.include_generic,
         force=args.force,
+        tileset_id=args.tileset_id,
+        map_id=args.map_id,
+        order=args.order,
     )
 
 

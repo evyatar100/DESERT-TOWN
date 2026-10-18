@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-18T16:27:08Z",
+  "generated_at": "2026-10-18T17:02:25Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -136,11 +136,11 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-1a",
       "display_name": "deep-playa 1a",
-      "map_id": null,
-      "tileset_name": "deep-playa-1a_ts",
+      "map_id": 33,
+      "tileset_name": "deep-playa 1a_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -175,14 +175,19 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "tileset_properties_set": null,
-      "warnings": [],
+      "tileset_properties_set": false,
+      "warnings": [
+        "Tileset properties not set"
+      ],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 28,
+        "tiles_h": 31
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -191,7 +196,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -452,7 +457,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -584,7 +589,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -650,7 +655,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -697,7 +702,7 @@ window.MAP_STATUS = {
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
@@ -763,7 +768,7 @@ window.MAP_STATUS = {
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
@@ -1492,17 +1497,14 @@ window.MAP_STATUS = {
         "tiles_h": 64,
         "size_ok": true
       },
-      "tileset_properties_set": true,
+      "tileset_properties_set": null,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
       "tileset_in_game": true,
-      "map_associated": true,
-      "game_tiles": {
-        "tiles_w": 32,
-        "tiles_h": 32
-      },
+      "map_associated": false,
+      "game_tiles": null,
       "connected": false,
       "connections": {
         "north": null,
@@ -1511,7 +1513,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 2,
+      "event_count": null,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1842,7 +1844,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": true

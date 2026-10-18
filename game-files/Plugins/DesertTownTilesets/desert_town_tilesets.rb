@@ -9,8 +9,8 @@
 module DesertTownTilesets
   # map_id => [tileset_id, editor name, graphic stem]
   MAPS = {
-    452441 => [56, "deep-playa 8", "deep-playa 8_ts"],
-    452442 => [57, "deep-playa 9", "deep-playa 9_ts"]
+    107 => [56, "deep-playa 8", "deep-playa 8_ts"],
+    108 => [57, "deep-playa 9", "deep-playa 9_ts"]
   }
 
   module_function

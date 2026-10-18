@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-18T15:23:53Z",
+  "generated_at": "2026-10-18T16:27:08Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -199,7 +199,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-1b",
       "display_name": "deep-playa 1b",
-      "map_id": 452433,
+      "map_id": 101,
       "tileset_name": "deep-playa 1b_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -328,7 +328,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-3",
       "display_name": "deep-playa 3",
-      "map_id": 452434,
+      "map_id": 102,
       "tileset_name": "deep-playa 3_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -394,7 +394,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-4",
       "display_name": "deep-playa 4",
-      "map_id": 452435,
+      "map_id": 103,
       "tileset_name": "deep-playa 4_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -460,7 +460,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-5",
       "display_name": "deep-playa 5",
-      "map_id": 452436,
+      "map_id": 104,
       "tileset_name": "deep-playa 5_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -526,7 +526,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-6",
       "display_name": "deep-playa 6",
-      "map_id": 452437,
+      "map_id": 105,
       "tileset_name": "deep-playa 6_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -592,7 +592,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-7",
       "display_name": "deep-playa 7",
-      "map_id": 452438,
+      "map_id": 106,
       "tileset_name": "deep-playa 7_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -658,7 +658,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-8",
       "display_name": "deep-playa 8",
-      "map_id": 452441,
+      "map_id": 107,
       "tileset_name": "deep-playa 8_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -697,7 +697,7 @@ window.MAP_STATUS = {
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": true,
+      "tileset_properties_set": null,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
@@ -724,7 +724,7 @@ window.MAP_STATUS = {
     {
       "id": "deep-playa-9",
       "display_name": "deep-playa 9",
-      "map_id": 452442,
+      "map_id": 108,
       "tileset_name": "deep-playa 9_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -763,7 +763,7 @@ window.MAP_STATUS = {
         "tiles_h": 28,
         "size_ok": true
       },
-      "tileset_properties_set": true,
+      "tileset_properties_set": null,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,

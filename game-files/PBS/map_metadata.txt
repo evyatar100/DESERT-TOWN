@@ -445,41 +445,41 @@ Outdoor = true
 Name = Freecamp
 Outdoor = true
 #-------------------------------
-[452433]   # deep-playa 1b
+[101]   # deep-playa 1b
 Name = deep-playa 1b
 Outdoor = true
 #-------------------------------
-[452434]   # deep-playa 3
+[102]   # deep-playa 3
 Name = deep-playa 3
 Outdoor = true
 #-------------------------------
-[452435]   # deep-playa 4
+[103]   # deep-playa 4
 Name = deep-playa 4
 Outdoor = true
 #-------------------------------
-[452436]   # deep-playa 5
+[104]   # deep-playa 5
 Name = deep-playa 5
 Outdoor = true
 #-------------------------------
-[452437]   # deep-playa 6
+[105]   # deep-playa 6
 Name = deep-playa 6
 Outdoor = true
 #-------------------------------
-[452438]   # deep-playa 7
+[106]   # deep-playa 7
 Name = deep-playa 7
 Outdoor = true
 #-------------------------------
-[452439]   # DEEPPLAYA
+[100]   # DEEPPLAYA
 Name = DEEPPLAYA
 #-------------------------------
 [452440]   # Glass A
 Name = Glass A
 Outdoor = true
 #-------------------------------
-[452441]   # deep-playa 8
+[107]   # deep-playa 8
 Name = deep-playa 8
 Outdoor = true
 #-------------------------------
-[452442]   # deep-playa 9
+[108]   # deep-playa 9
 Name = deep-playa 9
 Outdoor = true

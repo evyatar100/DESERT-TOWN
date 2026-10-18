@@ -21,3 +21,6 @@ assets-factory/psd/
 
 # Downloaded map-export zips (imported with .claude/skills/map-zip-import)
 raw_downloaded_map/
+
+# Game-file backups taken by the map importer
+assets-factory/archive/game-data/

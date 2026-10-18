@@ -14,6 +14,23 @@ description: >-
 
 Put the downloaded zip in **`C:\Users\toozi\DESERT-TOWN\raw_downloaded_map\`**. Any file name works; the script takes the newest `.zip` there. Old zips can stay or be deleted.
 
+## For the user: one command after `git pull`
+
+```bash
+python maps/import_new_maps.py
+```
+
+It lists every `maps/<id>/artifacts/**.zip` as NEW, UPDATED or "in game" (tracked by SHA-256 in `assets-factory/map_imports/imported.json`). The user picks a number, it checks RPG Maker XP is closed, warns about uncommitted game-file changes, shows a dry run, asks y/N, then runs this script with `--map-folder`. `--list` only lists. Point the user to it when they ask how to load maps themselves.
+
+For a `maps/<id>` folder Claude runs the same thing directly:
+
+```bash
+python .claude/skills/map-zip-import/scripts/import_map_zip.py --map-folder maps/<id> --dry-run
+python .claude/skills/map-zip-import/scripts/import_map_zip.py --map-folder maps/<id>
+```
+
+`--map-folder` takes the name and tileset stem from `meta.json`, and afterwards sets `map_id`/`status`, copies `tileset.png`, applies the `bgm`, runs `maps/build_status.py` and records the zip. Every write first copies the files it changes to `assets-factory/archive/game-data/<time>/` (gitignored).
+
 ## Run it
 
 1. Check RPG Maker XP is closed (`Get-Process RPGXP -ErrorAction SilentlyContinue`). If it's open, ask the user to close it **without saving**; saving later overwrites the import.
@@ -35,21 +52,13 @@ It decides by the tileset image name (`Tileset_<...>.png`):
 
 - **New map** (no tileset with that image yet):
   - Runs the zip's own `check_map_slot.py` logic and takes the first free map id. The zip's slot number is usually taken, so it's only used if `--map-id` says so and the check passes.
-  - Copies the PNG into `Graphics/Tilesets` and puts the new tileset in the first blank slot below 47 that no map uses (e.g. 28). The RPG Maker XP tileset list only keeps slots 0–46 and a save drops the rest (see `.agents/skills/desert-town-tileset-slot`). If there's no blank slot, the script stops and asks to raise the maximum in Database → Tilesets. Passage (`yes` → 0, `no` → 15) and priority come from `passability.csv`.
+  - Copies the PNG into `Graphics/Tilesets` and puts the new tileset in the first blank slot below 47 that no map uses (e.g. 28). The RPG Maker XP tileset list only keeps slots 0–46 and a save drops the rest (see `.agents/skills/desert-town-tileset-slot`). If there's no blank slot, the script stops and asks to raise the maximum in Database → Tilesets. Passage (`yes` → 0, `no` → 15, plus `suggested_blocked_dirs` hard borders: down 1, left 2, right 4, up 8) and priority come from `passability.csv`.
   - Writes `Data/MapNNN.rxdata` pointing at the **new** tileset id. The zip's "Tileset ID" is ignored, because the app never knows the real one.
   - Adds a top-level map in `MapInfos.rxdata`, named from the zip (`map-<name>-slot...`) or `--name`.
 - **Updated map** (the tileset already exists):
   - Re-applies `passability.csv`, but keeps any tile changed by hand in RPG Maker since the last import. It compares against the snapshot in `assets-factory/map_imports/<tileset>/passability.csv`.
   - Copies the new PNG and replaces the tile layers of every map on that tileset, keeping their events. It never touches `MapInfos.rxdata`.
   - A re-export to a different slot gets a new image name (`Tileset_map-slot342-...`). The script then matches by **map name** in the map tree and updates that map's tileset in place, pointing it at the new image. Pass `--new` to install a second copy instead.
-
-For a zip under `maps/<id>/artifacts/` (the repo's map folders, see `maps/AGENTS.md`), pass the folder's name and tileset stem, then update the folder:
-
-```bash
-python .claude/skills/map-zip-import/scripts/import_map_zip.py maps/<id>/artifacts/desert-town-mapgen/map-export.zip --name <display_name> --tileset-name <id>_ts
-```
-
-Afterwards copy `Graphics/Tilesets/<id>_ts.png` to `maps/<id>/tileset.png`, set `map_id` (and `status: in_progress`) in `maps/<id>/meta.json`, set the map's BGM from `meta.json` `bgm` (`@autoplay_bgm` true, `@bgm.@name`), and run `python maps/build_status.py`.
 
 Options: `--map-id N` `--tileset-name STEM`,, `--name NAME`, `--game DIR` (default `game-files`), `--force` (write even with RPGXP open; avoid).
 

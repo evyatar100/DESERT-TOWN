@@ -29,6 +29,8 @@ from __future__ import annotations
 import argparse
 import copy
 import csv
+import hashlib
+import json
 import importlib.util
 import io
 import re
@@ -38,6 +40,7 @@ import subprocess
 import sys
 import tempfile
 import zipfile
+from datetime import datetime
 from pathlib import Path
 
 from PIL import Image
@@ -126,6 +129,64 @@ def merge(current: list[int], old: list[int] | None, new: list[int]) -> tuple[li
     return out, kept, changed
 
 
+LEDGER = Path("assets-factory/map_imports/imported.json")
+
+
+def sha256(path: Path) -> str:
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def read_ledger() -> dict:
+    return json.loads(LEDGER.read_text(encoding="utf-8")) if LEDGER.is_file() else {}
+
+
+def record_import(zip_path: Path, map_id: int, ts_id: int) -> None:
+    ledger = read_ledger()
+    ledger[zip_path.resolve().relative_to(Path.cwd().resolve()).as_posix()] = {
+        "sha256": sha256(zip_path), "map_id": map_id, "tileset_id": ts_id,
+        "imported_at": datetime.now().isoformat(timespec="seconds"),
+    }
+    LEDGER.parent.mkdir(parents=True, exist_ok=True)
+    LEDGER.write_text(json.dumps(ledger, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+
+
+def backup(files: list[Path]) -> Path:
+    """Copy the game files about to change into assets-factory/archive/game-data/<timestamp>/."""
+    dest = Path("assets-factory/archive/game-data") / datetime.now().strftime("%Y%m%d-%H%M%S")
+    dest.mkdir(parents=True, exist_ok=True)
+    for f in files:
+        if f.is_file():
+            shutil.copy2(f, dest / f.name)
+    print(f"backup: {dest}")
+    return dest
+
+
+def folder_zip(folder: Path) -> Path:
+    zips = sorted((folder / "artifacts").rglob("*.zip"), key=lambda p: p.stat().st_mtime)
+    if not zips:
+        sys.exit(f"No export zip under {folder / 'artifacts'}.")
+    return zips[-1]
+
+
+def finish_map_folder(folder: Path, data: Path, gfx: Path, map_id: int, ts_name: str) -> None:
+    """Keep maps/<id>/ in step with the game, as maps/AGENTS.md asks."""
+    meta_path = folder / "meta.json"
+    meta = json.loads(meta_path.read_text(encoding="utf-8"))
+    meta["map_id"] = map_id
+    if meta.get("status") in (None, "stub"):
+        meta["status"] = "in_progress"
+    meta_path.write_text(json.dumps(meta, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    shutil.copy2(gfx / f"{ts_name}.png", folder / "tileset.png")
+    if meta.get("bgm"):
+        path = data / f"Map{map_id:03d}.rxdata"
+        m = load_map(path)
+        m.attributes["@autoplay_bgm"] = True
+        m.attributes["@bgm"].attributes["@name"] = meta["bgm"].encode()
+        with open(path, "wb") as f:
+            write(f, m)
+    subprocess.run([sys.executable, "maps/build_status.py"], check=False)
+
+
 def newest_zip(folder: Path) -> Path:
     zips = sorted(folder.glob("*.zip"), key=lambda p: p.stat().st_mtime)
     if not zips:
@@ -141,6 +202,9 @@ def map_name_from_zip(zip_path: Path) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("zip", nargs="?", type=Path, help="map export zip (default: newest in raw_downloaded_map/)")
+    ap.add_argument("--map-folder", type=Path,
+                    help="a maps/<id> folder: takes its newest artifacts zip, name and tileset name from "
+                         "meta.json, and updates meta.json, tileset.png and status after importing")
     ap.add_argument("--game", type=Path, default=Path("game-files"), help="game root with Data/ and Graphics/")
     ap.add_argument("--map-id", type=int, help="map id for a new install (default: first free id)")
     ap.add_argument("--name", help="map name in the map tree (default: taken from the zip name)")
@@ -153,7 +217,12 @@ def main() -> int:
     args = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")  # map names are often Hebrew
 
-    zip_path = args.zip or newest_zip(Path("raw_downloaded_map"))
+    meta = {}
+    if args.map_folder:
+        meta = json.loads((args.map_folder / "meta.json").read_text(encoding="utf-8"))
+        args.name = args.name or meta.get("display_name") or meta["id"]
+        args.tileset_name = args.tileset_name or meta.get("tileset_name") or f"{meta['id']}_ts"
+    zip_path = args.zip or (folder_zip(args.map_folder) if args.map_folder else newest_zip(Path("raw_downloaded_map")))
     data, gfx = args.game / "Data", args.game / "Graphics" / "Tilesets"
     if not (data / "Tilesets.rxdata").is_file():
         sys.exit(f"{args.game} is not the game folder (no Data/Tilesets.rxdata).")
@@ -214,6 +283,8 @@ def main() -> int:
               f"kept {kept_p + kept_r} hand edits; maps using it: {[f.name for f, _ in maps]}")
         if args.dry_run:
             return 0
+        backup([data / "Tilesets.rxdata", gfx / f"{ts_name}.png", *(f for f, _ in maps)])
+        map_id = int(maps[0][0].stem[3:]) if maps else None
         a["@tileset_name"] = ts_name.encode()
         pack_1d(a["@passages"], pas)
         pack_1d(a["@priorities"], pri)
@@ -243,6 +314,7 @@ def main() -> int:
         print(f"INSTALL as Map{map_id:03d} {name!r} with new tileset {ts_id}")
         if args.dry_run:
             return 0
+        backup([data / "Tilesets.rxdata", data / "MapInfos.rxdata"])
         new = copy.deepcopy(next(t for t in reversed(tilesets) if t is not None))
         a = new.attributes
         a["@id"], a["@name"], a["@tileset_name"] = ts_id, name.encode(), ts_name.encode()
@@ -269,6 +341,10 @@ def main() -> int:
         with open(data / "MapInfos.rxdata", "wb") as f:
             write(f, infos)
 
+    if args.map_folder and map_id is not None:
+        finish_map_folder(args.map_folder, data, gfx, map_id, ts_name)
+    if map_id is not None:
+        record_import(zip_path, map_id, ts_id)
     snapshot = Path("assets-factory/map_imports") / ts_name / "passability.csv"
     snapshot.parent.mkdir(parents=True, exist_ok=True)
     snapshot.write_text(csv_text, encoding="utf-8")

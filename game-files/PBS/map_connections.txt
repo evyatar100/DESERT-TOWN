@@ -94,3 +94,7 @@
 84,East,41,452440,West,0
 # Glass A (452440) - kusomo2 (95)
 452440,North,0,95,South,0
+# Piramid (22) - deep-playa 3 (452434)
+22,North,2,452434,South,0
+# Piramid (22) - Kim Area (97)
+22,West,0,97,East,0

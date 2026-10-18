@@ -102,6 +102,10 @@ MapPosition = 0,14,8
 BattleBack = field
 MapSize = 1,11
 #-------------------------------
+[022]   # Piramid
+Name = Piramid
+Outdoor = true
+#-------------------------------
 [023]   # Lerucean Town
 Name = Lerucean Town
 Outdoor = true

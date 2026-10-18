@@ -11,6 +11,15 @@ description: >-
 
 # Move a tileset between slots
 
+## Script
+
+```bash
+python .agents/skills/desert-town-tileset-slot/scripts/move_tileset_slot.py FROM TO
+python .agents/skills/desert-town-tileset-slot/scripts/move_tileset_slot.py FROM TO --yes
+```
+
+Dry-run is the default. `--yes` writes `Tilesets.rxdata` and patches every affected `Map*.rxdata` in place. Destination occupied → swap both records and remap maps for both ids. Destination nil → move and clear the old index. `--force` writes while RPGXP is open.
+
 The index in `game-files/Data/Tilesets.rxdata` is the tileset id. Each entry is an `RPG::Tileset` or nil. The object carries `@id`, `@name`, `@tileset_name`, `@passages`, `@priorities`, `@terrain_tags`, and the autotile, panorama, fog, and battleback fields.
 
 Move that record. Then set every map `@tileset_id` so the map still uses the same object. A slot with an object is occupied even when `@name` and `@tileset_name` are empty.

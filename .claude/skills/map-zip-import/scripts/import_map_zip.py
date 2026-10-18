@@ -283,6 +283,9 @@ def main() -> int:
         ts_label = a["@name"].decode("utf-8", "replace") if isinstance(a["@name"], bytes) else str(a["@name"])
         print(f"UPDATE tileset {ts_id} {ts_label!r}:{ch_p} passage and {ch_r} priority changes, "
               f"kept {kept_p + kept_r} hand edits; maps using it: {[f.name for f, _ in maps]}")
+        for f, _ in maps:
+            print(f"!! This OVERWRITES {f.stem} ({ts_label}): its tiles, the tileset image and passability are "
+                  "replaced. Its events and the priorities/passages you changed by hand are kept.")
         if args.dry_run:
             return 0
         backup([data / "Tilesets.rxdata", gfx / f"{ts_name}.png", *(f for f, _ in maps)])

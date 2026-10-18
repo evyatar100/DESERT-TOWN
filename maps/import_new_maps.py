@@ -130,7 +130,9 @@ def main() -> int:
     if subprocess.run(cmd + ["--dry-run"]).returncode != 0:
         print("Stopped: the preview failed, nothing was written.")
         return 1
-    if ask(f"\nImport {row['name']} into the game now? (y/N): ") != "y":
+    question = (f"\nOVERWRITE map {row['map_id']} ({row['name']}) in the game with this zip? (y/N): "
+                if row["map_id"] else f"\nAdd {row['name']} to the game as a new map? (y/N): ")
+    if ask(question) != "y":
         print("Nothing imported.")
         return 0
     result = subprocess.run(cmd)

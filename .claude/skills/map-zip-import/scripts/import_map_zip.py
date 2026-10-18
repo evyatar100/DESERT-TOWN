@@ -180,8 +180,10 @@ def finish_map_folder(folder: Path, data: Path, gfx: Path, map_id: int, ts_name:
     if meta.get("bgm"):
         path = data / f"Map{map_id:03d}.rxdata"
         m = load_map(path)
+        bgm = copy.copy(m.attributes["@bgm"])  # exports share one AudioFile object between @bgm and @bgs
+        bgm.attributes = {**bgm.attributes, "@name": meta["bgm"].encode()}
         m.attributes["@autoplay_bgm"] = True
-        m.attributes["@bgm"].attributes["@name"] = meta["bgm"].encode()
+        m.attributes["@bgm"] = bgm
         with open(path, "wb") as f:
             write(f, m)
     subprocess.run([sys.executable, "maps/build_status.py"], check=False)

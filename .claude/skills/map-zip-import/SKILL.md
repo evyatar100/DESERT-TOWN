@@ -43,7 +43,15 @@ It decides by the tileset image name (`Tileset_<...>.png`):
   - Copies the new PNG and replaces the tile layers of every map on that tileset, keeping their events. It never touches `MapInfos.rxdata`.
   - A re-export to a different slot gets a new image name (`Tileset_map-slot342-...`). The script then matches by **map name** in the map tree and updates that map's tileset in place, pointing it at the new image. Pass `--new` to install a second copy instead.
 
-Options: `--map-id N`, `--name NAME`, `--game DIR` (default `game-files`), `--force` (write even with RPGXP open; avoid).
+For a zip under `maps/<id>/artifacts/` (the repo's map folders, see `maps/AGENTS.md`), pass the folder's name and tileset stem, then update the folder:
+
+```bash
+python .claude/skills/map-zip-import/scripts/import_map_zip.py maps/<id>/artifacts/desert-town-mapgen/map-export.zip --name <display_name> --tileset-name <id>_ts
+```
+
+Afterwards copy `Graphics/Tilesets/<id>_ts.png` to `maps/<id>/tileset.png`, set `map_id` (and `status: in_progress`) in `maps/<id>/meta.json`, set the map's BGM from `meta.json` `bgm` (`@autoplay_bgm` true, `@bgm.@name`), and run `python maps/build_status.py`.
+
+Options: `--map-id N` `--tileset-name STEM`,, `--name NAME`, `--game DIR` (default `game-files`), `--force` (write even with RPGXP open; avoid).
 
 ## How the user checks it in RPG Maker XP
 

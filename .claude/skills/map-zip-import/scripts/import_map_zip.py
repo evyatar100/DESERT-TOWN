@@ -139,6 +139,8 @@ def main() -> int:
     ap.add_argument("--game", type=Path, default=Path("game-files"), help="game root with Data/ and Graphics/")
     ap.add_argument("--map-id", type=int, help="map id for a new install (default: first free id)")
     ap.add_argument("--name", help="map name in the map tree (default: taken from the zip name)")
+    ap.add_argument("--tileset-name", help="file stem for the tileset image in Graphics/Tilesets "
+                    "(default: the zip's Tileset_*.png name; maps/<id> folders use <id>_ts)")
     ap.add_argument("--new", action="store_true",
                     help="install as a new map even if a map with the same name already exists")
     ap.add_argument("--dry-run", action="store_true", help="report what would change, write nothing")
@@ -160,7 +162,7 @@ def main() -> int:
     png = next(tmp.glob("Tileset_*.png"))
     map_file = next(tmp.glob("Map*.rxdata"))
     csv_text = (tmp / "passability.csv").read_text(encoding="utf-8")
-    ts_name = png.stem
+    ts_name = args.tileset_name or png.stem
     n = AUTOTILE_IDS + Image.open(png).size[1] // 32 * 8
     snapshot = Path("assets-factory/map_imports") / ts_name / "passability.csv"
     print(f"zip: {zip_path.name}\ntileset image: {png.name} ({n - AUTOTILE_IDS} tiles)")
@@ -211,7 +213,7 @@ def main() -> int:
         pack_1d(a["@passages"], pas)
         pack_1d(a["@priorities"], pri)
         pack_1d(a["@terrain_tags"], (terrain + [0] * n)[:n])
-        shutil.copy2(png, gfx / png.name)
+        shutil.copy2(png, gfx / f"{ts_name}.png")
         with open(data / "Tilesets.rxdata", "wb") as f:
             write(f, tilesets)
         for f, m in maps:
@@ -246,7 +248,7 @@ def main() -> int:
         pack_1d(a["@priorities"], new_pri)
         pack_1d(a["@terrain_tags"], [0] * n)
         tilesets[ts_id] = new
-        shutil.copy2(png, gfx / png.name)
+        shutil.copy2(png, gfx / f"{ts_name}.png")
         with open(data / "Tilesets.rxdata", "wb") as f:
             write(f, tilesets)
         exported.attributes["@tileset_id"] = ts_id

@@ -83,6 +83,17 @@ def main() -> int:
     sys.stdout.reconfigure(encoding="utf-8", line_buffering=True)
     os.chdir(ROOT)
 
+    if (ROOT / ".git" / "MERGE_HEAD").exists():
+        print("A git pull is half-done (merge conflict). Run `git merge --abort`, then "
+              "`git pull origin main`, then run this again.")
+        return 1
+    subprocess.run(["git", "fetch", "-q", "origin", "main"], check=False)
+    behind = subprocess.run(["git", "rev-list", "--count", "HEAD..origin/main"],
+                            capture_output=True, text=True).stdout.strip()
+    if behind and behind != "0":
+        print(f"GitHub's main has {behind} commit(s) you haven't pulled. Run `git pull origin main` "
+              "first, or the newest map zips won't show up here.\n")
+
     rows = candidates()
     todo = [r for r in rows if r["state"] != "in game"]
     print("Map export zips in maps/:\n")

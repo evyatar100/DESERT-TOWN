@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-18T17:35:15Z",
+  "generated_at": "2026-10-18T18:05:47Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -940,9 +940,9 @@ window.MAP_STATUS = {
         "present": true,
         "empty": false,
         "width": 1024,
-        "height": 704,
+        "height": 1184,
         "tiles_w": 32,
-        "tiles_h": 22,
+        "tiles_h": 37,
         "size_ok": true
       },
       "has_layer2": false,
@@ -960,9 +960,9 @@ window.MAP_STATUS = {
         "present": true,
         "empty": false,
         "width": 1024,
-        "height": 704,
+        "height": 1184,
         "tiles_w": 32,
-        "tiles_h": 22,
+        "tiles_h": 37,
         "size_ok": true
       },
       "tileset_properties_set": true,
@@ -974,7 +974,7 @@ window.MAP_STATUS = {
       "map_associated": true,
       "game_tiles": {
         "tiles_w": 32,
-        "tiles_h": 22
+        "tiles_h": 37
       },
       "connected": false,
       "connections": {

@@ -38,12 +38,10 @@
 47,East,8,52,West,0
 # Route 8 (69) - Safari Zone outside (66)
 69,North,0,66,South,10
-# demo-arcade (82) - long-arcade (85)
-82,West,0,85,East,39
 # Freecamp (452432) - demo-camp4 (84)
 452432,East,3,84,West,0
 # Freecamp (452432) - flamingods-out (452431)
-452432,East,0,452431,West,19
+452432,East,0,452431,West,34
 # Freecamp (452432) - Ice Camp (91)
 452432,North,0,91,South,0
 # Freecamp (452432) - mom-dad-out (90)
@@ -77,11 +75,11 @@
 # demo-camp4 (84) - kusomo2 (95)
 84,East,0,95,West,1
 # flamingods-out (452431) - kusomo2 (95)
-452431,East,21,95,West,0
+452431,East,36,95,West,0
 # flamingods-out (452431) - mom-dad-out (90)
-452431,West,0,90,East,12
+452431,West,15,90,East,12
 # flamingods-out (452431) - spacesheep-camp (86)
-452431,East,0,86,West,14
+452431,East,15,86,West,14
 # Ice Camp (91) - mom-dad-out (90)
 91,East,0,90,West,3
 # Kim Area (97) - Playa (98)

@@ -97,9 +97,9 @@
     "flamingods-out": {
       "id": "flamingods-out",
       "x": 177,
-      "y": 110,
+      "y": 95,
       "tiles_w": 32,
-      "tiles_h": 22
+      "tiles_h": 37
     },
     "Freecamp": {
       "id": "Freecamp",
@@ -239,7 +239,7 @@
       "a_offset": 0,
       "b": "flamingods-out",
       "b_edge": "west",
-      "b_offset": 19
+      "b_offset": 34
     },
     {
       "a": "Freecamp",
@@ -564,7 +564,7 @@
     {
       "a": "flamingods-out",
       "a_edge": "east",
-      "a_offset": 21,
+      "a_offset": 36,
       "b": "kusomo2",
       "b_edge": "west",
       "b_offset": 0
@@ -572,7 +572,7 @@
     {
       "a": "flamingods-out",
       "a_edge": "west",
-      "a_offset": 0,
+      "a_offset": 15,
       "b": "mom-dad",
       "b_edge": "east",
       "b_offset": 12
@@ -580,7 +580,7 @@
     {
       "a": "flamingods-out",
       "a_edge": "east",
-      "a_offset": 0,
+      "a_offset": 15,
       "b": "spacesheep-camp-b",
       "b_edge": "west",
       "b_offset": 14

@@ -467,3 +467,7 @@ Outdoor = true
 #-------------------------------
 [452439]   # DEEPPLAYA
 Name = DEEPPLAYA
+#-------------------------------
+[452440]   # Glass A
+Name = Glass A
+Outdoor = true

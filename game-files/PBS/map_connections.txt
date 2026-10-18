@@ -88,3 +88,9 @@
 97,West,0,98,East,0
 # kusomo2 (95) - spacesheep-camp (86)
 95,North,0,86,South,0
+# party (93) - Glass A (452440)
+93,South,0,452440,North,35
+# demo-camp4 (84) - Glass A (452440)
+84,East,41,452440,West,0
+# Glass A (452440) - kusomo2 (95)
+452440,North,0,95,South,0

@@ -2,20 +2,20 @@
 
 **Map id:** Piramid
 
-**Map number:** 888
+**Map number:** 123
 
 **Session id:** North_Gate_Camp_imported
 
-**Tileset id:** 2
+**Tileset id:** 22
 
 **Size in tiles:** 36 x 33
 
-**Exported at:** 2026-10-17T18:45:05+00:00
+**Exported at:** 2026-10-18T04:26:50+00:00
 
-**Push number:** 1
+**Push number:** 2
 
-**SHA-256:** 239d712ff31f5731f450cb501abd9a756e5d8077db90c1035b65fbb72316b258
+**SHA-256:** 30b32eda66c79a01941301d8a2b54b1133a6070521564d8c7ba70ca5b151dd9f
 
-**Original download filename:** ` map-North_Gate_Camp__imported_-slot888-North_Gate_Camp_imported-20261017.zip `
+**Original download filename:** ` map-North_Gate_Camp__imported_-slot123-North_Gate_Camp_imported-20261018.zip `
 
 **How to use:** unzip into the game per README.txt, and run check_map_slot.py first.

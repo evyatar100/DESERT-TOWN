@@ -1,0 +1,16 @@
+{
+  "id": "casino-in",
+  "display_name": "Casino In",
+  "map_id": 94,
+  "tileset_name": "casino-in_ts",
+  "is_outside": false,
+  "bgm": "Calm Camps Area",
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Indoor Egyptian casino. Base art only; layer 3 is not traced yet."
+}

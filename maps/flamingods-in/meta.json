@@ -1,0 +1,16 @@
+{
+  "id": "flamingods-in",
+  "display_name": "Flamingods In",
+  "map_id": 99,
+  "tileset_name": "flamingods-in_ts",
+  "is_outside": false,
+  "bgm": "Calm Camps Area",
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Indoor Flamingods camp (tents, bar, shower, toilets). Base art only; layer 3 is not traced yet. Exterior is flamingods-out."
+}

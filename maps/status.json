@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-18T19:02:53Z",
+  "generated_at": "2026-10-19T10:41:43Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 32,
+  "map_count": 34,
   "maps": [
     {
       "id": "candles",
@@ -66,6 +66,74 @@
       },
       "event_connections": [],
       "event_count": null,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
+      "id": "casino-in",
+      "display_name": "Casino In",
+      "map_id": 94,
+      "tileset_name": "casino-in_ts",
+      "is_outside": false,
+      "bgm": "Calm Camps Area",
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Indoor Egyptian casino. Base art only; layer 3 is not traced yet.",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "empty": false,
+        "width": 768,
+        "height": 768,
+        "tiles_w": 24,
+        "tiles_h": 24,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "tileset_properties_set": false,
+      "warnings": [
+        "Tileset properties not set"
+      ],
+      "has_layer3b": false,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 24,
+        "tiles_h": 24
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -924,6 +992,74 @@
       "has_artifacts": false
     },
     {
+      "id": "flamingods-in",
+      "display_name": "Flamingods In",
+      "map_id": 99,
+      "tileset_name": "flamingods-in_ts",
+      "is_outside": false,
+      "bgm": "Calm Camps Area",
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Indoor Flamingods camp (tents, bar, shower, toilets). Base art only; layer 3 is not traced yet. Exterior is flamingods-out.",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "empty": false,
+        "width": 640,
+        "height": 480,
+        "tiles_w": 20,
+        "tiles_h": 15,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "tileset_properties_set": false,
+      "warnings": [
+        "Tileset properties not set"
+      ],
+      "has_layer3b": false,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 20,
+        "tiles_h": 15
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": 0,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
       "id": "flamingods-out",
       "display_name": "flamingods-out",
       "map_id": 77,
@@ -1715,7 +1851,7 @@
       "event_count": null,
       "char_count": 0,
       "chars": [],
-      "has_artifacts": false
+      "has_artifacts": true
     },
     {
       "id": "PARTY",

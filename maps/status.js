@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-19T10:41:43Z",
+  "generated_at": "2026-10-19T10:51:47Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -233,15 +233,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 896,
+        "height": 992,
+        "tiles_w": 28,
+        "tiles_h": 31,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -367,15 +367,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 1216,
+        "height": 992,
+        "tiles_w": 38,
+        "tiles_h": 31,
+        "size_ok": true
       },
       "tileset_properties_set": null,
       "warnings": [],
@@ -1157,10 +1157,10 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
         "present": true,
-        "empty": true,
+        "empty": false,
         "width": 2336,
         "height": 1472,
         "tiles_w": 73,
@@ -1169,7 +1169,6 @@ window.MAP_STATUS = {
       },
       "tileset_properties_set": false,
       "warnings": [
-        "Missing layer 3",
         "Tileset properties not set"
       ],
       "has_layer3b": false,
@@ -1793,11 +1792,11 @@ window.MAP_STATUS = {
     {
       "id": "Old-City",
       "display_name": "Old-City",
-      "map_id": null,
+      "map_id": 42,
       "tileset_name": "Old-City_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -1832,14 +1831,17 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 35,
+        "tiles_h": 20
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1848,7 +1850,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": true

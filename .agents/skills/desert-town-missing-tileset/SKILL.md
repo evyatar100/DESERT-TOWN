@@ -26,7 +26,7 @@ No PBS file stores tileset ids. `643` and `644` in `game-files/PBS/battle_tower_
 
 ## Do not send it to slot 35
 
-Slot 35 is flamingods-out (`flamingods-out_ts`). Map 452431 uses it. See [desert-town-tileset-slot](../desert-town-tileset-slot/SKILL.md). That move was 643 → 35 for flamingods only.
+Slot 35 is flamingods-out (`flamingods-out_ts`). Map 77 uses it. See [desert-town-tileset-slot](../desert-town-tileset-slot/SKILL.md). That move was 643 → 35 for flamingods only.
 
 A map can use a tileset only when its highest tile id is inside that tileset's passage table. Table length is `384 + (png_height / 32) * 8` for a 256px-wide sheet.
 
@@ -41,7 +41,7 @@ Blank placeholders have an empty `@name`, an empty `@tileset_name`, and 384-long
 
 Freecamp (map 452432) is slot 24: `@id` 24, `@name` `Freecamp`, `@tileset_name` `Freecamp_ts`. The graphic is `game-files/Graphics/Tilesets/Freecamp_ts.png` (same file as `maps/Freecamp/tileset.png`). MapInfos name is `Freecamp`. The editor had renamed it `MAP452432` and left `@parent_id` 0 while the tileset was missing. Leave the parent at 0.
 
-Its connections are in `game-files/PBS/map_connections.txt`: east to demo-camp4 (84) and flamingods-out (452431), north to Ice Camp (91) and mom-dad-out (90). Walking onto any of those loads Freecamp and used to crash.
+Its connections are in `game-files/PBS/map_connections.txt`: east to demo-camp4 (84) and flamingods-out (77), north to Ice Camp (91) and mom-dad-out (90). Walking onto any of those loads Freecamp and used to crash.
 
 Layer 1 of map 452432 is full (3358 tiles). Layers 2 and 3 are empty, so the restored priorities table has no priority-2 ids even though `maps/Freecamp/layer3.png` exists. Do not paint layer 3 while repairing the nil tileset.
 
@@ -62,6 +62,6 @@ MapInfos `@name` values are `RubyString` with attributes `{"E": True}`, not raw 
 Reload `Tilesets.rxdata`, the map, and `MapInfos.rxdata`.
 
 - The new slot's `@id`, `@name`, and `@tileset_name` match, and the three tables share the sheet's tile count.
-- Slot 35 is still `flamingods-out` / `flamingods-out_ts`. Map 452431 still uses 35.
+- Slot 35 is still `flamingods-out` / `flamingods-out_ts`. Map 77 still uses 35.
 - The repaired map's `@tileset_id` is the new slot. Width, height, and the tile-table bytes are unchanged.
 - No `Map*.rxdata` still has the deleted id.

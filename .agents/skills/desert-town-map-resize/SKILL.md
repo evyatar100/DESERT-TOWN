@@ -155,7 +155,7 @@ After the write, reload `MapXXX.rxdata` and the tileset tables. Check the new si
 
 ## Flamingods camp
 
-Map 452431, folder `maps/flamingods-out`, tileset `flamingods-out_ts` (tileset id 643). This is the map meant by "flamingods camp".
+Map 77, folder `maps/flamingods-out`, tileset `flamingods-out_ts` (tileset id 35). This is the map meant by "flamingods camp". The id used to be 452431.
 
 It was 36×22 (1152×704). The edit was two columns off the left and two off the right: crop 64px from each side of `base.png` and `layer3.png`, `--remove left 2 --remove right 2`. The result is 32×22 (1024×704).
 
@@ -181,4 +181,4 @@ The camp grew north. World layout went from (177, 140) 32×32 to (177, 129) 32×
 
 `RPGXP.exe` was running. Reload with **File → Open Project** and do not save, or the editor puts the 32-row map back. The previous layer images are `maps/demo-camp4/old/before-top-add-base.png` and `before-top-add-layer3.png`.
 
-A later inspect, with RPGXP closed, still read Map 452431 as 32×22 on tileset 643: 704 ground tiles, no layer 2, 326 foreground tiles. The editor had not put the 36-wide map back. "Create a new map from the tileset flamingods-out" means this map. See desert-town-game-maps: do not run `create_map_from_layers.py` on this folder. The allocator would add map 452432 and tileset 644 and overwrite `flamingods-out_ts.png`.
+"Create a new map from the tileset flamingods-out" means map 77. See desert-town-game-maps: do not run `create_map_from_layers.py` on this folder. The allocator would add another map past the highest id and overwrite `flamingods-out_ts.png`.

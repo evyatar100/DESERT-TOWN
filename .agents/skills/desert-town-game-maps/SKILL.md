@@ -11,7 +11,7 @@ description: >-
   an edge, or when Essentials compile warns that a map in the connection
   data was not found or crashes with undefined method name for nil in
   validate_compiled_map_metadata. If the folder is already in MapInfos, stop;
-  the script would allocate another map past id 452431.
+  the script would allocate another map past the highest MapInfos id.
 ---
 
 # Register maps and sync world connections
@@ -28,11 +28,11 @@ Search MapInfos for the folder name and inspect `MapXXX.rxdata` before running. 
 
 If that name is already a MapInfos entry and the map file exists, stop. The folder already has its map. `create_map_from_layers.py` always allocates a new tileset and a new map. It does not update the old ones.
 
-The next map id is `max(MapInfos.keys()) + 1`, not the first free small id. Map 452431 (`flamingods-out`) is the highest key, so the next run allocates **452432** and skips the free ids (77, 79, 94, 99). The next tileset id is `len(Tilesets.rxdata)`. That length is 644. Flamingods-out now occupies slot 35, inside the list the editor keeps. Slot 643 is the blank placeholder that used to be slot 35.
+The next map id is `max(MapInfos.keys()) + 1`, not the first free small id. Flamingods-out is map 77 (it used to be 452431). The highest key is still a high id, so the next run allocates past that and skips free ids such as 79, 94, and 99. The next tileset id is `len(Tilesets.rxdata)`. That length is 644. Flamingods-out occupies slot 35, inside the list the editor keeps. Slot 643 is the blank placeholder that used to be slot 35.
 
-Omitting `--name` writes `game-files/Graphics/Tilesets/<folder>_ts.png`. For `maps/flamingods-out` that is the file tileset 35 already uses. The script archives the PNG, rebuilds it, and gives the new tileset default layer-3 priority 2. Priorities migrated onto 35 stay on 35's tables, but both tilesets share the new PNG. Map 452431 stays in MapInfos, so the folder then has two maps.
+Omitting `--name` writes `game-files/Graphics/Tilesets/<folder>_ts.png`. For `maps/flamingods-out` that is the file tileset 35 already uses. The script archives the PNG, rebuilds it, and gives the new tileset default layer-3 priority 2. Priorities migrated onto 35 stay on 35's tables, but both tilesets share the new PNG. Map 77 stays in MapInfos, so the folder then has two maps.
 
-Checked with RPGXP closed: Map 452431 is 32×22, tileset 35, parent 83 (`DESERT-TOWN`), order 91. Layer counts were 704, 0, and 326. That is the map for "create a new map from the tileset flamingods-out". Do not register it again. See [desert-town-tileset-slot](../desert-town-tileset-slot/SKILL.md) for the move off slot 643.
+Checked with RPGXP closed: Map 77 is 32×37, tileset 35, parent 83 (`DESERT-TOWN`), order 28. It is the last child of DESERT-TOWN, just above Intro. That is the map for "create a new map from the tileset flamingods-out". Do not register it again. See [desert-town-tileset-slot](../desert-town-tileset-slot/SKILL.md) for the move off slot 643.
 
 ```bash
 python assets-factory/create_map_from_layers.py maps/<id> --name "Display Name" --force

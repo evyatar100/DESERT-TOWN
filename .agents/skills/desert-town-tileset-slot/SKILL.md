@@ -66,10 +66,10 @@ The record was copied from `Tilesets.rxdata.bak` slot 643 into the 47-long file 
 On disk after that write:
 
 - Slot 35: id 35, name `flamingods-out`, graphic `flamingods-out_ts`.
-- Map 452431: `@tileset_id` 35, name `flamingods-out`, parent 83 (`DESERT-TOWN`), order 91. It is the last child of DESERT-TOWN.
+- Map 77: `@tileset_id` 35, name `flamingods-out`, parent 83 (`DESERT-TOWN`), order 28. It is the last child of DESERT-TOWN. The id used to be 452431; the editor list does not show that high id.
 - Map 82 (`demo-arcade`) had been left on missing slot 643. It now uses unused blank slot 23.
 
-The picture is `game-files/Graphics/Tilesets/flamingods-out_ts.png` (256×7936, 248 rows, 2368 tiles). It was restored from commit `22a9402` after the working copy lost it. Slot 35 stays empty in the editor until that file is present and the project is opened again. `maps/flamingods-out` is the source folder for map 452431. Do not run `create_map_from_layers.py` on it.
+The picture is `game-files/Graphics/Tilesets/flamingods-out_ts.png` (256×7936, 248 rows, 2368 tiles). It was restored from commit `22a9402` after the working copy lost it. Slot 35 stays empty in the editor until that file is present and the project is opened again. `maps/flamingods-out` is the source folder for map 77. Do not run `create_map_from_layers.py` on it.
 
 Leave `maps/flamingods-out` unregistered if the folder is restored. `create_map_from_layers.py` would add another map and another tileset and rewrite `flamingods-out_ts.png`.
 

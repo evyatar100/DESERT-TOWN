@@ -437,7 +437,7 @@ Outdoor = true
 [098]   # Playa
 Outdoor = true
 #-------------------------------
-[452431]   # flamingods-out
+[077]   # flamingods-out
 Name = flamingods-out
 Outdoor = true
 #-------------------------------

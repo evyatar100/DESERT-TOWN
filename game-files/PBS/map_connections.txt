@@ -40,8 +40,8 @@
 69,North,0,66,South,10
 # Freecamp (452432) - demo-camp4 (84)
 452432,East,3,84,West,0
-# Freecamp (452432) - flamingods-out (452431)
-452432,East,0,452431,West,34
+# Freecamp (452432) - flamingods-out (77)
+452432,East,0,77,West,34
 # Freecamp (452432) - Ice Camp (91)
 452432,North,0,91,South,0
 # Freecamp (452432) - mom-dad-out (90)
@@ -70,16 +70,16 @@
 104,East,0,105,West,0
 # deep-playa 6 (105) - deep-playa 7 (106)
 105,North,0,106,South,0
-# demo-camp4 (84) - flamingods-out (452431)
-84,North,0,452431,South,0
+# demo-camp4 (84) - flamingods-out (77)
+84,North,0,77,South,0
 # demo-camp4 (84) - kusomo2 (95)
 84,East,0,95,West,1
-# flamingods-out (452431) - kusomo2 (95)
-452431,East,36,95,West,0
-# flamingods-out (452431) - mom-dad-out (90)
-452431,West,15,90,East,12
-# flamingods-out (452431) - spacesheep-camp (86)
-452431,East,15,86,West,14
+# flamingods-out (77) - kusomo2 (95)
+77,East,36,95,West,0
+# flamingods-out (77) - mom-dad-out (90)
+77,West,15,90,East,12
+# flamingods-out (77) - spacesheep-camp (86)
+77,East,15,86,West,14
 # Ice Camp (91) - mom-dad-out (90)
 91,East,0,90,West,3
 # Kim Area (97) - Playa (98)

@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-19T10:41:43Z",
+  "generated_at": "2026-10-19T10:48:01Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -233,15 +233,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 896,
+        "height": 992,
+        "tiles_w": 28,
+        "tiles_h": 31,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -367,15 +367,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 1216,
+        "height": 992,
+        "tiles_w": 38,
+        "tiles_h": 31,
+        "size_ok": true
       },
       "tileset_properties_set": null,
       "warnings": [],
@@ -1157,21 +1157,18 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
         "present": true,
-        "empty": true,
+        "empty": false,
         "width": 2336,
         "height": 1472,
         "tiles_w": 73,
         "tiles_h": 46,
         "size_ok": true
       },
-      "tileset_properties_set": false,
-      "warnings": [
-        "Missing layer 3",
-        "Tileset properties not set"
-      ],
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,

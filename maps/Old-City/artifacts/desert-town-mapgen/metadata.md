@@ -10,11 +10,11 @@
 
 **Size in tiles:** 35 x 20
 
-**Exported at:** 2026-10-19T10:33:32+00:00
+**Exported at:** 2026-10-19T10:41:49+00:00
 
-**Push number:** 2
+**Push number:** 3
 
-**SHA-256:** 57fdc984df5adcb9b0be360423a507901816e5bab6e645d998a362086673a189
+**SHA-256:** c3140e084b9d82db53a5f842ec4097a05e892bc987d402087b9f1ad3edd510dd
 
 **Original download filename:** ` map-old-city-slot567-old-city-20261019.zip `
 

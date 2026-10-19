@@ -487,3 +487,11 @@ Outdoor = true
 [33]   # deep-playa 1a
 Name = deep-playa 1a
 Outdoor = true
+#-------------------------------
+[094]   # casino-in
+Name = casino-in
+Outdoor = false
+#-------------------------------
+[099]   # flamingods-in
+Name = flamingods-in
+Outdoor = false

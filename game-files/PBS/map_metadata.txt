@@ -495,3 +495,7 @@ Outdoor = false
 [099]   # flamingods-in
 Name = flamingods-in
 Outdoor = false
+#-------------------------------
+[048]   # flamingods-pit
+Name = flamingods-pit
+Outdoor = false

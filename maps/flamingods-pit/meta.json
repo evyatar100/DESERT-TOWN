@@ -1,0 +1,16 @@
+{
+  "id": "flamingods-pit",
+  "display_name": "Flamingods Pit",
+  "map_id": 48,
+  "tileset_name": "flamingods-pit_ts",
+  "is_outside": false,
+  "bgm": "Calm Camps Area",
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Indoor walled enclosure with the Flamingods creatures. Base art only; layer 3 is not traced yet."
+}

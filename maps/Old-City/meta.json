@@ -1,7 +1,7 @@
 {
   "id": "Old-City",
   "display_name": "Old-City",
-  "map_id": null,
+  "map_id": 62,
   "tileset_name": "Old-City_ts",
   "is_outside": true,
   "bgm": "Calm Camps Area",
@@ -11,6 +11,6 @@
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

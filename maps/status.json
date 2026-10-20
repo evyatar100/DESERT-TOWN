@@ -1867,11 +1867,11 @@
     {
       "id": "Old-City",
       "display_name": "Old-City",
-      "map_id": null,
+      "map_id": 62,
       "tileset_name": "Old-City_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -1906,14 +1906,17 @@
         "tiles_h": null,
         "size_ok": false
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 35,
+        "tiles_h": 20
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1922,7 +1925,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": true

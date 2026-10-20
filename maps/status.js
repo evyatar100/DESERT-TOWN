@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-20T12:48:40Z",
+  "generated_at": "2026-10-20T13:16:37Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -1917,12 +1917,12 @@ window.MAP_STATUS = {
         "tiles_w": 35,
         "tiles_h": 20
       },
-      "connected": false,
+      "connected": true,
       "connections": {
-        "north": null,
+        "north": "Piramid",
         "south": null,
         "east": null,
-        "west": null
+        "west": "kim-area"
       },
       "event_connections": [],
       "event_count": 0,

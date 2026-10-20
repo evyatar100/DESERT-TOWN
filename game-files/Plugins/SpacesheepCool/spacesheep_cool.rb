@@ -13,6 +13,7 @@ module SpacesheepCool
     Tone.new(-30, -30, 100, 0),
     Tone.new(-30, 100, -30, 0)
   ].freeze
+  NEUTRAL = Tone.new(0, 0, 0, 0)
   STEP = 1.0   # seconds per color
 
   module_function
@@ -29,11 +30,22 @@ module SpacesheepCool
     cool? ? "Alien Party" : "Aliens"
   end
 
+  # Cancel any in-progress color blend and reset light state.
+  # duration 1 (not 0) so Game_Screen replaces @tone_target / @tone_timer_start.
+  def clear_lights
+    @lit = false
+    @index = nil
+    return unless defined?($game_screen) && $game_screen
+    $game_screen.start_tone_change(NEUTRAL, 1)
+  end
+
   # Play the right track only if it is not already playing.
+  # When cool is off, clear lights immediately (DJ "old" path).
   def refresh
     return unless defined?($game_system) && $game_system
     b = $game_system.playing_bgm
     pbBGMPlay(track) if !b || b.name != track
+    clear_lights if !cool?
   end
 
   def update_lights
@@ -47,9 +59,7 @@ module SpacesheepCool
       end
       @lit = true
     elsif @lit
-      @lit = false
-      @index = nil
-      $game_screen.start_tone_change(Tone.new(0, 0, 0, 0), 0)
+      clear_lights
     end
   end
 end
@@ -77,4 +87,11 @@ end
 
 EventHandlers.add(:on_frame_update, :spacesheep_lights,
   proc { SpacesheepCool.update_lights }
+)
+
+# Fires before $game_map changes (transfer or walking across a connection).
+EventHandlers.add(:on_leave_map, :spacesheep_lights_off,
+  proc { |new_map_id, _new_map|
+    SpacesheepCool.clear_lights if !SpacesheepCool::MAPS.include?(new_map_id)
+  }
 )

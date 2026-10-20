@@ -24,3 +24,19 @@ raw_downloaded_map/
 
 # Game-file backups taken by the map importer
 assets-factory/archive/game-data/
+
+# Tool caches / local envs (root-level runs)
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+node_modules/
+dist/
+
+# RPG Maker XP / Essentials runtime & editor noise
+*.editor-save
+*.recovery-*
+ErrorLog.txt
+ErrorLog*.txt
+/game-files/Game*.rxdata

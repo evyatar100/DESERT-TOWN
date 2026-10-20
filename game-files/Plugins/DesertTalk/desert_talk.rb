@@ -29,6 +29,12 @@ module DesertTalk
     @@name_window = nil
   end
 
+  # Long Hebrew names need more room than the default speech-frame fit.
+  NAME_PLATE_MIN_WIDTH  = 220
+  NAME_PLATE_MIN_HEIGHT = 64
+  NAME_PLATE_PAD_X      = 48
+  NAME_PLATE_PAD_Y      = 16
+
   def self.show_name_plate(msgwindow)
     dispose_name_window
     return if !@@name_key || !msgwindow
@@ -37,8 +43,18 @@ module DesertTalk
     namewindow = Window_AdvancedTextPokemon.new(name)
     skin = MessageConfig.pbGetSpeechFrame
     namewindow.setSkin(skin) if skin
-    namewindow.resizeToFit(namewindow.text, Graphics.width / 2)
-    namewindow.width = [namewindow.width, 64].max
+    # Fit to the message window width (not half-screen), with padding for long names.
+    max_width = [msgwindow.width, Graphics.width - 32].max
+    namewindow.resizeToFit(namewindow.text, max_width)
+    fitted = namewindow.width + NAME_PLATE_PAD_X
+    fitted = NAME_PLATE_MIN_WIDTH if fitted < NAME_PLATE_MIN_WIDTH
+    fitted = max_width if fitted > max_width
+    namewindow.width = fitted
+    if namewindow.respond_to?(:resizeHeightToFit)
+      namewindow.resizeHeightToFit(namewindow.text, namewindow.width)
+    end
+    namewindow.height = namewindow.height + NAME_PLATE_PAD_Y
+    namewindow.height = NAME_PLATE_MIN_HEIGHT if namewindow.height < NAME_PLATE_MIN_HEIGHT
     # Outer edge of the message window: above when the box is in the lower half.
     if msgwindow.y >= Graphics.height / 2
       namewindow.y = msgwindow.y - namewindow.height
@@ -47,6 +63,7 @@ module DesertTalk
     end
     # Right-aligned to the message window (Hebrew-friendly).
     namewindow.x = msgwindow.x + msgwindow.width - namewindow.width
+    namewindow.x = 0 if namewindow.x < 0
     namewindow.viewport = msgwindow.viewport
     namewindow.z = msgwindow.z
     @@name_window = namewindow

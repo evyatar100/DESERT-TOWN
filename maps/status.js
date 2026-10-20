@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-20T13:16:37Z",
+  "generated_at": "2026-10-20T13:21:04Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -10,11 +10,11 @@ window.MAP_STATUS = {
     {
       "id": "candles",
       "display_name": "Candles",
-      "map_id": null,
-      "tileset_name": "candles_ts",
+      "map_id": 82,
+      "tileset_name": "Candles_ts",
       "is_outside": false,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -49,14 +49,17 @@ window.MAP_STATUS = {
         "tiles_h": 32,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 32,
+        "tiles_h": 32
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -65,7 +68,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

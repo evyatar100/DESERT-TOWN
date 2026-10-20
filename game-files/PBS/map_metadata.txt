@@ -441,7 +441,7 @@ Outdoor = true
 Name = flamingods-out
 Outdoor = true
 #-------------------------------
-[452432]   # Freecamp
+[085]   # Freecamp
 Name = Freecamp
 Outdoor = true
 #-------------------------------

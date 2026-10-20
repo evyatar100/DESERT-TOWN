@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-19T11:16:30Z",
+  "generated_at": "2026-10-20T10:31:41Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -86,10 +86,10 @@ window.MAP_STATUS = {
       "base": {
         "present": true,
         "empty": false,
-        "width": 768,
-        "height": 768,
-        "tiles_w": 24,
-        "tiles_h": 24,
+        "width": 736,
+        "height": 736,
+        "tiles_w": 23,
+        "tiles_h": 23,
         "size_ok": true
       },
       "has_layer2": false,
@@ -102,15 +102,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 736,
+        "height": 736,
+        "tiles_w": 23,
+        "tiles_h": 23,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -1023,15 +1023,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 640,
+        "height": 480,
+        "tiles_w": 20,
+        "tiles_h": 15,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -1141,10 +1141,10 @@ window.MAP_STATUS = {
       "base": {
         "present": true,
         "empty": false,
-        "width": 640,
-        "height": 512,
-        "tiles_w": 20,
-        "tiles_h": 16,
+        "width": 864,
+        "height": 864,
+        "tiles_w": 27,
+        "tiles_h": 27,
         "size_ok": true
       },
       "has_layer2": false,
@@ -1157,15 +1157,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 864,
+        "height": 864,
+        "tiles_w": 27,
+        "tiles_h": 27,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -1196,7 +1196,7 @@ window.MAP_STATUS = {
     {
       "id": "Freecamp",
       "display_name": "Freecamp",
-      "map_id": 452432,
+      "map_id": 85,
       "tileset_name": "Freecamp_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",

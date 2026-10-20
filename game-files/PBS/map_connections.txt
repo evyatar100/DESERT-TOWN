@@ -38,14 +38,14 @@
 47,East,8,52,West,0
 # Route 8 (69) - Safari Zone outside (66)
 69,North,0,66,South,10
-# Freecamp (452432) - demo-camp4 (84)
-452432,East,3,84,West,0
-# Freecamp (452432) - flamingods-out (77)
-452432,East,0,77,West,34
-# Freecamp (452432) - Ice Camp (91)
-452432,North,0,91,South,0
-# Freecamp (452432) - mom-dad-out (90)
-452432,North,41,90,South,0
+# Freecamp (85) - demo-camp4 (84)
+85,East,3,84,West,0
+# Freecamp (85) - flamingods-out (77)
+85,East,0,77,West,34
+# Freecamp (85) - Ice Camp (91)
+85,North,0,91,South,0
+# Freecamp (85) - mom-dad-out (90)
+85,North,41,90,South,0
 # party (93) - Squere Road Temple (96)
 93,North,0,96,South,0
 # party (93) - kusomo2 (95)

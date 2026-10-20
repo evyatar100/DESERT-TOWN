@@ -315,9 +315,9 @@ MapPosition = 0,17,10
 BattleBack = indoor1
 Flags = DisableBoxLink
 #-------------------------------
-[062]   # Battle Factory
-Name = Battle Frontier
-MapPosition = 0,17,10
+[062]   # Old-City
+Name = Old-City
+Outdoor = true
 #-------------------------------
 [063]   # Battle Factory intro corridor
 Name = Battle Frontier
@@ -441,7 +441,7 @@ Outdoor = true
 Name = flamingods-out
 Outdoor = true
 #-------------------------------
-[452432]   # Freecamp
+[085]   # Freecamp
 Name = Freecamp
 Outdoor = true
 #-------------------------------
@@ -496,6 +496,6 @@ Outdoor = false
 Name = flamingods-in
 Outdoor = false
 #-------------------------------
-[042]   # Old-City
-Name = Old-City
-Outdoor = true
+[048]   # flamingods-pit
+Name = flamingods-pit
+Outdoor = false

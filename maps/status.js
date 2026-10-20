@@ -1,11 +1,11 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-19T10:51:47Z",
+  "generated_at": "2026-10-20T11:04:21Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 34,
+  "map_count": 35,
   "maps": [
     {
       "id": "candles",
@@ -86,10 +86,10 @@ window.MAP_STATUS = {
       "base": {
         "present": true,
         "empty": false,
-        "width": 768,
-        "height": 768,
-        "tiles_w": 24,
-        "tiles_h": 24,
+        "width": 736,
+        "height": 736,
+        "tiles_w": 23,
+        "tiles_h": 23,
         "size_ok": true
       },
       "has_layer2": false,
@@ -102,15 +102,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 736,
+        "height": 736,
+        "tiles_w": 23,
+        "tiles_h": 23,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -1023,15 +1023,15 @@ window.MAP_STATUS = {
         "tiles_h": null,
         "size_ok": false
       },
-      "has_layer3": false,
+      "has_layer3": true,
       "layer3": {
-        "present": false,
+        "present": true,
         "empty": false,
-        "width": null,
-        "height": null,
-        "tiles_w": null,
-        "tiles_h": null,
-        "size_ok": false
+        "width": 640,
+        "height": 480,
+        "tiles_w": 20,
+        "tiles_h": 15,
+        "size_ok": true
       },
       "tileset_properties_set": false,
       "warnings": [
@@ -1126,9 +1126,77 @@ window.MAP_STATUS = {
       "has_artifacts": false
     },
     {
+      "id": "flamingods-pit",
+      "display_name": "Flamingods Pit",
+      "map_id": 48,
+      "tileset_name": "flamingods-pit_ts",
+      "is_outside": false,
+      "bgm": "Calm Camps Area",
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Indoor walled enclosure with the Flamingods creatures. Base art only; layer 3 is not traced yet.",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "empty": false,
+        "width": 864,
+        "height": 864,
+        "tiles_w": 27,
+        "tiles_h": 27,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": true,
+      "layer3": {
+        "present": true,
+        "empty": false,
+        "width": 864,
+        "height": 864,
+        "tiles_w": 27,
+        "tiles_h": 27,
+        "size_ok": true
+      },
+      "tileset_properties_set": false,
+      "warnings": [
+        "Tileset properties not set"
+      ],
+      "has_layer3b": false,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 20,
+        "tiles_h": 16
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": 0,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": false
+    },
+    {
       "id": "Freecamp",
       "display_name": "Freecamp",
-      "map_id": 452432,
+      "map_id": 85,
       "tileset_name": "Freecamp_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
@@ -1167,10 +1235,8 @@ window.MAP_STATUS = {
         "tiles_h": 46,
         "size_ok": true
       },
-      "tileset_properties_set": false,
-      "warnings": [
-        "Tileset properties not set"
-      ],
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
@@ -1792,7 +1858,7 @@ window.MAP_STATUS = {
     {
       "id": "Old-City",
       "display_name": "Old-City",
-      "map_id": 42,
+      "map_id": 62,
       "tileset_name": "Old-City_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",

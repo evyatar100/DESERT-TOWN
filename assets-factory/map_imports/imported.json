@@ -7,8 +7,8 @@
   },
   "maps/Old-City/artifacts/desert-town-mapgen/map-export.zip": {
     "sha256": "c3140e084b9d82db53a5f842ec4097a05e892bc987d402087b9f1ad3edd510dd",
-    "map_id": 42,
-    "tileset_id": 23,
-    "imported_at": "2026-10-19T10:51:47"
+    "map_id": 62,
+    "tileset_id": 62,
+    "imported_at": "2026-10-20T11:04:07"
   }
 }

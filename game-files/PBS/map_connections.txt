@@ -136,3 +136,9 @@
 80,North,0,22,South,0
 # Old-City (80) - Kim Area (97)
 80,West,0,97,East,32
+# Echer (110) - Old-City (80)
+110,North,4,80,South,0
+# Echer (110) - Cats (78)
+110,West,0,78,East,0
+# Echer (110) - Kim Area (97)
+110,North,0,97,South,18

@@ -1235,10 +1235,8 @@ window.MAP_STATUS = {
         "tiles_h": 46,
         "size_ok": true
       },
-      "tileset_properties_set": false,
-      "warnings": [
-        "Tileset properties not set"
-      ],
+      "tileset_properties_set": true,
+      "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,

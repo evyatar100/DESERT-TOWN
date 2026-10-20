@@ -4,7 +4,7 @@
   "map_id": 86,
   "tileset_name": "spacesheep-camp-b_ts",
   "is_outside": true,
-  "bgm": "Calm Camps Area",
+  "bgm": "Aliens",
   "connections": {
     "north": "SPACESHEEP",
     "south": null,

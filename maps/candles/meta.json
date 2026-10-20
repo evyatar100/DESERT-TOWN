@@ -1,8 +1,8 @@
 {
   "id": "candles",
   "display_name": "Candles",
-  "map_id": null,
-  "tileset_name": "candles_ts",
+  "map_id": 82,
+  "tileset_name": "Candles_ts",
   "is_outside": false,
   "bgm": "Calm Camps Area",
   "connections": {
@@ -11,6 +11,6 @@
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

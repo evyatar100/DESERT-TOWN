@@ -132,3 +132,7 @@
 78,North,16,97,South,0
 # Cats (78) - Playa (98)
 78,North,0,98,South,26
+# Old-City (80) - Piramid (22)
+80,North,0,22,South,0
+# Old-City (80) - Kim Area (97)
+80,West,0,97,East,32

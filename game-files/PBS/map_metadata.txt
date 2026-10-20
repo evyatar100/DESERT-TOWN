@@ -315,9 +315,9 @@ MapPosition = 0,17,10
 BattleBack = indoor1
 Flags = DisableBoxLink
 #-------------------------------
-[062]   # Old-City
-Name = Old-City
-Outdoor = true
+[062]   # Battle Factory
+Name = Battle Frontier
+MapPosition = 0,17,10
 #-------------------------------
 [063]   # Battle Factory intro corridor
 Name = Battle Frontier
@@ -409,8 +409,8 @@ Outdoor = true
 Name = Demo Camp
 Outdoor = true
 #-------------------------------
-[080]   # front-demo
-Name = Street
+[080]   # Old-City
+Name = Old-City
 Outdoor = true
 #-------------------------------
 [082]   # demo-arcade

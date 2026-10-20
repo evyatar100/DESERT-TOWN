@@ -86,12 +86,12 @@
 97,West,0,98,East,0
 # kusomo2 (95) - spacesheep-camp (86)
 95,North,0,86,South,0
-# party (93) - Glass A (452440)
-93,South,0,452440,North,35
-# demo-camp4 (84) - Glass A (452440)
-84,East,41,452440,West,0
-# Glass A (452440) - kusomo2 (95)
-452440,North,0,95,South,0
+# party (93) - Glass A (109)
+93,South,0,109,North,35
+# demo-camp4 (84) - Glass A (109)
+84,East,41,109,West,0
+# Glass A (109) - kusomo2 (95)
+109,North,0,95,South,0
 # Piramid (22) - deep-playa 3 (102)
 22,North,2,102,South,0
 # Piramid (22) - Kim Area (97)
@@ -126,8 +126,8 @@
 79,South,0,98,North,28
 # party (93) - Cats (78)
 93,East,0,78,West,0
-# Cats (78) - Glass A (452440)
-78,West,33,452440,East,0
+# Cats (78) - Glass A (109)
+78,West,33,109,East,0
 # Cats (78) - Kim Area (97)
 78,North,16,97,South,0
 # Cats (78) - Playa (98)

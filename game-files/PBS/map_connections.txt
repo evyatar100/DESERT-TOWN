@@ -124,3 +124,11 @@
 79,South,14,97,North,0
 # deep-playa 2 (79) - Playa (98)
 79,South,0,98,North,28
+# party (93) - Cats (78)
+93,East,0,78,West,0
+# Cats (78) - Glass A (452440)
+78,West,33,452440,East,0
+# Cats (78) - Kim Area (97)
+78,North,16,97,South,0
+# Cats (78) - Playa (98)
+78,North,0,98,South,26

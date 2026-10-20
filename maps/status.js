@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-20T11:04:14Z",
+  "generated_at": "2026-10-20T11:50:23Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -141,11 +141,11 @@ window.MAP_STATUS = {
     {
       "id": "cats",
       "display_name": "Cats",
-      "map_id": null,
-      "tileset_name": "cats_ts",
+      "map_id": 78,
+      "tileset_name": "Cats_ts",
       "is_outside": true,
       "bgm": "Calm Camps Area",
-      "status": "stub",
+      "status": "in_progress",
       "deprecated": false,
       "notes": "",
       "has_name": true,
@@ -180,14 +180,17 @@ window.MAP_STATUS = {
         "tiles_h": 56,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
-      "tileset_ready": false,
-      "tileset_local": false,
-      "tileset_in_game": false,
-      "map_associated": false,
-      "game_tiles": null,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 34,
+        "tiles_h": 56
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -196,7 +199,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1701,14 +1704,17 @@ window.MAP_STATUS = {
         "tiles_h": 64,
         "size_ok": true
       },
-      "tileset_properties_set": null,
+      "tileset_properties_set": true,
       "warnings": [],
       "has_layer3b": false,
       "tileset_ready": true,
       "tileset_local": true,
       "tileset_in_game": true,
-      "map_associated": false,
-      "game_tiles": null,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 34,
+        "tiles_h": 56
+      },
       "connected": false,
       "connections": {
         "north": null,
@@ -1717,7 +1723,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": null,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false

@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-20T13:35:49Z",
+  "generated_at": "2026-10-20T15:06:41Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -207,7 +207,7 @@ window.MAP_STATUS = {
     {
       "id": "char-demo",
       "display_name": "Char Demo",
-      "map_id": 452441,
+      "map_id": 111,
       "tileset_name": "000-Outside-desert",
       "is_outside": true,
       "bgm": "Calm Camps Area",

@@ -2,7 +2,7 @@
   "placements": [
     {
       "character_id": "e19726f0",
-      "map_id": 452441,
+      "map_id": 111,
       "event_id": 1,
       "x": 48,
       "y": 48,
@@ -11,7 +11,7 @@
     },
     {
       "character_id": "11eaf4fa",
-      "map_id": 452441,
+      "map_id": 111,
       "event_id": 2,
       "x": 52,
       "y": 48,
@@ -20,7 +20,7 @@
     },
     {
       "character_id": "6a9c3d6f",
-      "map_id": 452441,
+      "map_id": 111,
       "event_id": 3,
       "x": 48,
       "y": 52,
@@ -29,7 +29,7 @@
     },
     {
       "character_id": "9923f1c4",
-      "map_id": 452441,
+      "map_id": 111,
       "event_id": 4,
       "x": 52,
       "y": 52,

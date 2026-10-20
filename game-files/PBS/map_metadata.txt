@@ -501,6 +501,6 @@ Name = flamingods-pit
 Outdoor = false
 
 #-------------------------------
-[452441]   # char-demo
+[111]   # char-demo
 Name = Char Demo
 Outdoor = true

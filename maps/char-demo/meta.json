@@ -1,7 +1,7 @@
 {
   "id": "char-demo",
   "display_name": "Char Demo",
-  "map_id": 452441,
+  "map_id": 111,
   "tileset_name": "000-Outside-desert",
   "is_outside": true,
   "bgm": "Calm Camps Area",

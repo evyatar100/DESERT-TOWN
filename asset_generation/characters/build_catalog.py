@@ -1,13 +1,15 @@
-"""Build the character catalog page from production metadata and sprite sheets.
+"""Build the character catalog page and DesertTalk characters.rb.
 
-The page lists each character and the first frame of sheet.png. Map stops are
-not rendered; those are added only after locations.json has placements.
+The page lists each character and the first frame of sheet.png. When
+locations.json has placements, each standing spot is listed on that character.
+characters.rb is regenerated for every production character (QA skipped).
 """
 
 from __future__ import annotations
 
 import base64
 import html
+import json
 import re
 from io import BytesIO
 from pathlib import Path
@@ -17,6 +19,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parents[2]
 CHAR_ROOT = ROOT / "asset_generation" / "production" / "char"
 OUT = ROOT / "asset_generation" / "characters" / "catalog.html"
+LOCATIONS = ROOT / "asset_generation" / "characters" / "locations.json"
+CHARACTERS_RB = ROOT / "game-files" / "Plugins" / "DesertTalk" / "characters.rb"
+MAP_METADATA = ROOT / "game-files" / "PBS" / "map_metadata.txt"
 
 # Top-left cell of the 128×192 charset (4 frames × 4 directions, 32×48).
 FRAME = (0, 0, 32, 48)
@@ -25,6 +30,8 @@ QA_ID = "e98a1184"
 UNSET = {"", "_(not set)_"}
 FIELD_RE = re.compile(r"^\*\*(.+?):\*\*\s*(.*)$")
 ID_RE = re.compile(r"^[0-9a-f]{8}$")
+MAP_SECTION_RE = re.compile(r"^\[(\d+)\]")
+MAP_NAME_RE = re.compile(r"^Name\s*=\s*(.+)$")
 
 
 def parse_metadata(text: str) -> tuple[str, dict[str, str]]:
@@ -87,6 +94,35 @@ def first_frame_data_uri(sheet: Path) -> str:
     return f"data:image/png;base64,{encoded}"
 
 
+def load_map_names() -> dict[int, str]:
+    names: dict[int, str] = {}
+    if not MAP_METADATA.is_file():
+        return names
+    current: int | None = None
+    for line in MAP_METADATA.read_text(encoding="utf-8").splitlines():
+        section = MAP_SECTION_RE.match(line.strip())
+        if section:
+            current = int(section.group(1))
+            continue
+        if current is None:
+            continue
+        name_match = MAP_NAME_RE.match(line.strip())
+        if name_match:
+            names[current] = name_match.group(1).strip()
+            current = None
+    return names
+
+
+def load_placements() -> list[dict]:
+    if not LOCATIONS.is_file():
+        return []
+    data = json.loads(LOCATIONS.read_text(encoding="utf-8"))
+    placements = data.get("placements") or []
+    if not isinstance(placements, list):
+        raise RuntimeError("locations.json placements must be a list")
+    return placements
+
+
 def load_characters() -> list[dict[str, str | None]]:
     characters: list[dict[str, str | None]] = []
     for donor_dir in sorted(CHAR_ROOT.iterdir()):
@@ -140,13 +176,49 @@ def rtl_block(label: str, value: str | None) -> str:
     )
 
 
-def render_card(character: dict[str, str | None]) -> str:
+def render_stops(
+    character_id: str,
+    placements: list[dict],
+    map_names: dict[int, str],
+) -> str:
+    stops = [p for p in placements if p.get("character_id") == character_id]
+    if not stops:
+        return ""
+    items: list[str] = []
+    for stop in stops:
+        map_id = int(stop["map_id"])
+        map_label = map_names.get(map_id) or f"Map {map_id}"
+        line_key = stop.get("line_key")
+        line_bit = f", line {esc(str(line_key))}" if line_key else ""
+        actions = stop.get("actions") or []
+        actions_bit = ""
+        if actions:
+            actions_bit = f', actions: {esc(", ".join(str(a) for a in actions))}'
+        items.append(
+            "<li dir=\"ltr\">"
+            f"{esc(map_label)} (map {map_id}), event {int(stop['event_id'])}, "
+            f"({int(stop['x'])}, {int(stop['y'])})"
+            f"{line_bit}{actions_bit}"
+            "</li>"
+        )
+    return (
+        '<div class="stops"><span class="label">Map stops</span>'
+        f"<ul>{''.join(items)}</ul></div>"
+    )
+
+
+def render_card(
+    character: dict[str, str | None],
+    placements: list[dict],
+    map_names: dict[int, str],
+) -> str:
     name_he = character["name_he"] or character["title"] or character["name_en"] or character["donor"]
     name_en = character["name_en"]
     english = ""
     if name_en and name_en != name_he:
         english = f'<p class="en" dir="ltr">{esc(name_en)}</p>'
     camp = character["camp"] or "No camp"
+    placed = any(p.get("character_id") == character["id"] for p in placements)
     search = " ".join(
         part
         for part in (
@@ -159,6 +231,7 @@ def render_card(character: dict[str, str | None]) -> str:
             character["abilities"],
             character["notes"],
             character["id"],
+            "placed" if placed else "unplaced",
         )
         if part
     )
@@ -179,30 +252,50 @@ def render_card(character: dict[str, str | None]) -> str:
         flags.append(f'<span class="flag">Symmetrical {esc(character["symmetrical"])}</span>')
     if character["asymmetric"] and character["asymmetric"] != "not reviewed":
         flags.append(f'<span class="flag">Asymmetric {esc(character["asymmetric"])}</span>')
+    if placed:
+        flags.append('<span class="flag yes">Placed</span>')
+    else:
+        flags.append('<span class="flag">Unplaced</span>')
     flag_row = f'<p class="flags">{"".join(flags)}</p>' if flags else ""
     line = ""
     if character["line"]:
         line = f'<p class="line" dir="rtl" lang="he">{esc(character["line"])}</p>'
-    return f"""<article data-camp="{esc(camp)}" data-search="{esc(search.lower())}">
+    stops = render_stops(str(character["id"]), placements, map_names)
+    return f"""<article data-camp="{esc(camp)}" data-search="{esc(search.lower())}" data-placed="{'1' if placed else '0'}">
   <div class="photo"><img src="{character["photo"]}" width="128" height="192" alt="{esc(str(name_he))}"></div>
   <h2 dir="rtl" lang="he">{esc(str(name_he))}</h2>
   {english}
   <p class="camp" dir="rtl" lang="he">{esc(camp)}</p>
   {line}
   {extra}
+  {stops}
   {flag_row}
-  <p class="donor" dir="ltr">{esc(character["donor"])}</p>
+  <p class="donor" dir="ltr">{esc(character["donor"])} · {esc(str(character["id"]))}</p>
 </article>"""
 
 
-def render(characters: list[dict[str, str | None]]) -> str:
+def render(
+    characters: list[dict[str, str | None]],
+    placements: list[dict],
+    map_names: dict[int, str],
+) -> str:
     camps = sorted({c["camp"] or "No camp" for c in characters})
     camp_buttons = ['<button type="button" class="on" data-camp-filter="all">All</button>']
     for camp in camps:
         camp_buttons.append(
             f'<button type="button" data-camp-filter="{esc(camp)}" dir="rtl" lang="he">{esc(camp)}</button>'
         )
-    cards = "\n".join(render_card(c) for c in characters)
+    cards = "\n".join(render_card(c, placements, map_names) for c in characters)
+    placed_ids = {p.get("character_id") for p in placements}
+    placed_count = sum(1 for c in characters if c["id"] in placed_ids)
+    stop_count = len(placements)
+    if stop_count:
+        count_line = (
+            f'<span id="shown">{len(characters)}</span> characters · '
+            f"{placed_count} placed · {stop_count} map stops"
+        )
+    else:
+        count_line = f'<span id="shown">{len(characters)}</span> characters. No map stops yet.'
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -307,6 +400,8 @@ def render(characters: list[dict[str, str | None]]) -> str:
     text-transform: uppercase;
     color: #9c8d7d;
   }}
+  .stops {{ margin-top: 10px; }}
+  .stops ul {{ margin: 4px 0 0; padding-left: 18px; color: var(--muted); }}
   .flags {{ display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 0; }}
   .flag {{
     font-size: 12px;
@@ -316,13 +411,14 @@ def render(characters: list[dict[str, str | None]]) -> str:
     color: var(--muted);
   }}
   .flag.no {{ color: #ffb4a8; border-color: #8a4a40; }}
+  .flag.yes {{ color: #b8e0a8; border-color: #4a6a40; }}
   .donor {{ margin-top: 10px; font-size: 12px; }}
 </style>
 </head>
 <body>
 <header>
   <h1>Desert Town characters</h1>
-  <p class="count"><span id="shown">{len(characters)}</span> characters. No map stops yet.</p>
+  <p class="count">{count_line}</p>
   <input id="q" type="search" placeholder="Search name, camp, or line" autocomplete="off">
   <div class="camps">{"".join(camp_buttons)}</div>
 </header>
@@ -360,11 +456,33 @@ for (const button of document.querySelectorAll("[data-camp-filter]")) {{
 """
 
 
+def write_characters_rb(characters: list[dict[str, str | None]]) -> None:
+    CHARACTERS_RB.parent.mkdir(parents=True, exist_ok=True)
+    lines = [
+        "# Generated by asset_generation/characters/build_catalog.py — do not hand-edit.",
+        "module DesertTalk",
+        "  CHARACTERS = {",
+    ]
+    for character in sorted(characters, key=lambda c: str(c["id"])):
+        cid = str(character["id"])
+        upper = cid.upper()
+        lines.append(
+            f'    "{cid}" => {{ name_key: "NAME_{upper}", line_key: "MSG_{upper}_LINE" }},'
+        )
+    lines.extend(["  }", "end", ""])
+    CHARACTERS_RB.write_text("\n".join(lines), encoding="utf-8")
+
+
 def main() -> None:
     characters = load_characters()
-    OUT.write_text(render(characters), encoding="utf-8")
+    placements = load_placements()
+    map_names = load_map_names()
+    OUT.write_text(render(characters, placements, map_names), encoding="utf-8")
+    write_characters_rb(characters)
     print(f"wrote {OUT}")
+    print(f"wrote {CHARACTERS_RB}")
     print(f"characters {len(characters)}")
+    print(f"placements {len(placements)}")
 
 
 if __name__ == "__main__":

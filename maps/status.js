@@ -1,11 +1,11 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-20T13:16:37Z",
+  "generated_at": "2026-10-20T13:35:49Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 35,
+  "map_count": 36,
   "maps": [
     {
       "id": "candles",
@@ -202,6 +202,77 @@ window.MAP_STATUS = {
       "event_count": 0,
       "char_count": 0,
       "chars": [],
+      "has_artifacts": false
+    },
+    {
+      "id": "char-demo",
+      "display_name": "Char Demo",
+      "map_id": 452441,
+      "tileset_name": "000-Outside-desert",
+      "is_outside": true,
+      "bgm": "Calm Camps Area",
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Empty 100x100 demo map for character talk examples. Reuses OUTSIDE-DESERT tileset.",
+      "has_name": true,
+      "has_base": true,
+      "base_size_ok": true,
+      "base": {
+        "present": true,
+        "empty": false,
+        "width": 3200,
+        "height": 3200,
+        "tiles_w": 100,
+        "tiles_h": 100,
+        "size_ok": true
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "tileset_properties_set": true,
+      "warnings": [],
+      "has_layer3b": false,
+      "tileset_ready": false,
+      "tileset_local": false,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 100,
+        "tiles_h": 100
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [],
+      "event_count": 4,
+      "char_count": 4,
+      "chars": [
+        "\u05ea\u05e4\u05d5\u05e6'\u05d9\u05e4\u05e1",
+        "\u05d6\u05d9\u05d2-\u05d6\u05d0\u05d3",
+        "\u05d1\u05d0\u05d1\u05dc\u05e1",
+        "\u05e4\u05dc\u05de\u05d9\u05e0\u05d2\u05d4"
+      ],
       "has_artifacts": false
     },
     {

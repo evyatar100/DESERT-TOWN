@@ -1,0 +1,34 @@
+[
+  {
+    "id": "e19726f0",
+    "name": "תפוצ'יפס",
+    "x": 48,
+    "y": 48,
+    "graphic": "dt_e19726f0",
+    "notes": "pbDesertTalk example"
+  },
+  {
+    "id": "11eaf4fa",
+    "name": "זיג-זאד",
+    "x": 52,
+    "y": 48,
+    "graphic": "dt_11eaf4fa",
+    "notes": "pbDesertTalk example"
+  },
+  {
+    "id": "6a9c3d6f",
+    "name": "באבלס",
+    "x": 48,
+    "y": 52,
+    "graphic": "dt_6a9c3d6f",
+    "notes": "pbDesertTalk example"
+  },
+  {
+    "id": "9923f1c4",
+    "name": "פלמינגה",
+    "x": 52,
+    "y": 52,
+    "graphic": "dt_9923f1c4",
+    "notes": "pbDesertTalk example"
+  }
+]

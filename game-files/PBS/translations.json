@@ -523,6 +523,38 @@
     "Debug": {
       "en": "Debug",
       "he": "דיבאג"
+    },
+    "NAME_E19726F0": {
+      "en": "Tapuchips",
+      "he": "תפוצ'יפס"
+    },
+    "MSG_E19726F0_LINE": {
+      "en": "שלום, אני תפוצ'יפס ובא לי סושי",
+      "he": "שלום, אני תפוצ'יפס ובא לי סושי"
+    },
+    "NAME_11EAF4FA": {
+      "en": "ZIG-ZAG",
+      "he": "זיג-זאד"
+    },
+    "MSG_11EAF4FA_LINE": {
+      "en": "It is what it is",
+      "he": "It is what it is"
+    },
+    "NAME_6A9C3D6F": {
+      "en": "Bubbles",
+      "he": "באבלס"
+    },
+    "MSG_6A9C3D6F_LINE": {
+      "en": "Put it in a bubbles and let it go",
+      "he": "Put it in a bubbles and let it go"
+    },
+    "NAME_9923F1C4": {
+      "en": "פלמינגה",
+      "he": "פלמינגה"
+    },
+    "MSG_9923F1C4_LINE": {
+      "en": "לא להמציא",
+      "he": "לא להמציא"
     }
   }
 }

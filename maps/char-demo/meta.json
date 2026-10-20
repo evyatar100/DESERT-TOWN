@@ -1,0 +1,16 @@
+{
+  "id": "char-demo",
+  "display_name": "Char Demo",
+  "map_id": 452441,
+  "tileset_name": "000-Outside-desert",
+  "is_outside": true,
+  "bgm": "Calm Camps Area",
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Empty 100x100 demo map for character talk examples. Reuses OUTSIDE-DESERT tileset."
+}

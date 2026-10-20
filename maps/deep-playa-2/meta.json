@@ -1,8 +1,8 @@
 {
   "id": "deep-playa-2",
   "display_name": "deep-playa 2",
-  "map_id": null,
-  "tileset_name": "deep-playa-2_ts",
+  "map_id": 79,
+  "tileset_name": "deep-playa 2_ts",
   "is_outside": true,
   "bgm": "Calm Camps Area",
   "connections": {
@@ -11,6 +11,6 @@
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "notes": ""
 }

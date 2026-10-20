@@ -6,6 +6,10 @@
 33,0,0,97,-42,-31
 # deep-playa 1a (33) - deep-playa 5 (104)
 33,0,0,104,-28,28
+# deep-playa 2 (79) - deep-playa 4 (103)
+79,0,0,103,39,28
+# deep-playa 2 (79) - deep-playa 6 (105)
+79,0,0,105,-38,28
 # demo-camp4 (84) - spacesheep-camp (86)
 84,0,0,86,-32,36
 # demo-camp4 (84) - mom-dad-out (90)

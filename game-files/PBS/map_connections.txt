@@ -112,3 +112,15 @@
 33,North,0,103,South,11
 # deep-playa 1a (33) - Playa (98)
 33,South,0,98,North,0
+# Piramid (22) - deep-playa 2 (79)
+22,North,0,79,South,36
+# deep-playa 1a (33) - deep-playa 2 (79)
+33,East,0,79,West,0
+# deep-playa 2 (79) - deep-playa 3 (102)
+79,East,0,102,West,0
+# deep-playa 2 (79) - deep-playa 5 (104)
+79,North,0,104,South,0
+# deep-playa 2 (79) - Kim Area (97)
+79,South,14,97,North,0
+# deep-playa 2 (79) - Playa (98)
+79,South,0,98,North,28

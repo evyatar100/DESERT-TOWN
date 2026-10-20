@@ -236,6 +236,13 @@
               ]
             },
             {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "SpacesheepCool.refresh"
+              ]
+            },
+            {
               "code": 202,
               "indent": 1,
               "parameters": [
@@ -299,6 +306,13 @@
                 104,
                 104,
                 1
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "SpacesheepCool.refresh"
               ]
             },
             {
@@ -464,6 +478,13 @@
               ]
             },
             {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "SpacesheepCool.refresh"
+              ]
+            },
+            {
               "code": 202,
               "indent": 1,
               "parameters": [
@@ -530,6 +551,13 @@
               ]
             },
             {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "SpacesheepCool.refresh"
+              ]
+            },
+            {
               "code": 0,
               "indent": 1,
               "parameters": []
@@ -560,51 +588,6 @@
       ],
       "x": 23,
       "y": 22
-    },
-    {
-      "id": 9,
-      "name": "EV009START-COOL-MUSIC",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 241,
-              "indent": 0,
-              "parameters": [
-                {
-                  "@name": "Alien Party",
-                  "@pitch": 100,
-                  "@volume": 100,
-                  "_class": "RPG::AudioFile"
-                }
-              ]
-            },
-            {
-              "code": 116,
-              "indent": 0,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 104,
-            "switch1_valid": true,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 22,
-      "y": 17
     },
     {
       "id": 10,
@@ -812,122 +795,6 @@
       ],
       "x": 19,
       "y": 30
-    },
-    {
-      "id": 15,
-      "name": "EV015-COLOR-EFFECTS",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 223,
-              "indent": 0,
-              "parameters": [
-                {
-                  "_class": "Tone"
-                },
-                20
-              ]
-            },
-            {
-              "code": 106,
-              "indent": 0,
-              "parameters": [
-                60
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        },
-        {
-          "commands": [
-            {
-              "code": 223,
-              "indent": 0,
-              "parameters": [
-                {
-                  "_class": "Tone"
-                },
-                20
-              ]
-            },
-            {
-              "code": 106,
-              "indent": 0,
-              "parameters": [
-                60
-              ]
-            },
-            {
-              "code": 223,
-              "indent": 0,
-              "parameters": [
-                {
-                  "_class": "Tone"
-                },
-                20
-              ]
-            },
-            {
-              "code": 106,
-              "indent": 0,
-              "parameters": [
-                60
-              ]
-            },
-            {
-              "code": 223,
-              "indent": 0,
-              "parameters": [
-                {
-                  "_class": "Tone"
-                },
-                20
-              ]
-            },
-            {
-              "code": 106,
-              "indent": 0,
-              "parameters": [
-                60
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 104,
-            "switch1_valid": true,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 22,
-      "y": 18
     },
     {
       "id": 16,

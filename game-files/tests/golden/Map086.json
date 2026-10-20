@@ -572,7 +572,7 @@
               "indent": 0,
               "parameters": [
                 {
-                  "@name": "Battle Gym Leader",
+                  "@name": "Alien Party",
                   "@pitch": 100,
                   "@volume": 100,
                   "_class": "RPG::AudioFile"

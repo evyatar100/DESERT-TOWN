@@ -93,3 +93,5 @@ The Ruby hash includes every production character, placed or not, so `pbDesertTa
 ## Event command
 
 Script command code 355, parameters `[ 'pbDesertTalk("11eaf4fa")' ]`, followed by command code 0. A longer script continues with code 655. Do not also add Show Text (101/401) for the same line.
+
+For a multi-line event, the first command is instead code 355 with parameters `[ 'pbDesertSpeaker("11eaf4fa")' ]`, followed by the lines as Show Text (101/401) or Script `pbMessage` commands. Every message window in that event shows the character's name plate; the speaker clears automatically when the event ends. Call `pbDesertSpeaker` again with a different id to switch speaker mid-event.

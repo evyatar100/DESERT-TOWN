@@ -50,6 +50,32 @@ def normalize_starter_quantity(quantity):
     return quantity
 
 
+DESERT_CHARACTERS = {"11eaf4fa": ("NAME_11EAF4FA", "MSG_11EAF4FA_LINE")}
+
+
+class DesertSpeaker:
+    """Python mirror of DesertTalk.start_speaker / clear-on-event-end."""
+
+    def __init__(self):
+        self.name_key = None
+
+    def start_speaker(self, character_id):
+        if character_id not in DESERT_CHARACTERS:
+            raise KeyError(f"Unknown DesertTalk character: {character_id}")
+        self.name_key = DESERT_CHARACTERS[character_id][0]
+        return DESERT_CHARACTERS[character_id]
+
+    def talk(self, character_id):
+        _name_key, line_key = self.start_speaker(character_id)
+        self.name_key = None
+        return line_key
+
+    def frame_update(self, interpreter_running, message_showing=False, in_battle=False):
+        if not self.name_key or message_showing or in_battle or interpreter_running:
+            return
+        self.name_key = None
+
+
 class PluginRuleTests(unittest.TestCase):
     def test_plugins_call_the_decision_methods(self):
         seller = (ROOT / "Plugins" / "HebrewSupport" / "ice_seller.rb").read_text(encoding="utf-8")
@@ -59,6 +85,12 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        talk = (ROOT / "Plugins" / "DesertTalk" / "desert_talk.rb").read_text(encoding="utf-8")
+        self.assertIn("def pbDesertSpeaker", talk)
+        self.assertIn("DesertTalk.start_speaker", talk)
+        self.assertIn("DesertTalk.clear_speaker", talk)
+        self.assertIn(":on_frame_update, :desert_talk_clear_speaker", talk)
+        self.assertIn("pbMapInterpreterRunning?", talk)
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):
@@ -85,6 +117,20 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual([91, 41, 35, 2][0:3], [91, 41, 35])
         for amount in (0, 1, 4):
             self.assertEqual(normalize_starter_quantity(amount), 1)
+
+        speaker = DesertSpeaker()
+        speaker.start_speaker("11eaf4fa")
+        self.assertEqual(speaker.name_key, "NAME_11EAF4FA")
+        speaker.frame_update(interpreter_running=True)
+        self.assertEqual(speaker.name_key, "NAME_11EAF4FA")
+        speaker.frame_update(interpreter_running=True)
+        self.assertEqual(speaker.name_key, "NAME_11EAF4FA")
+        speaker.frame_update(interpreter_running=False)
+        self.assertIsNone(speaker.name_key)
+        self.assertEqual(speaker.talk("11eaf4fa"), "MSG_11EAF4FA_LINE")
+        self.assertIsNone(speaker.name_key)
+        with self.assertRaises(KeyError):
+            speaker.start_speaker("deadbeef")
 
 
 if __name__ == "__main__":

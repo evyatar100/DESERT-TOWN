@@ -4,6 +4,11 @@
 # pbDesertTalk(id) looks up NAME_/MSG_ keys, shows a right-aligned name plate
 # above the message window (or below it when the box sits in the upper half),
 # then calls pbMessage. The plate is disposed when the message closes.
+#
+# pbDesertSpeaker(id) sets the speaker once for the rest of the current
+# event: every following message window shows that character's plate until
+# the event's interpreter stops running (see the :on_frame_update handler
+# at the bottom of this file).
 #===============================================================================
 
 module DesertTalk
@@ -20,6 +25,20 @@ module DesertTalk
 
   def self.clear_name
     @@name_key = nil
+  end
+
+  def self.start_speaker(character_id)
+    char = CHARACTERS[character_id]
+    if !char
+      raise "Unknown DesertTalk character: #{character_id}"
+    end
+    @@name_key = char[:name_key]
+    return char
+  end
+
+  def self.clear_speaker
+    clear_name
+    dispose_name_window
   end
 
   def self.dispose_name_window
@@ -64,18 +83,20 @@ module DesertTalk
 end
 
 def pbDesertTalk(character_id, line_key = nil)
-  char = DesertTalk::CHARACTERS[character_id]
-  if !char
-    raise "Unknown DesertTalk character: #{character_id}"
-  end
+  char = DesertTalk.start_speaker(character_id)
   line_key = char[:line_key] if !line_key || line_key == ""
-  DesertTalk.name_key = char[:name_key]
   begin
     pbMessage(_INTL(line_key))
   ensure
-    DesertTalk.clear_name
-    DesertTalk.dispose_name_window
+    DesertTalk.clear_speaker
   end
+end
+
+# Set the speaker for every following message in this event. The plate
+# clears automatically when the event finishes; call again with another
+# id to switch speaker mid-event.
+def pbDesertSpeaker(character_id)
+  DesertTalk.start_speaker(character_id)
 end
 
 if defined?(pbCreateMessageWindow)
@@ -93,4 +114,18 @@ if defined?(pbDisposeMessageWindow)
     DesertTalk.dispose_name_window
     desert_talk_pbDisposeMessageWindow(msgwindow)
   end
+end
+
+# A speaker set with pbDesertSpeaker lasts until the event that set it
+# finishes. The map interpreter is still running between messages in the
+# same event, so the first frame after it stops is the event's end.
+if defined?(EventHandlers)
+  EventHandlers.add(:on_frame_update, :desert_talk_clear_speaker,
+    proc {
+      next if !DesertTalk.name_key
+      next if defined?($game_temp) && $game_temp && ($game_temp.message_window_showing || $game_temp.in_battle)
+      next if defined?(pbMapInterpreterRunning?) && pbMapInterpreterRunning?
+      DesertTalk.clear_speaker
+    }
+  )
 end

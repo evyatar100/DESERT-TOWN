@@ -49,6 +49,7 @@ Keep the decisions separate from messages and screen effects:
 - `IceSellerRules.decide(choice, bill_count)` in `Plugins/HebrewSupport/ice_seller.rb`. Five `TWENTYSHECKELBILL` is a purchase and gives `ICEBAG`. Fewer bills is `:not_enough`. Choices 4 and 5 leave the bag unchanged.
 - `IceInTimer.seconds_remaining` and `IceInTimer.rescue_destination` in `Plugins/HebrewSupport/ice_in_timer.rb`. The timer expires at 420 seconds on map 88. Rescue transfers once to map 91 at (41, 35) and must not start a second rescue while one is running.
 - `BurningManBag.normalize_starter_quantity` in `Plugins/BurningManBag/burning_man_bag.rb`. Zero, one, or many of `WHITEWATERBOTTLE` and `USBDISK` each end at one.
+- `DesertTalk.start_speaker` / `pbDesertSpeaker` in `Plugins/DesertTalk/desert_talk.rb`. The speaker survives every message in the event, clears on the first frame after the map interpreter stops, and `pbDesertTalk` still clears after its one line. Unknown ids raise.
 
 `tests/plugin_rules_test.rb` is the behavior test. It stubs `PokemonBag`, `EventHandlers`, messages, and the bag, then loads the plugin files. If you change a rule, update that file and the Python fallback in `test_plugin_rules.py` so a machine without Ruby still checks the same cases.
 

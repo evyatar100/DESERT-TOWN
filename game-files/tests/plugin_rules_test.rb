@@ -40,8 +40,11 @@ module Game
   end
 end
 
+$event_handlers = {}
 module EventHandlers
-  def self.add(*); end
+  def self.add(_event, name, handler = nil, &block)
+    $event_handlers[name] = handler || block
+  end
 end
 
 load File.join(ROOT, "Plugins/BurningManBag/burning_man_bag.rb")
@@ -166,6 +169,50 @@ $transfers = []
 IceInTimer.instance_variable_set(:@rescuing, true)
 IceInTimer.trigger_rescue
 check($transfers.empty?, "a second rescue does not start while one is running")
+
+# --- DesertTalk speaker ---
+load File.join(ROOT, "Plugins/DesertTalk/characters.rb")
+load File.join(ROOT, "Plugins/DesertTalk/desert_talk.rb")
+
+$game_temp = Object.new
+class << $game_temp
+  attr_accessor :message_window_showing, :in_battle
+end
+$game_temp.message_window_showing = false
+$game_temp.in_battle = false
+
+$map_interpreter_running = true
+def pbMapInterpreterRunning?
+  $map_interpreter_running
+end
+
+$messages = []
+pbDesertSpeaker("11eaf4fa")
+check(DesertTalk.name_key == "NAME_11EAF4FA", "pbDesertSpeaker sets the speaker name")
+pbMessage(_INTL("MSG_11EAF4FA_LINE"))
+check(DesertTalk.name_key == "NAME_11EAF4FA", "speaker survives the first message")
+pbMessage(_INTL("MSG_11EAF4FA_LINE"))
+check(DesertTalk.name_key == "NAME_11EAF4FA", "speaker survives the second message")
+
+clear_speaker = $event_handlers[:desert_talk_clear_speaker]
+check(!clear_speaker.nil?, "DesertTalk registers an event-end speaker clear")
+clear_speaker.call
+check(DesertTalk.name_key == "NAME_11EAF4FA", "speaker stays while the event interpreter runs")
+$map_interpreter_running = false
+clear_speaker.call
+check(DesertTalk.name_key.nil?, "speaker clears when the event interpreter stops")
+
+$messages = []
+pbDesertTalk("11eaf4fa")
+check($messages == ["MSG_11EAF4FA_LINE"], "pbDesertTalk still speaks the default line")
+check(DesertTalk.name_key.nil?, "pbDesertTalk still clears after one line")
+
+begin
+  pbDesertSpeaker("deadbeef")
+  check(false, "unknown speaker id raises")
+rescue RuntimeError
+  check(true, "unknown speaker id raises")
+end
 
 # --- starter items ---
 [0, 1, 4].each do |amount|

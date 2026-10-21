@@ -37,6 +37,7 @@ module Game
   class << self
     def start_new; end
     def load(_data); end
+    def save(*); true; end
   end
 end
 
@@ -44,9 +45,24 @@ module EventHandlers
   def self.add(*); end
 end
 
+module SaveData
+  def self.register(*); end
+end
+
+class Game_Temp
+end
+
+class Scene_Map
+  def update; end
+  def call_menu; end
+end
+
 load File.join(ROOT, "Plugins/BurningManBag/burning_man_bag.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_in_timer.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_seller.rb")
+load File.join(ROOT, "Plugins/DesertTownArcade/001_bag_button.rb")
+load File.join(ROOT, "Plugins/DesertTownArcade/003_autosave.rb")
+load File.join(ROOT, "Plugins/DesertTownArcade/004_arcade_new_game.rb")
 
 class QuantityBag
   attr_reader :items
@@ -186,6 +202,36 @@ pocket = QuantityBag.new({ WHITEWATERBOTTLE: 3, USBDISK: 0 })
 BurningManBag.ensure_single_starter_items(pocket)
 check(pocket.quantity(:WHITEWATERBOTTLE) == 1, "three bottles collapse to one")
 check(pocket.quantity(:USBDISK) == 1, "a missing disk is added once")
+
+# --- arcade autosave ---
+interval = DesertTownAutosave::INTERVAL
+check(interval == 1_200, "autosave interval is 20 minutes")
+check(DesertTownAutosave.due?(5_000, nil), "no previous save is due")
+check(!DesertTownAutosave.due?(1_000 + 1_199, 1_000), "1199 seconds after a save is not due")
+check(DesertTownAutosave.due?(1_000 + 1_200, 1_000), "1200 seconds after a save is due")
+check(DesertTownAutosave.due?(1_000 + 5_000, 1_000), "well past the interval is due")
+check(!DesertTownAutosave.due?(nil, 1_000), "no clock is never due")
+
+check(DesertTownAutosave.inside_to_outside?(false, true), "indoor to outdoor saves")
+check(!DesertTownAutosave.inside_to_outside?(true, false), "outdoor to indoor does not save")
+check(!DesertTownAutosave.inside_to_outside?(true, true), "outdoor to outdoor does not save")
+check(!DesertTownAutosave.inside_to_outside?(false, false), "indoor to indoor does not save")
+check(DesertTownAutosave.inside_to_outside?(nil, true), "unknown old map counts as indoor")
+check(!DesertTownAutosave.inside_to_outside?(false, nil), "unknown new map counts as indoor")
+
+# --- arcade bag button ---
+check(DesertTownArcade.bag_button_allowed?(false, false, false, false, false), "idle map accepts the bag button")
+check(!DesertTownArcade.bag_button_allowed?(true, false, false, false, false), "running event blocks the bag button")
+check(!DesertTownArcade.bag_button_allowed?(false, true, false, false, false), "open message blocks the bag button")
+check(!DesertTownArcade.bag_button_allowed?(false, false, true, false, false), "moving player blocks the bag button")
+check(!DesertTownArcade.bag_button_allowed?(false, false, false, true, false), "menu_disabled blocks the bag button")
+check(!DesertTownArcade.bag_button_allowed?(false, false, false, false, true), "forced movement blocks the bag button")
+
+# --- arcade depth ---
+check(DesertTownArcadeState.next_depth(nil) == 1, "first new game is depth 1")
+check(DesertTownArcadeState.next_depth(0) == 1, "depth 0 becomes 1")
+check(DesertTownArcadeState.next_depth(7) == 8, "depth 7 becomes 8")
+check(DesertTownArcadeState.new.depth == 0, "a fresh cabinet state starts at depth 0")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

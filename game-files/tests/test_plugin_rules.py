@@ -50,6 +50,33 @@ def normalize_starter_quantity(quantity):
     return quantity
 
 
+AUTOSAVE_INTERVAL = 20 * 60
+
+
+def autosave_due(now, last_save, interval=AUTOSAVE_INTERVAL):
+    if now is None:
+        return False
+    if last_save is None:
+        return True
+    return (now - last_save) >= interval
+
+
+def inside_to_outside(old_outdoor, new_outdoor):
+    if old_outdoor:
+        return False
+    return bool(new_outdoor)
+
+
+def bag_button_allowed(interpreter_running, message_showing, player_moving, menu_disabled, forced_movement):
+    return not (interpreter_running or message_showing or player_moving or menu_disabled or forced_movement)
+
+
+def next_depth(depth):
+    if depth is None:
+        return 1
+    return int(depth) + 1
+
+
 class PluginRuleTests(unittest.TestCase):
     def test_plugins_call_the_decision_methods(self):
         seller = (ROOT / "Plugins" / "HebrewSupport" / "ice_seller.rb").read_text(encoding="utf-8")
@@ -59,6 +86,37 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        arcade_dir = ROOT / "Plugins" / "DesertTownArcade"
+        autosave = (arcade_dir / "003_autosave.rb").read_text(encoding="utf-8")
+        new_game = (arcade_dir / "004_arcade_new_game.rb").read_text(encoding="utf-8")
+        bag_button = (arcade_dir / "001_bag_button.rb").read_text(encoding="utf-8")
+        self.assertIn("INTERVAL = 20 * 60", autosave)
+        self.assertIn("due?(", autosave)
+        self.assertIn("inside_to_outside?(", autosave)
+        self.assertIn("DesertTownArcadeState.next_depth", new_game)
+        self.assertIn("pbCaveEntranceEx(false)", new_game)
+        self.assertIn("MSG_ARCADE_NEW_GAME_CONFIRM", new_game)
+        self.assertIn("bag_button_allowed?(", bag_button)
+
+    def test_arcade_rules_without_ruby(self):
+        self.assertTrue(autosave_due(5000, None))
+        self.assertFalse(autosave_due(1000 + 1199, 1000))
+        self.assertTrue(autosave_due(1000 + 1200, 1000))
+        self.assertFalse(autosave_due(None, 1000))
+        self.assertTrue(inside_to_outside(False, True))
+        self.assertTrue(inside_to_outside(None, True))
+        self.assertFalse(inside_to_outside(True, False))
+        self.assertFalse(inside_to_outside(True, True))
+        self.assertFalse(inside_to_outside(False, False))
+        self.assertFalse(inside_to_outside(False, None))
+        self.assertTrue(bag_button_allowed(False, False, False, False, False))
+        for blocked in range(5):
+            flags = [False] * 5
+            flags[blocked] = True
+            self.assertFalse(bag_button_allowed(*flags))
+        self.assertEqual(next_depth(None), 1)
+        self.assertEqual(next_depth(0), 1)
+        self.assertEqual(next_depth(7), 8)
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):

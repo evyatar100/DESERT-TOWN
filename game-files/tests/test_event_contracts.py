@@ -40,6 +40,7 @@ TRANSFER_CALL_RE = re.compile(
 PLUGIN_DIRS = (
     ROOT / "Plugins" / "HebrewSupport",
     ROOT / "Plugins" / "BurningManBag",
+    ROOT / "Plugins" / "DesertTownArcade",
 )
 
 

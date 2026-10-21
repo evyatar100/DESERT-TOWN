@@ -95,6 +95,8 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("inside_to_outside?(", autosave)
         self.assertIn("DesertTownArcadeState.next_depth", new_game)
         self.assertIn("pbCaveEntranceEx(false)", new_game)
+        self.assertIn("Scene_DesertTownRestart", new_game)
+        self.assertIn("$scene = Scene_DesertTownRestart.new", new_game)
         self.assertIn("MSG_ARCADE_NEW_GAME_CONFIRM", new_game)
         self.assertIn("bag_button_allowed?(", bag_button)
 

@@ -59,7 +59,11 @@ module DesertTownArcade
   end
 
   # Performs the restart. Must run from Scene_Map#update, outside the event
-  # interpreter, so that Game.start_new can replace the scene cleanly.
+  # interpreter. Do NOT call Game.start_new here: that assigns $scene to a new
+  # Scene_Map before the old one has disposed, and Spriteset_Map#dispose then
+  # calls $scene.map_renderer.remove_tileset on a renderer that is still nil
+  # (undefined method `remove_tileset' for nil:NilClass). Hand off to a bridge
+  # scene first, same pattern as title_screen_calling -> pbCallTitle.
   def self.restart!
     $game_temp.desert_town_restart_pending = false if $game_temp
     pbCaveEntranceEx(false)
@@ -68,6 +72,14 @@ module DesertTownArcade
     st.started_at = Time.now
     echoln "[DesertTownArcade] New deserttown game, depth #{st.depth}" if defined?(echoln)
     pbBGMStop if defined?(pbBGMStop)
+    $scene = Scene_DesertTownRestart.new
+  end
+end
+
+# Bridge so the old Scene_Map can dispose while $scene is not a Scene_Map.
+# Main then runs this scene, which starts the nested game.
+class Scene_DesertTownRestart
+  def main
     Game.start_new
     # $game_system survives start_new; make sure the new run is not locked out.
     if $game_system

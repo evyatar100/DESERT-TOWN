@@ -42,6 +42,7 @@ PLUGIN_DIRS = (
     ROOT / "Plugins" / "BurningManBag",
     ROOT / "Plugins" / "DesertCharSelect",
     ROOT / "Plugins" / "DesertTalk",
+    ROOT / "Plugins" / "DesertTownArcade",
 )
 
 

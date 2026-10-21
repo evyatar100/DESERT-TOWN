@@ -25,6 +25,8 @@ MAP_METADATA = ROOT / "game-files" / "PBS" / "map_metadata.txt"
 
 # Top-left cell of the 128×192 charset (4 frames × 4 directions, 32×48).
 FRAME = (0, 0, 32, 48)
+# Down-facing dance row (four 32×48 frames) for the catalog CSS animation.
+DANCE_ROW = (0, 0, 128, 48)
 QA_DONOR = "dt148_qa_field_1786427980"
 QA_ID = "e98a1184"
 UNSET = {"", "_(not set)_"}
@@ -85,13 +87,25 @@ def character_id(folder_name: str) -> str:
     return token
 
 
-def first_frame_data_uri(sheet: Path) -> str:
-    image = Image.open(sheet).convert("RGBA")
-    frame = image.crop(FRAME)
+def png_data_uri(image: Image.Image) -> str:
     buf = BytesIO()
-    frame.save(buf, format="PNG")
+    image.save(buf, format="PNG")
     encoded = base64.b64encode(buf.getvalue()).decode("ascii")
     return f"data:image/png;base64,{encoded}"
+
+
+def first_frame_data_uri(sheet: Path) -> str:
+    image = Image.open(sheet).convert("RGBA")
+    return png_data_uri(image.crop(FRAME))
+
+
+def dance_row_data_uri(dance: Path) -> str | None:
+    if not dance.is_file():
+        return None
+    image = Image.open(dance).convert("RGBA")
+    if image.size != (128, 192):
+        return None
+    return png_data_uri(image.crop(DANCE_ROW))
 
 
 def load_map_names() -> dict[int, str]:
@@ -139,6 +153,7 @@ def load_characters() -> list[dict[str, str | None]]:
         if cid == QA_ID:
             continue
         title, fields = parse_metadata(metas[0].read_text(encoding="utf-8"))
+        dance_path = char_dir / "dance.png"
         characters.append(
             {
                 "id": cid,
@@ -157,6 +172,7 @@ def load_characters() -> list[dict[str, str | None]]:
                 "asymmetric_notes": clean(fields.get("Asymmetric notes")),
                 "notes": clean(fields.get("Notes")),
                 "photo": first_frame_data_uri(sheets[0]),
+                "dance": dance_row_data_uri(dance_path),
             }
         )
     characters.sort(key=lambda c: (c["name_he"] or c["name_en"] or c["donor"] or ""))
@@ -261,8 +277,18 @@ def render_card(
     if character["line"]:
         line = f'<p class="line" dir="rtl" lang="he">{esc(character["line"])}</p>'
     stops = render_stops(str(character["id"]), placements, map_names)
+    dance = ""
+    if character.get("dance"):
+        dance = (
+            '<div class="dance" title="dance">'
+            f'<img src="{character["dance"]}" width="128" height="48" alt="">'
+            "</div>"
+        )
     return f"""<article data-camp="{esc(camp)}" data-search="{esc(search.lower())}" data-placed="{'1' if placed else '0'}">
-  <div class="photo"><img src="{character["photo"]}" width="128" height="192" alt="{esc(str(name_he))}"></div>
+  <div class="photo">
+    <img class="walk" src="{character["photo"]}" width="32" height="48" alt="{esc(str(name_he))}">
+    {dance}
+  </div>
   <h2 dir="rtl" lang="he">{esc(str(name_he))}</h2>
   {english}
   <p class="camp" dir="rtl" lang="he">{esc(camp)}</p>
@@ -367,6 +393,8 @@ def render(
   .photo {{
     display: flex;
     justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
     background-color: var(--sand);
     background-image:
       linear-gradient(45deg, var(--sand-2) 25%, transparent 25%),
@@ -377,13 +405,35 @@ def render(
     background-position: 0 0, 0 8px, 8px -8px, -8px 0;
     border-radius: 10px;
     padding: 12px 0;
+    min-height: 72px;
   }}
-  img {{
-    width: 128px;
-    height: 192px;
+  .photo img.walk {{
+    width: 64px;
+    height: 96px;
     image-rendering: pixelated;
     image-rendering: crisp-edges;
   }}
+  .dance {{
+    width: 64px;
+    height: 96px;
+    overflow: hidden;
+  }}
+  .dance img {{
+    display: block;
+    width: 256px;
+    height: 96px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    animation: dance-spin 0.8s steps(4) infinite;
+  }}
+  @keyframes dance-spin {{
+    from {{ transform: translateX(0); }}
+    to {{ transform: translateX(-256px); }}
+  }}
+  @media (prefers-reduced-motion: reduce) {{
+    .dance img {{ animation: none; }}
+  }}
+
   h2 {{ margin: 12px 0 0; font-size: 22px; }}
   .en, .camp, .donor, .field {{ margin: 2px 0 0; color: var(--muted); }}
   .camp {{ color: var(--accent); }}

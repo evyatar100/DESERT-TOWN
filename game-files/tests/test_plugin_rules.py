@@ -65,10 +65,11 @@ class DesertSpeaker:
         self.name_key = DESERT_CHARACTERS[character_id][0]
         return DESERT_CHARACTERS[character_id]
 
-    def talk(self, character_id):
-        _name_key, line_key = self.start_speaker(character_id)
-        self.name_key = None
-        return line_key
+    def talk(self, character_id, line_key=None):
+        if character_id not in DESERT_CHARACTERS:
+            raise KeyError(f"Unknown DesertTalk character: {character_id}")
+        _name_key, default_line = DESERT_CHARACTERS[character_id]
+        return line_key or default_line
 
     def frame_update(self, interpreter_running, message_showing=False, in_battle=False):
         if not self.name_key or message_showing or in_battle or interpreter_running:
@@ -127,10 +128,16 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual(speaker.name_key, "NAME_11EAF4FA")
         speaker.frame_update(interpreter_running=False)
         self.assertIsNone(speaker.name_key)
+        speaker.start_speaker("11eaf4fa")
         self.assertEqual(speaker.talk("11eaf4fa"), "MSG_11EAF4FA_LINE")
-        self.assertIsNone(speaker.name_key)
+        self.assertEqual(speaker.name_key, "NAME_11EAF4FA")
+        standalone = DesertSpeaker()
+        self.assertEqual(standalone.talk("11eaf4fa"), "MSG_11EAF4FA_LINE")
+        self.assertIsNone(standalone.name_key)
         with self.assertRaises(KeyError):
             speaker.start_speaker("deadbeef")
+        with self.assertRaises(KeyError):
+            standalone.talk("deadbeef")
 
 
 if __name__ == "__main__":

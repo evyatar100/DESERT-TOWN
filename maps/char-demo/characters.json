@@ -5,7 +5,7 @@
     "x": 1,
     "y": 1,
     "graphic": "dt_0552d83f",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "845a91aa",
@@ -13,7 +13,7 @@
     "x": 3,
     "y": 1,
     "graphic": "dt_845a91aa",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "8f6972ef",
@@ -21,7 +21,7 @@
     "x": 5,
     "y": 1,
     "graphic": "dt_8f6972ef",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "6b57ce76",
@@ -29,7 +29,7 @@
     "x": 7,
     "y": 1,
     "graphic": "dt_6b57ce76",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "ff8eab6b",
@@ -37,7 +37,7 @@
     "x": 9,
     "y": 1,
     "graphic": "dt_ff8eab6b",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "266d65c6",
@@ -45,7 +45,7 @@
     "x": 11,
     "y": 1,
     "graphic": "dt_266d65c6",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "0f0fdcf5",
@@ -53,7 +53,7 @@
     "x": 13,
     "y": 1,
     "graphic": "dt_0f0fdcf5",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "c081cd67",
@@ -61,7 +61,7 @@
     "x": 15,
     "y": 1,
     "graphic": "dt_c081cd67",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "0211e32a",
@@ -69,7 +69,7 @@
     "x": 17,
     "y": 1,
     "graphic": "dt_0211e32a",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "92958f4d",
@@ -77,7 +77,7 @@
     "x": 19,
     "y": 1,
     "graphic": "dt_92958f4d",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "6a9c3d6f",
@@ -85,7 +85,7 @@
     "x": 21,
     "y": 1,
     "graphic": "dt_6a9c3d6f",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "3cdacb96",
@@ -93,7 +93,7 @@
     "x": 23,
     "y": 1,
     "graphic": "dt_3cdacb96",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "4c6540a3",
@@ -101,7 +101,7 @@
     "x": 25,
     "y": 1,
     "graphic": "dt_4c6540a3",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "d4540277",
@@ -109,7 +109,7 @@
     "x": 27,
     "y": 1,
     "graphic": "dt_d4540277",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "4b08e38a",
@@ -117,7 +117,7 @@
     "x": 29,
     "y": 1,
     "graphic": "dt_4b08e38a",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "82451b58",
@@ -125,7 +125,7 @@
     "x": 31,
     "y": 1,
     "graphic": "dt_82451b58",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "2082afb4",
@@ -133,7 +133,7 @@
     "x": 33,
     "y": 1,
     "graphic": "dt_2082afb4",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "abd7f899",
@@ -141,7 +141,7 @@
     "x": 35,
     "y": 1,
     "graphic": "dt_abd7f899",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "b19b1f15",
@@ -149,7 +149,7 @@
     "x": 37,
     "y": 1,
     "graphic": "dt_b19b1f15",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "11eaf4fa",
@@ -157,254 +157,254 @@
     "x": 39,
     "y": 1,
     "graphic": "dt_11eaf4fa",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "30c62b46",
     "name": "חייזר1",
-    "x": 41,
-    "y": 1,
+    "x": 1,
+    "y": 3,
     "graphic": "dt_30c62b46",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "85acb2b8",
     "name": "טווולה",
-    "x": 43,
-    "y": 1,
+    "x": 3,
+    "y": 3,
     "graphic": "dt_85acb2b8",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "326f5ab5",
     "name": "יוניק",
-    "x": 45,
-    "y": 1,
+    "x": 5,
+    "y": 3,
     "graphic": "dt_326f5ab5",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "a01046dc",
     "name": "יערודזרט",
-    "x": 47,
-    "y": 1,
+    "x": 7,
+    "y": 3,
     "graphic": "dt_a01046dc",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "fcba2ff5",
     "name": "יערול",
-    "x": 49,
-    "y": 1,
+    "x": 9,
+    "y": 3,
     "graphic": "dt_fcba2ff5",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "c626f0d6",
     "name": "לדה בת נחיר",
-    "x": 51,
-    "y": 1,
+    "x": 11,
+    "y": 3,
     "graphic": "dt_c626f0d6",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "648b924a",
     "name": "לילי",
-    "x": 53,
-    "y": 1,
+    "x": 13,
+    "y": 3,
     "graphic": "dt_648b924a",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "a715ed37",
     "name": "מור",
-    "x": 55,
-    "y": 1,
+    "x": 15,
+    "y": 3,
     "graphic": "dt_a715ed37",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "963c65ea",
     "name": "נור האביר",
-    "x": 57,
-    "y": 1,
+    "x": 17,
+    "y": 3,
     "graphic": "dt_963c65ea",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "a4012984",
     "name": "נטע לובנש",
-    "x": 59,
-    "y": 1,
+    "x": 19,
+    "y": 3,
     "graphic": "dt_a4012984",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "574177dd",
     "name": "סיונבי",
-    "x": 61,
-    "y": 1,
+    "x": 21,
+    "y": 3,
     "graphic": "dt_574177dd",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "2efd31ca",
     "name": "ספחר",
-    "x": 63,
-    "y": 1,
+    "x": 23,
+    "y": 3,
     "graphic": "dt_2efd31ca",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "f9a7cff7",
     "name": "סש",
-    "x": 65,
-    "y": 1,
+    "x": 25,
+    "y": 3,
     "graphic": "dt_f9a7cff7",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "65029b81",
     "name": "עדן ס",
-    "x": 67,
-    "y": 1,
+    "x": 27,
+    "y": 3,
     "graphic": "dt_65029b81",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "2054a176",
     "name": "עודש האימתני",
-    "x": 69,
-    "y": 1,
+    "x": 29,
+    "y": 3,
     "graphic": "dt_2054a176",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "671405a6",
     "name": "פאקו",
-    "x": 71,
-    "y": 1,
+    "x": 31,
+    "y": 3,
     "graphic": "dt_671405a6",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "d5383627",
     "name": "פיקסל",
-    "x": 73,
-    "y": 1,
+    "x": 33,
+    "y": 3,
     "graphic": "dt_d5383627",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "9923f1c4",
     "name": "פלמינגה",
-    "x": 75,
-    "y": 1,
+    "x": 35,
+    "y": 3,
     "graphic": "dt_9923f1c4",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "708d6c34",
     "name": "פלמינגו",
-    "x": 77,
-    "y": 1,
+    "x": 37,
+    "y": 3,
     "graphic": "dt_708d6c34",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "b25567c8",
     "name": "פרא",
-    "x": 79,
-    "y": 1,
+    "x": 39,
+    "y": 3,
     "graphic": "dt_b25567c8",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "c85a6dc5",
     "name": "צ׳יף",
-    "x": 81,
-    "y": 1,
+    "x": 1,
+    "y": 5,
     "graphic": "dt_c85a6dc5",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "207a26e8",
     "name": "קובל",
-    "x": 83,
-    "y": 1,
+    "x": 3,
+    "y": 5,
     "graphic": "dt_207a26e8",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "b3178e6b",
     "name": "רוחמה",
-    "x": 85,
-    "y": 1,
+    "x": 5,
+    "y": 5,
     "graphic": "dt_b3178e6b",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "e9da20da",
     "name": "רז הבן",
-    "x": 87,
-    "y": 1,
+    "x": 7,
+    "y": 5,
     "graphic": "dt_e9da20da",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "5a75819b",
     "name": "רז הלל",
-    "x": 89,
-    "y": 1,
+    "x": 9,
+    "y": 5,
     "graphic": "dt_5a75819b",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "5990bffc",
     "name": "ריטה",
-    "x": 91,
-    "y": 1,
+    "x": 11,
+    "y": 5,
     "graphic": "dt_5990bffc",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "890b649e",
     "name": "רייצ'ל מלכת הבייקון",
-    "x": 93,
-    "y": 1,
+    "x": 13,
+    "y": 5,
     "graphic": "dt_890b649e",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "f9348fd0",
     "name": "שורטי",
-    "x": 95,
-    "y": 1,
+    "x": 15,
+    "y": 5,
     "graphic": "dt_f9348fd0",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "670f79e3",
     "name": "שירפז",
-    "x": 97,
-    "y": 1,
+    "x": 17,
+    "y": 5,
     "graphic": "dt_670f79e3",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "4a001210",
     "name": "תות על גחלים",
-    "x": 99,
-    "y": 1,
+    "x": 19,
+    "y": 5,
     "graphic": "dt_4a001210",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   },
   {
     "id": "e19726f0",
     "name": "תפוצ'יפס",
-    "x": 1,
-    "y": 3,
+    "x": 21,
+    "y": 5,
     "graphic": "dt_e19726f0",
-    "notes": "pbDesertTalk"
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   }
 ]

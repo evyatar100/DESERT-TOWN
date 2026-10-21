@@ -92,6 +92,20 @@ The Ruby hash includes every production character, placed or not, so `pbDesertTa
 
 ## Event command
 
-Script command code 355, parameters `[ 'pbDesertTalk("11eaf4fa")' ]`, followed by command code 0. A longer script continues with code 655. Do not also add Show Text (101/401) for the same line.
+Two Script commands (code 355), then command code 0. A longer script continues with code 655:
 
-For a multi-line event, the first command is instead code 355 with parameters `[ 'pbDesertSpeaker("11eaf4fa")' ]`, followed by the lines as Show Text (101/401) or Script `pbMessage` commands. Every message window in that event shows the character's name plate; the speaker clears automatically when the event ends. Call `pbDesertSpeaker` again with a different id to switch speaker mid-event.
+```ruby
+pbDesertSpeaker("11eaf4fa")
+pbDesertTalk("11eaf4fa")
+```
+
+`pbDesertSpeaker` sets the name plate for the rest of the event. `pbDesertTalk` only shows the default line. Do not also add Show Text (101/401) for that same line.
+
+A line override is the second argument of `pbDesertTalk`, still after `pbDesertSpeaker`:
+
+```ruby
+pbDesertSpeaker("11eaf4fa")
+pbDesertTalk("11eaf4fa", "MSG_11EAF4FA_KUSUMO")
+```
+
+Further lines are more `pbDesertTalk` calls, Show Text (101/401), or Script `pbMessage` commands. Every message window while the speaker is set shows the character's name plate. The speaker clears automatically when the event ends. Call `pbDesertSpeaker` again with a different id to switch speaker mid-event.

@@ -203,15 +203,29 @@ clear_speaker.call
 check(DesertTalk.name_key.nil?, "speaker clears when the event interpreter stops")
 
 $messages = []
+pbDesertSpeaker("11eaf4fa")
 pbDesertTalk("11eaf4fa")
-check($messages == ["MSG_11EAF4FA_LINE"], "pbDesertTalk still speaks the default line")
-check(DesertTalk.name_key.nil?, "pbDesertTalk still clears after one line")
+check($messages == ["MSG_11EAF4FA_LINE"], "pbDesertTalk speaks the default line")
+check(DesertTalk.name_key == "NAME_11EAF4FA", "pbDesertTalk leaves the speaker set")
+
+DesertTalk.clear_name
+$messages = []
+pbDesertTalk("11eaf4fa")
+check($messages == ["MSG_11EAF4FA_LINE"], "standalone pbDesertTalk speaks the default line")
+check(DesertTalk.name_key.nil?, "standalone pbDesertTalk does not set a speaker")
 
 begin
   pbDesertSpeaker("deadbeef")
   check(false, "unknown speaker id raises")
 rescue RuntimeError
   check(true, "unknown speaker id raises")
+end
+
+begin
+  pbDesertTalk("deadbeef")
+  check(false, "unknown talk id raises")
+rescue RuntimeError
+  check(true, "unknown talk id raises")
 end
 
 # --- starter items ---

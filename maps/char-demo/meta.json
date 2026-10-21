@@ -12,5 +12,5 @@
     "west": null
   },
   "status": "in_progress",
-  "notes": "Empty 100x100 demo map for character talk examples. Reuses OUTSIDE-DESERT tileset."
+  "notes": "Empty 40x40 demo map for character talk examples. Reuses OUTSIDE-DESERT tileset."
 }

@@ -1,14 +1,13 @@
 #===============================================================================
 # DesertTalk — character name plate + dialogue lookup
 #===============================================================================
-# pbDesertTalk(id) looks up NAME_/MSG_ keys, shows a right-aligned name plate
-# above the message window (or below it when the box sits in the upper half),
-# then calls pbMessage. The plate is disposed when the message closes.
+# pbDesertTalk(id) looks up the character and shows the default line
+# (or an override key) with pbMessage. It does not set or clear the speaker.
 #
-# pbDesertSpeaker(id) sets the speaker once for the rest of the current
-# event: every following message window shows that character's plate until
-# the event's interpreter stops running (see the :on_frame_update handler
-# at the bottom of this file).
+# pbDesertSpeaker(id) is the per-character setup for the rest of the current
+# event: every following message window shows that character's name plate
+# until the event's interpreter stops running (see the :on_frame_update
+# handler at the bottom of this file). Call it before pbDesertTalk.
 #===============================================================================
 
 module DesertTalk
@@ -83,13 +82,12 @@ module DesertTalk
 end
 
 def pbDesertTalk(character_id, line_key = nil)
-  char = DesertTalk.start_speaker(character_id)
-  line_key = char[:line_key] if !line_key || line_key == ""
-  begin
-    pbMessage(_INTL(line_key))
-  ensure
-    DesertTalk.clear_speaker
+  char = DesertTalk::CHARACTERS[character_id]
+  if !char
+    raise "Unknown DesertTalk character: #{character_id}"
   end
+  line_key = char[:line_key] if !line_key || line_key == ""
+  pbMessage(_INTL(line_key))
 end
 
 # Set the speaker for every following message in this event. The plate

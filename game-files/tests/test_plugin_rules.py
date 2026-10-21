@@ -59,6 +59,19 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        select = (ROOT / "Plugins" / "DesertCharSelect" / "001_char_select.rb").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("def pbDesertCharSelect", select)
+        self.assertIn("alias desert_char_select_pbGetPlayerCharset pbGetPlayerCharset", select)
+        self.assertIn("desert_player_charset", select)
+        self.assertIn("PLAYABLE", select)
+        playable = (ROOT / "Plugins" / "DesertCharSelect" / "000_playable.rb").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("module DesertCharSelect", playable)
+        self.assertIn("PLAYABLE = [", playable)
+        self.assertIn('id: "idi4"', playable)
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):

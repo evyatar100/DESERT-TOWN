@@ -399,3 +399,8 @@ Gender = Male
 BaseMoney = 100
 BattleBGM = Battle Champion
 VictoryBGM = Battle victory leader
+#-------------------------------
+[DESERTTOWNER]
+Name = Desert Towner
+Gender = Unknown
+BaseMoney = 60

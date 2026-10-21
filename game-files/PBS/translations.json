@@ -931,6 +931,18 @@
     "MSG_4A001210_LINE": {
       "en": "nothing burns like Flow&Glow",
       "he": "nothing burns like Flow&Glow"
+    },
+    "MSG_ARCADE_NEW_GAME_INTRO": {
+      "en": "An old Desert Town cabinet hums softly. You are {1} games deep.",
+      "he": "מכונת דזרטאון ישנה מזמזמת בשקט. אתם בעומק של {1} משחקים."
+    },
+    "MSG_ARCADE_NEW_GAME_CONFIRM": {
+      "en": "Start a new Desert Town game inside this one?",
+      "he": "להתחיל משחק דזרטאון חדש בתוך המשחק הזה?"
+    },
+    "MSG_ARCADE_NEW_GAME_CANCEL": {
+      "en": "The cabinet goes quiet again.",
+      "he": "המכונה חוזרת לשתוק."
     }
   }
 }

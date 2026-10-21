@@ -1,25 +1,14 @@
 #===============================================================================
 # DesertTownArcade - shared arcade cabinet mode.
 #
-# Players never see the pause menu. One button (keyboard B, or whichever
-# arcade button is bound to the Essentials ACTION input) opens the Bag
-# directly. Every other pause-menu option lives under Debug > Desert Town
-# (see 002_debug_menu.rb).
+# The stock menu button opens the pause menu as usual. Keyboard B (or the
+# arcade button bound to the same raw key) opens the Bag directly. Extra
+# arcade options also live under Debug > Desert Town (see 002_debug_menu.rb).
 #===============================================================================
 
 module DesertTownArcade
   # Raw keyboard key that opens the Bag (Input.triggerex? symbol).
   BAG_KEY = :B
-
-  @full_menu_requested = false
-
-  def self.full_menu_requested?
-    return @full_menu_requested
-  end
-
-  def self.full_menu_requested=(value)
-    @full_menu_requested = value
-  end
 
   # Decision helper, kept free of engine objects so it can be unit tested.
   # Returns true when a Bag-button press should be accepted.
@@ -52,7 +41,7 @@ module DesertTownArcade
     pbUseKeyItemInField(item)
   end
 
-  # Opens the stock pause menu with every option. Only reachable from Debug.
+  # Opens the stock pause menu with every option. Also reachable from Debug.
   def self.open_full_pause_menu
     sscene = PokemonPauseMenu_Scene.new
     sscreen = PokemonPauseMenu.new(sscene)
@@ -67,32 +56,20 @@ class Scene_Map
   alias desert_town_arcade_update update
   def update
     if $game_temp && !$game_temp.message_window_showing && !$game_temp.menu_calling &&
-       $game_player && $game_system && $PokemonGlobal
+       !$game_temp.in_menu && $game_player && $game_system && $PokemonGlobal
       if DesertTownArcade.bag_key_pressed? &&
          DesertTownArcade.bag_button_allowed?(pbMapInterpreterRunning?,
                                               $game_temp.message_window_showing,
                                               $game_player.moving?,
                                               $game_system.menu_disabled,
                                               $PokemonGlobal.forced_movement?)
-        $game_temp.menu_calling = true
-        $game_temp.menu_beep = true
+        $game_temp.in_menu = true
+        $game_player.straighten
+        $game_map.update
+        DesertTownArcade.open_bag
+        $game_temp.in_menu = false
       end
     end
     desert_town_arcade_update
-  end
-
-  alias desert_town_arcade_call_menu call_menu
-  def call_menu
-    if DesertTownArcade.full_menu_requested?
-      DesertTownArcade.full_menu_requested = false
-      desert_town_arcade_call_menu
-      return
-    end
-    $game_temp.menu_calling = false
-    $game_temp.in_menu = true
-    $game_player.straighten
-    $game_map.update
-    DesertTownArcade.open_bag
-    $game_temp.in_menu = false
   end
 end

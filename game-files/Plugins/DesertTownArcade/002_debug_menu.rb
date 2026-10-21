@@ -1,9 +1,9 @@
 #===============================================================================
 # DesertTownArcade - Debug > Desert Town submenu.
 #
-# The arcade build hides the pause menu from players, so every option that
-# used to live there (Pokédex, Pokémon, Pokégear, Trainer Card, Save, Options,
-# Quit) is reachable only from here.
+# Shortcuts for arcade tools (full pause menu, autosave, new game depth).
+# The stock menu button opens the pause menu again; this submenu remains for
+# debug convenience.
 #===============================================================================
 
 MenuHandlers.add(:debug_menu, :desert_town_menu, {

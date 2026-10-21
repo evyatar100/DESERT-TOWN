@@ -143,6 +143,12 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("pbCaveEntranceEx(false)", new_game)
         self.assertIn("Scene_DesertTownRestart", new_game)
         self.assertIn("$scene = Scene_DesertTownRestart.new", new_game)
+        # The nested game must forget the old player/switches, or Map001's
+        # intro autorun is already "done" and pbDesertCharSelect never runs.
+        self.assertLess(
+            new_game.index("SaveData.mark_values_as_unloaded"),
+            new_game.index("    Game.start_new"),
+        )
         self.assertIn("MSG_ARCADE_NEW_GAME_CONFIRM", new_game)
         self.assertIn("bag_button_allowed?(", bag_button)
 

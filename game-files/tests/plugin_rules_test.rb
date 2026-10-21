@@ -33,9 +33,12 @@ end
 class PokemonBagScreen
 end
 
+$game_calls = []
 module Game
   class << self
-    def start_new; end
+    def start_new
+      $game_calls << :start_new
+    end
     def load(_data); end
     def save(*); true; end
   end
@@ -50,6 +53,10 @@ end
 
 module SaveData
   def self.register(*); end
+
+  def self.mark_values_as_unloaded
+    $game_calls << :mark_values_as_unloaded
+  end
 end
 
 class Game_Temp
@@ -192,7 +199,7 @@ load File.join(ROOT, "Plugins/DesertTalk/desert_talk.rb")
 
 $game_temp = Object.new
 class << $game_temp
-  attr_accessor :message_window_showing, :in_battle
+  attr_accessor :message_window_showing, :in_battle, :begun_new_game
 end
 $game_temp.message_window_showing = false
 $game_temp.in_battle = false
@@ -293,6 +300,24 @@ check(DesertTownArcadeState.next_depth(nil) == 1, "first new game is depth 1")
 check(DesertTownArcadeState.next_depth(0) == 1, "depth 0 becomes 1")
 check(DesertTownArcadeState.next_depth(7) == 8, "depth 7 becomes 8")
 check(DesertTownArcadeState.new.depth == 0, "a fresh cabinet state starts at depth 0")
+
+# --- arcade restart bridge ---
+# Game.start_new only resets save values that are unloaded. Mid-game they are
+# all loaded, so the bridge must unload them first or the nested game keeps the
+# old player and Map001's intro self switch, skipping pbDesertCharSelect.
+$game_system = Object.new
+class << $game_system
+  attr_accessor :save_disabled, :menu_disabled
+end
+$game_system.save_disabled = true
+$game_system.menu_disabled = true
+$player = Object.new
+$game_calls = []
+Scene_DesertTownRestart.new.main
+check($game_calls == [:mark_values_as_unloaded, :start_new],
+      "restart bridge unloads save values before Game.start_new")
+check($game_system.save_disabled == false, "restart bridge re-enables saving")
+check($game_system.menu_disabled == false, "restart bridge re-enables the menu")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

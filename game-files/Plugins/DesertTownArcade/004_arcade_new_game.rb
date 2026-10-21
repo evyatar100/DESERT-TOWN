@@ -80,6 +80,14 @@ end
 # Main then runs this scene, which starts the nested game.
 class Scene_DesertTownRestart
   def main
+    # SaveData.load_new_game_values (inside Game.start_new) only resets values
+    # that are not loaded yet. Mid-game everything is loaded, so without this
+    # the nested game would keep the old $player, switches and self switches;
+    # Map001's intro autorun would see its self switch A already set and skip
+    # pbDesertCharSelect. Same call the title screen makes before New Game.
+    # Values flagged load_in_bootup (game_system, pokemon_system, the arcade
+    # depth) stay, exactly like a New Game from the title.
+    SaveData.mark_values_as_unloaded
     Game.start_new
     # $game_system survives start_new; make sure the new run is not locked out.
     if $game_system

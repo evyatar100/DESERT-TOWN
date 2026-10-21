@@ -931,6 +931,18 @@
     "MSG_4A001210_LINE": {
       "en": "nothing burns like Flow&Glow",
       "he": "nothing burns like Flow&Glow"
+    },
+    "NAME_IDI4": {
+      "en": "Ido",
+      "he": "עידו"
+    },
+    "MSG_CHARSEL_CONFIRM": {
+      "en": "Play as {1}?",
+      "he": "לשחק בתור {1}?"
+    },
+    "UI_CHARSEL_TITLE": {
+      "en": "Choose your character",
+      "he": "בחרו דמות"
     }
   }
 }

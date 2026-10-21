@@ -13,7 +13,7 @@ SurfBGM = Surfing
 BicycleBGM = Bicycle
 #-------------------------------
 [1]
-TrainerType = POKEMONTRAINER_Red
+TrainerType = DESERTTOWNER
 WalkCharset = idi4
 RunCharset = idi4
 CycleCharset = boy_bike

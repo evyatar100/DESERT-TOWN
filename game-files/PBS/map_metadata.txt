@@ -499,3 +499,8 @@ Outdoor = false
 [048]   # flamingods-pit
 Name = flamingods-pit
 Outdoor = false
+
+#-------------------------------
+[111]   # char-demo
+Name = Char Demo
+Outdoor = true

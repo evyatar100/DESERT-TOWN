@@ -3,7 +3,10 @@
 # The game displays Graphics/Pictures/DesertTownHelp.png. It does not read this file.
 
 title = Desert Town
-intro = משחק בעולם פתוח. אפשר לטייל ולהסתובב לאן שרוצים: בעיר, בפלאיה ובדיפ פלאיה, ולדבר עם הדמויות שפוגשים בדרך.
+intro = מכונת הארקייד של מדבר טאון, במידברן.
+lead = עולם פתוח בפיקסלים, עיר מדבר שלמה.
+invite = צאו לשוטט. דברו עם הדמויות.
+places = גלו את העיר, הפלאיה ודיפ פלאיה.
 footer = לחצו על כל כפתור כדי לחזור למשחק
 
 joystick = הליכה לכל הכיוונים

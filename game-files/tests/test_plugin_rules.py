@@ -228,6 +228,16 @@ class PluginRuleTests(unittest.TestCase):
                         reds.append(x)
             self.assertTrue(reds, "help slide draws the red action circle on the right")
             self.assertGreater(min(reds), 430)
+            mascot = 0
+            for y in range(90, 320):
+                for x in range(24, 170):
+                    r, g, b, _a = help_image.getpixel((x, y))
+                    if abs(r - 192) > 24 or abs(g - 128) > 24 or abs(b - 48) > 24:
+                        mascot += 1
+            self.assertGreater(mascot, 400, "help slide paints the character on the left")
+        slide_txt = (ROOT / "Plugins" / "DesertTownArcade" / "help_slide.txt").read_text(encoding="utf-8")
+        self.assertIn("מכונת הארקייד של מדבר טאון, במידברן.", slide_txt)
+        self.assertIn("צאו לשוטט. דברו עם הדמויות.", slide_txt)
         arcade_dir = ROOT / "Plugins" / "DesertTownArcade"
         slide_py = (arcade_dir / "slide_text.py").read_text(encoding="utf-8")
         render_py = (arcade_dir / "render_help_slide.py").read_text(encoding="utf-8")

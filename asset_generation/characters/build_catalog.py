@@ -17,7 +17,12 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parents[2]
-CHAR_ROOT = ROOT / "asset_generation" / "production" / "char"
+# New DesertTown uploads land in desert-town-chars; production/char holds the
+# older uploads. The same character id can be in both: the first root wins.
+CHAR_ROOTS = (
+    ROOT / "asset_generation" / "characters" / "desert-town-chars" / "users-chars",
+    ROOT / "asset_generation" / "production" / "char",
+)
 OUT = ROOT / "asset_generation" / "characters" / "catalog.html"
 LOCATIONS = ROOT / "asset_generation" / "characters" / "locations.json"
 PLAYABLE_JSON = ROOT / "asset_generation" / "characters" / "playable.json"
@@ -127,19 +132,25 @@ def load_placements() -> list[dict]:
 
 def load_characters() -> list[dict[str, str | None]]:
     characters: list[dict[str, str | None]] = []
-    for donor_dir in sorted(CHAR_ROOT.iterdir()):
-        if not donor_dir.is_dir():
-            continue
-        if donor_dir.name == QA_DONOR:
-            continue
-        sheets = list(donor_dir.rglob("sheet.png"))
-        metas = list(donor_dir.rglob("metadata.md"))
+    seen: set[str] = set()
+    char_dirs = [
+        (donor_dir, char_dir)
+        for root in CHAR_ROOTS
+        if root.is_dir()
+        for donor_dir in sorted(root.iterdir())
+        if donor_dir.is_dir() and donor_dir.name != QA_DONOR
+        for char_dir in sorted(donor_dir.iterdir())
+        if char_dir.is_dir()
+    ]
+    for donor_dir, char_dir in char_dirs:
+        sheets = list(char_dir.rglob("sheet.png"))
+        metas = list(char_dir.rglob("metadata.md"))
         if len(sheets) != 1 or len(metas) != 1:
-            raise RuntimeError(f"{donor_dir.name} expected one sheet and one metadata")
-        char_dir = metas[0].parent
+            raise RuntimeError(f"{donor_dir.name}/{char_dir.name} expected one sheet and one metadata")
         cid = character_id(char_dir.name)
-        if cid == QA_ID:
+        if cid == QA_ID or cid in seen:
             continue
+        seen.add(cid)
         title, fields = parse_metadata(metas[0].read_text(encoding="utf-8"))
         characters.append(
             {

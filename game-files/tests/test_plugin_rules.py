@@ -237,8 +237,12 @@ class PluginRuleTests(unittest.TestCase):
             self.assertGreater(mascot, 400, "help slide paints the character on the left")
         slide_txt = (ROOT / "Plugins" / "DesertTownArcade" / "help_slide.txt").read_text(encoding="utf-8")
         self.assertIn("ברוכים הבאים לדזרטאון", slide_txt)
-        self.assertIn("מכונת הארקייד של דזרטאון, במידברן.", slide_txt)
+        self.assertIn("מכונת הארקייד של דזרטאון.", slide_txt)
+        self.assertIn("גלו את העיר.", slide_txt)
+        self.assertIn("orange = תיק", slide_txt)
         self.assertNotIn("מדבר טאון", slide_txt)
+        for banned in ("פלאיה", "מידברן"):
+            self.assertNotIn(banned, slide_txt)
         self.assertIn("צאו לשוטט. דברו עם הדמויות.", slide_txt)
         arcade_dir = ROOT / "Plugins" / "DesertTownArcade"
         slide_py = (arcade_dir / "slide_text.py").read_text(encoding="utf-8")

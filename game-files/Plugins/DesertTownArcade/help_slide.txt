@@ -3,15 +3,15 @@
 # The game displays Graphics/Pictures/DesertTownHelp.png. It does not read this file.
 
 title = ברוכים הבאים לדזרטאון
-intro = מכונת הארקייד של דזרטאון, במידברן.
+intro = מכונת הארקייד של דזרטאון.
 lead = עולם פתוח בפיקסלים, עיר מדבר שלמה.
 invite = צאו לשוטט. דברו עם הדמויות.
-places = גלו את העיר, הפלאיה ודיפ פלאיה.
+places = גלו את העיר.
 footer = לחצו על כל כפתור כדי לחזור למשחק
 
 joystick = הליכה לכל הכיוונים
 red = דיבור ופעולה
 blue = ריצה
-orange = פתיחה וסגירה של התיק
+orange = תיק
 green = מפת העולם
 white = עזרה (המסך הזה)

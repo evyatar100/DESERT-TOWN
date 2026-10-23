@@ -228,6 +228,45 @@ class PluginRuleTests(unittest.TestCase):
                         reds.append(x)
             self.assertTrue(reds, "help slide draws the red action circle on the right")
             self.assertGreater(min(reds), 430)
+        arcade_dir = ROOT / "Plugins" / "DesertTownArcade"
+        slide_py = (arcade_dir / "slide_text.py").read_text(encoding="utf-8")
+        render_py = (arcade_dir / "render_help_slide.py").read_text(encoding="utf-8")
+        self.assertNotIn("get_display(", slide_py)
+        self.assertNotIn("get_display(", render_py)
+        self.assertIn('return "rtl" if rtl else "ltr"', slide_py)
+        self.assert_logical_hebrew_starts_on_the_right()
+
+    def assert_logical_hebrew_starts_on_the_right(self):
+        """ריצה must paint resh (ר) on the right. A second bidi pass paints it on the left."""
+        from PIL import Image, ImageChops, ImageDraw
+
+        sys.path.insert(0, str(ROOT / "Plugins" / "DesertTownArcade"))
+        from slide_text import draw_text, font
+
+        face = font("hebrew.ttf", 48)
+
+        def ink(text, rtl):
+            image = Image.new("L", (240, 80), 0)
+            drawing = ImageDraw.Draw(image)
+            draw_text(drawing, text, (220, 40), face, 255, rtl, "rm", shadow=None)
+            box = image.getbbox()
+            return image.crop(box)
+
+        def mismatch(left, right):
+            right = right.resize(left.size)
+            diff = ImageChops.difference(left, right)
+            return sum(i * n for i, n in enumerate(diff.histogram()))
+
+        word = ink("ריצה", True)
+        resh = ink("ר", False)
+        heh = ink("ה", False)
+        side_w = min(resh.size[0] + 4, word.size[0] // 2)
+        right_side = word.crop((word.size[0] - side_w, 0, word.size[0], word.size[1]))
+        self.assertLess(
+            mismatch(right_side, resh),
+            mismatch(right_side, heh),
+            "the first letter of ריצה is not on the right",
+        )
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):

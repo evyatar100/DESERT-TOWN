@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from bidi.algorithm import get_display
 from PIL import Image, ImageDraw, ImageFont
 
 SCREEN = (512, 384)
@@ -48,12 +47,15 @@ def font(name: str, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(FONT_DIR / name), size)
 
 
-def visual(text: str, rtl: bool) -> str:
-    return get_display(text, base_dir="R" if rtl else "L")
+def text_direction(rtl: bool) -> str:
+    # Pillow is built with libraqm, which already applies the bidi algorithm.
+    # Pass logical Hebrew and one direction. Reversing the letters first
+    # draws every one backwards and mirrors parentheses.
+    return "rtl" if rtl else "ltr"
 
 
 def text_width(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont, rtl: bool) -> float:
-    return draw.textlength(visual(text, rtl), font=face)
+    return draw.textlength(text, font=face, direction=text_direction(rtl))
 
 
 def wrap_rtl(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont, max_width: int) -> list[str]:
@@ -74,11 +76,11 @@ def wrap_rtl(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont,
 
 
 def draw_text(draw, text, xy, face, fill, rtl, anchor, shadow=SHADOW):
-    shown = visual(text, rtl)
+    direction = text_direction(rtl)
     x, y = xy
     if shadow is not None:
-        draw.text((x + 1, y + 1), shown, font=face, fill=shadow, anchor=anchor)
-    draw.text((x, y), shown, font=face, fill=fill, anchor=anchor)
+        draw.text((x + 1, y + 1), text, font=face, fill=shadow, anchor=anchor, direction=direction)
+    draw.text((x, y), text, font=face, fill=fill, anchor=anchor, direction=direction)
 
 
 def new_canvas() -> tuple[Image.Image, ImageDraw.ImageDraw]:

@@ -6,8 +6,9 @@ Edit help_slide.txt, then from the repo root:
     python3 game-files/Plugins/DesertTownArcade/render_help_slide.py
 
 Writes game-files/Graphics/Pictures/DesertTownHelp.png (512x384, the game
-screen). Hebrew is drawn right-to-left with python-bidi. The game shows that
-PNG and does not render this text itself.
+screen). Hebrew is passed through in logical order. Pillow's raqm layout
+draws it right to left, including parentheses. Do not reverse the letters
+first. The game shows the PNG and does not render this text itself.
 """
 
 from __future__ import annotations

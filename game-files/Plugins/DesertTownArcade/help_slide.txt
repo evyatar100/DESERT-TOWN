@@ -2,8 +2,8 @@
 #   python3 game-files/Plugins/DesertTownArcade/render_help_slide.py
 # The game displays Graphics/Pictures/DesertTownHelp.png. It does not read this file.
 
-title = Desert Town
-intro = מכונת הארקייד של מדבר טאון, במידברן.
+title = ברוכים הבאים לדזרטאון
+intro = מכונת הארקייד של דזרטאון, במידברן.
 lead = עולם פתוח בפיקסלים, עיר מדבר שלמה.
 invite = צאו לשוטט. דברו עם הדמויות.
 places = גלו את העיר, הפלאיה ודיפ פלאיה.

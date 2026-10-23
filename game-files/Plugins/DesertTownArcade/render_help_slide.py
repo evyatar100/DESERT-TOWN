@@ -111,14 +111,14 @@ def render(text: dict[str, str] | None = None):
     paste_mascot(image, mascot_sprite())
     draw_panel(draw)
 
-    title_font = font("handjet.ttf", 34)
+    title_font = font("hebrew.ttf", 26)
     story_font = font("hebrew.ttf", 15)
     punch_font = font("hebrew.ttf", 16)
     row_font = font("hebrew.ttf", 16)
     footer_font = font("hebrew.ttf", 14)
 
-    draw_text(draw, text["title"], (SCREEN[0] // 2, 16), title_font, INK, False, "mt")
-    draw_mark(draw, SCREEN[0] // 2, 54)
+    draw_text(draw, text["title"], (SCREEN[0] // 2, 14), title_font, INK, True, "mt")
+    draw_mark(draw, SCREEN[0] // 2, 50)
 
     story_right = PANEL[2] - 16
     story_width = story_right - (PANEL[0] + 14)

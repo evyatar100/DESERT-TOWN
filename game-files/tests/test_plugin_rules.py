@@ -245,6 +245,8 @@ class PluginRuleTests(unittest.TestCase):
         render_py = (arcade_dir / "render_help_slide.py").read_text(encoding="utf-8")
         self.assertNotIn("get_display(", slide_py)
         self.assertNotIn("get_display(", render_py)
+        self.assertIn('Graphics" / "Pictures" / "atzlan.png"', render_py)
+        self.assertTrue((ROOT / "Graphics" / "Pictures" / "atzlan.png").is_file())
         self.assertIn('return "rtl" if rtl else "ltr"', slide_py)
         self.assert_logical_hebrew_starts_on_the_right()
 

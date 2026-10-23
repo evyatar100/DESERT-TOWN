@@ -10,8 +10,9 @@ screen). Hebrew is passed through in logical order. Pillow's raqm layout
 draws it right to left, including parentheses. Do not reverse the letters
 first. The game shows the PNG and does not render this text itself.
 
-The background figure is the flamingo charset (character 708d6c34). The
-repo has no עצלן הטאון / Atzlan mascot art.
+The figure on the left is עצלן הטאון, Graphics/Pictures/atzlan.png. The
+right edge of that picture is a sliver of a title letter, so the renderer
+crops it off and scales the rest 2:1 with nearest-neighbor.
 """
 
 from __future__ import annotations
@@ -21,7 +22,6 @@ from pathlib import Path
 from PIL import Image, ImageDraw
 
 from slide_text import (
-    AMBER,
     CIRCLE_COLORS,
     FRAME,
     FRAME_HI,
@@ -37,12 +37,14 @@ from slide_text import (
 # DesertTownArcade -> Plugins -> game-files
 GAME = Path(__file__).resolve().parents[2]
 OUT = GAME / "Graphics" / "Pictures" / "DesertTownHelp.png"
-# In-game charset for פלמינגו (Flamazing461, id 708d6c34). Standing frame faces down.
-MASCOT = GAME / "Graphics" / "Characters" / "dt_708d6c34.png"
+# עצלן הטאון. 428x548, desert background, a title-letter sliver on the right.
+MASCOT = GAME / "Graphics" / "Pictures" / "atzlan.png"
+# Drop this many pixels from the right before the 2:1 scale.
+LETTER_CROP = 16
 
 ROWS = ("joystick", "red", "blue", "orange", "green", "white")
 STORY = ("intro", "lead", "invite", "places")
-PANEL = (188, 64, 496, 338)
+PANEL = (236, 64, 496, 338)
 PANEL_FILL = (214, 162, 80, 255)
 
 
@@ -59,34 +61,25 @@ def draw_circle(draw: ImageDraw.ImageDraw, cx: int, cy: int, fill) -> None:
         draw.ellipse((cx - radius + 3, cy - radius + 3, cx + radius - 3, cy + radius - 3), outline=FRAME, width=1)
 
 
-def mascot_sprite(scale: int = 5) -> Image.Image:
-    sheet = Image.open(MASCOT).convert("RGBA")
-    cell_w, cell_h = sheet.width // 4, sheet.height // 4
-    # Row 0 faces the camera. Column 1 is the standing frame.
-    cell = sheet.crop((cell_w, 0, cell_w * 2, cell_h))
-    sprite = cell.resize((cell_w * scale, cell_h * scale), Image.Resampling.NEAREST)
-    red, green, blue, alpha = sprite.split()
-
-    def warm(channel, target: int):
-        return channel.point(lambda value: int(value * 0.88 + target * 0.12))
-
-    alpha = alpha.point(lambda value: int(value * 0.72))
-    faded = Image.merge(
-        "RGBA",
-        (warm(red, AMBER[0]), warm(green, AMBER[1]), warm(blue, AMBER[2]), alpha),
-    )
-    return faded
+def mascot_portrait() -> Image.Image:
+    """Crop off the stray title letter and scale 2:1 so pixels stay square."""
+    src = Image.open(MASCOT).convert("RGBA")
+    width = src.width - LETTER_CROP
+    width -= width % 2
+    height = src.height - (src.height % 2)
+    cropped = src.crop((0, 0, width, height))
+    return cropped.resize((width // 2, height // 2), Image.Resampling.NEAREST)
 
 
-def paste_mascot(image: Image.Image, sprite: Image.Image) -> None:
-    x = 22
-    y = PANEL[1] + (PANEL[3] - PANEL[1] - sprite.height) // 2
-    shadow = Image.new("RGBA", image.size, (0, 0, 0, 0))
-    shadow_draw = ImageDraw.Draw(shadow)
-    feet = y + sprite.height - 6
-    shadow_draw.ellipse((x + 18, feet, x + sprite.width - 10, feet + 14), fill=(92, 48, 16, 70))
-    image.alpha_composite(shadow)
-    image.alpha_composite(sprite, (x, y))
+def paste_mascot(image: Image.Image, portrait: Image.Image) -> None:
+    x = 14
+    y = PANEL[1]
+    image.alpha_composite(portrait, (x, y))
+    draw = ImageDraw.Draw(image)
+    right = x + portrait.width - 1
+    bottom = y + portrait.height - 1
+    draw.rectangle((x, y, right, bottom), outline=FRAME, width=3)
+    draw.rectangle((x + 4, y + 4, right - 4, bottom - 4), outline=FRAME_HI, width=1)
 
 
 def draw_panel(draw: ImageDraw.ImageDraw) -> None:
@@ -108,7 +101,7 @@ def render(text: dict[str, str] | None = None):
         raise SystemExit(f"help slide is missing: {', '.join(missing)}")
 
     image, draw = new_canvas()
-    paste_mascot(image, mascot_sprite())
+    paste_mascot(image, mascot_portrait())
     draw_panel(draw)
 
     title_font = font("hebrew.ttf", 26)

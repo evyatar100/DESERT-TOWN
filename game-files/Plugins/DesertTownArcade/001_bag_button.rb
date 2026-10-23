@@ -1,13 +1,15 @@
 #===============================================================================
 # DesertTownArcade - shared arcade cabinet mode.
 #
-# The stock menu button opens the pause menu as usual. Keyboard B (or the
-# arcade button bound to the same raw key) opens the Bag directly. Extra
-# arcade options also live under Debug > Desert Town (see 002_debug_menu.rb).
+# The stock menu button opens the pause menu as usual. Keyboard B opens the
+# Bag directly. Orange (DesertTownControls :orange, key K) does the same and
+# also closes the Bag when it is already open. Extra arcade options live under
+# Debug > Desert Town (see 002_debug_menu.rb).
 #===============================================================================
 
 module DesertTownArcade
   # Raw keyboard key that opens the Bag (Input.triggerex? symbol).
+  # Kept as B. The orange color button is a separate key; see 000_controls.rb.
   BAG_KEY = :B
 
   # Decision helper, kept free of engine objects so it can be unit tested.
@@ -23,7 +25,9 @@ module DesertTownArcade
 
   def self.bag_key_pressed?
     return false unless defined?(Input) && Input.respond_to?(:triggerex?)
-    return Input.triggerex?(BAG_KEY)
+    return true if Input.triggerex?(BAG_KEY)
+    return false unless defined?(DesertTownControls)
+    return Input.triggerex?(DesertTownControls.key(:orange))
   end
 
   # Opens the Bag the same way the stock :bag pause-menu handler does.

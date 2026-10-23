@@ -70,6 +70,56 @@ end
 load File.join(ROOT, "Plugins/BurningManBag/burning_man_bag.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_in_timer.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_seller.rb")
+
+# Stub the real Input module so 000_controls.rb can alias it. C/X/Z are the
+# original trigger/press path. Color keys arrive through triggerex?/pressex?.
+module Input
+  USE = :USE
+  BACK = :BACK
+  ACTION = :ACTION
+  UP = :UP
+  DOWN = :DOWN
+  LEFT = :LEFT
+  RIGHT = :RIGHT
+  JUMPUP = :JUMPUP
+  JUMPDOWN = :JUMPDOWN
+  SPECIAL = :SPECIAL
+  AUX1 = :AUX1
+  AUX2 = :AUX2
+
+  def self.trigger?(button)
+    $dt_trigger == button
+  end
+
+  def self.press?(button)
+    $dt_press == button
+  end
+
+  def self.repeat?(_button)
+    false
+  end
+
+  def self.triggerex?(key)
+    $dt_raw_trigger == key
+  end
+
+  def self.pressex?(key)
+    $dt_raw_press == key
+  end
+
+  def self.repeatex?(_key)
+    false
+  end
+
+  def self.update; end
+end
+
+$dt_trigger = nil
+$dt_press = nil
+$dt_raw_trigger = nil
+$dt_raw_press = nil
+
+load File.join(ROOT, "Plugins/DesertTownArcade/000_controls.rb")
 load File.join(ROOT, "Plugins/DesertTownArcade/001_bag_button.rb")
 load File.join(ROOT, "Plugins/DesertTownArcade/003_autosave.rb")
 load File.join(ROOT, "Plugins/DesertTownArcade/004_arcade_new_game.rb")
@@ -318,6 +368,87 @@ check($game_calls == [:mark_values_as_unloaded, :start_new],
       "restart bridge unloads save values before Game.start_new")
 check($game_system.save_disabled == false, "restart bridge re-enables saving")
 check($game_system.menu_disabled == false, "restart bridge re-enables the menu")
+
+# --- color buttons ---
+check(DesertTownControls.color_keys == [:H, :J, :K, :F, :G], "color keys are H J K F G")
+taken = DesertTownControls::TAKEN_KEYS.keys
+DesertTownControls.color_keys.each do |key|
+  check(!taken.include?(key), "color key #{key} is free")
+end
+check(DesertTownControls::MIRROR_INPUT[:red] == :USE, "red mirrors Use, the C input")
+check(DesertTownControls::MIRROR_INPUT[:blue] == :BACK, "blue mirrors Back, the X input")
+check(!DesertTownControls::MIRROR_INPUT.value?(:ACTION), "no color key mirrors the Z menu")
+check(DesertTownArcade::BAG_KEY == :B, "B is still the existing bag key")
+
+check(DesertTownControls.bag_toggle(false, false) == :none, "no orange press leaves the bag alone")
+check(DesertTownControls.bag_toggle(false, true) == :open, "orange on the map opens the bag")
+check(DesertTownControls.bag_toggle(true, true) == :close, "orange in the bag closes it")
+check(DesertTownControls.bag_toggle(true, false) == :none, "an open bag stays open without a new press")
+
+%i[USE BACK ACTION UP DOWN LEFT RIGHT JUMPUP JUMPDOWN SPECIAL AUX1 AUX2].each do |input|
+  check(DesertTownControls.slide_should_close?([input], []), "#{input} closes a slide")
+end
+%i[A S D C X Z F G H J K SPACE RETURN ESCAPE].each do |key|
+  check(DesertTownControls.slide_should_close?([], [key]), "#{key} closes a slide")
+end
+check(!DesertTownControls.slide_should_close?([], []), "a slide stays up until a button")
+
+$dt_trigger = Input::USE
+$dt_raw_trigger = nil
+check(Input.trigger?(Input::USE), "C still confirms")
+check(!Input.trigger?(Input::ACTION), "C does not open the menu")
+
+$dt_trigger = nil
+$dt_raw_trigger = :H
+check(Input.trigger?(Input::USE), "red confirms like C")
+check(!Input.trigger?(Input::BACK), "red does not cancel")
+check(!Input.trigger?(Input::ACTION), "red does not open the menu")
+
+$dt_trigger = Input::ACTION
+$dt_raw_trigger = nil
+check(Input.trigger?(Input::ACTION), "Z still opens the menu")
+check(!Input.trigger?(Input::USE), "Z does not confirm")
+
+$dt_trigger = nil
+$dt_press = Input::BACK
+$dt_raw_press = nil
+check(Input.press?(Input::BACK), "holding X still runs")
+check(!Input.press?(Input::ACTION), "holding X does not open the menu")
+
+$dt_press = nil
+$dt_raw_press = :J
+check(Input.press?(Input::BACK), "holding blue runs like X")
+check(!Input.press?(Input::USE), "holding blue does not confirm")
+check(!Input.press?(Input::ACTION), "holding blue does not open the menu")
+
+$dt_trigger = nil
+$dt_press = nil
+$dt_raw_trigger = nil
+$dt_raw_press = nil
+$dt_raw_trigger = :B
+check(DesertTownArcade.bag_key_pressed?, "B still requests the bag")
+$dt_raw_trigger = :K
+check(DesertTownArcade.bag_key_pressed?, "orange requests the bag")
+$dt_raw_trigger = :H
+check(!DesertTownArcade.bag_key_pressed?, "red does not request the bag")
+
+DesertTownControls.begin_bag_screen
+$dt_raw_trigger = :K
+Input.update
+check(DesertTownControls.bag_close?, "orange inside the bag latches a close")
+check(Input.trigger?(Input::BACK), "the latch is seen as cancel")
+check(!Input.trigger?(Input::USE), "the latch does not confirm")
+DesertTownControls.end_bag_screen
+$dt_raw_trigger = nil
+check(!Input.trigger?(Input::BACK), "leaving the bag clears the forced cancel")
+check(!DesertTownControls.bag_screen_open?, "the bag screen flag is cleared")
+
+slide_src = File.read(File.join(ROOT, "Plugins/DesertTownArcade/000_controls.rb"))
+show = slide_src.split("def self.show_slide_if_requested?", 2).last
+show = show.split("def self.slide_closed_now?", 2).first
+%w[Audio. pbBGM bgm_play bgm_stop bgm_fade bgm_pause bgm_resume].each do |token|
+  check(!show.include?(token), "slide code does not call #{token}")
+end
 
 if $failures.empty?
   puts "Plugin rule tests passed."

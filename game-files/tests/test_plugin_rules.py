@@ -98,6 +98,27 @@ def bag_button_allowed(interpreter_running, message_showing, player_moving, menu
     return not (interpreter_running or message_showing or player_moving or menu_disabled or forced_movement)
 
 
+COLOR_KEYS = {"red": "H", "blue": "J", "orange": "K", "white": "F", "green": "G"}
+TAKEN_COLOR_LETTERS = set("ASDCXZQWBELRP")
+SLIDE_INPUTS = {
+    "UP", "DOWN", "LEFT", "RIGHT", "USE", "BACK", "ACTION",
+    "JUMPUP", "JUMPDOWN", "SPECIAL", "AUX1", "AUX2",
+}
+SLIDE_KEYS = set("ABCDEFGHIJKLMNOPQRSTUVWXYZ") | {"SPACE", "RETURN", "ESCAPE"}
+
+
+def bag_toggle(bag_open, pressed):
+    if not pressed:
+        return "none"
+    return "close" if bag_open else "open"
+
+
+def slide_should_close(inputs, raw_keys):
+    if any(name in SLIDE_INPUTS for name in inputs):
+        return True
+    return any(key in SLIDE_KEYS for key in raw_keys)
+
+
 def next_depth(depth):
     if depth is None:
         return 1
@@ -151,6 +172,17 @@ class PluginRuleTests(unittest.TestCase):
         )
         self.assertIn("MSG_ARCADE_NEW_GAME_CONFIRM", new_game)
         self.assertIn("bag_button_allowed?(", bag_button)
+        self.assertIn("BAG_KEY = :B", bag_button)
+        controls = (arcade_dir / "000_controls.rb").read_text(encoding="utf-8")
+        for color, key in COLOR_KEYS.items():
+            self.assertIn(f"{color}:", controls)
+            self.assertRegex(controls, rf"{color}:\s*\{{\s*key:\s*:{key}\b")
+        for letter in TAKEN_COLOR_LETTERS:
+            self.assertNotRegex(controls, rf"key:\s*:{letter}\b")
+        show = controls.split("def self.show_slide_if_requested?", 1)[1]
+        show = show.split("def self.slide_closed_now?", 1)[0]
+        for token in ("Audio.", "pbBGM", "bgm_play", "bgm_stop", "bgm_fade", "bgm_pause"):
+            self.assertNotIn(token, show)
 
     def test_arcade_rules_without_ruby(self):
         self.assertTrue(autosave_due(5000, None))
@@ -171,6 +203,88 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual(next_depth(None), 1)
         self.assertEqual(next_depth(0), 1)
         self.assertEqual(next_depth(7), 8)
+        self.assertTrue(set(COLOR_KEYS.values()).isdisjoint(TAKEN_COLOR_LETTERS))
+        self.assertEqual(bag_toggle(False, False), "none")
+        self.assertEqual(bag_toggle(False, True), "open")
+        self.assertEqual(bag_toggle(True, True), "close")
+        self.assertEqual(bag_toggle(True, False), "none")
+        for name in ("USE", "BACK", "ACTION", "UP", "DOWN", "LEFT", "RIGHT", "JUMPUP", "JUMPDOWN", "SPECIAL"):
+            self.assertTrue(slide_should_close([name], []))
+        for key in ("A", "S", "D", "C", "X", "Z", "F", "G", "H", "J", "K"):
+            self.assertTrue(slide_should_close([], [key]))
+        self.assertFalse(slide_should_close([], []))
+        from PIL import Image
+
+        help_slide = ROOT / "Graphics" / "Pictures" / "DesertTownHelp.png"
+        world_slide = ROOT / "Graphics" / "Pictures" / "DesertTownWorldMap.png"
+        with Image.open(help_slide) as help_image, Image.open(world_slide) as world_image:
+            self.assertEqual(help_image.size, (512, 384))
+            self.assertEqual(world_image.size, (512, 384))
+            reds = []
+            for y in range(help_image.height):
+                for x in range(help_image.width - 70, help_image.width):
+                    r, g, b, _a = help_image.getpixel((x, y))
+                    if r > 180 and g < 80 and b < 80:
+                        reds.append(x)
+            self.assertTrue(reds, "help slide draws the red action circle on the right")
+            self.assertGreater(min(reds), 430)
+            mascot = 0
+            for y in range(90, 320):
+                for x in range(24, 170):
+                    r, g, b, _a = help_image.getpixel((x, y))
+                    if abs(r - 192) > 24 or abs(g - 128) > 24 or abs(b - 48) > 24:
+                        mascot += 1
+            self.assertGreater(mascot, 400, "help slide paints the character on the left")
+        slide_txt = (ROOT / "Plugins" / "DesertTownArcade" / "help_slide.txt").read_text(encoding="utf-8")
+        self.assertIn("ברוכים הבאים לדזרטאון", slide_txt)
+        self.assertIn("מכונת הארקייד של דזרטאון.", slide_txt)
+        self.assertIn("גלו את העיר.", slide_txt)
+        self.assertIn("orange = תיק", slide_txt)
+        self.assertNotIn("מדבר טאון", slide_txt)
+        for banned in ("פלאיה", "מידברן"):
+            self.assertNotIn(banned, slide_txt)
+        self.assertIn("צאו לשוטט. דברו עם הדמויות.", slide_txt)
+        arcade_dir = ROOT / "Plugins" / "DesertTownArcade"
+        slide_py = (arcade_dir / "slide_text.py").read_text(encoding="utf-8")
+        render_py = (arcade_dir / "render_help_slide.py").read_text(encoding="utf-8")
+        self.assertNotIn("get_display(", slide_py)
+        self.assertNotIn("get_display(", render_py)
+        self.assertIn('Graphics" / "Pictures" / "atzlan.png"', render_py)
+        self.assertTrue((ROOT / "Graphics" / "Pictures" / "atzlan.png").is_file())
+        self.assertIn('return "rtl" if rtl else "ltr"', slide_py)
+        self.assert_logical_hebrew_starts_on_the_right()
+
+    def assert_logical_hebrew_starts_on_the_right(self):
+        """ריצה must paint resh (ר) on the right. A second bidi pass paints it on the left."""
+        from PIL import Image, ImageChops, ImageDraw
+
+        sys.path.insert(0, str(ROOT / "Plugins" / "DesertTownArcade"))
+        from slide_text import draw_text, font
+
+        face = font("hebrew.ttf", 48)
+
+        def ink(text, rtl):
+            image = Image.new("L", (240, 80), 0)
+            drawing = ImageDraw.Draw(image)
+            draw_text(drawing, text, (220, 40), face, 255, rtl, "rm", shadow=None)
+            box = image.getbbox()
+            return image.crop(box)
+
+        def mismatch(left, right):
+            right = right.resize(left.size)
+            diff = ImageChops.difference(left, right)
+            return sum(i * n for i, n in enumerate(diff.histogram()))
+
+        word = ink("ריצה", True)
+        resh = ink("ר", False)
+        heh = ink("ה", False)
+        side_w = min(resh.size[0] + 4, word.size[0] // 2)
+        right_side = word.crop((word.size[0] - side_w, 0, word.size[0], word.size[1]))
+        self.assertLess(
+            mismatch(right_side, resh),
+            mismatch(right_side, heh),
+            "the first letter of ריצה is not on the right",
+        )
 
     def test_decision_behavior(self):
         if shutil.which("ruby"):

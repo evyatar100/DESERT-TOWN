@@ -1,1 +1,90 @@
-[]
+[
+  {
+    "id": "ff8eab6b",
+    "name": "אביב הנסיך",
+    "x": 26,
+    "y": 18,
+    "graphic": "dt_ff8eab6b",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "2f88eb7f",
+    "name": "אנג'לאייז ג'וניור",
+    "x": 26,
+    "y": 24,
+    "graphic": "dt_2f88eb7f",
+    "notes": "shows MSG_2F88EB7F_MOMDAD; hops along custom move route"
+  },
+  {
+    "id": "92958f4d",
+    "name": "ארי מימון",
+    "x": 27,
+    "y": 17,
+    "graphic": "dt_92958f4d",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "4c6540a3",
+    "name": "בת של מילף",
+    "x": 27,
+    "y": 15,
+    "graphic": "dt_4c6540a3",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "fcba2ff5",
+    "name": "יערול",
+    "x": 28,
+    "y": 23,
+    "graphic": "dt_fcba2ff5",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "a4012984",
+    "name": "נטע לובנש",
+    "x": 5,
+    "y": 24,
+    "graphic": "dt_a4012984",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "65029b81",
+    "name": "עדן ס",
+    "x": 3,
+    "y": 22,
+    "graphic": "dt_65029b81",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "b25567c8",
+    "name": "פרא",
+    "x": 4,
+    "y": 16,
+    "graphic": "dt_b25567c8",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "7afa738a",
+    "name": "נטע הבר וינוגרד",
+    "x": 13,
+    "y": 13,
+    "graphic": "dt_7afa738a",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "963c65ea",
+    "name": "נור האביר",
+    "x": 21,
+    "y": 13,
+    "graphic": "dt_963c65ea",
+    "notes": "hops along custom move route"
+  },
+  {
+    "id": "d6ad577a",
+    "name": "יעלי-בלי",
+    "x": 10,
+    "y": 12,
+    "graphic": "dt_d6ad577a",
+    "notes": "hops along custom move route"
+  }
+]

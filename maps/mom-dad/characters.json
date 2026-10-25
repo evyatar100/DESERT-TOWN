@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "2f88eb7f",
+    "name": "אנג'לאייז ג'וניור",
+    "x": 21,
+    "y": 22,
+    "graphic": "dt_2f88eb7f",
+    "notes": "pbDesertSpeaker + pbDesertTalk + MSG_2F88EB7F_MOMDAD; random walk, speed slow, freq high"
+  }
+]

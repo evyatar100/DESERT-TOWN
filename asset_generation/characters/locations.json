@@ -1026,7 +1026,8 @@
       "y": 35,
       "line_key": null,
       "actions": [
-        "shows MSG_SHONTAL_INTRO"
+        "shows MSG_SHONTAL_INTRO",
+        "shows MSG_110FFAFA_DEMOCAMP4"
       ]
     },
     {
@@ -1414,6 +1415,162 @@
       "line_key": null,
       "actions": [
         "barrel dialogue graph"
+      ]
+    },
+    {
+      "character_id": "7afa738a",
+      "map_id": 79,
+      "event_id": 2,
+      "x": 16,
+      "y": 20,
+      "line_key": null,
+      "actions": [
+        "shows MSG_7AFA738A_DEMOCAMP"
+      ]
+    },
+    {
+      "character_id": "661f55e6",
+      "map_id": 85,
+      "event_id": 2,
+      "x": 53,
+      "y": 2,
+      "line_key": null,
+      "actions": [
+        "shows MSG_661F55E6_FREECAMP"
+      ]
+    },
+    {
+      "character_id": "2f88eb7f",
+      "map_id": 90,
+      "event_id": 3,
+      "x": 21,
+      "y": 22,
+      "line_key": null,
+      "actions": [
+        "shows MSG_2F88EB7F_MOMDAD",
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "ff8eab6b",
+      "map_id": 89,
+      "event_id": 4,
+      "x": 26,
+      "y": 18,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "2f88eb7f",
+      "map_id": 89,
+      "event_id": 6,
+      "x": 26,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "shows MSG_2F88EB7F_MOMDAD",
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "92958f4d",
+      "map_id": 89,
+      "event_id": 7,
+      "x": 27,
+      "y": 17,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "4c6540a3",
+      "map_id": 89,
+      "event_id": 8,
+      "x": 27,
+      "y": 15,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "fcba2ff5",
+      "map_id": 89,
+      "event_id": 9,
+      "x": 28,
+      "y": 23,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "a4012984",
+      "map_id": 89,
+      "event_id": 10,
+      "x": 5,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "65029b81",
+      "map_id": 89,
+      "event_id": 12,
+      "x": 3,
+      "y": 22,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "b25567c8",
+      "map_id": 89,
+      "event_id": 14,
+      "x": 4,
+      "y": 16,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "7afa738a",
+      "map_id": 89,
+      "event_id": 15,
+      "x": 13,
+      "y": 13,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "963c65ea",
+      "map_id": 89,
+      "event_id": 16,
+      "x": 21,
+      "y": 13,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "d6ad577a",
+      "map_id": 89,
+      "event_id": 19,
+      "x": 10,
+      "y": 12,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
       ]
     }
   ]

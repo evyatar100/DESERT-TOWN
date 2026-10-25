@@ -256,10 +256,24 @@
     },
     {
       "id": 4,
-      "name": "EV004",
+      "name": "dt_ff8eab6b",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"ff8eab6b\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"ff8eab6b\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -454,10 +468,31 @@
     },
     {
       "id": 6,
-      "name": "EV006",
+      "name": "dt_2f88eb7f",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"2f88eb7f\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"2f88eb7f\")"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_2F88EB7F_MOMDAD"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -482,10 +517,24 @@
     },
     {
       "id": 7,
-      "name": "EV007",
+      "name": "dt_92958f4d",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"92958f4d\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"92958f4d\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -510,10 +559,24 @@
     },
     {
       "id": 8,
-      "name": "EV008",
+      "name": "dt_4c6540a3",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"4c6540a3\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"4c6540a3\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -538,10 +601,24 @@
     },
     {
       "id": 9,
-      "name": "EV009",
+      "name": "dt_fcba2ff5",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"fcba2ff5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"fcba2ff5\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -566,10 +643,24 @@
     },
     {
       "id": 10,
-      "name": "EV010",
+      "name": "dt_a4012984",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"a4012984\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"a4012984\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -593,39 +684,25 @@
       "y": 24
     },
     {
-      "id": 11,
-      "name": "EV011",
+      "id": 12,
+      "name": "dt_65029b81",
       "pages": [
         {
           "commands": [
             {
-              "code": 0,
+              "code": 355,
               "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 4,
-      "y": 25
-    },
-    {
-      "id": 12,
-      "name": "EV012",
-      "pages": [
-        {
-          "commands": [
+              "parameters": [
+                "pbDesertSpeaker(\"65029b81\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"65029b81\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -685,10 +762,24 @@
     },
     {
       "id": 14,
-      "name": "EV014",
+      "name": "dt_b25567c8",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"b25567c8\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"b25567c8\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -713,10 +804,24 @@
     },
     {
       "id": 15,
-      "name": "EV015",
+      "name": "dt_7afa738a",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"7afa738a\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"7afa738a\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -741,10 +846,24 @@
     },
     {
       "id": 16,
-      "name": "EV016",
+      "name": "dt_963c65ea",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"963c65ea\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"963c65ea\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -768,67 +887,25 @@
       "y": 13
     },
     {
-      "id": 17,
-      "name": "EV017",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 21,
-      "y": 12
-    },
-    {
-      "id": 18,
-      "name": "EV018",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 14,
-      "y": 12
-    },
-    {
       "id": 19,
-      "name": "EV019",
+      "name": "dt_d6ad577a",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"d6ad577a\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"d6ad577a\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,
@@ -850,6 +927,48 @@
       ],
       "x": 10,
       "y": 12
+    },
+    {
+      "id": 20,
+      "name": "dt_890b649e",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"890b649e\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"890b649e\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 23,
+      "y": 3
     }
   ],
   "map_id": 89

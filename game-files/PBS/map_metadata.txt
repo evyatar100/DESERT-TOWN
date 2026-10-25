@@ -105,6 +105,7 @@ MapSize = 1,11
 [022]   # Piramid
 Name = Piramid
 Outdoor = true
+Weather = Sandstorm,100
 #-------------------------------
 [023]   # Lerucean Town
 Name = Lerucean Town
@@ -512,3 +513,7 @@ Outdoor = true
 [112]   # npc-chars
 Name = NPC Chars
 Outdoor = true
+#-------------------------------
+[089]   # mom-dad-in
+Name = mom-dad-in
+Outdoor = false

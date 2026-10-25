@@ -226,7 +226,7 @@
     },
     "MSG_A_BEER_GO_TO_SEAT": {
       "en": "A beer? Go to your sit and I'll give you one.",
-      "he": "בירה? תקרא לי מהכסא שלך ואני אתן לך אחת."
+      "he": "בירה? תקרא לי מהכיסא שלך ואני אתן לך אחת."
     },
     "MSG_NOT_GETTING_UP": {
       "en": "I'm really not getting up from here for you.",
@@ -462,11 +462,11 @@
     },
     "POPCORN_RESPONSE_LINE": {
       "en": "The internet went down and all of them want to pay with Bit, currently accepting cash only. Not sure waiting will help them because this game is single player and not connected to the internet.",
-      "he": "האינטרנט נפל וכל אלו רוצים לשלם בביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט,המשחק הזה הוא סינגל פלייר."
+      "he": "האינטרנט נפל וכל אלו רוצים לשלם בביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט, המשחק הזה הוא סינגל פלייר."
     },
     "POPCORN_RESPONSE_NO_MONEY": {
       "en": "Ummm, no one gets a bag from me for free. I have an offer but it's a bit dangerous, the ice delivery guy told me some bills fell across the ice factory... It's pretty slippery and cold inside and several people have already gotten stuck there, worth a try.",
-      "he": "אמממ, אף אחד לא מקבל ממני שקית בחינם. יש לי הצעה אבל היא קצת מסוכנת, מוביל הקרח אמר לי שנפלו כמה שטרות ברחבי מפעל הקרח... די מחליק וקר בפנים וכבר כמה אנשים נתקעו שם, שווה נסיון. הכניסה כאן מעלי."
+      "he": "אמממ, אף אחד לא מקבל ממני שקית בחינם. יש לי הצעה אבל היא קצת מסוכנת, מוביל הקרח אמר לי שנפלו כמה שטרות ברחבי מפעל הקרח... די מחליק וקר בפנים וכבר כמה אנשים נתקעו שם, שווה ניסיון. הכניסה כאן מעלי."
     },
     "POPCORN_RESPONSE_DESERTTOWN": {
       "en": "Bills are scattered on the floor here and you are complaining?",
@@ -1521,8 +1521,8 @@
       "he": "ha-mischariyut"
     },
     "MSG_73F1D834_LINE": {
-      "en": "לא שילמתי מספיק כדי לקבל את מה שרצתיתי",
-      "he": "לא שילמתי מספיק כדי לקבל את מה שרצתיתי"
+      "en": "לא שילמתי מספיק כדי לקבל את מה שרציתי",
+      "he": "לא שילמתי מספיק כדי לקבל את מה שרציתי"
     },
     "NAME_14538600": {
       "en": "עצלן הטאון",
@@ -1693,8 +1693,8 @@
       "he": "גיפט לפנים"
     },
     "MSG_PIRAMID_DUEL_MOVE3": {
-      "en": "שפיץ לפרמידה",
-      "he": "שפיץ לפרמידה"
+      "en": "שפיץ לפירמידה",
+      "he": "שפיץ לפירמידה"
     },
     "MSG_PIRAMID_DUEL_MOVE4": {
       "en": "תפוח ונגרר מתחת לחגורה",
@@ -1767,6 +1767,86 @@
     "MENU-TEXT": {
       "en": "Electric popcorn\\nBurnt popcorn\\nWet popcorn",
       "he": "פופקורן חשמלי\\nפופקורן שרוף\\nפופקרן רטוב"
+    },
+    "MSG_FLAMINGO_BAND_INTRO": {
+      "en": "Yooo, I've been waiting for them forever! Help me hurry them up, rush rush!!!",
+      "he": "יאוווו כמה זמן אני מחכה להם! תעזרי לי לזרז אותן, בהול!!!"
+    },
+    "MSG_FLAMINGO_BAND_1": {
+      "en": "Just one more layer of glitter. Eco-friendly. Probably.",
+      "he": "רק עוד שכבה של נצנצים. אקולוגיים. כנראה."
+    },
+    "MSG_FLAMINGO_BAND_2": {
+      "en": "Hold on, changing outfits. This is the fifth one, but it's the right one.",
+      "he": "רגע, מחליפה תלבושת. זאת החמישית, אבל זאת הנכונה."
+    },
+    "MSG_FLAMINGO_BAND_3": {
+      "en": "I said \"two more minutes\" two hours ago. Two more minutes.",
+      "he": "אמרתי \"עוד שתי דקות\" לפני שעתיים. עוד שתי דקות."
+    },
+    "MSG_FLAMINGO_BAND_4": {
+      "en": "Ready! Heading out! ...Wait, why am I on one leg? Where's my other boot?!",
+      "he": "מוכנה! יוצאת! ...רגע, למה אני על רגל אחת? איפה המגף השני?!"
+    },
+    "MSG_FLAMINGO_BAND_HAFARTEM": {
+      "en": "Yooo, you're dragging it out!! Enough already",
+      "he": "יאווו חפרתם!! דיי כבר"
+    },
+    "NAME_C81AD599": {
+      "en": "Alien-Pako",
+      "he": "Alien-Pako"
+    },
+    "MSG_C81AD599_LINE": {
+      "en": "את לא מותק",
+      "he": "את לא מותק"
+    },
+    "NAME_931C4AE6": {
+      "en": "חתולימיהו",
+      "he": "חתולימיהו"
+    },
+    "MSG_931C4AE6_LINE": {
+      "en": "מיאו תגיד לאמאלה ואבאלה",
+      "he": "מיאו תגיד לאמאלה ואבאלה"
+    },
+    "NAME_8DAFB982": {
+      "en": "יעל",
+      "he": "יעל"
+    },
+    "MSG_8DAFB982_LINE": {
+      "en": "הכל בשליטה, פשוט לא שלי",
+      "he": "הכל בשליטה, פשוט לא שלי"
+    },
+    "NAME_C45F7129": {
+      "en": "יעלי",
+      "he": "יעלי"
+    },
+    "MSG_C45F7129_LINE": {
+      "en": "לפנתיאון",
+      "he": "לפנתיאון"
+    },
+    "NAME_6BDB2D5E": {
+      "en": "סיגל",
+      "he": "סיגל"
+    },
+    "MSG_6BDB2D5E_LINE": {
+      "en": "אני צריכה את הסניף הכי קרוב של הבמפ.",
+      "he": "אני צריכה את הסניף הכי קרוב של הבמפ."
+    },
+    "NAME_B3FB6767": {
+      "en": "פולרואידר",
+      "he": "פולרואידר"
+    },
+    "MSG_B3FB6767_LINE": {
+      "en": "תהנו מהרגע!",
+      "he": "תהנו מהרגע!"
+    },
+    "MSG_FLAMINGO_BAND_WAIT": {
+      "en": "Wait!! Help me pick a nail polish!",
+      "he": "רגע!! תעזרי לי לבחור לק!"
+    },
+    "REFEREE": {
+      "en": "The rules are clear. Whoever loses is sent to detention and then expelled from Desert Town. Are you ready for the fight?",
+      "he": "החוקים הם ברורים. מי שמפסיד נשלח למעצר ואז מגורש מדזרטאון. האם אתם מוכנים לקרב?"
     }
   }
 }

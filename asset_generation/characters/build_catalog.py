@@ -42,8 +42,8 @@ MAP_METADATA = ROOT / "game-files" / "PBS" / "map_metadata.txt"
 FRAME = (0, 0, 32, 48)
 QA_DONOR = "dt148_qa_field_1786427980"
 QA_ID = "e98a1184"
-# maps/char-demo — preview grid only. Shown on the card, not counted as placed.
-CHAR_DEMO_MAP_ID = 111
+# maps/char-demo (111) and NPC Chars (112) — preview only. Shown on the card, not counted as placed.
+CHAR_DEMO_MAP_IDS = {111, 112}
 UNSET = {"", "_(not set)_"}
 FIELD_RE = re.compile(r"^\*\*(.+?):\*\*\s*(.*)$")
 ID_RE = re.compile(r"^[0-9a-f]{8}$")
@@ -242,7 +242,7 @@ def rtl_block(label: str, value: str | None) -> str:
 
 
 def is_char_demo(placement: dict) -> bool:
-    return int(placement.get("map_id", -1)) == CHAR_DEMO_MAP_ID
+    return int(placement.get("map_id", -1)) in CHAR_DEMO_MAP_IDS
 
 
 def real_placements(placements: list[dict]) -> list[dict]:

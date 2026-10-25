@@ -23,10 +23,31 @@ Pokemon = ONIX,14
     Shiny = true
     Ball = HEAVYBALL
 #-------------------------------
+# Shadow trainer - basic. The player's side is Pikachu, Charizard, and Snorlax,
+# set for this fight only by pbShadowBasicBattle.
 [TEAMROCKET_M,Grunt,1]
 LoseText = You're too good for me!
-Pokemon = WEEPINBELL,21
-    Shadow = true
+Pokemon = BLASTOISE,70
+    Moves = HYDROPUMP,ICEBEAM,AURASPHERE,DARKPULSE
+    AbilityIndex = 0
+    Item = MYSTICWATER
+    Nature = MODEST
+    IV = 31,31,31,31,31,31
+    EV = 252,0,0,4,252,0
+Pokemon = VENUSAUR,70
+    Moves = GIGADRAIN,SLUDGEBOMB,EARTHPOWER,SLEEPPOWDER
+    AbilityIndex = 0
+    Item = BLACKSLUDGE
+    Nature = MODEST
+    IV = 31,31,31,31,31,31
+    EV = 252,0,0,4,252,0
+Pokemon = ABRA,70
+    Moves = PSYCHIC,SHADOWBALL,DAZZLINGGLEAM,CALMMIND
+    AbilityIndex = 2
+    Item = TWISTEDSPOON
+    Nature = TIMID
+    IV = 31,31,31,31,31,31
+    EV = 4,0,0,252,252,0
 #-------------------------------
 [TEAMROCKET_F,Grunt,1]
 LoseText = You're too good for me!

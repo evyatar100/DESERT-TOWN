@@ -125,6 +125,132 @@
       ],
       "x": 6,
       "y": 36
+    },
+    {
+      "id": 4,
+      "name": "dt_013feab1",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"013feab1\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"013feab1\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 18,
+      "y": 20
+    },
+    {
+      "id": 5,
+      "name": "dt_931c4ae6",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"931c4ae6\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"931c4ae6\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 12,
+      "y": 44
+    },
+    {
+      "id": 6,
+      "name": "dt_abd7f899",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"abd7f899\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"abd7f899\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 9,
+      "y": 38
     }
   ],
   "map_id": 78

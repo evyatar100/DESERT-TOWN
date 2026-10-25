@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "d5383627",
+    "name": "פיקסל",
+    "x": 54,
+    "y": 12,
+    "graphic": "dt_d5383627",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "661f55e6",
+    "name": "צ'אנגה",
+    "x": 57,
+    "y": 12,
+    "graphic": "dt_661f55e6",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=לשון הרע"
+  }
+]

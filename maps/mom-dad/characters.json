@@ -5,6 +5,22 @@
     "x": 21,
     "y": 22,
     "graphic": "dt_2f88eb7f",
-    "notes": "pbDesertSpeaker + pbDesertTalk + MSG_2F88EB7F_MOMDAD; random walk, speed slow, freq high"
+    "notes": "pbDesertSpeaker + pbDesertTalk + MSG_2F88EB7F_MOMDAD"
+  },
+  {
+    "id": "ff8eab6b",
+    "name": "אביב הנסיך",
+    "x": 3,
+    "y": 26,
+    "graphic": "dt_ff8eab6b",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "b25567c8",
+    "name": "פרא",
+    "x": 4,
+    "y": 27,
+    "graphic": "dt_b25567c8",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   }
 ]

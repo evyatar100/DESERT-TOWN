@@ -4,7 +4,7 @@
   "map_id": 80,
   "tileset_name": "Old-City_ts",
   "is_outside": true,
-  "bgm": "Calm Camps Area",
+  "bgm": "Deep Playa 3",
   "connections": {
     "north": "Piramid",
     "south": null,

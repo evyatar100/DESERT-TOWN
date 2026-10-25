@@ -1,0 +1,10 @@
+#!/bin/sh
+# Runs golden-drift-guard when staged files include game-files/Data/Map*.rxdata.
+root=$(git rev-parse --show-toplevel) || exit 1
+git diff --cached --name-only | grep -Eq '^game-files/Data/Map[0-9]{3}\.rxdata$' || exit 0
+guard="$root/.agents/skills/golden-drift-guard/scripts/golden_guard.py"
+if python --version >/dev/null 2>&1; then exec python "$guard"; fi
+if py -3 --version >/dev/null 2>&1; then exec py -3 "$guard"; fi
+if python3 --version >/dev/null 2>&1; then exec python3 "$guard"; fi
+echo "golden-drift-guard: no working python (tried python, py -3, python3)" >&2
+exit 1

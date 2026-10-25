@@ -1,4 +1,325 @@
 {
-  "events": [],
+  "events": [
+    {
+      "id": 1,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 4,
+      "y": 14
+    },
+    {
+      "id": 2,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 13,
+      "y": 15
+    },
+    {
+      "id": 3,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 21,
+      "y": 16
+    },
+    {
+      "id": 4,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 18
+    },
+    {
+      "id": 5,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 21
+    },
+    {
+      "id": 6,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 16,
+      "y": 21
+    },
+    {
+      "id": 7,
+      "name": "dt_1820dc9d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "$game_map.events[8].start if $game_map.events[8] && !$game_map.events[8].starting"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 21,
+      "y": 20
+    },
+    {
+      "id": 8,
+      "name": "die",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll(Tone.new(255, -255, -255, 0), 8)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbSEPlay(\"Pkmn faint\")"
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                100
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbToneChangeAll(Tone.new(0, 0, 0, 0), 4)"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbSEPlay(\"Door exit\")"
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                80,
+                8,
+                15,
+                2,
+                0
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 11,
+      "y": 0
+    }
+  ],
   "map_id": 94
 }

@@ -450,6 +450,84 @@ show = show.split("def self.slide_closed_now?", 2).first
   check(!show.include?(token), "slide code does not call #{token}")
 end
 
+load File.join(ROOT, "Plugins/zFlamingoBand/000_rules.rb")
+band = FlamingoBandRules.new_state
+check(FlamingoBandRules.claim(band, "c626f0d6", 77).nil?, "band: nothing before the intro")
+band[:intro_done] = true
+check(FlamingoBandRules.claim(band, "9923f1c4", 77).nil?, "band: the host never counts")
+check(FlamingoBandRules.claim(band, "c626f0d6", 112).nil?, "band: wrong map gives nil")
+check(FlamingoBandRules.claim(band, "468de6d4", 77).nil?, "band: a non-band character gives nil")
+check(FlamingoBandRules.claim(band, "1988218f", 99) == 1, "band: first eligible talk is stage 1")
+check(FlamingoBandRules.claim(band, "1988218f", 99).nil?, "band: a repeat talk is not counted")
+check(FlamingoBandRules.claim(band, "708d6c34", 77) == 2, "band: second NPC is stage 2")
+check(FlamingoBandRules.claim(band, "5990bffc", 99) == 3, "band: third NPC is stage 3")
+check(FlamingoBandRules.claim(band, "754ba04a", 77) == 4, "band: fourth NPC is stage 4")
+check(FlamingoBandRules.claim(band, "671405a6", 77).nil?, "band: nothing after stage 4")
+check(band[:consumed] == %w[1988218f 708d6c34 5990bffc 754ba04a], "band: consumed in talk order")
+check(FlamingoBandRules.stage_line(4) == "MSG_FLAMINGO_BAND_4", "band: stage 4 line key")
+check(FlamingoBandRules.music_for(band, 77) == "Flamingo Band stage_4", "band: stage track on map 77")
+check(FlamingoBandRules.music_for(band, 50) == :original, "band: other maps keep their music")
+check(FlamingoBandRules.music_for(FlamingoBandRules.new_state.merge(intro_done: true), 99) == :silence,
+      "band: silence after the intro")
+check(FlamingoBandRules.start_procession?(band, 99, 77), "band: procession starts leaving the tent")
+check(!FlamingoBandRules.start_procession?(band, 76, 77), "band: not from another map")
+band[:procession] = true
+check(FlamingoBandRules.music_for(band, 50) == "Flamingo Band stage_4", "band: procession plays stage 4 anywhere")
+calls = 0
+rng = lambda { calls += 1; 0.1 }
+check(FlamingoBandRules.roll(100, 200, rng) == [200, false] && calls == 0, "band: no roll before due")
+interval = FlamingoBandRules::ROLL_INTERVAL
+check(interval == 90, "band: interruption roll every 90 s")
+check(FlamingoBandRules.roll(200, 200, rng) == [200 + interval, true] && calls == 1, "band: one roll when due")
+check(FlamingoBandRules.roll(900, 200, lambda { FlamingoBandRules::ROLL_CHANCE }) == [900 + interval, false], "band: ROLL_CHANCE is not a hit")
+check(FlamingoBandRules.roll(900, 200, lambda { FlamingoBandRules::ROLL_CHANCE - 0.0001 })[1], "band: below ROLL_CHANCE is a hit")
+check(FlamingoBandRules.roll(50, nil, rng) == [50 + interval, false] && calls == 1, "band: first schedule does not roll")
+check(!FlamingoBandRules.skip_step?(true, 1, 0.0, true), "band: never two misses in a row")
+check(!FlamingoBandRules.skip_step?(false, 2, 0.0, true), "band: never skip when 2 tiles behind")
+check(!FlamingoBandRules.skip_step?(false, 1, 0.0, false), "band: never skip on a corner")
+check(FlamingoBandRules.skip_step?(false, 1, 0.19, true), "band: skip below 20%")
+check(!FlamingoBandRules.skip_step?(false, 1, 0.2, true), "band: 20% is not a skip")
+check(FlamingoBandRules.straight_step?(1, 0, 6), "band: step along the leader's facing is straight")
+check(!FlamingoBandRules.straight_step?(1, 0, 2), "band: leader turned, so it is a corner")
+check(!FlamingoBandRules.straight_step?(0, 0, 6), "band: no step is not straight")
+check(FlamingoBandRules.spawn_offsets.all? { |dx, dy| (dx.abs + dy.abs).between?(4, 6) }, "band: spawn 4-6 tiles away")
+check(FlamingoBandRules.in_intro_zone?(77, 12, 26) && !FlamingoBandRules.in_intro_zone?(77, 20, 26),
+      "band: intro zone bounds")
+
+escape = FlamingoBandRules.new_state
+check(FlamingoBandRules.escape_action(escape) == :none, "band escape: nothing before the intro")
+escape[:intro_done] = true
+check(FlamingoBandRules.escape_action(escape) == :catch, "band escape: first attempt is caught")
+escape[:escape_attempts] = 1
+check(FlamingoBandRules.escape_action(escape) == :release, "band escape: second attempt is released")
+escape[:stage] = 4
+check(FlamingoBandRules.escape_action(escape) == :none, "band escape: stage 4 leaves normally")
+escape[:stage] = 2
+escape[:procession] = true
+check(FlamingoBandRules.escape_action(escape) == :none, "band escape: never during the procession")
+old_save = FlamingoBandRules.new_state.reject { |k, _| k == :escape_attempts }.merge(intro_done: true)
+check(FlamingoBandRules.escape_action(old_save) == :catch, "band escape: old saves without the key are caught once")
+check(FlamingoBandRules.new_state[:escape_attempts] == 0, "band escape: new state starts at zero")
+
+fresh = FlamingoBandRules.new_state
+check(!fresh.key?(:finished), "band end: no permanent finished flag")
+old_finished = { intro_done: true, stage: 4, consumed: %w[c626f0d6], procession: false, next_roll_at: nil,
+                 escape_attempts: 0, finished: true }
+check(FlamingoBandRules.normalize(old_finished) == fresh, "band end: old save with finished: true loads as a fresh quest")
+check(FlamingoBandRules.normalize(nil) == fresh, "band end: missing state is a fresh quest")
+running = fresh.merge(intro_done: true, stage: 2, consumed: %w[c626f0d6 671405a6])
+check(FlamingoBandRules.normalize(running).equal?(running), "band end: a running quest is kept as is")
+check(FlamingoBandRules.rolling?(fresh.merge(procession: true)) && !FlamingoBandRules.rolling?(fresh),
+      "band: only the procession rolls")
+start_now, held = FlamingoBandRules.intro_gate(fresh, true, true)
+check(!start_now && held, "band end: no intro while still standing in the zone")
+start_now, held = FlamingoBandRules.intro_gate(fresh, held, false)
+check(!start_now && !held, "band end: leaving the zone clears the hold")
+start_now, held = FlamingoBandRules.intro_gate(fresh, held, true)
+check(start_now && !held, "band end: re-entering the zone makes the intro due again")
+check(!FlamingoBandRules.intro_gate(running, false, true)[0], "band: no intro once it has played")
+check(FlamingoBandRules.claim(fresh.merge(intro_done: true), "c626f0d6", 77) == 1, "band end: all flamingos eligible again")
+
 if $failures.empty?
   puts "Plugin rule tests passed."
   exit 0

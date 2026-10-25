@@ -1,5 +1,13 @@
 [
   {
+    "id": "8d654949",
+    "name": "צב-הים",
+    "x": 18,
+    "y": 22,
+    "graphic": "dt_8d654949",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
     "id": "5cb9ff14",
     "name": "Shanzi",
     "x": 10,
@@ -22,5 +30,13 @@
     "y": 33,
     "graphic": "dt_3cdacb96",
     "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "8f6972ef",
+    "name": "Lili",
+    "x": 14,
+    "y": 35,
+    "graphic": "dt_8f6972ef",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=רקפה"
   }
 ]

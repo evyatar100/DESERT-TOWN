@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "d6ad577a",
+    "name": "יעלי-בלי",
+    "x": 14,
+    "y": 15,
+    "graphic": "dt_d6ad577a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  }
+]

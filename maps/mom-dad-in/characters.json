@@ -86,5 +86,21 @@
     "y": 12,
     "graphic": "dt_d6ad577a",
     "notes": "hops along custom move route"
+  },
+  {
+    "id": "890b649e",
+    "name": "רייצ'ל מלכת הבייקון",
+    "x": 23,
+    "y": 3,
+    "graphic": "dt_890b649e",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "8dafb982",
+    "name": "יעל",
+    "x": 7,
+    "y": 12,
+    "graphic": "dt_8dafb982",
+    "notes": "hops along custom move route"
   }
 ]

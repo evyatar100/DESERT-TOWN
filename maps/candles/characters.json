@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "82451b58",
+    "name": "ד\"ר סטיצ'",
+    "x": 12,
+    "y": 15,
+    "graphic": "dt_82451b58",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=Flow&Glow"
+  },
+  {
+    "id": "4a001210",
+    "name": "תות על גחלים",
+    "x": 19,
+    "y": 15,
+    "graphic": "dt_4a001210",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=flow&glow"
+  }
+]

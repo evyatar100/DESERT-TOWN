@@ -237,17 +237,10 @@
               ]
             },
             {
-              "code": 355,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "pbDesertTalk(\"5a75819b\")"
-              ]
-            },
-            {
-              "code": 355,
-              "indent": 0,
-              "parameters": [
-                "pbMessage(_INTL(\"MSG_5A75819B_OLDCITY\"))"
+                "MSG_5A75819B_OLDCITY"
               ]
             },
             {
@@ -286,17 +279,10 @@
               ]
             },
             {
-              "code": 355,
+              "code": 101,
               "indent": 0,
               "parameters": [
-                "pbDesertTalk(\"326f5ab5\")"
-              ]
-            },
-            {
-              "code": 355,
-              "indent": 0,
-              "parameters": [
-                "pbMessage(_INTL(\"MSG_326F5AB5_OLDCITY\"))"
+                "MSG_326F5AB5_OLDCITY"
               ]
             },
             {

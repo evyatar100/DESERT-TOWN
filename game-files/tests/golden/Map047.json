@@ -139,29 +139,37 @@
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 44,
-                  "@parameters": [
-                    {
-                      "@name": "Door exit",
-                      "@pitch": 100,
-                      "@volume": 80,
-                      "_class": "RPG::AudioFile"
-                    }
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 44,
+                    "@parameters": [
+                      {
+                        "@name": "Door exit",
+                        "@pitch": 100,
+                        "@volume": 80,
+                        "_class": "RPG::AudioFile"
+                      }
+                    ],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 1,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 1,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
+                "Door exit"
               ]
             },
             {
@@ -354,29 +362,17 @@
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 44,
-                  "@parameters": [
-                    {
-                      "@name": "Door exit",
-                      "@pitch": 100,
-                      "@volume": 80,
-                      "_class": "RPG::AudioFile"
-                    }
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                ""
               ]
             },
             {
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 3,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  12,
+                  "get_self.onEvent?"
+                ]
               ]
             },
             {
@@ -465,9 +461,12 @@
               "indent": 0,
               "parameters": [
                 {
-                  "@code": 16,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
+                  "@code": 401,
+                  "@indent": 0,
+                  "@parameters": [
+                    "weather from lingering when you leave this map."
+                  ],
+                  "_class": "RPG::EventCommand"
                 }
               ]
             },
@@ -955,7 +954,7 @@
               "indent": 0,
               "parameters": [
                 12,
-                "TrainerBattle.start(:TEAMROCKET_M, \"Grunt\", 1)"
+                "pbShadowBasicBattle"
               ]
             },
             {
@@ -1239,7 +1238,12 @@
               "indent": 0,
               "parameters": [
                 0,
-                "Information"
+                [
+                  "Information",
+                  "Shadow Pokémon battles",
+                  "Purifying Pokémon",
+                  "Exit"
+                ]
               ]
             },
             {
@@ -1294,7 +1298,7 @@
               "indent": 0,
               "parameters": [
                 1,
-                "Shadow Pokémon battles"
+                "Information"
               ]
             },
             {
@@ -1377,7 +1381,7 @@
               "indent": 0,
               "parameters": [
                 2,
-                "Purifying Pokémon"
+                "Shadow Pokémon battles"
               ]
             },
             {
@@ -1492,7 +1496,7 @@
               "indent": 0,
               "parameters": [
                 3,
-                "Exit"
+                "Purifying Pokémon"
               ]
             },
             {
@@ -1679,11 +1683,18 @@
               "code": 509,
               "indent": 0,
               "parameters": [
-                {
-                  "@code": 16,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 16,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {
@@ -1774,11 +1785,18 @@
               "code": 509,
               "indent": 0,
               "parameters": [
-                {
-                  "@code": 16,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 16,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {

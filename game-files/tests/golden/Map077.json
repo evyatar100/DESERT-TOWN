@@ -411,8 +411,8 @@
           }
         }
       ],
-      "x": 17,
-      "y": 27
+      "x": 14,
+      "y": 35
     },
     {
       "id": 4,
@@ -453,8 +453,8 @@
           }
         }
       ],
-      "x": 12,
-      "y": 35
+      "x": 15,
+      "y": 33
     },
     {
       "id": 5,
@@ -496,7 +496,7 @@
         }
       ],
       "x": 19,
-      "y": 35
+      "y": 34
     },
     {
       "id": 6,
@@ -537,8 +537,8 @@
           }
         }
       ],
-      "x": 9,
-      "y": 27
+      "x": 23,
+      "y": 34
     },
     {
       "id": 7,
@@ -1529,6 +1529,510 @@
       ],
       "x": 17,
       "y": 25
+    },
+    {
+      "id": 10,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 7,
+      "y": 27
+    },
+    {
+      "id": 11,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 26,
+      "y": 27
+    },
+    {
+      "id": 12,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 9
+    },
+    {
+      "id": 13,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 1,
+      "y": 29
+    },
+    {
+      "id": 14,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 9,
+      "y": 13
+    },
+    {
+      "id": 15,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 12,
+      "y": 9
+    },
+    {
+      "id": 16,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 14,
+      "y": 12
+    },
+    {
+      "id": 17,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 20,
+      "y": 9
+    },
+    {
+      "id": 18,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 25,
+      "y": 12
+    },
+    {
+      "id": 19,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 29,
+      "y": 9
+    },
+    {
+      "id": 20,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 13
+    },
+    {
+      "id": 21,
+      "name": "dt_708d6c34",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"708d6c34\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 20,
+      "y": 13
     }
   ],
   "map_id": 77

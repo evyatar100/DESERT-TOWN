@@ -345,8 +345,8 @@
       "y": 14
     },
     {
-      "id": 5,
-      "name": "New deserttown Game",
+      "id": 6,
+      "name": "dt_82451b58",
       "pages": [
         {
           "commands": [
@@ -354,7 +354,14 @@
               "code": 355,
               "indent": 0,
               "parameters": [
-                "pbDesertTownArcadeNewGame"
+                "pbDesertSpeaker(\"82451b58\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"82451b58\")"
               ]
             },
             {
@@ -376,8 +383,50 @@
           }
         }
       ],
-      "x": 16,
-      "y": 11
+      "x": 12,
+      "y": 15
+    },
+    {
+      "id": 7,
+      "name": "dt_4a001210",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"4a001210\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"4a001210\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 19,
+      "y": 15
     }
   ],
   "map_id": 82

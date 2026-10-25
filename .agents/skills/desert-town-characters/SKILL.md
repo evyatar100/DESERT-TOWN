@@ -10,6 +10,8 @@ description: >-
 
 # Desert Town characters
 
+> Map writes (events: add, clone, move, delete) go through the `rxdata-safe-io` skill (`rxdata_io.rb`), not the Python rubymarshal writer.
+
 Donor records live in `asset_generation/production/char/<donor>/<name>-<id>/metadata.md`. One folder is one character. The 8-hex suffix after the last hyphen is the character id (`זיג-זאד-11eaf4fa` → `11eaf4fa`).
 
 A character may stand on more than one map. Each standing spot is its own map event and its own row in the location ledger. The spoken line and the name are not stored on the event.
@@ -75,7 +77,7 @@ Implement this once, in `game-files/Plugins/DesertTalk/`, not by editing `Data/S
 3. Pick a free tile. Do not stack two events on one tile.
 4. Add translation keys (see [reference.md](reference.md)). Copy the metadata line into `he`. Use **Name (English)** / an existing English line for `en`. If no English text exists, put the Hebrew text in `en` too. Do not invent dialogue.
 5. Add the charset `dt_<id>.png` if it is missing.
-6. Add the event. Copy `MapNNN.rxdata` to `MapNNN.rxdata.bak` first. `RPGXP.exe` must be closed (`Get-Process RPGXP -ErrorAction SilentlyContinue`). Prefer cloning an existing event on that map and changing id, name, x, y, graphic, and the script line. `rubymarshal` can fail on these maps with `invalid link destination`; if it does, stop and place the event in RPG Maker XP, then record the ids. Do not hand-patch marshal bytes.
+6. Add the event with `rxdata_io.rb` (skill `rxdata-safe-io`). `RPGXP.exe` must be closed; the tool refuses otherwise, writes `MapNNN.rxdata.bak`, reloads and verifies. Spec `{"name":"dt_<id>","x":..,"y":..,"graphic":"dt_<id>","talk":"<id>"}` builds the speaker + talk event; add `"clone_from": <event id>` to copy an existing event on that map first. Run: `ruby .agents/skills/rxdata-safe-io/scripts/rxdata_io.rb add game-files/Data/MapNNN.rxdata --spec spec.json`. Do not write maps with the Python rubymarshal writer.
 7. Append one object to `locations.json`. `line_key` is `null` when the spot uses default `pbDesertTalk` (including when extra lines are Show Text 101). Set `line_key` only when `pbDesertTalk` uses a second-argument override that replaces the default.
 8. Rebuild the catalog:
 

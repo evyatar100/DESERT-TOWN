@@ -62,6 +62,7 @@ def main(argv=None):
     for module_name in (
         "tests.test_event_contracts",
         "tests.test_event_snapshot",
+        "tests.test_flamingo_band",
         "tests.test_plugin_rules",
         "tests.test_starter_items",
         "tests.test_translations",

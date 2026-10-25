@@ -853,46 +853,10 @@
       ]
     },
     {
-      "character_id": "a715ed37",
-      "map_id": 95,
-      "event_id": 1,
-      "x": 8,
-      "y": 14,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "670f79e3",
-      "map_id": 95,
-      "event_id": 2,
-      "x": 10,
-      "y": 14,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "0f0fdcf5",
-      "map_id": 95,
-      "event_id": 3,
-      "x": 12,
-      "y": 14,
-      "line_key": null,
-      "actions": []
-    },
-    {
       "character_id": "e19726f0",
       "map_id": 95,
       "event_id": 4,
       "x": 14,
-      "y": 14,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c081cd67",
-      "map_id": 95,
-      "event_id": 5,
-      "x": 16,
       "y": 14,
       "line_key": null,
       "actions": []
@@ -1172,33 +1136,6 @@
       "actions": []
     },
     {
-      "character_id": "9923f1c4",
-      "map_id": 77,
-      "event_id": 3,
-      "x": 17,
-      "y": 27,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c626f0d6",
-      "map_id": 77,
-      "event_id": 4,
-      "x": 12,
-      "y": 35,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "671405a6",
-      "map_id": 77,
-      "event_id": 5,
-      "x": 19,
-      "y": 35,
-      "line_key": null,
-      "actions": []
-    },
-    {
       "character_id": "754ba04a",
       "map_id": 77,
       "event_id": 6,
@@ -1231,15 +1168,6 @@
       "event_id": 3,
       "x": 13,
       "y": 11,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "1988218f",
-      "map_id": 99,
-      "event_id": 4,
-      "x": 8,
-      "y": 20,
       "line_key": null,
       "actions": []
     },
@@ -1452,6 +1380,629 @@
       ]
     },
     {
+      "character_id": "11eaf4fa",
+      "map_id": 93,
+      "event_id": 1,
+      "x": 8,
+      "y": 7,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "963c65ea",
+      "map_id": 93,
+      "event_id": 2,
+      "x": 6,
+      "y": 17,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "207a26e8",
+      "map_id": 93,
+      "event_id": 4,
+      "x": 3,
+      "y": 24,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2054a176",
+      "map_id": 93,
+      "event_id": 5,
+      "x": 4,
+      "y": 22,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "e9da20da",
+      "map_id": 93,
+      "event_id": 6,
+      "x": 8,
+      "y": 4,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c11768dc",
+      "map_id": 93,
+      "event_id": 7,
+      "x": 30,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "7c875377",
+      "map_id": 93,
+      "event_id": 8,
+      "x": 34,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a7ba5185",
+      "map_id": 93,
+      "event_id": 9,
+      "x": 32,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a715ed37",
+      "map_id": 95,
+      "event_id": 1,
+      "x": 32,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "670f79e3",
+      "map_id": 95,
+      "event_id": 2,
+      "x": 14,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0f0fdcf5",
+      "map_id": 95,
+      "event_id": 3,
+      "x": 29,
+      "y": 31,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b19b1f15",
+      "map_id": 95,
+      "event_id": 4,
+      "x": 29,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c081cd67",
+      "map_id": 95,
+      "event_id": 5,
+      "x": 10,
+      "y": 38,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6b57ce76",
+      "map_id": 95,
+      "event_id": 6,
+      "x": 34,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a01046dc",
+      "map_id": 95,
+      "event_id": 7,
+      "x": 11,
+      "y": 35,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2efd31ca",
+      "map_id": 95,
+      "event_id": 8,
+      "x": 18,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0552d83f",
+      "map_id": 95,
+      "event_id": 9,
+      "x": 24,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "85acb2b8",
+      "map_id": 95,
+      "event_id": 11,
+      "x": 26,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "845a91aa",
+      "map_id": 95,
+      "event_id": 12,
+      "x": 16,
+      "y": 34,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b201fb8a",
+      "map_id": 95,
+      "event_id": 13,
+      "x": 11,
+      "y": 17,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5571ef69",
+      "map_id": 95,
+      "event_id": 14,
+      "x": 22,
+      "y": 34,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c414cf08",
+      "map_id": 95,
+      "event_id": 15,
+      "x": 21,
+      "y": 9,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1a118967",
+      "map_id": 95,
+      "event_id": 16,
+      "x": 9,
+      "y": 10,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "8d654949",
+      "map_id": 97,
+      "event_id": 3,
+      "x": 18,
+      "y": 22,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "8f6972ef",
+      "map_id": 97,
+      "event_id": 7,
+      "x": 14,
+      "y": 35,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "ff8eab6b",
+      "map_id": 90,
+      "event_id": 5,
+      "x": 4,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2f88eb7f",
+      "map_id": 90,
+      "event_id": 6,
+      "x": 12,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "92958f4d",
+      "map_id": 90,
+      "event_id": 7,
+      "x": 6,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "7afa738a",
+      "map_id": 90,
+      "event_id": 8,
+      "x": 3,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "fcba2ff5",
+      "map_id": 90,
+      "event_id": 9,
+      "x": 21,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a4012984",
+      "map_id": 90,
+      "event_id": 10,
+      "x": 18,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "30c62b46",
+      "map_id": 86,
+      "event_id": 17,
+      "x": 12,
+      "y": 26,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c81ad599",
+      "map_id": 87,
+      "event_id": 8,
+      "x": 9,
+      "y": 18,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "013feab1",
+      "map_id": 78,
+      "event_id": 4,
+      "x": 18,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "931c4ae6",
+      "map_id": 78,
+      "event_id": 5,
+      "x": 12,
+      "y": 44,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "abd7f899",
+      "map_id": 78,
+      "event_id": 6,
+      "x": 9,
+      "y": 38,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "82451b58",
+      "map_id": 82,
+      "event_id": 6,
+      "x": 12,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4a001210",
+      "map_id": 82,
+      "event_id": 7,
+      "x": 19,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d5383627",
+      "map_id": 109,
+      "event_id": 3,
+      "x": 54,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "661f55e6",
+      "map_id": 109,
+      "event_id": 4,
+      "x": 57,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "73f1d834",
+      "map_id": 94,
+      "event_id": 9,
+      "x": 10,
+      "y": 18,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d2a3ac11",
+      "map_id": 104,
+      "event_id": 1,
+      "x": 30,
+      "y": 23,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "f90d4de9",
+      "map_id": 107,
+      "event_id": 1,
+      "x": 14,
+      "y": 18,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c85a6dc5",
+      "map_id": 85,
+      "event_id": 2,
+      "x": 50,
+      "y": 28,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6bdb2d5e",
+      "map_id": 22,
+      "event_id": 2,
+      "x": 19,
+      "y": 29,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d6ad577a",
+      "map_id": 33,
+      "event_id": 1,
+      "x": 14,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b3fb6767",
+      "map_id": 110,
+      "event_id": 1,
+      "x": 19,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "02a02e20",
+      "map_id": 110,
+      "event_id": 2,
+      "x": 24,
+      "y": 33,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "9923f1c4",
+      "map_id": 77,
+      "event_id": 3,
+      "x": 14,
+      "y": 35,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c626f0d6",
+      "map_id": 77,
+      "event_id": 4,
+      "x": 15,
+      "y": 33,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "671405a6",
+      "map_id": 77,
+      "event_id": 5,
+      "x": 19,
+      "y": 34,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "708d6c34",
+      "map_id": 77,
+      "event_id": 10,
+      "x": 7,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "708d6c34",
+      "map_id": 77,
+      "event_id": 11,
+      "x": 26,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "708d6c34",
+      "map_id": 77,
+      "event_id": 13,
+      "x": 1,
+      "y": 29,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1988218f",
+      "map_id": 99,
+      "event_id": 4,
+      "x": 34,
+      "y": 9,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "754ba04a",
+      "map_id": 99,
+      "event_id": 8,
+      "x": 12,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a003ee69",
+      "map_id": 96,
+      "event_id": 6,
+      "x": 20,
+      "y": 33,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "ab97c65d",
+      "map_id": 96,
+      "event_id": 8,
+      "x": 18,
+      "y": 33,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "305385c5",
+      "map_id": 96,
+      "event_id": 9,
+      "x": 17,
+      "y": 46,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "64aeedbe",
+      "map_id": 96,
+      "event_id": 10,
+      "x": 7,
+      "y": 17,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c45f7129",
+      "map_id": 96,
+      "event_id": 11,
+      "x": 16,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d107409e",
+      "map_id": 98,
+      "event_id": 1,
+      "x": 20,
+      "y": 33,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "648b924a",
+      "map_id": 98,
+      "event_id": 2,
+      "x": 5,
+      "y": 3,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "9b3660d1",
+      "map_id": 98,
+      "event_id": 3,
+      "x": 7,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "788b2614",
+      "map_id": 98,
+      "event_id": 4,
+      "x": 4,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b3178e6b",
+      "map_id": 98,
+      "event_id": 5,
+      "x": 21,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "bb70b1dd",
+      "map_id": 98,
+      "event_id": 6,
+      "x": 13,
+      "y": 13,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6b53f14c",
+      "map_id": 98,
+      "event_id": 11,
+      "x": 9,
+      "y": 28,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "f9348fd0",
+      "map_id": 98,
+      "event_id": 12,
+      "x": 8,
+      "y": 38,
+      "line_key": null,
+      "actions": []
+    },
+    {
       "character_id": "ff8eab6b",
       "map_id": 89,
       "event_id": 4,
@@ -1567,6 +2118,26 @@
       "map_id": 89,
       "event_id": 19,
       "x": 10,
+      "y": 12,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route"
+      ]
+    },
+    {
+      "character_id": "890b649e",
+      "map_id": 89,
+      "event_id": 20,
+      "x": 23,
+      "y": 3,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "8dafb982",
+      "map_id": 89,
+      "event_id": 21,
+      "x": 7,
       "y": 12,
       "line_key": null,
       "actions": [

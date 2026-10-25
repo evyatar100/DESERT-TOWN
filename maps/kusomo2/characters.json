@@ -2,81 +2,73 @@
   {
     "id": "a715ed37",
     "name": "מור",
-    "x": 8,
-    "y": 14,
+    "x": 32,
+    "y": 21,
     "graphic": "dt_a715ed37",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
     "id": "670f79e3",
     "name": "שירפז",
-    "x": 10,
-    "y": 14,
+    "x": 14,
+    "y": 8,
     "graphic": "dt_670f79e3",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
     "id": "0f0fdcf5",
     "name": "אייל הבוס",
-    "x": 12,
-    "y": 14,
+    "x": 29,
+    "y": 31,
     "graphic": "dt_0f0fdcf5",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "e19726f0",
-    "name": "תפוצ'יפס",
-    "x": 14,
-    "y": 14,
-    "graphic": "dt_e19726f0",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "c081cd67",
-    "name": "אייל הנודלס",
-    "x": 16,
-    "y": 14,
-    "graphic": "dt_c081cd67",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "845a91aa",
-    "name": "מאבטח",
-    "x": 18,
-    "y": 14,
-    "graphic": "dt_845a91aa",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
     "id": "b19b1f15",
     "name": "הגרגמל",
-    "x": 20,
-    "y": 14,
+    "x": 29,
+    "y": 15,
     "graphic": "dt_b19b1f15",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "c081cd67",
+    "name": "אייל הנודלס",
+    "x": 10,
+    "y": 38,
+    "graphic": "dt_c081cd67",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
     "id": "6b57ce76",
     "name": "Miki",
-    "x": 22,
-    "y": 14,
+    "x": 34,
+    "y": 8,
     "graphic": "dt_6b57ce76",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
-    "id": "963c65ea",
-    "name": "נור האביר",
-    "x": 24,
-    "y": 14,
-    "graphic": "dt_963c65ea",
+    "id": "a01046dc",
+    "name": "יערודזרט",
+    "x": 11,
+    "y": 35,
+    "graphic": "dt_a01046dc",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
-    "id": "2054a176",
-    "name": "עודש האימתני",
-    "x": 8,
+    "id": "2efd31ca",
+    "name": "ספחר",
+    "x": 18,
     "y": 16,
-    "graphic": "dt_2054a176",
+    "graphic": "dt_2efd31ca",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "0552d83f",
+    "name": "Stormrider1",
+    "x": 24,
+    "y": 15,
+    "graphic": "dt_0552d83f",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
@@ -88,51 +80,51 @@
     "notes": "pbDesertSpeaker + pbDesertTalk, then MSG_266D65C6_KUSUMO"
   },
   {
-    "id": "11eaf4fa",
-    "name": "זיג-זאד",
-    "x": 12,
-    "y": 16,
-    "graphic": "dt_11eaf4fa",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "207a26e8",
-    "name": "קובל",
-    "x": 14,
-    "y": 16,
-    "graphic": "dt_207a26e8",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "2efd31ca",
-    "name": "ספחר",
-    "x": 16,
-    "y": 16,
-    "graphic": "dt_2efd31ca",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
-    "id": "0552d83f",
-    "name": "Stormrider1",
-    "x": 18,
-    "y": 16,
-    "graphic": "dt_0552d83f",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
-  },
-  {
     "id": "85acb2b8",
     "name": "טווולה",
-    "x": 20,
-    "y": 16,
+    "x": 26,
+    "y": 8,
     "graphic": "dt_85acb2b8",
     "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
   },
   {
-    "id": "a01046dc",
-    "name": "יערודזרט",
+    "id": "845a91aa",
+    "name": "מאבטח",
+    "x": 16,
+    "y": 34,
+    "graphic": "dt_845a91aa",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
+  },
+  {
+    "id": "b201fb8a",
+    "name": "סושי",
+    "x": 11,
+    "y": 17,
+    "graphic": "dt_b201fb8a",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
+  },
+  {
+    "id": "5571ef69",
+    "name": "סיון",
     "x": 22,
-    "y": 16,
-    "graphic": "dt_a01046dc",
-    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+    "y": 34,
+    "graphic": "dt_5571ef69",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
+  },
+  {
+    "id": "c414cf08",
+    "name": "ענבר",
+    "x": 21,
+    "y": 9,
+    "graphic": "dt_c414cf08",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
+  },
+  {
+    "id": "1a118967",
+    "name": "שניפ",
+    "x": 9,
+    "y": 10,
+    "graphic": "dt_1a118967",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
   }
 ]

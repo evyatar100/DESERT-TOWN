@@ -38,5 +38,45 @@
     "y": 28,
     "graphic": "dt_0211e32a",
     "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "a003ee69",
+    "name": "חן",
+    "x": 20,
+    "y": 33,
+    "graphic": "dt_a003ee69",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "ab97c65d",
+    "name": "ג׳ק",
+    "x": 18,
+    "y": 33,
+    "graphic": "dt_ab97c65d",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "305385c5",
+    "name": "ה-מסחריות",
+    "x": 17,
+    "y": 46,
+    "graphic": "dt_305385c5",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "64aeedbe",
+    "name": "רזית",
+    "x": 7,
+    "y": 17,
+    "graphic": "dt_64aeedbe",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "c45f7129",
+    "name": "יעלי",
+    "x": 16,
+    "y": 20,
+    "graphic": "dt_c45f7129",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=קוסומו"
   }
 ]

@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "d6ad577a",
+    "name": "יעלי-בלי",
+    "x": 72,
+    "y": 3,
+    "graphic": "dt_d6ad577a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "661f55e6",
+    "name": "צ'אנגה",
+    "x": 53,
+    "y": 2,
+    "graphic": "dt_661f55e6",
+    "notes": "pbDesertSpeaker + pbDesertTalk + MSG_661F55E6_FREECAMP"
+  }
+]

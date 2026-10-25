@@ -52,7 +52,7 @@ It decides by the tileset image name (`Tileset_<...>.png`):
 
 - **New map** (no tileset with that image yet):
   - Runs the zip's own `check_map_slot.py` logic and takes the first free map id. The zip's slot number is usually taken, so it's only used if `--map-id` says so and the check passes.
-  - Copies the PNG into `Graphics/Tilesets` and puts the new tileset in the first blank slot below 47 that no map uses (e.g. 28). The RPG Maker XP tileset list only keeps slots 0–46 and a save drops the rest (see `.agents/skills/desert-town-tileset-slot`). If there's no blank slot, the script stops and asks to raise the maximum in Database → Tilesets. Passage (`yes` → 0, `no` → 15, plus `suggested_blocked_dirs` hard borders: down 1, left 2, right 4, up 8) and priority come from `passability.csv`.
+  - Copies the PNG into `Graphics/Tilesets` and puts the new tileset in the first blank slot that no map uses, searched up to the current length of `Tilesets.rxdata` (the editor's maximum; e.g. 61). A save drops slots past the maximum (see `.agents/skills/desert-town-tileset-slot`). If there's no blank slot, the script stops and asks to raise the maximum in Database → Tilesets. Passage (`yes` → 0, `no` → 15, plus `suggested_blocked_dirs` hard borders: down 1, left 2, right 4, up 8) and priority come from `passability.csv`.
   - Writes `Data/MapNNN.rxdata` pointing at the **new** tileset id. The zip's "Tileset ID" is ignored, because the app never knows the real one.
   - Adds a top-level map in `MapInfos.rxdata`, named from the zip (`map-<name>-slot...`) or `--name`.
 - **Updated map** (the tileset already exists):

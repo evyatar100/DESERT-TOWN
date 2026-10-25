@@ -1,17 +1,17 @@
 {
   "id": "temple-inside",
   "display_name": "temple-inside",
-  "map_id": 116,
+  "map_id": 113,
   "tileset_name": "temple-inside_ts",
-  "is_outside": true,
-  "bgm": null,
+  "is_outside": false,
+  "bgm": "Time-Warp",
   "connections": {
     "north": null,
     "south": null,
     "east": null,
     "west": null
   },
-  "status": "stub",
+  "status": "in_progress",
   "deprecated": false,
   "notes": "Created by DesertTown Map Gen upload, session flamingo-inside_imported_2"
 }

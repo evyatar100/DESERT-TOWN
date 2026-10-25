@@ -43,3 +43,6 @@ ErrorLog*.txt
 
 # Flamingo Band source stems (140 MB); stage OGGs are built from them
 mastolit-stems-quest/*.wav
+
+# Founder drop-in folder for files to place in the project
+external_files/

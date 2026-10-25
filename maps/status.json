@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-10-25T22:27:37Z",
+  "generated_at": "2026-10-25T22:50:38Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
     "h": 15
   },
-  "map_count": 37,
+  "map_count": 38,
   "maps": [
     {
       "id": "candles",
@@ -70,7 +70,7 @@
       "event_connections": [
         "deep-playa 6"
       ],
-      "event_count": 7,
+      "event_count": 6,
       "char_count": 2,
       "chars": [
         "\u05d3\"\u05e8 \u05e1\u05d8\u05d9\u05e6'",
@@ -143,7 +143,7 @@
       "event_connections": [
         "Old-City"
       ],
-      "event_count": 9,
+      "event_count": 8,
       "char_count": 8,
       "chars": [
         "\u05de\u05d5\u05de\u05d9\u05d4",
@@ -648,7 +648,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -714,7 +714,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 1,
+      "event_count": 0,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -916,7 +916,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 1,
+      "event_count": 2,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1474,8 +1474,8 @@
       "event_count": 2,
       "char_count": 2,
       "chars": [
-        "\u05d9\u05e2\u05dc",
-        "\u05e6\u05f3\u05d9\u05e3"
+        "\u05d9\u05e2\u05dc\u05d9-\u05d1\u05dc\u05d9",
+        "\u05e6'\u05d0\u05e0\u05d2\u05d4"
       ],
       "has_artifacts": false
     },
@@ -1540,7 +1540,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 2,
       "char_count": 2,
       "chars": [
         "\u05e4\u05d9\u05e7\u05e1\u05dc",
@@ -2032,8 +2032,12 @@
         "mom-dad-in"
       ],
       "event_count": 6,
-      "char_count": 0,
-      "chars": [],
+      "char_count": 3,
+      "chars": [
+        "\u05d0\u05e0\u05d2'\u05dc\u05d0\u05d9\u05d9\u05d6 \u05d2'\u05d5\u05e0\u05d9\u05d5\u05e8",
+        "\u05d0\u05d1\u05d9\u05d1 \u05d4\u05e0\u05e1\u05d9\u05da",
+        "\u05e4\u05e8\u05d0"
+      ],
       "has_artifacts": false
     },
     {
@@ -2099,7 +2103,7 @@
       "event_connections": [
         "mom-dad-out"
       ],
-      "event_count": 18,
+      "event_count": 17,
       "char_count": 13,
       "chars": [
         "\u05d0\u05d1\u05d9\u05d1 \u05d4\u05e0\u05e1\u05d9\u05da",
@@ -2676,8 +2680,10 @@
         "east": null,
         "west": null
       },
-      "event_connections": [],
-      "event_count": 10,
+      "event_connections": [
+        "temple-inside"
+      ],
+      "event_count": 14,
       "char_count": 10,
       "chars": [
         "\u05e2\u05e6\u05dc\u05df \u05d4\u05d8\u05d0\u05d5\u05df",
@@ -2692,6 +2698,74 @@
         "\u05d9\u05e2\u05dc\u05d9"
       ],
       "has_artifacts": false
+    },
+    {
+      "id": "temple-inside",
+      "display_name": "temple-inside",
+      "map_id": 113,
+      "tileset_name": "temple-inside_ts",
+      "is_outside": false,
+      "bgm": "Time-Warp",
+      "status": "in_progress",
+      "deprecated": false,
+      "notes": "Created by DesertTown Map Gen upload, session flamingo-inside_imported_2",
+      "has_name": true,
+      "has_base": false,
+      "base_size_ok": false,
+      "base": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer2": false,
+      "layer2": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "has_layer3": false,
+      "layer3": {
+        "present": false,
+        "empty": false,
+        "width": null,
+        "height": null,
+        "tiles_w": null,
+        "tiles_h": null,
+        "size_ok": false
+      },
+      "tileset_properties_set": true,
+      "warnings": [],
+      "has_layer3b": false,
+      "tileset_ready": true,
+      "tileset_local": true,
+      "tileset_in_game": true,
+      "map_associated": true,
+      "game_tiles": {
+        "tiles_w": 13,
+        "tiles_h": 24
+      },
+      "connected": false,
+      "connections": {
+        "north": null,
+        "south": null,
+        "east": null,
+        "west": null
+      },
+      "event_connections": [
+        "Squere Road Temple"
+      ],
+      "event_count": 3,
+      "char_count": 0,
+      "chars": [],
+      "has_artifacts": true
     }
   ],
   "game_data_present": true

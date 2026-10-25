@@ -835,18 +835,18 @@
       "map_id": 96,
       "event_id": 2,
       "x": 8,
-      "y": 51,
-      "line_key": "MSG_834AEF17_SQUARE",
-      "actions": []
+      "y": 54,
+      "line_key": null,
+      "actions": ["shows MSG_834AEF17_SQUARE"]
     },
     {
       "character_id": "3a513720",
       "map_id": 96,
       "event_id": 3,
-      "x": 14,
-      "y": 50,
-      "line_key": "MSG_3A513720_SQUARE",
-      "actions": []
+      "x": 15,
+      "y": 54,
+      "line_key": null,
+      "actions": ["shows MSG_3A513720_SQUARE"]
     }
   ]
 }

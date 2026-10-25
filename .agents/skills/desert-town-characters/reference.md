@@ -67,8 +67,8 @@ Path: `asset_generation/characters/locations.json`
 | map_id | Integer in `game-files/PBS/map_metadata.txt`. |
 | event_id | `RPG::Event` id on that map. Unique per map. |
 | x, y | Tile coordinates of that event. |
-| line_key | `null` uses `MSG_<ID>_LINE`. Otherwise the override key passed to `pbDesertTalk`. |
-| actions | Short labels for the catalog, in order. Example: `["offers a choice", "gives powder"]`. The script itself stays on the event. |
+| line_key | `null` when the event uses default `pbDesertTalk(id)` (also when extra lines are Show Text 101). Otherwise the override key passed as the second argument of `pbDesertTalk`. |
+| actions | Short labels for the catalog, in order. Example: `["offers a choice", "gives powder"]`, or `["shows MSG_834AEF17_SQUARE"]` for an extra Show Text line. The script itself stays on the event. |
 
 One object per standing spot. The same `character_id` may appear in several objects. Do not copy name, camp, or description into this file.
 
@@ -99,13 +99,24 @@ pbDesertSpeaker("11eaf4fa")
 pbDesertTalk("11eaf4fa")
 ```
 
-`pbDesertSpeaker` sets the name plate for the rest of the event. `pbDesertTalk` only shows the default line. Do not also add Show Text (101/401) for that same line.
+`pbDesertSpeaker` sets the name plate for the rest of the event. `pbDesertTalk` only shows the default line. Do not also add Show Text (101/401) for that same default line.
 
-A line override is the second argument of `pbDesertTalk`, still after `pbDesertSpeaker`:
+**Append a map-specific line (preferred):** default `pbDesertTalk` with no second argument, then Show Text (code 101) with the translation key as the sole parameter. Example (Squere Road Temple promoters):
+
+| Step | Code | Parameter |
+|---|---|---|
+| Speaker | 355 | `pbDesertSpeaker("834aef17")` |
+| Default line | 355 | `pbDesertTalk("834aef17")` |
+| Extra line | 101 | `MSG_834AEF17_SQUARE` |
+| End | 0 | — |
+
+`line_key` in `locations.json` stays `null`. Note the Show Text key in `actions`. Do not append extras with `pbDesertTalk(id, "MSG_…")`.
+
+**Replace** the default line at one spot (no default talk): second argument of `pbDesertTalk`, and set `line_key` to that key:
 
 ```ruby
 pbDesertSpeaker("11eaf4fa")
 pbDesertTalk("11eaf4fa", "MSG_11EAF4FA_KUSUMO")
 ```
 
-Further lines are more `pbDesertTalk` calls, Show Text (101/401), or Script `pbMessage` commands. Every message window while the speaker is set shows the character's name plate. The speaker clears automatically when the event ends. Call `pbDesertSpeaker` again with a different id to switch speaker mid-event.
+Further lines are more Show Text (101/401), more `pbDesertTalk` calls, or Script `pbMessage` commands. Every message window while the speaker is set shows the character's name plate. The speaker clears automatically when the event ends. Call `pbDesertSpeaker` again with a different id to switch speaker mid-event.

@@ -34,7 +34,7 @@ One RPG Maker XP event per standing spot.
 - Event name: `dt_<id>` (example `dt_11eaf4fa`).
 - Trigger: Action Button. The player faces the event and confirms.
 - Graphic: `game-files/Graphics/Characters/dt_<id>.png`. Match the cell size and 4×4 direction layout of an existing charset in that folder.
-- The event starts with the speaker, then the line:
+- The event starts with the speaker, then the default line:
 
 ```ruby
 pbDesertSpeaker("11eaf4fa")
@@ -43,16 +43,20 @@ pbDesertTalk("11eaf4fa")
 
 `pbDesertSpeaker` is the per-character setup. It opens a name plate on the outer edge of every following message window (above it when the box sits in the lower half of the screen) until the event finishes. `pbDesertTalk` only looks up the character and calls `pbMessage(_INTL("MSG_<ID>_LINE"))`. It does not set or clear the speaker. The name is a translation key, so HebrewSupport draws it. Do not put the name inside the message string.
 
-A different line at one spot:
+**Extra map-specific lines (preferred):** keep the default `pbDesertTalk(id)` with no second argument, then add Show Text (command code 101) whose parameter is the translation key alone — not a `pbDesertTalk` override and not a Script/`pbMessage` for that same extra line. Example from Squere Road Temple (`dt_834aef17`, `dt_3a513720`):
 
-```ruby
-pbDesertSpeaker("11eaf4fa")
-pbDesertTalk("11eaf4fa", "MSG_11EAF4FA_KUSUMO")
-```
+1. Script `pbDesertSpeaker("834aef17")`
+2. Script `pbDesertTalk("834aef17")` → default `MSG_834AEF17_LINE`
+3. Show Text `MSG_834AEF17_SQUARE` (code 101)
+4. End (code 0)
 
-Further lines in the same event are more `pbDesertTalk` calls, Show Text (101/401), or `pbMessage` commands. They keep the plate. The speaker clears automatically when the event finishes, so it never leaks onto the next event's text. Call `pbDesertSpeaker` again with another id to switch speaker mid-event.
+Add the key once in `PBS/translations.json`. In `locations.json`, leave `line_key` as `null` (default talk). Put a short label in `actions` for the extra Show Text (e.g. `"shows MSG_834AEF17_SQUARE"`).
 
-Extra actions (a choice, an item, a transfer) are normal Essentials script on that same event page, after `pbDesertTalk`. Record a short label in the placement's `actions` array so the catalog can list it. Do not invent a second scripting language in the JSON.
+Only use `pbDesertTalk(id, "MSG_…")` when this spot should **replace** the default line entirely (no default talk). Do not use the override form to append a second line.
+
+Further lines after that are more Show Text (101/401), more `pbDesertTalk` calls, or `pbMessage` scripts. They keep the plate. The speaker clears automatically when the event finishes. Call `pbDesertSpeaker` again with another id to switch speaker mid-event.
+
+Extra actions (a choice, an item, a transfer) are normal Essentials script on that same event page, after the talk/text commands. Record a short label in the placement's `actions` array so the catalog can list it. Do not invent a second scripting language in the JSON.
 
 ## Name plate plugin
 
@@ -72,7 +76,7 @@ Implement this once, in `game-files/Plugins/DesertTalk/`, not by editing `Data/S
 4. Add translation keys (see [reference.md](reference.md)). Copy the metadata line into `he`. Use **Name (English)** / an existing English line for `en`. If no English text exists, put the Hebrew text in `en` too. Do not invent dialogue.
 5. Add the charset `dt_<id>.png` if it is missing.
 6. Add the event. Copy `MapNNN.rxdata` to `MapNNN.rxdata.bak` first. `RPGXP.exe` must be closed (`Get-Process RPGXP -ErrorAction SilentlyContinue`). Prefer cloning an existing event on that map and changing id, name, x, y, graphic, and the script line. `rubymarshal` can fail on these maps with `invalid link destination`; if it does, stop and place the event in RPG Maker XP, then record the ids. Do not hand-patch marshal bytes.
-7. Append one object to `locations.json`. `line_key` is `null` when the spot uses the default line.
+7. Append one object to `locations.json`. `line_key` is `null` when the spot uses default `pbDesertTalk` (including when extra lines are Show Text 101). Set `line_key` only when `pbDesertTalk` uses a second-argument override that replaces the default.
 8. Rebuild the catalog:
 
 ```bash

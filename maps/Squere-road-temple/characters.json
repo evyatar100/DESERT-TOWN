@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "14538600",
+    "name": "עצלן הטאון",
+    "x": 11,
+    "y": 49,
+    "graphic": "dt_14538600",
+    "notes": "pbDesertSpeaker + pbTownSloth"
+  },
+  {
+    "id": "834aef17",
+    "name": "Looti scooti balaboosti",
+    "x": 8,
+    "y": 51,
+    "graphic": "dt_834aef17",
+    "notes": "pbDesertSpeaker + pbDesertTalk (MSG_834AEF17_SQUARE)"
+  },
+  {
+    "id": "3a513720",
+    "name": "שיפו",
+    "x": 14,
+    "y": 50,
+    "graphic": "dt_3a513720",
+    "notes": "pbDesertSpeaker + pbDesertTalk (MSG_3A513720_SQUARE)"
+  }
+]

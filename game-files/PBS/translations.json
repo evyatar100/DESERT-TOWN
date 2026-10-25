@@ -1499,6 +1499,10 @@
     "SUMO-TEXT": {
       "en": "Welcome to the sumo arena of Camp Kusomo, named after Guru-Sah. Whoever defeats Kuval wins eternal glory.",
       "he": "ברוכים הבאים לזירת הסומו של קאמפ קוסומו על שם גורו-סה. מי שמנצח את קובל זוכה לתהילת עולם"
+    },
+    "OMER-KEY": {
+      "en": "Look at the installation I made. I got 6 allocations for it.",
+      "he": "תראו את המיצב שהכנתי. קיבלתי עליו 6 הקצאות"
     }
   }
 }

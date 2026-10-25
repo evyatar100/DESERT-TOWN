@@ -126,4 +126,33 @@ if defined?(EventHandlers)
       DesertTalk.clear_speaker
     }
   )
+
+  # מומיה hazards use Event Touch, so the player walking into one starts it.
+  # The v21 hotfix does not start a normal Event Touch when the event is the
+  # one that moves, so a mummy that walks up to the player would not fire.
+  # Start it when that mummy is on the player's tile or facing the next tile.
+  EventHandlers.add(:on_frame_update, :desert_mummy_touch,
+    proc {
+      next unless defined?($game_map) && $game_map && defined?($game_player) && $game_player
+      next if defined?($game_temp) && $game_temp && (
+        $game_temp.message_window_showing || $game_temp.in_battle || $game_temp.player_transferring
+      )
+      next if defined?($game_system) && $game_system&.map_interpreter&.running?
+      next if defined?(pbMapInterpreterRunning?) && pbMapInterpreterRunning?
+      px = $game_player.x
+      py = $game_player.y
+      $game_map.events.each_value do |event|
+        next if event.trigger != 2
+        next if event.name != "dt_1820dc9d"
+        next if event.starting || event.jumping?
+        same = event.x == px && event.y == py
+        nx = event.x + (event.direction == 6 ? 1 : event.direction == 4 ? -1 : 0)
+        ny = event.y + (event.direction == 2 ? 1 : event.direction == 8 ? -1 : 0)
+        if same || (nx == px && ny == py)
+          event.start
+          break
+        end
+      end
+    }
+  )
 end

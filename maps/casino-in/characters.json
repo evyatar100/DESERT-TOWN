@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 4,
+    "y": 14,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 13,
+    "y": 15,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 21,
+    "y": 16,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 3,
+    "y": 18,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 8,
+    "y": 21,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 16,
+    "y": 21,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 21,
+    "y": 20,
+    "graphic": "dt_1820dc9d",
+    "notes": "touch kills the player and transfers to Old-City cave entrance (8, 15)"
+  }
+]

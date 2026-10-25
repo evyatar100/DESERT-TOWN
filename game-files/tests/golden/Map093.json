@@ -105,6 +105,62 @@
               ]
             },
             {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "choice = pbMessage(_INTL(\"MSG_E19726F0_PARTY_COFFEE\"),"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  [_INTL(\"MSG_E19726F0_PARTY_YES\"), _INTL(\"MSG_E19726F0_PARTY_NO\")],"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  2)"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "if choice == 0"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  pbMessage(_INTL(\"MSG_E19726F0_PARTY_MAKE\"))"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "elsif choice == 1"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "  pbMessage(_INTL(\"MSG_E19726F0_PARTY_WHY\"))"
+              ]
+            },
+            {
+              "code": 655,
+              "indent": 0,
+              "parameters": [
+                "end"
+              ]
+            },
+            {
               "code": 0,
               "indent": 0,
               "parameters": []
@@ -558,6 +614,48 @@
       ],
       "x": 4,
       "y": 22
+    },
+    {
+      "id": 6,
+      "name": "dt_e9da20da",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"e9da20da\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"e9da20da\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 4
     }
   ],
   "map_id": 93

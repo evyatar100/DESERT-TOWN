@@ -1092,7 +1092,7 @@
       "y": 14,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1103,7 +1103,7 @@
       "y": 15,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1114,7 +1114,7 @@
       "y": 16,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1125,7 +1125,7 @@
       "y": 18,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1136,7 +1136,7 @@
       "y": 21,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1147,7 +1147,7 @@
       "y": 21,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1158,7 +1158,7 @@
       "y": 20,
       "line_key": null,
       "actions": [
-        "on touch, kills the player and transfers to the Old-City cave entrance"
+        "on touch, starts the die event"
       ]
     },
     {
@@ -1241,6 +1241,17 @@
       "y": 20,
       "line_key": null,
       "actions": []
+    },
+    {
+      "character_id": "e19726f0",
+      "map_id": 93,
+      "event_id": 3,
+      "x": 6,
+      "y": 5,
+      "line_key": null,
+      "actions": [
+        "offers MSG_E19726F0_PARTY_COFFEE"
+      ]
     }
   ]
 }

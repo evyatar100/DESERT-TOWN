@@ -148,15 +148,49 @@ def spec_commands(spec)
   list
 end
 
+def move_cmd(code, params = [])
+  newobj('RPG::MoveCommand', code: code, parameters: params)
+end
+
+# Custom autonomous route. Each entry is [code, parameters]. Code 14 is Jump.
+# The list always ends with the empty MoveCommand, same as maps saved by RPGXP.
+def build_route(spec)
+  commands = spec['route']
+  unless commands
+    return newobj('RPG::MoveRoute', repeat: true, skippable: false, list: [cmd(0, [])])
+  end
+  fail!('route must be a list of [code, parameters]') unless commands.is_a?(Array)
+  list = commands.map do |entry|
+    fail!('each route step must be [code, parameters]') unless entry.is_a?(Array) && entry[0].is_a?(Integer)
+    params = entry[1] || []
+    fail!('route parameters must be a list') unless params.is_a?(Array)
+    move_cmd(entry[0], params)
+  end
+  list << move_cmd(0) unless list.last && iv(list.last, :code) == 0
+  newobj('RPG::MoveRoute', repeat: spec.fetch('route_repeat', true),
+         skippable: spec.fetch('skippable', false), list: list)
+end
+
+def flag(spec, key, default)
+  spec.key?(key) ? spec[key] : default
+end
+
 def build_talk_event(id, spec)
   g = newobj('RPG::Event::Page::Graphic', tile_id: 0, character_name: bin(spec['graphic'] || ''),
              character_hue: 0, direction: spec['direction'] || 2, pattern: 0, opacity: 255, blend_type: 0)
   cond = newobj('RPG::Event::Page::Condition', switch1_valid: false, switch2_valid: false, variable_valid: false,
                 self_switch_valid: false, switch1_id: 1, switch2_id: 1, variable_id: 1, variable_value: 0,
                 self_switch_ch: bin('A'))
-  route = newobj('RPG::MoveRoute', repeat: true, skippable: false, list: [cmd(0, [])])
-  page = newobj('RPG::Event::Page', condition: cond, graphic: g, move_type: 0, move_speed: 3, move_frequency: 6,
-                move_route: route, walk_anime: true, step_anime: false, direction_fix: false, through: false,
+  route = build_route(spec)
+  page = newobj('RPG::Event::Page', condition: cond, graphic: g,
+                move_type: spec['move_type'] || 0,
+                move_speed: spec['move_speed'] || 3,
+                move_frequency: spec['move_frequency'] || 6,
+                move_route: route,
+                walk_anime: flag(spec, 'walk_anime', true),
+                step_anime: flag(spec, 'step_anime', false),
+                direction_fix: flag(spec, 'direction_fix', false),
+                through: flag(spec, 'through', false),
                 always_on_top: false, trigger: spec['trigger'] || 0, list: spec_commands(spec))
   newobj('RPG::Event', id: id, name: bin(spec['name']), x: spec['x'], y: spec['y'], pages: [page])
 end
@@ -261,29 +295,40 @@ end
 
 def cmd_add(path, o)
   fail!('add needs --spec FILE.json') unless o[:spec]
-  spec = JSON.parse(File.read(o[:spec], encoding: 'UTF-8'))
+  raw = JSON.parse(File.read(o[:spec], encoding: 'UTF-8'))
+  specs = raw.is_a?(Array) ? raw : [raw]
+  fail!('spec list is empty') if specs.empty?
   map = load_map(path)
   events = iv(map, :events)
-  id = spec['id'] || (events.keys.max.to_i + 1)
-  warn_reused_id(path, id) unless spec['id']
-  fail!("event id #{id} already exists") if events.key?(id)
-  check_bounds!(map, spec['x'], spec['y'])
-  if (other = occupied_by(map, spec['x'], spec['y'])) && !o[:overlap]
-    fail!("tile is taken by #{event_summary(other)} (use --allow-overlap to stack)")
+  taken = {}
+  events.each_value { |e| taken[[iv(e, :x), iv(e, :y)]] = e }
+  added = []
+  specs.each do |spec|
+    fail!('each spec must be an object') unless spec.is_a?(Hash)
+    id = spec['id'] || (events.keys.max.to_i + 1)
+    warn_reused_id(path, id) unless spec['id']
+    fail!("event id #{id} already exists") if events.key?(id)
+    check_bounds!(map, spec['x'], spec['y'])
+    if (other = taken[[spec['x'], spec['y']]]) && !o[:overlap]
+      fail!("tile is taken by #{event_summary(other)} (use --allow-overlap to stack)")
+    end
+    src = nil
+    if spec['clone_from']
+      src = events[spec['clone_from']] or fail!("clone_from #{spec['clone_from']} not found")
+      fail!("clone_from event #{spec['clone_from']} has no pages") if iv(src, :pages).nil? || iv(src, :pages).empty?
+    end
+    events[id] = src ? clone_event(src, id, spec) : build_talk_event(id, spec)
+    taken[[spec['x'], spec['y']]] = events[id]
+    added << id
   end
-  src = nil
-  if spec['clone_from']
-    src = events[spec['clone_from']] or fail!("clone_from #{spec['clone_from']} not found")
-    fail!("clone_from event #{spec['clone_from']} has no pages") if iv(src, :pages).nil? || iv(src, :pages).empty?
-  end
-  before = fingerprint(map)
-  events[id] = src ? clone_event(src, id, spec) : build_talk_event(id, spec)
   if o[:dry]
-    puts "DRY RUN would add #{event_summary(events[id])}"
+    added.each { |id| puts "DRY RUN would add #{event_summary(events[id])}" }
     return
   end
-  safe_write(o[:out] || path, map, before, [id], o[:scratch])
-  puts "added #{event_summary(events[id])}"
+  # The in-memory map is already edited. Fingerprint the file still on disk.
+  before = fingerprint(load_map(path))
+  safe_write(o[:out] || path, map, before, added, o[:scratch])
+  added.each { |id| puts "added #{event_summary(events[id])}" }
 end
 
 # Autonomous movement on the first page. Type 1 is random. Speed 3 is Slow, frequency 4 is High.

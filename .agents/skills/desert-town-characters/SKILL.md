@@ -89,7 +89,7 @@ Reload the map file and confirm the new event starts with `pbDesertSpeaker` then
 
 Until `locations.json` has placements, the page lists production characters and the first frame of each `sheet.png` (top-left 32×48 cell of the 128×192 charset). Portraits are embedded in the file. It does not show map stops. Skip the QA character `e98a1184`.
 
-When the ledger has placements, regenerate and show each standing spot (map name, map id, event id, x, y, line override, actions) on that character. Do not add a stops section while the ledger is empty.
+When the ledger has placements, regenerate and show each standing spot (map name, map id, event id, x, y, line override, actions) on that character. Do not add a stops section while the ledger is empty. Spots on `maps/char-demo` (map 111) get a **Char demo** flag and are listed under Char demo; they do not count as placed.
 
 ## Related skills
 

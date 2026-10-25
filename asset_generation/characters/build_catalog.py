@@ -2,7 +2,9 @@
 
 The page lists each character and the first frame of sheet.png. When
 locations.json has placements, each standing spot is listed on that character.
-characters.rb is regenerated for every production character (QA skipped).
+Placements on maps/char-demo (map 111) get a Char demo mark and are not
+counted as placed. characters.rb is regenerated for every production
+character (QA skipped).
 """
 
 from __future__ import annotations
@@ -40,6 +42,8 @@ MAP_METADATA = ROOT / "game-files" / "PBS" / "map_metadata.txt"
 FRAME = (0, 0, 32, 48)
 QA_DONOR = "dt148_qa_field_1786427980"
 QA_ID = "e98a1184"
+# maps/char-demo — preview grid only. Shown on the card, not counted as placed.
+CHAR_DEMO_MAP_ID = 111
 UNSET = {"", "_(not set)_"}
 FIELD_RE = re.compile(r"^\*\*(.+?):\*\*\s*(.*)$")
 ID_RE = re.compile(r"^[0-9a-f]{8}$")
@@ -237,35 +241,52 @@ def rtl_block(label: str, value: str | None) -> str:
     )
 
 
+def is_char_demo(placement: dict) -> bool:
+    return int(placement.get("map_id", -1)) == CHAR_DEMO_MAP_ID
+
+
+def real_placements(placements: list[dict]) -> list[dict]:
+    return [p for p in placements if not is_char_demo(p)]
+
+
+def stop_item(stop: dict, map_names: dict[int, str]) -> str:
+    map_id = int(stop["map_id"])
+    map_label = map_names.get(map_id) or f"Map {map_id}"
+    line_key = stop.get("line_key")
+    line_bit = f", line {esc(str(line_key))}" if line_key else ""
+    actions = stop.get("actions") or []
+    actions_bit = ""
+    if actions:
+        actions_bit = f', actions: {esc(", ".join(str(a) for a in actions))}'
+    return (
+        "<li dir=\"ltr\">"
+        f"{esc(map_label)} (map {map_id}), event {int(stop['event_id'])}, "
+        f"({int(stop['x'])}, {int(stop['y'])})"
+        f"{line_bit}{actions_bit}"
+        "</li>"
+    )
+
+
 def render_stops(
     character_id: str,
     placements: list[dict],
     map_names: dict[int, str],
 ) -> str:
     stops = [p for p in placements if p.get("character_id") == character_id]
-    if not stops:
-        return ""
-    items: list[str] = []
-    for stop in stops:
-        map_id = int(stop["map_id"])
-        map_label = map_names.get(map_id) or f"Map {map_id}"
-        line_key = stop.get("line_key")
-        line_bit = f", line {esc(str(line_key))}" if line_key else ""
-        actions = stop.get("actions") or []
-        actions_bit = ""
-        if actions:
-            actions_bit = f', actions: {esc(", ".join(str(a) for a in actions))}'
-        items.append(
-            "<li dir=\"ltr\">"
-            f"{esc(map_label)} (map {map_id}), event {int(stop['event_id'])}, "
-            f"({int(stop['x'])}, {int(stop['y'])})"
-            f"{line_bit}{actions_bit}"
-            "</li>"
+    world = [p for p in stops if not is_char_demo(p)]
+    demo = [p for p in stops if is_char_demo(p)]
+    parts: list[str] = []
+    if world:
+        parts.append(
+            '<div class="stops"><span class="label">Map stops</span>'
+            f"<ul>{''.join(stop_item(p, map_names) for p in world)}</ul></div>"
         )
-    return (
-        '<div class="stops"><span class="label">Map stops</span>'
-        f"<ul>{''.join(items)}</ul></div>"
-    )
+    if demo:
+        parts.append(
+            '<div class="stops"><span class="label">Char demo</span>'
+            f"<ul>{''.join(stop_item(p, map_names) for p in demo)}</ul></div>"
+        )
+    return "".join(parts)
 
 
 def render_card(
@@ -279,7 +300,9 @@ def render_card(
     if name_en and name_en != name_he:
         english = f'<p class="en" dir="ltr">{esc(name_en)}</p>'
     camp = character["camp"] or "No camp"
-    placed = any(p.get("character_id") == character["id"] for p in placements)
+    mine = [p for p in placements if p.get("character_id") == character["id"]]
+    placed = any(not is_char_demo(p) for p in mine)
+    in_demo = any(is_char_demo(p) for p in mine)
     search = " ".join(
         part
         for part in (
@@ -293,6 +316,7 @@ def render_card(
             character["notes"],
             character["id"],
             "placed" if placed else "unplaced",
+            "char-demo" if in_demo else "",
         )
         if part
     )
@@ -317,12 +341,14 @@ def render_card(
         flags.append('<span class="flag yes">Placed</span>')
     else:
         flags.append('<span class="flag">Unplaced</span>')
+    if in_demo:
+        flags.append('<span class="flag demo">Char demo</span>')
     flag_row = f'<p class="flags">{"".join(flags)}</p>' if flags else ""
     line = ""
     if character["line"]:
         line = f'<p class="line" dir="rtl" lang="he">{esc(character["line"])}</p>'
     stops = render_stops(str(character["id"]), placements, map_names)
-    return f"""<article data-camp="{esc(camp)}" data-search="{esc(search.lower())}" data-placed="{'1' if placed else '0'}">
+    return f"""<article data-camp="{esc(camp)}" data-search="{esc(search.lower())}" data-placed="{'1' if placed else '0'}" data-demo="{'1' if in_demo else '0'}">
   <div class="photo"><img src="{character["photo"]}" width="128" height="192" alt="{esc(str(name_he))}"></div>
   <h2 dir="rtl" lang="he">{esc(str(name_he))}</h2>
   {english}
@@ -347,14 +373,21 @@ def render(
             f'<button type="button" data-camp-filter="{esc(camp)}" dir="rtl" lang="he">{esc(camp)}</button>'
         )
     cards = "\n".join(render_card(c, placements, map_names) for c in characters)
-    placed_ids = {p.get("character_id") for p in placements}
+    world = real_placements(placements)
+    demo = [p for p in placements if is_char_demo(p)]
+    placed_ids = {p.get("character_id") for p in world}
+    demo_ids = {p.get("character_id") for p in demo}
     placed_count = sum(1 for c in characters if c["id"] in placed_ids)
-    stop_count = len(placements)
-    if stop_count:
-        count_line = (
-            f'<span id="shown">{len(characters)}</span> characters · '
-            f"{placed_count} placed · {stop_count} map stops"
-        )
+    demo_count = sum(1 for c in characters if c["id"] in demo_ids)
+    stop_count = len(world)
+    if stop_count or demo_count:
+        bits = [f'<span id="shown">{len(characters)}</span> characters']
+        bits.append(f"{placed_count} placed")
+        if stop_count:
+            bits.append(f"{stop_count} map stops")
+        if demo_count:
+            bits.append(f"{demo_count} in char-demo")
+        count_line = " · ".join(bits)
     else:
         count_line = f'<span id="shown">{len(characters)}</span> characters. No map stops yet.'
     return f"""<!DOCTYPE html>
@@ -473,6 +506,7 @@ def render(
   }}
   .flag.no {{ color: #ffb4a8; border-color: #8a4a40; }}
   .flag.yes {{ color: #b8e0a8; border-color: #4a6a40; }}
+  .flag.demo {{ color: #a8c8e0; border-color: #40608a; }}
   .donor {{ margin-top: 10px; font-size: 12px; }}
 </style>
 </head>

@@ -1677,22 +1677,15 @@
       "actions": []
     },
     {
-      "character_id": "013feab1",
-      "map_id": 78,
-      "event_id": 4,
-      "x": 18,
-      "y": 20,
-      "line_key": null,
-      "actions": []
-    },
-    {
       "character_id": "931c4ae6",
       "map_id": 78,
-      "event_id": 5,
-      "x": 12,
-      "y": 44,
+      "event_id": 4,
+      "x": 8,
+      "y": 15,
       "line_key": null,
-      "actions": []
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
     },
     {
       "character_id": "abd7f899",

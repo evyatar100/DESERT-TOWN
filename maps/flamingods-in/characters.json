@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "5990bffc",
+    "name": "ריטה",
+    "x": 16,
+    "y": 25,
+    "graphic": "dt_5990bffc",
+    "notes": "camp=פלמינגודז; just inside the door; copied from char-demo"
+  },
+  {
+    "id": "f9a7cff7",
+    "name": "סש",
+    "x": 30,
+    "y": 12,
+    "graphic": "dt_f9a7cff7",
+    "notes": "camp=פלמינגודז; at the bar; copied from char-demo"
+  },
+  {
+    "id": "574177dd",
+    "name": "סיונבי",
+    "x": 13,
+    "y": 11,
+    "graphic": "dt_574177dd",
+    "notes": "camp=פלמינגודז; by the lounge; copied from char-demo"
+  },
+  {
+    "id": "1988218f",
+    "name": "הילה הסטרייטית",
+    "x": 8,
+    "y": 20,
+    "graphic": "dt_1988218f",
+    "notes": "camp=פלמינגודז; by the toilets; copied from char-demo"
+  }
+]

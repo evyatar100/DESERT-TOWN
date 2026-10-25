@@ -1160,6 +1160,87 @@
       "actions": [
         "on touch, kills the player and transfers to the Old-City cave entrance"
       ]
+    },
+    {
+      "character_id": "708d6c34",
+      "map_id": 77,
+      "event_id": 2,
+      "x": 15,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "9923f1c4",
+      "map_id": 77,
+      "event_id": 3,
+      "x": 17,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c626f0d6",
+      "map_id": 77,
+      "event_id": 4,
+      "x": 12,
+      "y": 35,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "671405a6",
+      "map_id": 77,
+      "event_id": 5,
+      "x": 19,
+      "y": 35,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "754ba04a",
+      "map_id": 77,
+      "event_id": 6,
+      "x": 9,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5990bffc",
+      "map_id": 99,
+      "event_id": 1,
+      "x": 16,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "f9a7cff7",
+      "map_id": 99,
+      "event_id": 2,
+      "x": 30,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "574177dd",
+      "map_id": 99,
+      "event_id": 3,
+      "x": 13,
+      "y": 11,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1988218f",
+      "map_id": 99,
+      "event_id": 4,
+      "x": 8,
+      "y": 20,
+      "line_key": null,
+      "actions": []
     }
   ]
 }

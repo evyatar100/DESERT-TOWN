@@ -10,5 +10,11 @@
     "map_id": 80,
     "tileset_id": 25,
     "imported_at": "2026-10-20T11:04:07"
+  },
+  "maps/flamingods-in/artifacts/desert-town-mapgen/map-export.zip": {
+    "sha256": "20dfec5e5fe5a2a47f395180160724c0c260e67ca24917add6a9e6750186920e",
+    "map_id": 99,
+    "tileset_id": 59,
+    "imported_at": "2026-10-25T19:43:29"
   }
 }

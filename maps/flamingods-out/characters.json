@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": "708d6c34",
+    "name": "פלמינגו",
+    "x": 15,
+    "y": 27,
+    "graphic": "dt_708d6c34",
+    "notes": "camp=פלמינגודז; left of the tent door; copied from char-demo"
+  },
+  {
+    "id": "9923f1c4",
+    "name": "פלמינגה",
+    "x": 17,
+    "y": 27,
+    "graphic": "dt_9923f1c4",
+    "notes": "camp=פלמינגודז; right of the tent door; copied from char-demo"
+  },
+  {
+    "id": "c626f0d6",
+    "name": "לדה בת נחיר",
+    "x": 12,
+    "y": 35,
+    "graphic": "dt_c626f0d6",
+    "notes": "camp=פלמינגודז; outside the gate, left of the road; copied from char-demo"
+  },
+  {
+    "id": "671405a6",
+    "name": "פאקו",
+    "x": 19,
+    "y": 35,
+    "graphic": "dt_671405a6",
+    "notes": "camp=פלמינגודז; outside the gate, right of the road; copied from char-demo"
+  },
+  {
+    "id": "754ba04a",
+    "name": "מיכלושס",
+    "x": 9,
+    "y": 27,
+    "graphic": "dt_754ba04a",
+    "notes": "camp=פלמינגודז; inside the fence, left of the braziers; copied from char-demo"
+  }
+]

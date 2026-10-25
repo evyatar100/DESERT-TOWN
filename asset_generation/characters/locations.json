@@ -19,6 +19,15 @@
       "actions": []
     },
     {
+      "character_id": "14538600",
+      "map_id": 96,
+      "event_id": 1,
+      "x": 11,
+      "y": 49,
+      "line_key": "MSG_14538600_SQUARE_INTRO",
+      "actions": ["offers character select"]
+    },
+    {
       "character_id": "8d654949",
       "map_id": 112,
       "event_id": 3,

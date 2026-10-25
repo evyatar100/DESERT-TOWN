@@ -1,798 +1,6 @@
 {
   "placements": [
     {
-      "character_id": "0552d83f",
-      "map_id": 111,
-      "event_id": 1,
-      "x": 1,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "845a91aa",
-      "map_id": 111,
-      "event_id": 2,
-      "x": 3,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "8f6972ef",
-      "map_id": 111,
-      "event_id": 3,
-      "x": 5,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "6b57ce76",
-      "map_id": 111,
-      "event_id": 4,
-      "x": 7,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "ff8eab6b",
-      "map_id": 111,
-      "event_id": 5,
-      "x": 9,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "266d65c6",
-      "map_id": 111,
-      "event_id": 6,
-      "x": 11,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "0f0fdcf5",
-      "map_id": 111,
-      "event_id": 7,
-      "x": 13,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c081cd67",
-      "map_id": 111,
-      "event_id": 8,
-      "x": 15,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "0211e32a",
-      "map_id": 111,
-      "event_id": 9,
-      "x": 17,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "92958f4d",
-      "map_id": 111,
-      "event_id": 10,
-      "x": 19,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "6a9c3d6f",
-      "map_id": 111,
-      "event_id": 11,
-      "x": 21,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "3cdacb96",
-      "map_id": 111,
-      "event_id": 12,
-      "x": 23,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "4c6540a3",
-      "map_id": 111,
-      "event_id": 13,
-      "x": 25,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d4540277",
-      "map_id": 111,
-      "event_id": 14,
-      "x": 27,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "4b08e38a",
-      "map_id": 111,
-      "event_id": 15,
-      "x": 29,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "82451b58",
-      "map_id": 111,
-      "event_id": 16,
-      "x": 31,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "2082afb4",
-      "map_id": 111,
-      "event_id": 17,
-      "x": 33,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "abd7f899",
-      "map_id": 111,
-      "event_id": 18,
-      "x": 35,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "b19b1f15",
-      "map_id": 111,
-      "event_id": 19,
-      "x": 37,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "11eaf4fa",
-      "map_id": 111,
-      "event_id": 20,
-      "x": 39,
-      "y": 1,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "30c62b46",
-      "map_id": 111,
-      "event_id": 21,
-      "x": 1,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "85acb2b8",
-      "map_id": 111,
-      "event_id": 22,
-      "x": 3,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "326f5ab5",
-      "map_id": 111,
-      "event_id": 23,
-      "x": 5,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "a01046dc",
-      "map_id": 111,
-      "event_id": 24,
-      "x": 7,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "fcba2ff5",
-      "map_id": 111,
-      "event_id": 25,
-      "x": 9,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c626f0d6",
-      "map_id": 111,
-      "event_id": 26,
-      "x": 11,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "648b924a",
-      "map_id": 111,
-      "event_id": 27,
-      "x": 13,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "a715ed37",
-      "map_id": 111,
-      "event_id": 28,
-      "x": 15,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "963c65ea",
-      "map_id": 111,
-      "event_id": 29,
-      "x": 17,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "a4012984",
-      "map_id": 111,
-      "event_id": 30,
-      "x": 19,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "574177dd",
-      "map_id": 111,
-      "event_id": 31,
-      "x": 21,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "2efd31ca",
-      "map_id": 111,
-      "event_id": 32,
-      "x": 23,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "f9a7cff7",
-      "map_id": 111,
-      "event_id": 33,
-      "x": 25,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "65029b81",
-      "map_id": 111,
-      "event_id": 34,
-      "x": 27,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "2054a176",
-      "map_id": 111,
-      "event_id": 35,
-      "x": 29,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "671405a6",
-      "map_id": 111,
-      "event_id": 36,
-      "x": 31,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d5383627",
-      "map_id": 111,
-      "event_id": 37,
-      "x": 33,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "9923f1c4",
-      "map_id": 111,
-      "event_id": 38,
-      "x": 35,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "708d6c34",
-      "map_id": 111,
-      "event_id": 39,
-      "x": 37,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "b25567c8",
-      "map_id": 111,
-      "event_id": 40,
-      "x": 39,
-      "y": 3,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c85a6dc5",
-      "map_id": 111,
-      "event_id": 41,
-      "x": 1,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "207a26e8",
-      "map_id": 111,
-      "event_id": 42,
-      "x": 3,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "b3178e6b",
-      "map_id": 111,
-      "event_id": 43,
-      "x": 5,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "e9da20da",
-      "map_id": 111,
-      "event_id": 44,
-      "x": 7,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "5a75819b",
-      "map_id": 111,
-      "event_id": 45,
-      "x": 9,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "5990bffc",
-      "map_id": 111,
-      "event_id": 46,
-      "x": 11,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "890b649e",
-      "map_id": 111,
-      "event_id": 47,
-      "x": 13,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "f9348fd0",
-      "map_id": 111,
-      "event_id": 48,
-      "x": 15,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "670f79e3",
-      "map_id": 111,
-      "event_id": 49,
-      "x": 17,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "4a001210",
-      "map_id": 111,
-      "event_id": 50,
-      "x": 19,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "e19726f0",
-      "map_id": 111,
-      "event_id": 51,
-      "x": 21,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d472e0a3",
-      "map_id": 111,
-      "event_id": 52,
-      "x": 23,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "6b53f14c",
-      "map_id": 111,
-      "event_id": 53,
-      "x": 25,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "834aef17",
-      "map_id": 111,
-      "event_id": 54,
-      "x": 27,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "5cb9ff14",
-      "map_id": 111,
-      "event_id": 55,
-      "x": 29,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "f90d4de9",
-      "map_id": 111,
-      "event_id": 56,
-      "x": 31,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "fc5dfab1",
-      "map_id": 111,
-      "event_id": 57,
-      "x": 33,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "788b2614",
-      "map_id": 111,
-      "event_id": 58,
-      "x": 35,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "b5fa3a91",
-      "map_id": 111,
-      "event_id": 59,
-      "x": 37,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "937a4a9a",
-      "map_id": 111,
-      "event_id": 60,
-      "x": 39,
-      "y": 5,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "2f88eb7f",
-      "map_id": 111,
-      "event_id": 61,
-      "x": 1,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "110ffafa",
-      "map_id": 111,
-      "event_id": 62,
-      "x": 3,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "ab97c65d",
-      "map_id": 111,
-      "event_id": 63,
-      "x": 5,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "305385c5",
-      "map_id": 111,
-      "event_id": 64,
-      "x": 7,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "1988218f",
-      "map_id": 111,
-      "event_id": 65,
-      "x": 9,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "a003ee69",
-      "map_id": 111,
-      "event_id": 66,
-      "x": 11,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "013feab1",
-      "map_id": 111,
-      "event_id": 67,
-      "x": 13,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "9b3660d1",
-      "map_id": 111,
-      "event_id": 68,
-      "x": 15,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d6ad577a",
-      "map_id": 111,
-      "event_id": 69,
-      "x": 17,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "bb70b1dd",
-      "map_id": 111,
-      "event_id": 70,
-      "x": 19,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "1820dc9d",
-      "map_id": 111,
-      "event_id": 71,
-      "x": 21,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "754ba04a",
-      "map_id": 111,
-      "event_id": 72,
-      "x": 23,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "4f50bb0a",
-      "map_id": 111,
-      "event_id": 73,
-      "x": 25,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "7afa738a",
-      "map_id": 111,
-      "event_id": 74,
-      "x": 27,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d107409e",
-      "map_id": 111,
-      "event_id": 75,
-      "x": 29,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c11768dc",
-      "map_id": 111,
-      "event_id": 76,
-      "x": 31,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "b201fb8a",
-      "map_id": 111,
-      "event_id": 77,
-      "x": 33,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "5571ef69",
-      "map_id": 111,
-      "event_id": 78,
-      "x": 35,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "7c875377",
-      "map_id": 111,
-      "event_id": 79,
-      "x": 37,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "bb45a209",
-      "map_id": 111,
-      "event_id": 80,
-      "x": 39,
-      "y": 7,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "c414cf08",
-      "map_id": 111,
-      "event_id": 81,
-      "x": 1,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "661f55e6",
-      "map_id": 111,
-      "event_id": 82,
-      "x": 3,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "02a02e20",
-      "map_id": 111,
-      "event_id": 83,
-      "x": 5,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "d2a3ac11",
-      "map_id": 111,
-      "event_id": 84,
-      "x": 7,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "64aeedbe",
-      "map_id": 111,
-      "event_id": 85,
-      "x": 9,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "3a513720",
-      "map_id": 111,
-      "event_id": 86,
-      "x": 11,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "1a118967",
-      "map_id": 111,
-      "event_id": 87,
-      "x": 13,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "a7ba5185",
-      "map_id": 111,
-      "event_id": 88,
-      "x": 15,
-      "y": 9,
-      "line_key": null,
-      "actions": []
-    },
-    {
       "character_id": "73f1d834",
       "map_id": 112,
       "event_id": 1,
@@ -816,6 +24,798 @@
       "event_id": 3,
       "x": 5,
       "y": 1,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d107409e",
+      "map_id": 111,
+      "event_id": 1,
+      "x": 1,
+      "y": 1,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "834aef17",
+      "map_id": 111,
+      "event_id": 2,
+      "x": 1,
+      "y": 2,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "82451b58",
+      "map_id": 111,
+      "event_id": 3,
+      "x": 1,
+      "y": 3,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4a001210",
+      "map_id": 111,
+      "event_id": 4,
+      "x": 3,
+      "y": 3,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "788b2614",
+      "map_id": 111,
+      "event_id": 5,
+      "x": 1,
+      "y": 4,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "9b3660d1",
+      "map_id": 111,
+      "event_id": 6,
+      "x": 3,
+      "y": 4,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "bb70b1dd",
+      "map_id": 111,
+      "event_id": 7,
+      "x": 5,
+      "y": 4,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d2a3ac11",
+      "map_id": 111,
+      "event_id": 8,
+      "x": 1,
+      "y": 5,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6a9c3d6f",
+      "map_id": 111,
+      "event_id": 9,
+      "x": 1,
+      "y": 6,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c85a6dc5",
+      "map_id": 111,
+      "event_id": 10,
+      "x": 3,
+      "y": 6,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "30c62b46",
+      "map_id": 111,
+      "event_id": 11,
+      "x": 1,
+      "y": 7,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "ff8eab6b",
+      "map_id": 111,
+      "event_id": 12,
+      "x": 1,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2f88eb7f",
+      "map_id": 111,
+      "event_id": 13,
+      "x": 3,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "92958f4d",
+      "map_id": 111,
+      "event_id": 14,
+      "x": 5,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4c6540a3",
+      "map_id": 111,
+      "event_id": 15,
+      "x": 7,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "fcba2ff5",
+      "map_id": 111,
+      "event_id": 16,
+      "x": 9,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a4012984",
+      "map_id": 111,
+      "event_id": 17,
+      "x": 11,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "65029b81",
+      "map_id": 111,
+      "event_id": 18,
+      "x": 13,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b25567c8",
+      "map_id": 111,
+      "event_id": 19,
+      "x": 15,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "890b649e",
+      "map_id": 111,
+      "event_id": 20,
+      "x": 17,
+      "y": 8,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "110ffafa",
+      "map_id": 111,
+      "event_id": 21,
+      "x": 1,
+      "y": 9,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4f50bb0a",
+      "map_id": 111,
+      "event_id": 22,
+      "x": 3,
+      "y": 9,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "ab97c65d",
+      "map_id": 111,
+      "event_id": 23,
+      "x": 1,
+      "y": 10,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a003ee69",
+      "map_id": 111,
+      "event_id": 24,
+      "x": 3,
+      "y": 10,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "013feab1",
+      "map_id": 111,
+      "event_id": 25,
+      "x": 1,
+      "y": 11,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "937a4a9a",
+      "map_id": 111,
+      "event_id": 26,
+      "x": 1,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2082afb4",
+      "map_id": 111,
+      "event_id": 27,
+      "x": 3,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "abd7f899",
+      "map_id": 111,
+      "event_id": 28,
+      "x": 5,
+      "y": 12,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "bb45a209",
+      "map_id": 111,
+      "event_id": 29,
+      "x": 1,
+      "y": 13,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "661f55e6",
+      "map_id": 111,
+      "event_id": 30,
+      "x": 1,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "fc5dfab1",
+      "map_id": 111,
+      "event_id": 31,
+      "x": 1,
+      "y": 15,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "e9da20da",
+      "map_id": 111,
+      "event_id": 32,
+      "x": 1,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "f9348fd0",
+      "map_id": 111,
+      "event_id": 33,
+      "x": 3,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4b08e38a",
+      "map_id": 111,
+      "event_id": 34,
+      "x": 1,
+      "y": 17,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "f90d4de9",
+      "map_id": 111,
+      "event_id": 35,
+      "x": 1,
+      "y": 18,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1988218f",
+      "map_id": 111,
+      "event_id": 36,
+      "x": 1,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c626f0d6",
+      "map_id": 111,
+      "event_id": 37,
+      "x": 3,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "754ba04a",
+      "map_id": 111,
+      "event_id": 38,
+      "x": 5,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "574177dd",
+      "map_id": 111,
+      "event_id": 39,
+      "x": 7,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "f9a7cff7",
+      "map_id": 111,
+      "event_id": 40,
+      "x": 9,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "671405a6",
+      "map_id": 111,
+      "event_id": 41,
+      "x": 11,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "9923f1c4",
+      "map_id": 111,
+      "event_id": 42,
+      "x": 13,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "708d6c34",
+      "map_id": 111,
+      "event_id": 43,
+      "x": 15,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5990bffc",
+      "map_id": 111,
+      "event_id": 44,
+      "x": 17,
+      "y": 19,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d472e0a3",
+      "map_id": 111,
+      "event_id": 45,
+      "x": 1,
+      "y": 20,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6b57ce76",
+      "map_id": 111,
+      "event_id": 46,
+      "x": 1,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0552d83f",
+      "map_id": 111,
+      "event_id": 47,
+      "x": 3,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "266d65c6",
+      "map_id": 111,
+      "event_id": 48,
+      "x": 5,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0f0fdcf5",
+      "map_id": 111,
+      "event_id": 49,
+      "x": 7,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c081cd67",
+      "map_id": 111,
+      "event_id": 50,
+      "x": 9,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b19b1f15",
+      "map_id": 111,
+      "event_id": 51,
+      "x": 11,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "11eaf4fa",
+      "map_id": 111,
+      "event_id": 52,
+      "x": 13,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "85acb2b8",
+      "map_id": 111,
+      "event_id": 53,
+      "x": 15,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a01046dc",
+      "map_id": 111,
+      "event_id": 54,
+      "x": 17,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "845a91aa",
+      "map_id": 111,
+      "event_id": 55,
+      "x": 19,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a715ed37",
+      "map_id": 111,
+      "event_id": 56,
+      "x": 21,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "963c65ea",
+      "map_id": 111,
+      "event_id": 57,
+      "x": 23,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b201fb8a",
+      "map_id": 111,
+      "event_id": 58,
+      "x": 25,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5571ef69",
+      "map_id": 111,
+      "event_id": 59,
+      "x": 27,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2efd31ca",
+      "map_id": 111,
+      "event_id": 60,
+      "x": 29,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2054a176",
+      "map_id": 111,
+      "event_id": 61,
+      "x": 31,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c414cf08",
+      "map_id": 111,
+      "event_id": 62,
+      "x": 33,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "207a26e8",
+      "map_id": 111,
+      "event_id": 63,
+      "x": 35,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "670f79e3",
+      "map_id": 111,
+      "event_id": 64,
+      "x": 37,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1a118967",
+      "map_id": 111,
+      "event_id": 65,
+      "x": 39,
+      "y": 21,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "e19726f0",
+      "map_id": 111,
+      "event_id": 66,
+      "x": 1,
+      "y": 22,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "1820dc9d",
+      "map_id": 111,
+      "event_id": 67,
+      "x": 1,
+      "y": 23,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d4540277",
+      "map_id": 111,
+      "event_id": 68,
+      "x": 1,
+      "y": 24,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "8f6972ef",
+      "map_id": 111,
+      "event_id": 69,
+      "x": 1,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "3cdacb96",
+      "map_id": 111,
+      "event_id": 70,
+      "x": 3,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "648b924a",
+      "map_id": 111,
+      "event_id": 71,
+      "x": 5,
+      "y": 25,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "3a513720",
+      "map_id": 111,
+      "event_id": 72,
+      "x": 1,
+      "y": 26,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6b53f14c",
+      "map_id": 111,
+      "event_id": 73,
+      "x": 1,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5cb9ff14",
+      "map_id": 111,
+      "event_id": 74,
+      "x": 3,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0211e32a",
+      "map_id": 111,
+      "event_id": 75,
+      "x": 5,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b5fa3a91",
+      "map_id": 111,
+      "event_id": 76,
+      "x": 7,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "305385c5",
+      "map_id": 111,
+      "event_id": 77,
+      "x": 9,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "326f5ab5",
+      "map_id": 111,
+      "event_id": 78,
+      "x": 11,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d6ad577a",
+      "map_id": 111,
+      "event_id": 79,
+      "x": 13,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "7afa738a",
+      "map_id": 111,
+      "event_id": 80,
+      "x": 15,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c11768dc",
+      "map_id": 111,
+      "event_id": 81,
+      "x": 17,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "7c875377",
+      "map_id": 111,
+      "event_id": 82,
+      "x": 19,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "d5383627",
+      "map_id": 111,
+      "event_id": 83,
+      "x": 21,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "02a02e20",
+      "map_id": 111,
+      "event_id": 84,
+      "x": 23,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b3178e6b",
+      "map_id": 111,
+      "event_id": 85,
+      "x": 25,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "5a75819b",
+      "map_id": 111,
+      "event_id": 86,
+      "x": 27,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "64aeedbe",
+      "map_id": 111,
+      "event_id": 87,
+      "x": 29,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a7ba5185",
+      "map_id": 111,
+      "event_id": 88,
+      "x": 31,
+      "y": 27,
       "line_key": null,
       "actions": []
     }

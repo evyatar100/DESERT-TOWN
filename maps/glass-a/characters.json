@@ -1,21 +1,5 @@
 [
   {
-    "id": "a003ee69",
-    "name": "חן",
-    "x": 44,
-    "y": 11,
-    "graphic": "dt_a003ee69",
-    "notes": "pbDesertSpeaker + pbDesertTalk; camp=הארט -ביט"
-  },
-  {
-    "id": "ab97c65d",
-    "name": "ג׳ק",
-    "x": 48,
-    "y": 11,
-    "graphic": "dt_ab97c65d",
-    "notes": "pbDesertSpeaker + pbDesertTalk; camp=הארט-ביט"
-  },
-  {
     "id": "d5383627",
     "name": "פיקסל",
     "x": 54,

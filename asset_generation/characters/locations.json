@@ -1471,24 +1471,6 @@
       "actions": []
     },
     {
-      "character_id": "a003ee69",
-      "map_id": 109,
-      "event_id": 1,
-      "x": 44,
-      "y": 11,
-      "line_key": null,
-      "actions": []
-    },
-    {
-      "character_id": "ab97c65d",
-      "map_id": 109,
-      "event_id": 2,
-      "x": 48,
-      "y": 11,
-      "line_key": null,
-      "actions": []
-    },
-    {
       "character_id": "d5383627",
       "map_id": 109,
       "event_id": 3,

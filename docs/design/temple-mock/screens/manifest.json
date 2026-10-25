@@ -1,0 +1,155 @@
+[
+  {
+    "file": "screens/C1_S1_forkA.png",
+    "concept": 1,
+    "screen_id": "C1_S1",
+    "title_en": "Parton's gift dot lands by the lone stranger",
+    "caption_en": "Your gift dot lands beside the one stranger's dot you cannot choose; a small crop shows Kusama lending you the way to place one.",
+    "fork": "A",
+    "recommended": true
+  },
+  {
+    "file": "screens/C1_S2_forkA.png",
+    "concept": 1,
+    "screen_id": "C1_S2",
+    "title_en": "The wall, first look",
+    "caption_en": "You arrive at a wall full of other people's dots and pick where yours goes.",
+    "fork": "A",
+    "recommended": true
+  },
+  {
+    "file": "screens/C1_S3_forkA.png",
+    "concept": 1,
+    "screen_id": "C1_S3",
+    "title_en": "Yonath's crystal",
+    "caption_en": "Four faint tries become one crystal, and you read how many tries the real one took.",
+    "fork": "A",
+    "recommended": true
+  },
+  {
+    "file": "screens/C1_S4_forkA.png",
+    "concept": 1,
+    "screen_id": "C1_S4",
+    "title_en": "The wall goes on without you",
+    "caption_en": "Your marks have melted into everyone else's; the wall carries on.",
+    "fork": "A",
+    "recommended": true
+  },
+  {
+    "file": "screens/C1_S2_forkB.png",
+    "concept": 1,
+    "screen_id": "C1_S2",
+    "title_en": "The wall, first look (indigo)",
+    "caption_en": "The same first look on a night-sky wall.",
+    "fork": "B",
+    "recommended": false
+  },
+  {
+    "file": "screens/C1_S3_forkB.png",
+    "concept": 1,
+    "screen_id": "C1_S3",
+    "title_en": "Yonath's crystal (indigo)",
+    "caption_en": "The same crystal moment on a night-sky wall.",
+    "fork": "B",
+    "recommended": false
+  },
+  {
+    "file": "screens/C1_S1_lend.png",
+    "concept": 1,
+    "screen_id": "C1_S1_LEND",
+    "title_en": "Kusama's lend line (full size of the crop)",
+    "caption_en": "Standing at Kusama's statue, you are told it lends you a way to place a dot.",
+    "fork": "A",
+    "recommended": true
+  },
+  {
+    "file": "screens/C2_S1.png",
+    "concept": 2,
+    "screen_id": "C2_S1",
+    "title_en": "Yonath's key clicks",
+    "caption_en": "After two wrong pockets the key finally fits and you read how many tries it took her.",
+    "fork": null,
+    "recommended": true
+  },
+  {
+    "file": "screens/C2_S2.png",
+    "concept": 2,
+    "screen_id": "C2_S2",
+    "title_en": "Kusama's sticker sheet",
+    "caption_en": "You stick your last coloured dots on a blank sheet; used stickers just vanish.",
+    "fork": null,
+    "recommended": true
+  },
+  {
+    "file": "screens/C2_S3.png",
+    "concept": 2,
+    "screen_id": "C2_S3",
+    "title_en": "At the arch, it can only be given",
+    "caption_en": "You stand holding what you took, and are told you can't keep it.",
+    "fork": null,
+    "recommended": true
+  },
+  {
+    "file": "screens/C2_S4.png",
+    "concept": 2,
+    "screen_id": "C2_S4",
+    "title_en": "Giving the book away",
+    "caption_en": "You hand a small child the book and hear 'for me? thank you'; the inset shows the same child next visit, still holding it.",
+    "fork": null,
+    "recommended": true
+  },
+  {
+    "file": "screens/C3_S1_forkB.png",
+    "concept": 3,
+    "screen_id": "C3_S1",
+    "title_en": "The hall, not yet in time",
+    "caption_en": "Four faint rings pulse out of step in a quiet dark hall.",
+    "fork": "B",
+    "recommended": true
+  },
+  {
+    "file": "screens/C3_S2_forkB.png",
+    "concept": 3,
+    "screen_id": "C3_S2",
+    "title_en": "Pressing with Yonath",
+    "caption_en": "You press Z as the ring swells and her crystal lattice fills in a little more.",
+    "fork": "B",
+    "recommended": true
+  },
+  {
+    "file": "screens/C3_S2_fact_forkB.png",
+    "concept": 3,
+    "screen_id": "C3_S2_FACT",
+    "title_en": "Yonath's fact before play",
+    "caption_en": "Before pressing, you read what Yonath did.",
+    "fork": "B",
+    "recommended": true
+  },
+  {
+    "file": "screens/C3_S3_forkA.png",
+    "concept": 3,
+    "screen_id": "C3_S3",
+    "title_en": "The four together (four colours)",
+    "caption_en": "All four rings finally pulse in step, each in its own colour.",
+    "fork": "A",
+    "recommended": false
+  },
+  {
+    "file": "screens/C3_S3_forkB.png",
+    "concept": 3,
+    "screen_id": "C3_S3",
+    "title_en": "The four together (one warm light)",
+    "caption_en": "All four rings finally pulse in step, one warm light, told apart only by shape.",
+    "fork": "B",
+    "recommended": true
+  },
+  {
+    "file": "screens/C3_S4_forkB.png",
+    "concept": 3,
+    "screen_id": "C3_S4",
+    "title_en": "The stop",
+    "caption_en": "Everything stops together and the hall goes quiet.",
+    "fork": "B",
+    "recommended": true
+  }
+]

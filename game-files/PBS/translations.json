@@ -1303,6 +1303,198 @@
     "MSG_8D654949_LINE": {
       "en": "כשאני הייתי קטן, הייתי גור דינוזאורים",
       "he": "כשאני הייתי קטן, הייתי גור דינוזאורים"
+    },
+    "MSG_207A26E8_MOVE1": {
+      "en": "הדיפה",
+      "he": "הדיפה"
+    },
+    "MSG_207A26E8_MOVE2": {
+      "en": "סנוקרת קפה קר",
+      "he": "סנוקרת קפה קר"
+    },
+    "MSG_207A26E8_MOVE3": {
+      "en": "נוד בפנים מהירח",
+      "he": "נוד בפנים מהירח"
+    },
+    "MSG_207A26E8_MOVE4": {
+      "en": "המכה הסודית של גורושה",
+      "he": "המכה הסודית של גורושה"
+    },
+    "MSG_207A26E8_BLK1": {
+      "en": "I shall block all your attacks!",
+      "he": "אחסום את כל המתקפות שלך!"
+    },
+    "MSG_207A26E8_BLK2": {
+      "en": "Nothing can pierce my armor!",
+      "he": "שום דבר לא יחדור את השריון שלי!"
+    },
+    "MSG_207A26E8_BLK3": {
+      "en": "Behold my dodging skills!",
+      "he": "התבונן בכישורי ההתחמקות שלי!"
+    },
+    "MSG_207A26E8_PRC1": {
+      "en": "I'll show you my fighting skills!",
+      "he": "אראה לך את כישורי הלחימה שלי!"
+    },
+    "MSG_207A26E8_PRC2": {
+      "en": "Awe at the perfection of my skills!",
+      "he": "התפעל משלמות הכישורים שלי!"
+    },
+    "MSG_207A26E8_PRC3": {
+      "en": "I'll deliver a perfect blow!",
+      "he": "אנחית מכה מושלמת!"
+    },
+    "MSG_207A26E8_FRC1": {
+      "en": "Feel my power!",
+      "he": "הרגש את הכוח שלי!"
+    },
+    "MSG_207A26E8_FRC2": {
+      "en": "AAAAHHHH!",
+      "he": "אאאאהההה!"
+    },
+    "MSG_207A26E8_FRC3": {
+      "en": "I'll attack with all my strength!",
+      "he": "אתקוף בכל הכוח שלי!"
+    },
+    "MSG_207A26E8_SPC1": {
+      "en": "Face my secret technique!",
+      "he": "עמוד מול הטכניקה הסודית שלי!"
+    },
+    "MSG_207A26E8_SPC2": {
+      "en": "This is my secret technique!",
+      "he": "זו הטכניקה הסודית שלי!"
+    },
+    "MSG_207A26E8_SPC3": {
+      "en": "Evil Blade Strike!",
+      "he": "המכה הסודית של גורושה!"
+    },
+    "MSG_207A26E8_WIN": {
+      "en": "\\bYou won, good job.",
+      "he": "\\bניצחת, כל הכבוד."
+    },
+    "MSG_207A26E8_LOSE": {
+      "en": "You lost, too bad.",
+      "he": "הפסדת, חבל."
+    },
+    "MSG_DUEL_HP": {
+      "en": "HP: {1}",
+      "he": "חיים: {1}"
+    },
+    "MSG_DUEL_CHOOSE": {
+      "en": "Choose a command.",
+      "he": "בחר מהלך."
+    },
+    "MSG_DUEL_STUDY": {
+      "en": "You study each other's movements...",
+      "he": "אתם בוחנים את התנועות אחד של השני..."
+    },
+    "MSG_DUEL_NOT_BLOCKED": {
+      "en": "Your attack was not blocked!",
+      "he": "המתקפה שלך לא נחסמה!"
+    },
+    "MSG_DUEL_EVADED": {
+      "en": "Your attack was evaded!",
+      "he": "חמקו מהמתקפה שלך!"
+    },
+    "MSG_DUEL_PIERCE": {
+      "en": "You pierce through the opponent's defenses!",
+      "he": "פרצת את ההגנות של היריב!"
+    },
+    "MSG_DUEL_FAIL_BLOCK": {
+      "en": "You fail to block the opponent's attack!",
+      "he": "לא הצלחת לחסום את המתקפה של היריב!"
+    },
+    "MSG_DUEL_CROSS": {
+      "en": "You cross blades with the opponent!",
+      "he": "הצלבתם להבים!"
+    },
+    "MSG_DUEL_HIT": {
+      "en": "You hit each other!",
+      "he": "פגעתם אחד בשני!"
+    },
+    "MSG_DUEL_EVADE": {
+      "en": "You evade the opponent's attack!",
+      "he": "חמקת מהמתקפה של היריב!"
+    },
+    "MSG_DUEL_PIERCED": {
+      "en": "The opponent pierces through your defenses!",
+      "he": "היריב פורץ את ההגנות שלך!"
+    },
+    "MSG_DUEL_COLLIDE": {
+      "en": "Your special attacks collide!",
+      "he": "המכות המיוחדות שלכם מתנגשות!"
+    },
+    "NAME_PIRAMID_DUEL": {
+      "en": "דן",
+      "he": "דן"
+    },
+    "MSG_PIRAMID_DUEL_MOVE1": {
+      "en": "הגנה",
+      "he": "הגנה"
+    },
+    "MSG_PIRAMID_DUEL_MOVE2": {
+      "en": "גיפט לפנים",
+      "he": "גיפט לפנים"
+    },
+    "MSG_PIRAMID_DUEL_MOVE3": {
+      "en": "שפיץ לפרמידה",
+      "he": "שפיץ לפרמידה"
+    },
+    "MSG_PIRAMID_DUEL_MOVE4": {
+      "en": "תפוח ונגרר מתחת לחגורה",
+      "he": "תפוח ונגרר מתחת לחגורה"
+    },
+    "MSG_PIRAMID_DUEL_BLK1": {
+      "en": "I shall block all your attacks!",
+      "he": "אחסום את כל המתקפות שלך!"
+    },
+    "MSG_PIRAMID_DUEL_BLK2": {
+      "en": "Nothing can pierce my armor!",
+      "he": "שום דבר לא יחדור את השריון שלי!"
+    },
+    "MSG_PIRAMID_DUEL_BLK3": {
+      "en": "Behold my dodging skills!",
+      "he": "התבונן בכישורי ההתחמקות שלי!"
+    },
+    "MSG_PIRAMID_DUEL_PRC1": {
+      "en": "I'll show you my fighting skills!",
+      "he": "אראה לך את כישורי הלחימה שלי!"
+    },
+    "MSG_PIRAMID_DUEL_PRC2": {
+      "en": "Awe at the perfection of my skills!",
+      "he": "התפעל משלמות הכישורים שלי!"
+    },
+    "MSG_PIRAMID_DUEL_PRC3": {
+      "en": "I'll deliver a perfect blow!",
+      "he": "אנחית מכה מושלמת!"
+    },
+    "MSG_PIRAMID_DUEL_FRC1": {
+      "en": "Feel my power!",
+      "he": "הרגש את הכוח שלי!"
+    },
+    "MSG_PIRAMID_DUEL_FRC2": {
+      "en": "AAAAHHHH!",
+      "he": "אאאאהההה!"
+    },
+    "MSG_PIRAMID_DUEL_FRC3": {
+      "en": "I'll attack with all my strength!",
+      "he": "אתקוף בכל הכוח שלי!"
+    },
+    "MSG_PIRAMID_DUEL_SPC1": {
+      "en": "Face my secret technique!",
+      "he": "עמוד מול הטכניקה הסודית שלי!"
+    },
+    "MSG_PIRAMID_DUEL_SPC2": {
+      "en": "This is my secret technique!",
+      "he": "זו הטכניקה הסודית שלי!"
+    },
+    "MSG_PIRAMID_DUEL_SPC3": {
+      "en": "Evil Blade Strike!",
+      "he": "תפוח ונגרר מתחת לחגורה!"
+    },
+    "SUMO-TEXT": {
+      "en": "Welcome to the sumo arena of Camp Kusomo, named after Guru-Sah. Whoever defeats Kuval wins eternal glory.",
+      "he": "ברוכים הבאים לזירת הסומו של קאמפ קוסומו על שם גורו-סה. מי שמנצח את קובל זוכה לתהילת עולם"
     }
   }
 }

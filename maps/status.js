@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-25T22:50:38Z",
+  "generated_at": "2026-10-25T22:57:57Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -1554,7 +1554,7 @@ window.MAP_STATUS = {
       "map_id": 88,
       "tileset_name": "ice-in_ts",
       "is_outside": false,
-      "bgm": "Calm Camps Area",
+      "bgm": "Ice In",
       "status": "in_progress",
       "deprecated": false,
       "notes": "Has PSD source (ice-in) left in folder; ignore for pipeline",

@@ -4,7 +4,7 @@
   "map_id": 88,
   "tileset_name": "ice-in_ts",
   "is_outside": false,
-  "bgm": "Calm Camps Area",
+  "bgm": "Ice In",
   "connections": {
     "north": null,
     "south": "ice-out",

@@ -26,9 +26,17 @@
   {
     "id": "1988218f",
     "name": "הילה הסטרייטית",
-    "x": 8,
-    "y": 20,
+    "x": 34,
+    "y": 9,
     "graphic": "dt_1988218f",
     "notes": "camp=פלמינגודז; by the toilets; copied from char-demo"
+  },
+  {
+    "id": "754ba04a",
+    "name": "מיכלושס",
+    "x": 12,
+    "y": 16,
+    "graphic": "dt_754ba04a",
+    "notes": "camp=פלמינגודז; moved into the tent by the founder"
   }
 ]

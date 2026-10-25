@@ -1739,6 +1739,82 @@
     "MSG_468DE6D4_LINE": {
       "en": "יאוו חפרתם, ת",
       "he": "יאוו חפרתם, ת"
+    },
+    "MSG_FLAMINGO_BAND_INTRO": {
+      "en": "Yooo, I've been waiting for them forever! Help me hurry them up, rush rush!!!",
+      "he": "יאוווו כמה זמן אני מחכה להם! תעזרי לי לזרז אותן, בהול!!!"
+    },
+    "MSG_FLAMINGO_BAND_1": {
+      "en": "Just one more layer of glitter. Eco-friendly. Probably.",
+      "he": "רק עוד שכבה של נצנצים. אקולוגיים. כנראה."
+    },
+    "MSG_FLAMINGO_BAND_2": {
+      "en": "Hold on, changing outfits. This is the fifth one, but it's the right one.",
+      "he": "רגע, מחליפה תלבושת. זאת החמישית, אבל זאת הנכונה."
+    },
+    "MSG_FLAMINGO_BAND_3": {
+      "en": "I said \"two more minutes\" two hours ago. Two more minutes.",
+      "he": "אמרתי \"עוד שתי דקות\" לפני שעתיים. עוד שתי דקות."
+    },
+    "MSG_FLAMINGO_BAND_4": {
+      "en": "Ready! Heading out! ...Wait, why am I on one leg? Where's my other boot?!",
+      "he": "מוכנה! יוצאת! ...רגע, למה אני על רגל אחת? איפה המגף השני?!"
+    },
+    "MSG_FLAMINGO_BAND_HAFARTEM": {
+      "en": "Yooo, you're dragging it out!! Enough already",
+      "he": "יאווו חפרתם!! דיי כבר"
+    },
+    "NAME_C81AD599": {
+      "en": "Alien-Pako",
+      "he": "Alien-Pako"
+    },
+    "MSG_C81AD599_LINE": {
+      "en": "את לא מותק",
+      "he": "את לא מותק"
+    },
+    "NAME_931C4AE6": {
+      "en": "חתולימיהו",
+      "he": "חתולימיהו"
+    },
+    "MSG_931C4AE6_LINE": {
+      "en": "מיאו תגיד לאמאלה ואבאלה",
+      "he": "מיאו תגיד לאמאלה ואבאלה"
+    },
+    "NAME_8DAFB982": {
+      "en": "יעל",
+      "he": "יעל"
+    },
+    "MSG_8DAFB982_LINE": {
+      "en": "הכל בשליטה, פשוט לא שלי",
+      "he": "הכל בשליטה, פשוט לא שלי"
+    },
+    "NAME_C45F7129": {
+      "en": "יעלי",
+      "he": "יעלי"
+    },
+    "MSG_C45F7129_LINE": {
+      "en": "לפנתיאון",
+      "he": "לפנתיאון"
+    },
+    "NAME_6BDB2D5E": {
+      "en": "סיגל",
+      "he": "סיגל"
+    },
+    "MSG_6BDB2D5E_LINE": {
+      "en": "אני צריכה את הסניף הכי קרוב של הבמפ.",
+      "he": "אני צריכה את הסניף הכי קרוב של הבמפ."
+    },
+    "NAME_B3FB6767": {
+      "en": "פולרואידר",
+      "he": "פולרואידר"
+    },
+    "MSG_B3FB6767_LINE": {
+      "en": "תהנו מהרגע!",
+      "he": "תהנו מהרגע!"
+    },
+    "MSG_FLAMINGO_BAND_WAIT": {
+      "en": "Wait!! Help me pick a nail polish!",
+      "he": "רגע!! תעזרי לי לבחור לק!"
     }
   }
 }

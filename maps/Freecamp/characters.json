@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "8dafb982",
+    "name": "יעל",
+    "x": 40,
+    "y": 24,
+    "graphic": "dt_8dafb982",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=ניינטוש"
+  },
+  {
+    "id": "c85a6dc5",
+    "name": "צ׳יף",
+    "x": 50,
+    "y": 28,
+    "graphic": "dt_c85a6dc5",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=Popaganda"
+  }
+]

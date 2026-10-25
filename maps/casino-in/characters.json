@@ -54,5 +54,13 @@
     "y": 20,
     "graphic": "dt_1820dc9d",
     "notes": "touch starts the die event on the top tile"
+  },
+  {
+    "id": "73f1d834",
+    "name": "ha-mischariyut",
+    "x": 10,
+    "y": 18,
+    "graphic": "dt_73f1d834",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=NPC"
   }
 ]

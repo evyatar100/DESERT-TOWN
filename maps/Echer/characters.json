@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "id": "b3fb6767",
+    "name": "פולרואידר",
+    "x": 19,
+    "y": 25,
+    "graphic": "dt_b3fb6767",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=אנטיזכן"
+  },
+  {
+    "id": "02a02e20",
+    "name": "צ׳יקיטיטה",
+    "x": 24,
+    "y": 33,
+    "graphic": "dt_02a02e20",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  }
+]

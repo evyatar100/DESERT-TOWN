@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "id": "11eaf4fa",
+    "name": "זיג-זאד",
+    "x": 8,
+    "y": 7,
+    "graphic": "dt_11eaf4fa",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "963c65ea",
+    "name": "נור האביר",
+    "x": 6,
+    "y": 17,
+    "graphic": "dt_963c65ea",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "e19726f0",
+    "name": "תפוצ'יפס",
+    "x": 6,
+    "y": 5,
+    "graphic": "dt_e19726f0",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "207a26e8",
+    "name": "קובל",
+    "x": 3,
+    "y": 24,
+    "graphic": "dt_207a26e8",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "2054a176",
+    "name": "עודש האימתני",
+    "x": 4,
+    "y": 22,
+    "graphic": "dt_2054a176",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "e9da20da",
+    "name": "רז הבן",
+    "x": 8,
+    "y": 4,
+    "graphic": "dt_e9da20da",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "c11768dc",
+    "name": "סופרסטאר",
+    "x": 30,
+    "y": 16,
+    "graphic": "dt_c11768dc",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "7c875377",
+    "name": "עדי BAMA",
+    "x": 34,
+    "y": 16,
+    "graphic": "dt_7c875377",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "a7ba5185",
+    "name": "תור לי אור",
+    "x": 32,
+    "y": 20,
+    "graphic": "dt_a7ba5185",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  }
+]

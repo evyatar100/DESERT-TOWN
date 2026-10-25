@@ -377,6 +377,1260 @@
       ],
       "x": 36,
       "y": 24
+    },
+    {
+      "id": 10,
+      "name": "dt_7a2a022c",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"7a2a022c\")"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_LINE"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_BYE_OK",
+                  "CHOICE_7A2A022C_ASK"
+                ],
+                1
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_BYE_OK"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_ASK"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_CHOOSE"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_EXIST",
+                  "CHOICE_7A2A022C_MEAN",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_EXIST"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_EXIST"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_EXIST"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_EXIST"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_WHO",
+                  "CHOICE_7A2A022C_AND_MEAN",
+                  "CHOICE_7A2A022C_MORE_PROOF",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_WHO"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CREATOR"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_AND_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_MORE_PROOF"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_PROOF2"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_PROOF2"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_PROOF2"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_WROTE",
+                  "CHOICE_7A2A022C_BACK_EXIST",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_WROTE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CREATOR"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_BACK_EXIST"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_EXIST"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_CREATOR"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_CREATOR"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_WHY_BARREL",
+                  "CHOICE_7A2A022C_HIS_GOAL",
+                  "CHOICE_7A2A022C_BACK_CHOOSE",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_WHY_BARREL"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_BARREL"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_HIS_GOAL"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_BACK_CHOOSE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_BARREL"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_BARREL"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_SOUNDS_GAME",
+                  "CHOICE_7A2A022C_BACK_CREATOR",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_SOUNDS_GAME"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_GAME"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_BACK_CREATOR"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CREATOR"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_MEAN"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_LIKE_US",
+                  "CHOICE_7A2A022C_WHO_RUNS",
+                  "CHOICE_7A2A022C_BACK_CHOOSE",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_LIKE_US"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_OPERATORS"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_WHO_RUNS"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_INFINITE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_BACK_CHOOSE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_OPERATORS"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_OPERATORS"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_SAME",
+                  "CHOICE_7A2A022C_THEIR_GOAL",
+                  "CHOICE_7A2A022C_BACK_MEAN",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_SAME"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_INFINITE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_THEIR_GOAL"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_GOAL"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_BACK_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_INFINITE"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_INFINITE"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_DEEPER",
+                  "CHOICE_7A2A022C_HOW_EXIT",
+                  "CHOICE_7A2A022C_BACK_MEAN",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_DEEPER"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_GOAL"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_HOW_EXIT"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_EXIT"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_BACK_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_GOAL"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_GOAL"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_WHAT_DO",
+                  "CHOICE_7A2A022C_BACK_INFINITE",
+                  "CHOICE_7A2A022C_BACK_CHOOSE",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                4
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_WHAT_DO"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_DO"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_BACK_INFINITE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_INFINITE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_BACK_CHOOSE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_GAME"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_GAME"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_AM_I",
+                  "CHOICE_7A2A022C_BACK_MEAN",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_AM_I"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_PLAYER"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_BACK_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_PLAYER"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_PLAYER"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_BACK_CHOOSE",
+                  "CHOICE_7A2A022C_MORE_SIM",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_BACK_CHOOSE"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_MORE_SIM"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_EXIST"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_EXIT"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_EXIT"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_KEEP_ASKING",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                2
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_KEEP_ASKING"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_DO"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_DO"
+              ]
+            },
+            {
+              "code": 102,
+              "indent": 0,
+              "parameters": [
+                [
+                  "CHOICE_7A2A022C_BACK_MEAN",
+                  "CHOICE_7A2A022C_BACK_EXIST_SHORT",
+                  "CHOICE_7A2A022C_ENOUGH"
+                ],
+                3
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                0,
+                "CHOICE_7A2A022C_BACK_MEAN"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_MEAN"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                1,
+                "CHOICE_7A2A022C_BACK_EXIST_SHORT"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_EXIST"
+              ]
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                2,
+                "CHOICE_7A2A022C_ENOUGH"
+              ]
+            },
+            {
+              "code": 119,
+              "indent": 1,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 404,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 118,
+              "indent": 0,
+              "parameters": [
+                "TOGA_END"
+              ]
+            },
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_7A2A022C_END"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 1,
+      "y": 33
+    },
+    {
+      "id": 11,
+      "name": "dt_6b53f14c",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"6b53f14c\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"6b53f14c\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 9,
+      "y": 28
+    },
+    {
+      "id": 12,
+      "name": "dt_f9348fd0",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"f9348fd0\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"f9348fd0\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 38
     }
   ],
   "map_id": 98

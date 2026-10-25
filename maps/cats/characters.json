@@ -22,5 +22,29 @@
     "y": 36,
     "graphic": "dt_937a4a9a",
     "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "013feab1",
+    "name": "חתול לבן",
+    "x": 18,
+    "y": 20,
+    "graphic": "dt_013feab1",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=חתולים"
+  },
+  {
+    "id": "931c4ae6",
+    "name": "חתולימיהו",
+    "x": 12,
+    "y": 44,
+    "graphic": "dt_931c4ae6",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=NPC"
+  },
+  {
+    "id": "abd7f899",
+    "name": "דיגל",
+    "x": 9,
+    "y": 38,
+    "graphic": "dt_abd7f899",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=כת השפם"
   }
 ]

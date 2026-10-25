@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "6bdb2d5e",
+    "name": "סיגל",
+    "x": 19,
+    "y": 29,
+    "graphic": "dt_6bdb2d5e",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=NPC"
+  }
+]

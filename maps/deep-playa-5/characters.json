@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "d2a3ac11",
+    "name": "רונן",
+    "x": 30,
+    "y": 23,
+    "graphic": "dt_d2a3ac11",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=Moonwalk"
+  }
+]

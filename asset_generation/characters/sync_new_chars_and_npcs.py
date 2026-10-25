@@ -24,6 +24,7 @@ GAME = ROOT / "game-files"
 DATA = GAME / "Data"
 sys.path.insert(0, str(GAME))
 from tests.rx_loader import load_rxdata  # noqa: E402
+from build_catalog import CHAR_DEMO_MAP_IDS  # noqa: E402
 
 USERS_ROOT = ROOT / "asset_generation" / "characters" / "desert-town-chars" / "users-chars"
 NPC_ROOTS = (
@@ -677,7 +678,7 @@ def main() -> int:
     demo_ids = {
         p["character_id"]
         for p in loc.get("placements", [])
-        if int(p.get("map_id", -1)) == CHAR_DEMO_MAP_ID
+        if int(p.get("map_id", -1)) in CHAR_DEMO_MAP_IDS
     }
     new_users = [u for u in users if u["id"] not in demo_ids]
     print(f"new users for char-demo: {len(new_users)}")

@@ -1,5 +1,53 @@
 [
   {
+    "id": "d107409e",
+    "name": "ניסים",
+    "x": 20,
+    "y": 33,
+    "graphic": "dt_d107409e",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "648b924a",
+    "name": "לילי",
+    "x": 5,
+    "y": 3,
+    "graphic": "dt_648b924a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "9b3660d1",
+    "name": "טל",
+    "x": 7,
+    "y": 20,
+    "graphic": "dt_9b3660d1",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "788b2614",
+    "name": "אליאס",
+    "x": 4,
+    "y": 20,
+    "graphic": "dt_788b2614",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "b3178e6b",
+    "name": "רוחמה",
+    "x": 21,
+    "y": 25,
+    "graphic": "dt_b3178e6b",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "bb70b1dd",
+    "name": "מאריו",
+    "x": 13,
+    "y": 13,
+    "graphic": "dt_bb70b1dd",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
     "id": "6b53f14c",
     "name": "Loooo",
     "x": 10,
@@ -30,5 +78,21 @@
     "y": 33,
     "graphic": "dt_7a2a022c",
     "notes": "pbDesertSpeaker + barrel dialogue graph"
+  },
+  {
+    "id": "6b53f14c",
+    "name": "Loooo",
+    "x": 9,
+    "y": 28,
+    "graphic": "dt_6b53f14c",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "f9348fd0",
+    "name": "שורטי",
+    "x": 8,
+    "y": 38,
+    "graphic": "dt_f9348fd0",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   }
 ]

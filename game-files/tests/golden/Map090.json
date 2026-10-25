@@ -48,13 +48,20 @@
               "code": 509,
               "indent": 0,
               "parameters": [
-                {
-                  "@code": 42,
-                  "@parameters": [
-                    0
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 42,
+                    "@parameters": [
+                      0
+                    ],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {
@@ -96,13 +103,20 @@
               "code": 509,
               "indent": 0,
               "parameters": [
-                {
-                  "@code": 15,
-                  "@parameters": [
-                    50
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 15,
+                    "@parameters": [
+                      50
+                    ],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {
@@ -186,13 +200,20 @@
               "code": 509,
               "indent": 0,
               "parameters": [
-                {
-                  "@code": 42,
-                  "@parameters": [
-                    255
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@code": 42,
+                    "@parameters": [
+                      255
+                    ],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
               ]
             },
             {
@@ -270,29 +291,52 @@
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 44,
-                  "@parameters": [
-                    {
-                      "@name": "Door exit",
-                      "@pitch": 100,
-                      "@volume": 80,
-                      "_class": "RPG::AudioFile"
-                    }
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  -1,
+                  {
+                    "@list": [
+                      {
+                        "@code": 44,
+                        "@parameters": [
+                          {
+                            "@name": "Door exit",
+                            "@pitch": 100,
+                            "@volume": 80,
+                            "_class": "RPG::AudioFile"
+                          }
+                        ],
+                        "_class": "RPG::MoveCommand"
+                      },
+                      {
+                        "@code": 1,
+                        "@parameters": [],
+                        "_class": "RPG::MoveCommand"
+                      },
+                      {
+                        "@code": 0,
+                        "@parameters": [],
+                        "_class": "RPG::MoveCommand"
+                      }
+                    ],
+                    "@repeat": false,
+                    "@skippable": true,
+                    "_class": "RPG::MoveRoute"
+                  }
+                ]
               ]
             },
             {
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 1,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  {
+                    "@name": "Door exit",
+                    "@pitch": 100,
+                    "@volume": 80,
+                    "_class": "RPG::AudioFile"
+                  }
+                ]
               ]
             },
             {
@@ -395,11 +439,31 @@
               "indent": 0,
               "parameters": [
                 {
-                  "@code": 42,
+                  "@code": 209,
+                  "@indent": 0,
                   "@parameters": [
-                    0
+                    -1,
+                    {
+                      "@list": [
+                        {
+                          "@code": 42,
+                          "@parameters": [
+                            0
+                          ],
+                          "_class": "RPG::MoveCommand"
+                        },
+                        {
+                          "@code": 0,
+                          "@parameters": [],
+                          "_class": "RPG::MoveCommand"
+                        }
+                      ],
+                      "@repeat": false,
+                      "@skippable": false,
+                      "_class": "RPG::MoveRoute"
+                    }
                   ],
-                  "_class": "RPG::MoveCommand"
+                  "_class": "RPG::EventCommand"
                 }
               ]
             },
@@ -443,11 +507,31 @@
               "indent": 0,
               "parameters": [
                 {
-                  "@code": 15,
+                  "@code": 209,
+                  "@indent": 0,
                   "@parameters": [
-                    50
+                    -1,
+                    {
+                      "@list": [
+                        {
+                          "@code": 15,
+                          "@parameters": [
+                            50
+                          ],
+                          "_class": "RPG::MoveCommand"
+                        },
+                        {
+                          "@code": 0,
+                          "@parameters": [],
+                          "_class": "RPG::MoveCommand"
+                        }
+                      ],
+                      "@repeat": false,
+                      "@skippable": false,
+                      "_class": "RPG::MoveRoute"
+                    }
                   ],
-                  "_class": "RPG::MoveCommand"
+                  "_class": "RPG::EventCommand"
                 }
               ]
             },
@@ -533,11 +617,31 @@
               "indent": 0,
               "parameters": [
                 {
-                  "@code": 42,
+                  "@code": 209,
+                  "@indent": 0,
                   "@parameters": [
-                    255
+                    -1,
+                    {
+                      "@list": [
+                        {
+                          "@code": 42,
+                          "@parameters": [
+                            255
+                          ],
+                          "_class": "RPG::MoveCommand"
+                        },
+                        {
+                          "@code": 0,
+                          "@parameters": [],
+                          "_class": "RPG::MoveCommand"
+                        }
+                      ],
+                      "@repeat": false,
+                      "@skippable": false,
+                      "_class": "RPG::MoveRoute"
+                    }
                   ],
-                  "_class": "RPG::MoveCommand"
+                  "_class": "RPG::EventCommand"
                 }
               ]
             },
@@ -616,18 +720,9 @@
               "code": 509,
               "indent": 1,
               "parameters": [
-                {
-                  "@code": 44,
-                  "@parameters": [
-                    {
-                      "@name": "Door exit",
-                      "@pitch": 100,
-                      "@volume": 80,
-                      "_class": "RPG::AudioFile"
-                    }
-                  ],
-                  "_class": "RPG::MoveCommand"
-                }
+                [
+                  "Followers.hide_followers"
+                ]
               ]
             },
             {
@@ -635,9 +730,33 @@
               "indent": 1,
               "parameters": [
                 {
-                  "@code": 1,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
+                  "@list": [
+                    {
+                      "@code": 44,
+                      "@parameters": [
+                        {
+                          "@name": "Door exit",
+                          "@pitch": 100,
+                          "@volume": 80,
+                          "_class": "RPG::AudioFile"
+                        }
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
                 }
               ]
             },
@@ -761,6 +880,258 @@
       ],
       "x": 19,
       "y": 23
+    },
+    {
+      "id": 5,
+      "name": "dt_ff8eab6b",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"ff8eab6b\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"ff8eab6b\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 4,
+      "y": 21
+    },
+    {
+      "id": 6,
+      "name": "dt_2f88eb7f",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"2f88eb7f\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"2f88eb7f\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 12,
+      "y": 21
+    },
+    {
+      "id": 7,
+      "name": "dt_92958f4d",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"92958f4d\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"92958f4d\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 6,
+      "y": 25
+    },
+    {
+      "id": 8,
+      "name": "dt_7afa738a",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"7afa738a\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"7afa738a\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 3,
+      "y": 27
+    },
+    {
+      "id": 9,
+      "name": "dt_fcba2ff5",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"fcba2ff5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"fcba2ff5\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 21,
+      "y": 27
+    },
+    {
+      "id": 10,
+      "name": "dt_a4012984",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"a4012984\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"a4012984\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 18,
+      "y": 25
     }
   ],
   "map_id": 90

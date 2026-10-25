@@ -2,336 +2,22 @@
   "events": [
     {
       "id": 1,
-      "name": "arcade text",
+      "name": "dt_8dafb982",
       "pages": [
         {
           "commands": [
             {
-              "code": 101,
+              "code": 355,
               "indent": 0,
               "parameters": [
-                "MSG_NOT_READY"
+                "pbDesertSpeaker(\"8dafb982\")"
               ]
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 8,
-      "y": 5
-    },
-    {
-      "id": 2,
-      "name": "arcade text",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "MSG_NOT_READY"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 0,
-              "parameters": []
-            }
-          ],
-          "condition": {
-            "self_switch": "A",
-            "self_switch_valid": false,
-            "switch1_id": 1,
-            "switch1_valid": false,
-            "switch2_id": 1,
-            "switch2_valid": false,
-            "variable_id": 1,
-            "variable_valid": false,
-            "variable_value": 0
-          }
-        }
-      ],
-      "x": 9,
-      "y": 5
-    },
-    {
-      "id": 3,
-      "name": "NPC",
-      "pages": [
-        {
-          "commands": [
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "\\bHello! I'm the Ruin Maniac!"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "\\bDo you want to dig for buried treasure?"
-              ]
-            },
-            {
-              "code": 102,
-              "indent": 0,
-              "parameters": [
-                [
-                  "Yes",
-                  "No"
-                ],
-                2
-              ]
-            },
-            {
-              "code": 402,
-              "indent": 0,
-              "parameters": [
-                0,
-                "Yes"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "\\bGrand! Let's dig into this wall."
-              ]
-            },
-            {
-              "code": 111,
-              "indent": 1,
-              "parameters": [
-                6,
-                -1,
-                6
-              ]
-            },
-            {
-              "code": 209,
-              "indent": 2,
-              "parameters": [
-                -1,
-                {
-                  "@list": [
-                    {
-                      "@code": 1,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    },
-                    {
-                      "@code": 3,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    },
-                    {
-                      "@code": 0,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    }
-                  ],
-                  "@repeat": false,
-                  "@skippable": false,
-                  "_class": "RPG::MoveRoute"
-                }
-              ]
-            },
-            {
-              "code": 509,
-              "indent": 2,
-              "parameters": [
-                {
-                  "@code": 1,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
-              ]
-            },
-            {
-              "code": 509,
-              "indent": 2,
-              "parameters": [
-                {
-                  "@code": 3,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
-              ]
-            },
-            {
-              "code": 209,
-              "indent": 2,
-              "parameters": [
-                0,
-                {
-                  "@list": [
-                    {
-                      "@code": 16,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    },
-                    {
-                      "@code": 0,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    }
-                  ],
-                  "@repeat": false,
-                  "@skippable": false,
-                  "_class": "RPG::MoveRoute"
-                }
-              ]
-            },
-            {
-              "code": 509,
-              "indent": 2,
-              "parameters": [
-                {
-                  "@code": 16,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
-              ]
-            },
-            {
-              "code": 210,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 411,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 209,
-              "indent": 2,
-              "parameters": [
-                -1,
-                {
-                  "@list": [
-                    {
-                      "@code": 18,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    },
-                    {
-                      "@code": 0,
-                      "@parameters": [],
-                      "_class": "RPG::MoveCommand"
-                    }
-                  ],
-                  "@repeat": false,
-                  "@skippable": false,
-                  "_class": "RPG::MoveRoute"
-                }
-              ]
-            },
-            {
-              "code": 509,
-              "indent": 2,
-              "parameters": [
-                {
-                  "@code": 18,
-                  "@parameters": [],
-                  "_class": "RPG::MoveCommand"
-                }
-              ]
-            },
-            {
-              "code": 210,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 0,
-              "indent": 2,
-              "parameters": []
-            },
-            {
-              "code": 412,
-              "indent": 1,
-              "parameters": []
             },
             {
               "code": 355,
-              "indent": 1,
-              "parameters": [
-                "pbMiningGame"
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 402,
               "indent": 0,
               "parameters": [
-                1,
-                "No"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 1,
-              "parameters": [
-                "\\bNo? Alright then."
-              ]
-            },
-            {
-              "code": 0,
-              "indent": 1,
-              "parameters": []
-            },
-            {
-              "code": 404,
-              "indent": 0,
-              "parameters": []
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "\\bWhen using this mining minigame, it is "
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "recommended that you limit how often the player can "
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "play it, to prevent them gaining lots of items for free."
+                "pbDesertTalk(\"8dafb982\")"
               ]
             },
             {
@@ -353,8 +39,50 @@
           }
         }
       ],
-      "x": 14,
-      "y": 49
+      "x": 40,
+      "y": 24
+    },
+    {
+      "id": 2,
+      "name": "dt_c85a6dc5",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"c85a6dc5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"c85a6dc5\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 50,
+      "y": 28
     }
   ],
   "map_id": 85

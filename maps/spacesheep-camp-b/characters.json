@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "30c62b46",
+    "name": "חייזר1",
+    "x": 12,
+    "y": 26,
+    "graphic": "dt_30c62b46",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=spacesheep"
+  }
+]

@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "f90d4de9",
+    "name": "אביתר",
+    "x": 14,
+    "y": 18,
+    "graphic": "dt_f90d4de9",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=פילוסוף בחבית"
+  }
+]

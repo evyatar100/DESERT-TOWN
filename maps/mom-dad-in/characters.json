@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "id": "4c6540a3",
+    "name": "בת של מילף",
+    "x": 5,
+    "y": 6,
+    "graphic": "dt_4c6540a3",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=אמאל'ה ואבאל'ה"
+  },
+  {
+    "id": "65029b81",
+    "name": "עדן ס",
+    "x": 7,
+    "y": 6,
+    "graphic": "dt_65029b81",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=אמאל'ה ואבאל'ה"
+  },
+  {
+    "id": "b25567c8",
+    "name": "פרא",
+    "x": 10,
+    "y": 6,
+    "graphic": "dt_b25567c8",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=אמאל'ה ואבאל'ה"
+  },
+  {
+    "id": "890b649e",
+    "name": "רייצ'ל מלכת הבייקון",
+    "x": 13,
+    "y": 6,
+    "graphic": "dt_890b649e",
+    "notes": "pbDesertSpeaker + pbDesertTalk; camp=אמאל'ה ואבאל'ה"
+  }
+]

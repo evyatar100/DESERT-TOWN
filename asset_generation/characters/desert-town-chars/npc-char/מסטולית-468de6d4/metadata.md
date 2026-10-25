@@ -2,7 +2,7 @@
 
 
 
-**Type:** User character
+**Type:** NPC
 
 **Name (Hebrew):**
 ```

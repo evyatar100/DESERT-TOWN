@@ -1523,6 +1523,14 @@
     "OMER-KEY": {
       "en": "Look at the installation I made. I got 6 allocations for it.",
       "he": "תראו את המיצב שהכנתי. קיבלתי עליו 6 הקצאות"
+    },
+    "NAME_468DE6D4": {
+      "en": "מסטולית",
+      "he": "מסטולית"
+    },
+    "MSG_468DE6D4_LINE": {
+      "en": "יאוו חפרתם, ת",
+      "he": "יאוו חפרתם, ת"
     }
   }
 }

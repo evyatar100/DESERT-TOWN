@@ -1252,6 +1252,15 @@
       "actions": [
         "offers MSG_E19726F0_PARTY_COFFEE"
       ]
+    },
+    {
+      "character_id": "468de6d4",
+      "map_id": 112,
+      "event_id": 4,
+      "x": 7,
+      "y": 1,
+      "line_key": null,
+      "actions": []
     }
   ]
 }

@@ -25,6 +25,7 @@ module DesertTalk
     "3a513720" => { name_key: "NAME_3A513720", line_key: "MSG_3A513720_LINE" },
     "3cdacb96" => { name_key: "NAME_3CDACB96", line_key: "MSG_3CDACB96_LINE" },
     "3dc31934" => { name_key: "NAME_3DC31934", line_key: "MSG_3DC31934_LINE" },
+    "468de6d4" => { name_key: "NAME_468DE6D4", line_key: "MSG_468DE6D4_LINE" },
     "4a001210" => { name_key: "NAME_4A001210", line_key: "MSG_4A001210_LINE" },
     "4b08e38a" => { name_key: "NAME_4B08E38A", line_key: "MSG_4B08E38A_LINE" },
     "4c6540a3" => { name_key: "NAME_4C6540A3", line_key: "MSG_4C6540A3_LINE" },

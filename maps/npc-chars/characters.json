@@ -22,5 +22,13 @@
     "y": 1,
     "graphic": "dt_8d654949",
     "notes": "pbDesertSpeaker + pbDesertTalk (NPC)"
+  },
+  {
+    "id": "468de6d4",
+    "name": "מסטולית",
+    "x": 7,
+    "y": 1,
+    "graphic": "dt_468de6d4",
+    "notes": "pbDesertSpeaker + pbDesertTalk (NPC)"
   }
 ]

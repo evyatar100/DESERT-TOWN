@@ -1261,6 +1261,149 @@
       "y": 1,
       "line_key": null,
       "actions": []
+    },
+    {
+      "character_id": "5a75819b",
+      "map_id": 80,
+      "event_id": 2,
+      "x": 13,
+      "y": 13,
+      "line_key": null,
+      "actions": [
+        "shows MSG_5A75819B_OLDCITY"
+      ]
+    },
+    {
+      "character_id": "326f5ab5",
+      "map_id": 80,
+      "event_id": 3,
+      "x": 16,
+      "y": 5,
+      "line_key": null,
+      "actions": [
+        "shows MSG_326F5AB5_OLDCITY"
+      ]
+    },
+    {
+      "character_id": "6b53f14c",
+      "map_id": 98,
+      "event_id": 7,
+      "x": 10,
+      "y": 36,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "d4540277",
+      "map_id": 98,
+      "event_id": 8,
+      "x": 15,
+      "y": 4,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "4b08e38a",
+      "map_id": 98,
+      "event_id": 9,
+      "x": 36,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "5cb9ff14",
+      "map_id": 97,
+      "event_id": 4,
+      "x": 10,
+      "y": 43,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "1be29576",
+      "map_id": 97,
+      "event_id": 5,
+      "x": 8,
+      "y": 26,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "3cdacb96",
+      "map_id": 97,
+      "event_id": 6,
+      "x": 17,
+      "y": 33,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "fc5dfab1",
+      "map_id": 78,
+      "event_id": 1,
+      "x": 28,
+      "y": 33,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "3dc31934",
+      "map_id": 78,
+      "event_id": 2,
+      "x": 17,
+      "y": 7,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "937a4a9a",
+      "map_id": 78,
+      "event_id": 3,
+      "x": 6,
+      "y": 36,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "b5fa3a91",
+      "map_id": 96,
+      "event_id": 4,
+      "x": 28,
+      "y": 28,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
+    },
+    {
+      "character_id": "0211e32a",
+      "map_id": 96,
+      "event_id": 5,
+      "x": 5,
+      "y": 28,
+      "line_key": null,
+      "actions": [
+        "walks randomly, speed slow, frequency high"
+      ]
     }
   ]
 }

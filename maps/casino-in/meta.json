@@ -4,7 +4,7 @@
   "map_id": 94,
   "tileset_name": "casino-in_ts",
   "is_outside": false,
-  "bgm": "Calm Camps Area",
+  "bgm": "War",
   "connections": {
     "north": null,
     "south": null,

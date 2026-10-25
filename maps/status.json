@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T17:43:29Z",
+  "generated_at": "2026-10-25T18:47:15Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -81,7 +81,7 @@
       "map_id": 94,
       "tileset_name": "casino-in_ts",
       "is_outside": false,
-      "bgm": "Calm Camps Area",
+      "bgm": "War",
       "status": "in_progress",
       "deprecated": false,
       "notes": "Indoor Egyptian casino. Base art only; layer 3 is not traced yet.",
@@ -137,10 +137,20 @@
         "east": null,
         "west": null
       },
-      "event_connections": [],
-      "event_count": 0,
-      "char_count": 0,
-      "chars": [],
+      "event_connections": [
+        "Old-City"
+      ],
+      "event_count": 7,
+      "char_count": 7,
+      "chars": [
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4",
+        "\u05de\u05d5\u05de\u05d9\u05d4"
+      ],
       "has_artifacts": false
     },
     {
@@ -1222,10 +1232,17 @@
         "east": null,
         "west": null
       },
-      "event_connections": [],
-      "event_count": 0,
-      "char_count": 0,
-      "chars": [],
+      "event_connections": [
+        "flamingods-out"
+      ],
+      "event_count": 7,
+      "char_count": 4,
+      "chars": [
+        "\u05e8\u05d9\u05d8\u05d4",
+        "\u05e1\u05e9",
+        "\u05e1\u05d9\u05d5\u05e0\u05d1\u05d9",
+        "\u05d4\u05d9\u05dc\u05d4 \u05d4\u05e1\u05d8\u05e8\u05d9\u05d9\u05d8\u05d9\u05ea"
+      ],
       "has_artifacts": true
     },
     {
@@ -1291,9 +1308,15 @@
       "event_connections": [
         "Flamingods In"
       ],
-      "event_count": 1,
-      "char_count": 0,
-      "chars": [],
+      "event_count": 12,
+      "char_count": 5,
+      "chars": [
+        "\u05e4\u05dc\u05de\u05d9\u05e0\u05d2\u05d5",
+        "\u05e4\u05dc\u05de\u05d9\u05e0\u05d2\u05d4",
+        "\u05dc\u05d3\u05d4 \u05d1\u05ea \u05e0\u05d7\u05d9\u05e8",
+        "\u05e4\u05d0\u05e7\u05d5",
+        "\u05de\u05d9\u05db\u05dc\u05d5\u05e9\u05e1"
+      ],
       "has_artifacts": false
     },
     {
@@ -1693,7 +1716,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 2,
+      "event_count": 3,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -1822,9 +1845,27 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
-      "char_count": 0,
-      "chars": [],
+      "event_count": 11,
+      "char_count": 17,
+      "chars": [
+        "\u05de\u05d5\u05e8",
+        "\u05e9\u05d9\u05e8\u05e4\u05d6",
+        "\u05d0\u05d9\u05d9\u05dc \u05d4\u05d1\u05d5\u05e1",
+        "\u05ea\u05e4\u05d5\u05e6'\u05d9\u05e4\u05e1",
+        "\u05d0\u05d9\u05d9\u05dc \u05d4\u05e0\u05d5\u05d3\u05dc\u05e1",
+        "\u05de\u05d0\u05d1\u05d8\u05d7",
+        "\u05d4\u05d2\u05e8\u05d2\u05de\u05dc",
+        "Miki",
+        "\u05e0\u05d5\u05e8 \u05d4\u05d0\u05d1\u05d9\u05e8",
+        "\u05e2\u05d5\u05d3\u05e9 \u05d4\u05d0\u05d9\u05de\u05ea\u05e0\u05d9",
+        "\u05d0\u05d5\u05e8\u05df",
+        "\u05d6\u05d9\u05d2-\u05d6\u05d0\u05d3",
+        "\u05e7\u05d5\u05d1\u05dc",
+        "\u05e1\u05e4\u05d7\u05e8",
+        "Stormrider1",
+        "\u05d8\u05d5\u05d5\u05d5\u05dc\u05d4",
+        "\u05d9\u05e2\u05e8\u05d5\u05d3\u05d6\u05e8\u05d8"
+      ],
       "has_artifacts": false
     },
     {
@@ -2159,8 +2200,10 @@
         "east": null,
         "west": "kim-area"
       },
-      "event_connections": [],
-      "event_count": 0,
+      "event_connections": [
+        "Casino In"
+      ],
+      "event_count": 1,
       "char_count": 0,
       "chars": [],
       "has_artifacts": true
@@ -2226,7 +2269,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 6,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -2358,7 +2401,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
+      "event_count": 6,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -2558,9 +2601,13 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 0,
-      "char_count": 0,
-      "chars": [],
+      "event_count": 3,
+      "char_count": 3,
+      "chars": [
+        "\u05e2\u05e6\u05dc\u05df \u05d4\u05d8\u05d0\u05d5\u05df",
+        "Looti scooti balaboosti",
+        "\u05e9\u05d9\u05e4\u05d5"
+      ],
       "has_artifacts": false
     }
   ],

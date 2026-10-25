@@ -22,5 +22,21 @@
     "y": 54,
     "graphic": "dt_3a513720",
     "notes": "pbDesertSpeaker + pbDesertTalk default + Show Text MSG_3A513720_SQUARE"
+  },
+  {
+    "id": "b5fa3a91",
+    "name": "אלעד",
+    "x": 28,
+    "y": 28,
+    "graphic": "dt_b5fa3a91",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "0211e32a",
+    "name": "איתן",
+    "x": 5,
+    "y": 28,
+    "graphic": "dt_0211e32a",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
   }
 ]

@@ -1,4 +1,326 @@
 {
-  "events": [],
+  "events": [
+    {
+      "id": 1,
+      "name": "Cave entrance",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 250,
+              "indent": 0,
+              "parameters": [
+                {
+                  "@name": "Door exit",
+                  "@pitch": 100,
+                  "@volume": 80,
+                  "_class": "RPG::AudioFile"
+                }
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 106,
+              "indent": 0,
+              "parameters": [
+                8
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbCaveEntrance"
+              ]
+            },
+            {
+              "code": 201,
+              "indent": 0,
+              "parameters": [
+                0,
+                94,
+                11,
+                19,
+                0,
+                1
+              ]
+            },
+            {
+              "code": 223,
+              "indent": 0,
+              "parameters": [
+                {
+                  "_class": "Tone"
+                },
+                6
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        },
+        {
+          "commands": [
+            {
+              "code": 111,
+              "indent": 0,
+              "parameters": [
+                12,
+                "get_self.onEvent?"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.hide_followers"
+              ]
+            },
+            {
+              "code": 209,
+              "indent": 1,
+              "parameters": [
+                -1,
+                {
+                  "@list": [
+                    {
+                      "@code": 44,
+                      "@parameters": [
+                        {
+                          "@name": "Door exit",
+                          "@pitch": 100,
+                          "@volume": 80,
+                          "_class": "RPG::AudioFile"
+                        }
+                      ],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 1,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    },
+                    {
+                      "@code": 0,
+                      "@parameters": [],
+                      "_class": "RPG::MoveCommand"
+                    }
+                  ],
+                  "@repeat": false,
+                  "@skippable": true,
+                  "_class": "RPG::MoveRoute"
+                }
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                [
+                  {
+                    "@code": 44,
+                    "@parameters": [
+                      {
+                        "@name": "Door exit",
+                        "@pitch": 100,
+                        "@volume": 80,
+                        "_class": "RPG::AudioFile"
+                      }
+                    ],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 1,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  },
+                  {
+                    "@code": 0,
+                    "@parameters": [],
+                    "_class": "RPG::MoveCommand"
+                  }
+                ]
+              ]
+            },
+            {
+              "code": 509,
+              "indent": 1,
+              "parameters": [
+                "Door exit"
+              ]
+            },
+            {
+              "code": 210,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "Followers.put_followers_on_player"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "setTempSwitchOn(\"A\")"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 22,
+            "switch1_valid": true,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 8,
+      "y": 14
+    },
+    {
+      "id": 2,
+      "name": "dt_5a75819b",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"5a75819b\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"5a75819b\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbMessage(_INTL(\"MSG_5A75819B_OLDCITY\"))"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 13,
+      "y": 13
+    },
+    {
+      "id": 3,
+      "name": "dt_326f5ab5",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"326f5ab5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"326f5ab5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbMessage(_INTL(\"MSG_326F5AB5_OLDCITY\"))"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 16,
+      "y": 5
+    }
+  ],
   "map_id": 80
 }

@@ -401,8 +401,8 @@ Outdoor = true
 MapPosition = 1,13,16
 BattleBack = city
 #-------------------------------
-[078]   # The Man
-Name = The Man
+[078]   # Cats
+Name = Cats
 Outdoor = true
 #-------------------------------
 [079]   # camp-demo
@@ -429,12 +429,15 @@ Outdoor = true
 Outdoor = true
 #-------------------------------
 [096]   # Squere Road Temple
+Name = Squere Road Temple
 Outdoor = true
 #-------------------------------
 [097]   # Kim Area
+Name = Kim Area
 Outdoor = true
 #-------------------------------
 [098]   # Playa
+Name = Playa
 Outdoor = true
 #-------------------------------
 [077]   # flamingods-out

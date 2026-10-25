@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "6b53f14c",
+    "name": "Loooo",
+    "x": 10,
+    "y": 36,
+    "graphic": "dt_6b53f14c",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "d4540277",
+    "name": "גברי",
+    "x": 15,
+    "y": 4,
+    "graphic": "dt_d4540277",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "4b08e38a",
+    "name": "ג׳וני",
+    "x": 36,
+    "y": 24,
+    "graphic": "dt_4b08e38a",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  }
+]

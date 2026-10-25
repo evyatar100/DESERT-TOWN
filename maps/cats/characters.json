@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "fc5dfab1",
+    "name": "איליושה",
+    "x": 28,
+    "y": 33,
+    "graphic": "dt_fc5dfab1",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "3dc31934",
+    "name": "בקינה",
+    "x": 17,
+    "y": 7,
+    "graphic": "dt_3dc31934",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "937a4a9a",
+    "name": "אמיקו",
+    "x": 6,
+    "y": 36,
+    "graphic": "dt_937a4a9a",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  }
+]

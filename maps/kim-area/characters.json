@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "5cb9ff14",
+    "name": "Shanzi",
+    "x": 10,
+    "y": 43,
+    "graphic": "dt_5cb9ff14",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "1be29576",
+    "name": "גופק",
+    "x": 8,
+    "y": 26,
+    "graphic": "dt_1be29576",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "3cdacb96",
+    "name": "בנג׳ו",
+    "x": 17,
+    "y": 33,
+    "graphic": "dt_3cdacb96",
+    "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  }
+]

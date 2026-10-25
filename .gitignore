@@ -40,3 +40,6 @@ dist/
 ErrorLog.txt
 ErrorLog*.txt
 /game-files/Game*.rxdata
+
+# Flamingo Band source stems (140 MB); stage OGGs are built from them
+mastolit-stems-quest/*.wav

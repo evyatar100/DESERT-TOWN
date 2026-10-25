@@ -9,6 +9,8 @@ description: >-
 
 # RPGXP Map Tools & Data Manipulation
 
+> Map writes (events: add, clone, move, delete) go through the `rxdata-safe-io` skill (`rxdata_io.rb`), not the Python rubymarshal writer.
+
 This skill provides procedures and utilities for reading, inspecting, and manipulating RPG Maker XP (`.rxdata`) map data directly using Python.
 
 ## Quick CLI Reference
@@ -42,7 +44,7 @@ python .agents/skills/rpgxp-map-tools/scripts/rpgxp_map.py clear-layer 94 --laye
 For full binary format details, see [table_spec.md](./references/table_spec.md).
 
 ### Core Concepts:
-1. **Serialization:** Maps are serialized Ruby objects using Ruby Marshal (`rubymarshal` in Python).
+1. **Serialization:** Maps are serialized Ruby objects using Ruby Marshal. Read them with Python (`rubymarshal`, or `game-files/tests/rx_loader.py` for maps with circular links). Write events with `rxdata_io.rb` (see `rxdata-safe-io`); the Python rubymarshal writer corrupts Map080 and Map084. The layer commands in `rpgxp_map.py` below still write with rubymarshal: run `ruby .agents/skills/rxdata-safe-io/scripts/rxdata_io.rb verify <map>` on the result and keep the `.bak`.
 2. **Table Layout:** Layer data is stored in `@data` as a 3D table with header `(dim=3, xs, ys, zs=3, count)`.
 3. **Layer Indexing:**
    - Layer 1: `z = 0` (ground / base terrain)

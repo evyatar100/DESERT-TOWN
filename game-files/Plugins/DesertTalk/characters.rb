@@ -49,6 +49,7 @@ module DesertTalk
     "73f1d834" => { name_key: "NAME_73F1D834", line_key: "MSG_73F1D834_LINE" },
     "754ba04a" => { name_key: "NAME_754BA04A", line_key: "MSG_754BA04A_LINE" },
     "788b2614" => { name_key: "NAME_788B2614", line_key: "MSG_788B2614_LINE" },
+    "7a2a022c" => { name_key: "NAME_7A2A022C", line_key: "MSG_7A2A022C_LINE" },
     "7afa738a" => { name_key: "NAME_7AFA738A", line_key: "MSG_7AFA738A_LINE" },
     "7c875377" => { name_key: "NAME_7C875377", line_key: "MSG_7C875377_LINE" },
     "82451b58" => { name_key: "NAME_82451B58", line_key: "MSG_82451B58_LINE" },

@@ -1404,6 +1404,17 @@
       "actions": [
         "walks randomly, speed slow, frequency high"
       ]
+    },
+    {
+      "character_id": "7a2a022c",
+      "map_id": 98,
+      "event_id": 10,
+      "x": 1,
+      "y": 33,
+      "line_key": null,
+      "actions": [
+        "barrel dialogue graph"
+      ]
     }
   ]
 }

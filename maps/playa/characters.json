@@ -22,5 +22,13 @@
     "y": 24,
     "graphic": "dt_4b08e38a",
     "notes": "pbDesertSpeaker + pbDesertTalk; random walk, speed slow, freq high"
+  },
+  {
+    "id": "7a2a022c",
+    "name": "טוגה",
+    "x": 1,
+    "y": 33,
+    "graphic": "dt_7a2a022c",
+    "notes": "pbDesertSpeaker + barrel dialogue graph"
   }
 ]

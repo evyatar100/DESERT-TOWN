@@ -504,3 +504,8 @@ Outdoor = false
 [111]   # char-demo
 Name = Char Demo
 Outdoor = true
+
+#-------------------------------
+[112]   # npc-chars
+Name = NPC Chars
+Outdoor = true

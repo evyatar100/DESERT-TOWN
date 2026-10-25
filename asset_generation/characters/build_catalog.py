@@ -23,6 +23,12 @@ CHAR_ROOTS = (
     ROOT / "asset_generation" / "characters" / "desert-town-chars" / "users-chars",
     ROOT / "asset_generation" / "production" / "char",
 )
+# NPCs are flat under npc-char/<name>-<id>/ (no donor folder). Included in
+# DesertTalk characters.rb and the catalog, but not in char-select PLAYABLE.
+NPC_ROOTS = (
+    ROOT / "asset_generation" / "characters" / "desert-town-chars" / "npc-char",
+    ROOT / "asset_generation" / "characters" / "desert-town-chars-staging" / "npc-char",
+)
 OUT = ROOT / "asset_generation" / "characters" / "catalog.html"
 LOCATIONS = ROOT / "asset_generation" / "characters" / "locations.json"
 PLAYABLE_JSON = ROOT / "asset_generation" / "characters" / "playable.json"
@@ -130,6 +136,45 @@ def load_placements() -> list[dict]:
     return placements
 
 
+def _append_character(
+    characters: list[dict[str, str | None]],
+    seen: set[str],
+    *,
+    cid: str,
+    donor: str,
+    meta_path: Path,
+    sheet_path: Path,
+    kind: str,
+) -> None:
+    if cid == QA_ID or cid in seen:
+        return
+    seen.add(cid)
+    title, fields = parse_metadata(meta_path.read_text(encoding="utf-8"))
+    name_he = clean(fields.get("Name (Hebrew)")) or clean(title)
+    name_en = clean(fields.get("Name (English)")) or name_he
+    characters.append(
+        {
+            "id": cid,
+            "donor": donor,
+            "kind": kind,
+            "title": clean(title),
+            "name_he": name_he,
+            "name_en": name_en,
+            "camp": clean(fields.get("Camp")) or ("NPC" if kind == "npc" else None),
+            "line": clean(fields.get("Line")),
+            "description": clean(fields.get("Description")),
+            "abilities": clean(fields.get("Abilities")),
+            "quest_usable": clean(fields.get("Quest usable")),
+            "placement": clean(fields.get("Placement")),
+            "symmetrical": clean(fields.get("Symmetrical")),
+            "asymmetric": clean(fields.get("Asymmetric")),
+            "asymmetric_notes": clean(fields.get("Asymmetric notes")),
+            "notes": clean(fields.get("Notes")),
+            "photo": first_frame_data_uri(sheet_path),
+        }
+    )
+
+
 def load_characters() -> list[dict[str, str | None]]:
     characters: list[dict[str, str | None]] = []
     seen: set[str] = set()
@@ -147,31 +192,34 @@ def load_characters() -> list[dict[str, str | None]]:
         metas = list(char_dir.rglob("metadata.md"))
         if len(sheets) != 1 or len(metas) != 1:
             raise RuntimeError(f"{donor_dir.name}/{char_dir.name} expected one sheet and one metadata")
-        cid = character_id(char_dir.name)
-        if cid == QA_ID or cid in seen:
-            continue
-        seen.add(cid)
-        title, fields = parse_metadata(metas[0].read_text(encoding="utf-8"))
-        characters.append(
-            {
-                "id": cid,
-                "donor": donor_dir.name,
-                "title": clean(title),
-                "name_he": clean(fields.get("Name (Hebrew)")),
-                "name_en": clean(fields.get("Name (English)")),
-                "camp": clean(fields.get("Camp")),
-                "line": clean(fields.get("Line")),
-                "description": clean(fields.get("Description")),
-                "abilities": clean(fields.get("Abilities")),
-                "quest_usable": clean(fields.get("Quest usable")),
-                "placement": clean(fields.get("Placement")),
-                "symmetrical": clean(fields.get("Symmetrical")),
-                "asymmetric": clean(fields.get("Asymmetric")),
-                "asymmetric_notes": clean(fields.get("Asymmetric notes")),
-                "notes": clean(fields.get("Notes")),
-                "photo": first_frame_data_uri(sheets[0]),
-            }
+        _append_character(
+            characters,
+            seen,
+            cid=character_id(char_dir.name),
+            donor=donor_dir.name,
+            meta_path=metas[0],
+            sheet_path=sheets[0],
+            kind="user",
         )
+    for root in NPC_ROOTS:
+        if not root.is_dir():
+            continue
+        for char_dir in sorted(root.iterdir()):
+            if not char_dir.is_dir():
+                continue
+            sheet = char_dir / "sheet.png"
+            meta = char_dir / "metadata.md"
+            if not sheet.is_file() or not meta.is_file():
+                raise RuntimeError(f"{root.name}/{char_dir.name} expected sheet.png and metadata.md")
+            _append_character(
+                characters,
+                seen,
+                cid=character_id(char_dir.name),
+                donor="npc-char",
+                meta_path=meta,
+                sheet_path=sheet,
+                kind="npc",
+            )
     characters.sort(key=lambda c: (c["name_he"] or c["name_en"] or c["donor"] or ""))
     return characters
 
@@ -528,6 +576,8 @@ def write_playable_rb(characters: list[dict[str, str | None]]) -> None:
         )
         seen.add(cid)
     for character in characters:
+        if character.get("kind") == "npc":
+            continue
         cid = str(character["id"])
         if cid.lower() in exclude or cid in seen:
             continue

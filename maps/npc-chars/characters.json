@@ -1,0 +1,26 @@
+[
+  {
+    "id": "73f1d834",
+    "name": "ha-mischariyut",
+    "x": 1,
+    "y": 1,
+    "graphic": "dt_73f1d834",
+    "notes": "pbDesertSpeaker + pbDesertTalk (NPC)"
+  },
+  {
+    "id": "14538600",
+    "name": "עצלן הטאון",
+    "x": 3,
+    "y": 1,
+    "graphic": "dt_14538600",
+    "notes": "pbDesertSpeaker + pbDesertTalk (NPC)"
+  },
+  {
+    "id": "8d654949",
+    "name": "צב-הים",
+    "x": 5,
+    "y": 1,
+    "graphic": "dt_8d654949",
+    "notes": "pbDesertSpeaker + pbDesertTalk (NPC)"
+  }
+]

@@ -406,5 +406,301 @@
     "y": 5,
     "graphic": "dt_e19726f0",
     "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "d472e0a3",
+    "name": "BARDAK",
+    "x": 23,
+    "y": 5,
+    "graphic": "dt_d472e0a3",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "6b53f14c",
+    "name": "Loooo",
+    "x": 25,
+    "y": 5,
+    "graphic": "dt_6b53f14c",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "834aef17",
+    "name": "Looti scooti balaboosti",
+    "x": 27,
+    "y": 5,
+    "graphic": "dt_834aef17",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "5cb9ff14",
+    "name": "Shanzi",
+    "x": 29,
+    "y": 5,
+    "graphic": "dt_5cb9ff14",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "f90d4de9",
+    "name": "אביתר",
+    "x": 31,
+    "y": 5,
+    "graphic": "dt_f90d4de9",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "fc5dfab1",
+    "name": "איליושה",
+    "x": 33,
+    "y": 5,
+    "graphic": "dt_fc5dfab1",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "788b2614",
+    "name": "אליאס",
+    "x": 35,
+    "y": 5,
+    "graphic": "dt_788b2614",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "b5fa3a91",
+    "name": "אלעד",
+    "x": 37,
+    "y": 5,
+    "graphic": "dt_b5fa3a91",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "937a4a9a",
+    "name": "אמיקו",
+    "x": 39,
+    "y": 5,
+    "graphic": "dt_937a4a9a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "2f88eb7f",
+    "name": "אנג'לאייז ג'וניור",
+    "x": 1,
+    "y": 7,
+    "graphic": "dt_2f88eb7f",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "110ffafa",
+    "name": "בוּפק",
+    "x": 3,
+    "y": 7,
+    "graphic": "dt_110ffafa",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "ab97c65d",
+    "name": "ג׳ק",
+    "x": 5,
+    "y": 7,
+    "graphic": "dt_ab97c65d",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "305385c5",
+    "name": "ה-מסחריות",
+    "x": 7,
+    "y": 7,
+    "graphic": "dt_305385c5",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "1988218f",
+    "name": "הילה הסטרייטית",
+    "x": 9,
+    "y": 7,
+    "graphic": "dt_1988218f",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "a003ee69",
+    "name": "חן",
+    "x": 11,
+    "y": 7,
+    "graphic": "dt_a003ee69",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "013feab1",
+    "name": "חתול לבן",
+    "x": 13,
+    "y": 7,
+    "graphic": "dt_013feab1",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "9b3660d1",
+    "name": "טל",
+    "x": 15,
+    "y": 7,
+    "graphic": "dt_9b3660d1",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "d6ad577a",
+    "name": "יעלי-בלי",
+    "x": 17,
+    "y": 7,
+    "graphic": "dt_d6ad577a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "bb70b1dd",
+    "name": "מאריו",
+    "x": 19,
+    "y": 7,
+    "graphic": "dt_bb70b1dd",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "1820dc9d",
+    "name": "מומיה",
+    "x": 21,
+    "y": 7,
+    "graphic": "dt_1820dc9d",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "754ba04a",
+    "name": "מיכלושס",
+    "x": 23,
+    "y": 7,
+    "graphic": "dt_754ba04a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "4f50bb0a",
+    "name": "ממה פוט",
+    "x": 25,
+    "y": 7,
+    "graphic": "dt_4f50bb0a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "7afa738a",
+    "name": "נטע הבר וינוגרד",
+    "x": 27,
+    "y": 7,
+    "graphic": "dt_7afa738a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "d107409e",
+    "name": "ניסים",
+    "x": 29,
+    "y": 7,
+    "graphic": "dt_d107409e",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "c11768dc",
+    "name": "סופרסטאר",
+    "x": 31,
+    "y": 7,
+    "graphic": "dt_c11768dc",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "b201fb8a",
+    "name": "סושי",
+    "x": 33,
+    "y": 7,
+    "graphic": "dt_b201fb8a",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "5571ef69",
+    "name": "סיון",
+    "x": 35,
+    "y": 7,
+    "graphic": "dt_5571ef69",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "7c875377",
+    "name": "עדי BAMA",
+    "x": 37,
+    "y": 7,
+    "graphic": "dt_7c875377",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "bb45a209",
+    "name": "ענבל",
+    "x": 39,
+    "y": 7,
+    "graphic": "dt_bb45a209",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "c414cf08",
+    "name": "ענבר",
+    "x": 1,
+    "y": 9,
+    "graphic": "dt_c414cf08",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "661f55e6",
+    "name": "צ'אנגה",
+    "x": 3,
+    "y": 9,
+    "graphic": "dt_661f55e6",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "02a02e20",
+    "name": "צ׳יקיטיטה",
+    "x": 5,
+    "y": 9,
+    "graphic": "dt_02a02e20",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "d2a3ac11",
+    "name": "רונן",
+    "x": 7,
+    "y": 9,
+    "graphic": "dt_d2a3ac11",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "64aeedbe",
+    "name": "רזית",
+    "x": 9,
+    "y": 9,
+    "graphic": "dt_64aeedbe",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "3a513720",
+    "name": "שיפו",
+    "x": 11,
+    "y": 9,
+    "graphic": "dt_3a513720",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "1a118967",
+    "name": "שניפ",
+    "x": 13,
+    "y": 9,
+    "graphic": "dt_1a118967",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "a7ba5185",
+    "name": "תור לי אור",
+    "x": 15,
+    "y": 9,
+    "graphic": "dt_a7ba5185",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   }
 ]

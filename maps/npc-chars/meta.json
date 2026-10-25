@@ -1,0 +1,16 @@
+{
+  "id": "npc-chars",
+  "display_name": "NPC Chars",
+  "map_id": 112,
+  "tileset_name": "000-Outside-desert",
+  "is_outside": true,
+  "bgm": "Calm Camps Area",
+  "connections": {
+    "north": null,
+    "south": null,
+    "east": null,
+    "west": null
+  },
+  "status": "in_progress",
+  "notes": "Demo map for NPC talk characters. Reuses OUTSIDE-DESERT tileset."
+}

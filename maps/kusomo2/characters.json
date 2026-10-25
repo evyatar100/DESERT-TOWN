@@ -1,1 +1,138 @@
-[]
+[
+  {
+    "id": "a715ed37",
+    "name": "מור",
+    "x": 8,
+    "y": 14,
+    "graphic": "dt_a715ed37",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "670f79e3",
+    "name": "שירפז",
+    "x": 10,
+    "y": 14,
+    "graphic": "dt_670f79e3",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "0f0fdcf5",
+    "name": "אייל הבוס",
+    "x": 12,
+    "y": 14,
+    "graphic": "dt_0f0fdcf5",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "e19726f0",
+    "name": "תפוצ'יפס",
+    "x": 14,
+    "y": 14,
+    "graphic": "dt_e19726f0",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "c081cd67",
+    "name": "אייל הנודלס",
+    "x": 16,
+    "y": 14,
+    "graphic": "dt_c081cd67",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "845a91aa",
+    "name": "מאבטח",
+    "x": 18,
+    "y": 14,
+    "graphic": "dt_845a91aa",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "b19b1f15",
+    "name": "הגרגמל",
+    "x": 20,
+    "y": 14,
+    "graphic": "dt_b19b1f15",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "6b57ce76",
+    "name": "Miki",
+    "x": 22,
+    "y": 14,
+    "graphic": "dt_6b57ce76",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "963c65ea",
+    "name": "נור האביר",
+    "x": 24,
+    "y": 14,
+    "graphic": "dt_963c65ea",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "2054a176",
+    "name": "עודש האימתני",
+    "x": 8,
+    "y": 16,
+    "graphic": "dt_2054a176",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "266d65c6",
+    "name": "אורן",
+    "x": 10,
+    "y": 16,
+    "graphic": "dt_266d65c6",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "11eaf4fa",
+    "name": "זיג-זאד",
+    "x": 12,
+    "y": 16,
+    "graphic": "dt_11eaf4fa",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "207a26e8",
+    "name": "קובל",
+    "x": 14,
+    "y": 16,
+    "graphic": "dt_207a26e8",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "2efd31ca",
+    "name": "ספחר",
+    "x": 16,
+    "y": 16,
+    "graphic": "dt_2efd31ca",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "0552d83f",
+    "name": "Stormrider1",
+    "x": 18,
+    "y": 16,
+    "graphic": "dt_0552d83f",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "85acb2b8",
+    "name": "טווולה",
+    "x": 20,
+    "y": 16,
+    "graphic": "dt_85acb2b8",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  },
+  {
+    "id": "a01046dc",
+    "name": "יערודזרט",
+    "x": 22,
+    "y": 16,
+    "graphic": "dt_a01046dc",
+    "notes": "pbDesertSpeaker + pbDesertTalk (Kusumo camp)"
+  }
+]

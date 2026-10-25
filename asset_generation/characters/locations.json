@@ -837,7 +837,9 @@
       "x": 8,
       "y": 54,
       "line_key": null,
-      "actions": ["shows MSG_834AEF17_SQUARE"]
+      "actions": [
+        "shows MSG_834AEF17_SQUARE"
+      ]
     },
     {
       "character_id": "3a513720",
@@ -846,7 +848,206 @@
       "x": 15,
       "y": 54,
       "line_key": null,
-      "actions": ["shows MSG_3A513720_SQUARE"]
+      "actions": [
+        "shows MSG_3A513720_SQUARE"
+      ]
+    },
+    {
+      "character_id": "a715ed37",
+      "map_id": 95,
+      "event_id": 1,
+      "x": 8,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "670f79e3",
+      "map_id": 95,
+      "event_id": 2,
+      "x": 10,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0f0fdcf5",
+      "map_id": 95,
+      "event_id": 3,
+      "x": 12,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "e19726f0",
+      "map_id": 95,
+      "event_id": 4,
+      "x": 14,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "c081cd67",
+      "map_id": 95,
+      "event_id": 5,
+      "x": 16,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "845a91aa",
+      "map_id": 95,
+      "event_id": 6,
+      "x": 18,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "b19b1f15",
+      "map_id": 95,
+      "event_id": 7,
+      "x": 20,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "6b57ce76",
+      "map_id": 95,
+      "event_id": 8,
+      "x": 22,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "963c65ea",
+      "map_id": 95,
+      "event_id": 9,
+      "x": 24,
+      "y": 14,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2054a176",
+      "map_id": 95,
+      "event_id": 10,
+      "x": 8,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "266d65c6",
+      "map_id": 95,
+      "event_id": 11,
+      "x": 10,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "11eaf4fa",
+      "map_id": 95,
+      "event_id": 12,
+      "x": 12,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "207a26e8",
+      "map_id": 95,
+      "event_id": 13,
+      "x": 14,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2efd31ca",
+      "map_id": 95,
+      "event_id": 14,
+      "x": 16,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "0552d83f",
+      "map_id": 95,
+      "event_id": 15,
+      "x": 18,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "85acb2b8",
+      "map_id": 95,
+      "event_id": 16,
+      "x": 20,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "a01046dc",
+      "map_id": 95,
+      "event_id": 17,
+      "x": 22,
+      "y": 16,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "2082afb4",
+      "map_id": 84,
+      "event_id": 1,
+      "x": 25,
+      "y": 35,
+      "line_key": null,
+      "actions": [
+        "shows MSG_GOOD_MORNING"
+      ]
+    },
+    {
+      "character_id": "110ffafa",
+      "map_id": 84,
+      "event_id": 2,
+      "x": 6,
+      "y": 35,
+      "line_key": null,
+      "actions": [
+        "shows MSG_SHONTAL_INTRO"
+      ]
+    },
+    {
+      "character_id": "4f50bb0a",
+      "map_id": 84,
+      "event_id": 5,
+      "x": 15,
+      "y": 25,
+      "line_key": null,
+      "actions": [
+        "shows MSG_CHAIRS_PROPORTION"
+      ]
+    },
+    {
+      "character_id": "6a9c3d6f",
+      "map_id": 84,
+      "event_id": 10,
+      "x": 25,
+      "y": 17,
+      "line_key": null,
+      "actions": [
+        "shows BATHROOM_LINE_ACTION"
+      ]
     }
   ]
 }

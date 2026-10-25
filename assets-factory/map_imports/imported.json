@@ -16,5 +16,11 @@
     "map_id": 99,
     "tileset_id": 59,
     "imported_at": "2026-10-25T19:43:29"
+  },
+  "maps/temple-inside/artifacts/desert-town-mapgen/map-export.zip": {
+    "sha256": "71ce228882059b21c43df21253f1160963ad583170622cf862e72444b380d537",
+    "map_id": 113,
+    "tileset_id": 61,
+    "imported_at": "2026-10-26T00:34:49"
   }
 }

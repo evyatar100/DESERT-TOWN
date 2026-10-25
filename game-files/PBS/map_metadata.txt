@@ -517,3 +517,8 @@ Outdoor = true
 [089]   # mom-dad-in
 Name = mom-dad-in
 Outdoor = false
+
+#-------------------------------
+[113]   # temple-inside
+Name = Temple Inside
+Outdoor = false

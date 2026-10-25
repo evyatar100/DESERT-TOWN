@@ -50,7 +50,6 @@ from rubymarshal.writer import write
 AUTOTILE_IDS = 384
 BLOCKED = 15
 DIR_BITS = {"down": 0x01, "left": 0x02, "right": 0x04, "up": 0x08}
-EDITOR_TILESET_SLOTS = 47  # RPG Maker XP's tileset list keeps slots 0-46; a save drops the rest
 
 
 def load_map(path: Path):
@@ -66,7 +65,7 @@ def load_map(path: Path):
 def free_tileset_slot(tilesets, data: Path) -> int | None:
     """First blank placeholder slot the editor keeps that no map uses."""
     used = {load_map(f).attributes.get("@tileset_id") for f in data.glob("Map[0-9]*.rxdata")}
-    for i in range(1, min(len(tilesets), EDITOR_TILESET_SLOTS)):
+    for i in range(1, len(tilesets)):
         t = tilesets[i]
         if i in used:
             continue
@@ -314,7 +313,7 @@ def main() -> int:
                      f"Free ids: {state.free_ids()}")
         ts_id = free_tileset_slot(tilesets, data)
         if ts_id is None:
-            sys.exit(f"No blank tileset slot under {EDITOR_TILESET_SLOTS}. In RPG Maker XP raise the "
+            sys.exit(f"No blank tileset slot below {len(tilesets)}. In RPG Maker XP raise the "
                      "tileset maximum (Database -> Tilesets -> Change Maximum), save, close, and rerun.")
         print(f"INSTALL as Map{map_id:03d} {name!r} with new tileset {ts_id}")
         if args.dry_run:

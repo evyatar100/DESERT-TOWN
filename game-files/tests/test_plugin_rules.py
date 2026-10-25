@@ -6,6 +6,7 @@ out. Otherwise the same cases run against the pure decisions copied below.
 
 from __future__ import annotations
 
+import json
 import shutil
 import subprocess
 import sys
@@ -51,6 +52,20 @@ def normalize_starter_quantity(quantity):
 
 
 DESERT_CHARACTERS = {"11eaf4fa": ("NAME_11EAF4FA", "MSG_11EAF4FA_LINE")}
+MOMDAD_CHILDREN = [
+    ("4c6540a3", 8),
+    ("65029b81", 12),
+    ("b25567c8", 14),
+    ("890b649e", 20),
+]
+
+
+def momdad_outcome(code):
+    return "win" if code == 1 else "lose"
+
+
+def momdad_child(index):
+    return MOMDAD_CHILDREN[index % len(MOMDAD_CHILDREN)][0]
 
 
 class DesertSpeaker:
@@ -286,6 +301,16 @@ class PluginRuleTests(unittest.TestCase):
             "the first letter of ריצה is not on the right",
         )
 
+    def test_momdad_children_are_on_the_circus_map(self):
+        golden = json.loads((ROOT / "tests" / "golden" / "Map089.json").read_text(encoding="utf-8"))
+        by_id = {event["id"]: event for event in golden["events"]}
+        for character_id, event_id in MOMDAD_CHILDREN:
+            event = by_id[event_id]
+            self.assertEqual(event["name"], "dt_" + character_id)
+            self.assertIn("pbDesertTalk", "".join(
+                str(command.get("parameters")) for page in event["pages"] for command in page["commands"]
+            ))
+
     def test_decision_behavior(self):
         if shutil.which("ruby"):
             completed = subprocess.run(
@@ -331,6 +356,11 @@ class PluginRuleTests(unittest.TestCase):
             speaker.start_speaker("deadbeef")
         with self.assertRaises(KeyError):
             standalone.talk("deadbeef")
+        self.assertEqual(momdad_outcome(1), "win")
+        self.assertEqual(momdad_outcome(2), "lose")
+        self.assertEqual(momdad_outcome(3), "lose")
+        self.assertEqual(momdad_child(4), momdad_child(0))
+        self.assertEqual(momdad_child(0), "4c6540a3")
 
 
 if __name__ == "__main__":

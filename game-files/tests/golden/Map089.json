@@ -298,76 +298,22 @@
     },
     {
       "id": 5,
-      "name": "Shadow trainer - basic",
+      "name": "momdad battle",
       "pages": [
         {
           "commands": [
             {
-              "code": 203,
+              "code": 355,
               "indent": 0,
               "parameters": [
-                6,
-                8,
-                4
-              ]
-            },
-            {
-              "code": 203,
-              "indent": 0,
-              "parameters": [
-                8,
-                8,
-                4
-              ]
-            },
-            {
-              "code": 203,
-              "indent": 0,
-              "parameters": [
-                4,
-                8,
-                4
-              ]
-            },
-            {
-              "code": 203,
-              "indent": 0,
-              "parameters": [
-                4,
-                8,
-                4
-              ]
-            },
-            {
-              "code": 203,
-              "indent": 0,
-              "parameters": [
-                2,
-                8,
-                4
-              ]
-            },
-            {
-              "code": 203,
-              "indent": 0,
-              "parameters": [
-                6,
-                8,
-                4
+                "pbGlobalLock"
               ]
             },
             {
               "code": 355,
               "indent": 0,
               "parameters": [
-                "pbTrainerIntro(:TEAMROCKET_M)"
-              ]
-            },
-            {
-              "code": 101,
-              "indent": 0,
-              "parameters": [
-                "\\bI'm a basic trainer with a Shadow Pokémon."
+                "pbMomDadBattleIntro(get_self)"
               ]
             },
             {
@@ -375,7 +321,7 @@
               "indent": 0,
               "parameters": [
                 12,
-                "pbShadowBasicBattle"
+                "pbMomDadBattleStart"
               ]
             },
             {
@@ -384,6 +330,30 @@
               "parameters": [
                 "A",
                 0
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbMomDadBattleWin"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 355,
+              "indent": 1,
+              "parameters": [
+                "pbMomDadBattleLose"
               ]
             },
             {
@@ -400,7 +370,7 @@
               "code": 355,
               "indent": 0,
               "parameters": [
-                "pbTrainerEnd"
+                "pbGlobalUnlock"
               ]
             },
             {
@@ -427,21 +397,7 @@
               "code": 101,
               "indent": 0,
               "parameters": [
-                "\\bDid you manage to snag my Shadow Pokémon?  "
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "Because you can't battle me again for another "
-              ]
-            },
-            {
-              "code": 401,
-              "indent": 0,
-              "parameters": [
-                "chance."
+                "MSG_MOMDAD_BATTLE_DONE"
               ]
             },
             {

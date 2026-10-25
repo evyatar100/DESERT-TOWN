@@ -1847,6 +1847,74 @@
     "REFEREE": {
       "en": "The rules are clear. Whoever loses is sent to detention and then expelled from Desert Town. Are you ready for the fight?",
       "he": "החוקים הם ברורים. מי שמפסיד נשלח למעצר ואז מגורש מדזרטאון. האם אתם מוכנים לקרב?"
+    },
+    "MSG_MOMDAD_BATTLE_WIN": {
+      "en": "\\b{1} follows you now.",
+      "he": "\\b{1} איתך מעכשיו."
+    },
+    "MSG_MOMDAD_BATTLE_LOSE": {
+      "en": "\\bYou lost. Back to mom and dad.",
+      "he": "\\bהפסדת. חוזרים לאמאלה ואבאלה."
+    },
+    "MSG_MOMDAD_BATTLE_RAN": {
+      "en": "You ran. That counts as a loss.",
+      "he": "ברחת. זה נחשב הפסד."
+    },
+    "MSG_MOMDAD_BATTLE_DONE": {
+      "en": "\\bThe fight is over. One of the children is already with you.",
+      "he": "\\bהקרב נגמר. אחד הילדים כבר איתך."
+    },
+    "MSG_MOMDAD_BATTLE_TRAINER_LOSE": {
+      "en": "You're too good for me!",
+      "he": "אתה טוב מדי בשבילי!"
+    },
+    "What will\n{1} do?": {
+      "en": "What will\n{1} do?",
+      "he": "מה יעשה\n{1}?"
+    },
+    "Fight": {
+      "en": "Fight",
+      "he": "הילחם"
+    },
+    "Bag": {
+      "en": "Bag",
+      "he": "תיק"
+    },
+    "Pokémon": {
+      "en": "Pokémon",
+      "he": "פוקימון"
+    },
+    "Run": {
+      "en": "Run",
+      "he": "ברח"
+    },
+    "Call": {
+      "en": "Call",
+      "he": "קריאה"
+    },
+    "You got away safely!": {
+      "en": "You got away safely!",
+      "he": "ברחת בשלום!"
+    },
+    "You can't escape!": {
+      "en": "You can't escape!",
+      "he": "אי אפשר לברוח!"
+    },
+    "No! There's no running from a Trainer battle!": {
+      "en": "No! There's no running from a Trainer battle!",
+      "he": "אי אפשר לברוח מקרב מאמן!"
+    },
+    "You got ${1} for winning!": {
+      "en": "You got ${1} for winning!",
+      "he": "קיבלת ${1} על הניצחון!"
+    },
+    "You gave ${1} to the winner...": {
+      "en": "You gave ${1} to the winner...",
+      "he": "נתת ${1} למנצח..."
+    },
+    "You panicked and dropped ${1}...": {
+      "en": "You panicked and dropped ${1}...",
+      "he": "נבהלת והפלת ${1}..."
     }
   }
 }

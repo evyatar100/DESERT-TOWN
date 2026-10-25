@@ -1147,12 +1147,12 @@
     {
       "character_id": "266d65c6",
       "map_id": 95,
-      "event_id": 11,
-      "x": 10,
-      "y": 16,
+      "event_id": 10,
+      "x": 18,
+      "y": 33,
       "line_key": null,
       "actions": [
-
+        "shows MSG_266D65C6_KUSUMO"
       ]
     },
     {

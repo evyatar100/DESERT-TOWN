@@ -366,8 +366,31 @@ def cmd_set_move(path, o)
   safe_write(o[:out] || path, map, before, ids, o[:scratch])
 end
 
+# Exact full-string replacements in command parameters, including choice arrays.
+def rewrite_param(value, mapping)
+  case value
+  when String
+    mapped = mapping[txt(value)]
+    mapped.nil? ? value : bin(mapped)
+  when Array
+    value.map { |item| rewrite_param(item, mapping) }
+  else
+    value
+  end
+end
+
+def apply_replace_text(page, mapping)
+  (iv(page, :list) || []).each do |command|
+    params = iv(command, :parameters)
+    next unless params.is_a?(Array)
+    command.instance_variable_set(:@parameters, params.map { |item| rewrite_param(item, mapping) })
+  end
+end
+
 # Change an existing event in place. Keeps its id, tile, direction, and any command
 # that is not listed in drop_text. talk prepends pbDesertSpeaker / pbDesertTalk.
+# line_key makes that pbDesertTalk call use the override form.
+# replace_text swaps exact parameter strings and does not prepend talk.
 # graphic is applied to every page. page limits talk / insert_before_end to one page.
 def apply_retarget(e, ed)
   ivs(e, name: bin(ed['name'])) if ed['name']
@@ -378,21 +401,27 @@ def apply_retarget(e, ed)
       graphic = iv(page, :graphic) or fail!("event #{iv(e, :id)} page #{i} has no graphic")
       graphic.instance_variable_set(:@character_name, bin(ed['graphic']))
     end
+    apply_replace_text(page, ed['replace_text']) if ed['replace_text'].is_a?(Hash)
     next unless ed['talk'] || ed['insert_before_end']
     next if ed.key?('page') && i != ed['page']
     list = iv(page, :list) || []
     if ed['talk']
       cid = ed['talk'].to_s
       fail!("talk must be a hex character id, got #{cid.inspect}") unless cid.match?(/\A\h+\z/)
+      line_key = ed['line_key']
+      if line_key
+        fail!("line_key must be a translation key, got #{line_key.inspect}") unless line_key.is_a?(String) && !line_key.empty?
+      end
       drop = Array(ed['drop_text']).map { |s| s.to_s }
       kept = list.reject do |c|
         params = iv(c, :parameters) || []
         iv(c, :code) == 101 && params[0] && drop.include?(txt(params[0]))
       end
       kept = kept[0...-1] if kept.last && iv(kept.last, :code) == 0
+      talk_script = line_key ? %(pbDesertTalk("#{cid}", "#{line_key}")) : %(pbDesertTalk("#{cid}"))
       new_list = [
         cmd(355, [bin(%(pbDesertSpeaker("#{cid}")))]),
-        cmd(355, [bin(%(pbDesertTalk("#{cid}")))])
+        cmd(355, [bin(talk_script)])
       ]
       new_list.concat(kept)
       new_list << cmd(0, [])

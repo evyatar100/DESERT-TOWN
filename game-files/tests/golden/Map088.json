@@ -7,6 +7,20 @@
         {
           "commands": [
             {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"0f0fdcf5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"0f0fdcf5\", \"MSG_0F0FDCF5_ICE\")"
+              ]
+            },
+            {
               "code": 209,
               "indent": 0,
               "parameters": [
@@ -234,6 +248,20 @@
         },
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"0f0fdcf5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"0f0fdcf5\", \"MSG_0F0FDCF5_ICE\")"
+              ]
+            },
             {
               "code": 209,
               "indent": 0,
@@ -466,7 +494,7 @@
     },
     {
       "id": 2,
-      "name": "dt_11eaf4fa",
+      "name": "dt_ff8eab6b",
       "pages": [
         {
           "commands": [

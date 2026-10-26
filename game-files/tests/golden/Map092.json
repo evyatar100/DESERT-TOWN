@@ -167,7 +167,7 @@
               "code": 101,
               "indent": 0,
               "parameters": [
-                "Which floor do you want?"
+                "MSG_ICE_ELEVATOR_FLOOR"
               ]
             },
             {
@@ -175,9 +175,9 @@
               "indent": 0,
               "parameters": [
                 [
-                  "0 F",
-                  "-1 F",
-                  "Cancel"
+                  "CHOICE_ICE_ELEVATOR_0",
+                  "CHOICE_ICE_ELEVATOR_MINUS1",
+                  "CHOICE_ICE_ELEVATOR_CANCEL"
                 ],
                 3
               ]
@@ -187,7 +187,7 @@
               "indent": 0,
               "parameters": [
                 0,
-                "0 F"
+                "CHOICE_ICE_ELEVATOR_0"
               ]
             },
             {
@@ -211,7 +211,7 @@
               "indent": 0,
               "parameters": [
                 1,
-                "-1 F"
+                "CHOICE_ICE_ELEVATOR_MINUS1"
               ]
             },
             {
@@ -235,7 +235,7 @@
               "indent": 0,
               "parameters": [
                 2,
-                "Cancel"
+                "CHOICE_ICE_ELEVATOR_CANCEL"
               ]
             },
             {

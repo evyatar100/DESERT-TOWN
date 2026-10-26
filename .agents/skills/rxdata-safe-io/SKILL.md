@@ -22,7 +22,7 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 | Add event | `ruby $R add MAP --spec spec.json [--dry-run] [--allow-overlap]` |
 | Move | `ruby $R move MAP --id 5 --x 10 --y 12` |
 | Autonomous movement | `ruby $R set-move MAP --id 4 --move-type 1 --move-speed 3 --move-frequency 4` (repeat `--id` for several events). Type 0 fixed, 1 random, 2 approach, 3 custom. Speed 3 is Slow, frequency 4 is High. |
-| Retarget in place | `ruby $R retarget MAP --spec spec.json`. Keeps the event id and tile. `graphic` is set on every page. `talk` prepends `pbDesertSpeaker` / `pbDesertTalk` and drops Show Text lines listed in `drop_text`. `insert_before_end` adds commands before the final end command. `page` limits those command edits to one page. |
+| Retarget in place | `ruby $R retarget MAP --spec spec.json`. Keeps the event id and tile. `graphic` is set on every page. `talk` prepends `pbDesertSpeaker` / `pbDesertTalk` and drops Show Text lines listed in `drop_text`. `line_key` uses the override form `pbDesertTalk(id, key)`. `replace_text` swaps exact command strings, including choice labels. `insert_before_end` adds commands before the final end command. `page` limits talk / insert edits to one page. |
 | Delete | `ruby $R delete MAP --id 5` |
 | Read-only check | `ruby $R verify MAP` (BYTE_EXACT or SEMANTIC_EQUAL is good; MISMATCH exits 3) |
 

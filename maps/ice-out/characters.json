@@ -40,27 +40,35 @@
     "notes": "turns toward the line"
   },
   {
-    "id": "b25567c8",
-    "name": "פרא",
+    "id": "266d65c6",
+    "name": "אורן",
     "x": 20,
     "y": 25,
-    "graphic": "dt_b25567c8",
+    "graphic": "dt_266d65c6",
     "notes": "walks into the line when the player joins"
   },
   {
-    "id": "a4012984",
-    "name": "נטע לובנש",
+    "id": "92958f4d",
+    "name": "ארי מימון",
     "x": 28,
     "y": 24,
-    "graphic": "dt_a4012984",
+    "graphic": "dt_92958f4d",
     "notes": "turns toward the line"
   },
   {
-    "id": "963c65ea",
-    "name": "נור האביר",
+    "id": "0211e32a",
+    "name": "איתן",
     "x": 29,
     "y": 24,
-    "graphic": "dt_963c65ea",
+    "graphic": "dt_0211e32a",
     "notes": ""
+  },
+  {
+    "id": "6a9c3d6f",
+    "name": "באבלס",
+    "x": 24,
+    "y": 21,
+    "graphic": "dt_6a9c3d6f",
+    "notes": "sells ice"
   }
 ]

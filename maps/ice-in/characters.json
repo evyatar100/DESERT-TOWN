@@ -5,14 +5,14 @@
     "x": 29,
     "y": 4,
     "graphic": "dt_0f0fdcf5",
-    "notes": "slides along the ice path"
+    "notes": "says MSG_0F0FDCF5_ICE; slides along the ice path"
   },
   {
-    "id": "11eaf4fa",
-    "name": "זיג-זאד",
+    "id": "ff8eab6b",
+    "name": "אביב הנסיך",
     "x": 44,
     "y": 4,
-    "graphic": "dt_11eaf4fa",
+    "graphic": "dt_ff8eab6b",
     "notes": "slides along the ice path"
   },
   {

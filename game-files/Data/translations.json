@@ -332,6 +332,26 @@
       "en": "You need to press the button for the right floor.",
       "he": "צריך ללחוץ על הכפתור של הקומה המתאימה"
     },
+    "MSG_ICE_ELEVATOR_FLOOR": {
+      "en": "Which floor do you want?",
+      "he": "לאיזו קומה?"
+    },
+    "CHOICE_ICE_ELEVATOR_0": {
+      "en": "0 F",
+      "he": "קומה 0"
+    },
+    "CHOICE_ICE_ELEVATOR_MINUS1": {
+      "en": "-1 F",
+      "he": "מינוס 1"
+    },
+    "CHOICE_ICE_ELEVATOR_CANCEL": {
+      "en": "Cancel",
+      "he": "ביטול"
+    },
+    "MSG_0F0FDCF5_ICE": {
+      "en": "לא נראה שאתה לבוש בהתאם. כמה דקות והלך עליך.",
+      "he": "לא נראה שאתה לבוש בהתאם. כמה דקות והלך עליך."
+    },
     "MSG_ICE_IN_TIMEOUT": {
       "en": "Too much time in the ice factory, hypothermia brought you to a critical state. The factory crew rescued you outside.",
       "he": "יותר מדי זמן במפעל הקרח, היפוטרמיה הביאה אותך למצב קריטי. צוות המפעל חילץ אותך החוצה"

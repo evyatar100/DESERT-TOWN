@@ -2124,7 +2124,9 @@
       "x": 23,
       "y": 3,
       "line_key": null,
-      "actions": []
+      "actions": [
+        "shows MSG_890B649E_MOMDAD"
+      ]
     },
     {
       "character_id": "8dafb982",

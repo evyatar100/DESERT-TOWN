@@ -1847,6 +1847,918 @@
     "REFEREE": {
       "en": "The rules are clear. Whoever loses is sent to detention and then expelled from Desert Town. Are you ready for the fight?",
       "he": "החוקים הם ברורים. מי שמפסיד נשלח למעצר ואז מגורש מדזרטאון. האם אתם מוכנים לקרב?"
+    },
+    "MSG_MOMDAD_BATTLE_WIN": {
+      "en": "\\b{1} follows you now.",
+      "he": "\\b{1} איתך מעכשיו."
+    },
+    "MSG_MOMDAD_BATTLE_LOSE": {
+      "en": "\\bYou lost. Back to mom and dad.",
+      "he": "\\bהפסדת. חוזרים לאמאלה ואבאלה."
+    },
+    "MSG_MOMDAD_BATTLE_RAN": {
+      "en": "You ran. That counts as a loss.",
+      "he": "ברחת. זה נחשב הפסד."
+    },
+    "MSG_MOMDAD_BATTLE_DONE": {
+      "en": "\\bThe fight is over. One of the children is already with you.",
+      "he": "\\bהקרב נגמר. אחד הילדים כבר איתך."
+    },
+    "MSG_MOMDAD_BATTLE_TRAINER_LOSE": {
+      "en": "You're too good for me!",
+      "he": "אתה טוב מדי בשבילי!"
+    },
+    "What will\n{1} do?": {
+      "en": "What will\n{1} do?",
+      "he": "מה יעשה\n{1}?"
+    },
+    "Fight": {
+      "en": "Fight",
+      "he": "הילחם"
+    },
+    "Bag": {
+      "en": "Bag",
+      "he": "תיק"
+    },
+    "Pokémon": {
+      "en": "Pokémon",
+      "he": "פוקימון"
+    },
+    "Run": {
+      "en": "Run",
+      "he": "ברח"
+    },
+    "Call": {
+      "en": "Call",
+      "he": "קריאה"
+    },
+    "You got away safely!": {
+      "en": "You got away safely!",
+      "he": "ברחת בשלום!"
+    },
+    "You can't escape!": {
+      "en": "You can't escape!",
+      "he": "אי אפשר לברוח!"
+    },
+    "No! There's no running from a Trainer battle!": {
+      "en": "No! There's no running from a Trainer battle!",
+      "he": "אי אפשר לברוח מקרב מאמן!"
+    },
+    "You got ${1} for winning!": {
+      "en": "You got ${1} for winning!",
+      "he": "קיבלת ${1} על הניצחון!"
+    },
+    "You gave ${1} to the winner...": {
+      "en": "You gave ${1} to the winner...",
+      "he": "נתת ${1} למנצח..."
+    },
+    "You panicked and dropped ${1}...": {
+      "en": "You panicked and dropped ${1}...",
+      "he": "נבהלת והפלת ${1}..."
+    },
+    "Pikachu": {
+      "en": "Pikachu",
+      "he": "פיקאצ'ו"
+    },
+    "Charizard": {
+      "en": "Charizard",
+      "he": "צ'ריזארד"
+    },
+    "Snorlax": {
+      "en": "Snorlax",
+      "he": "סנורלקס"
+    },
+    "Blastoise": {
+      "en": "Blastoise",
+      "he": "בלסטויז"
+    },
+    "Venusaur": {
+      "en": "Venusaur",
+      "he": "ונוזאור"
+    },
+    "Abra": {
+      "en": "Abra",
+      "he": "אברה"
+    },
+    "Thunderbolt": {
+      "en": "Thunderbolt",
+      "he": "מכת רעם"
+    },
+    "Volt Tackle": {
+      "en": "Volt Tackle",
+      "he": "התנגשות חשמל"
+    },
+    "Iron Tail": {
+      "en": "Iron Tail",
+      "he": "זנב ברזל"
+    },
+    "Quick Attack": {
+      "en": "Quick Attack",
+      "he": "התקפה מהירה"
+    },
+    "Flamethrower": {
+      "en": "Flamethrower",
+      "he": "להביור"
+    },
+    "Air Slash": {
+      "en": "Air Slash",
+      "he": "חיתוך אוויר"
+    },
+    "Dragon Pulse": {
+      "en": "Dragon Pulse",
+      "he": "גל דרקון"
+    },
+    "Roost": {
+      "en": "Roost",
+      "he": "קינון"
+    },
+    "Body Slam": {
+      "en": "Body Slam",
+      "he": "הטחת גוף"
+    },
+    "Earthquake": {
+      "en": "Earthquake",
+      "he": "רעידת אדמה"
+    },
+    "Crunch": {
+      "en": "Crunch",
+      "he": "נגיסה"
+    },
+    "Hammer Arm": {
+      "en": "Hammer Arm",
+      "he": "זרוע פטיש"
+    },
+    "Hydro Pump": {
+      "en": "Hydro Pump",
+      "he": "משאבת מים"
+    },
+    "Ice Beam": {
+      "en": "Ice Beam",
+      "he": "קרן קרח"
+    },
+    "Aura Sphere": {
+      "en": "Aura Sphere",
+      "he": "כדור הילה"
+    },
+    "Dark Pulse": {
+      "en": "Dark Pulse",
+      "he": "גל אפל"
+    },
+    "Giga Drain": {
+      "en": "Giga Drain",
+      "he": "יניקה ענקית"
+    },
+    "Sludge Bomb": {
+      "en": "Sludge Bomb",
+      "he": "פצצת רפש"
+    },
+    "Earth Power": {
+      "en": "Earth Power",
+      "he": "כוח האדמה"
+    },
+    "Sleep Powder": {
+      "en": "Sleep Powder",
+      "he": "אבקת שינה"
+    },
+    "Psychic": {
+      "en": "Psychic",
+      "he": "על-חושי"
+    },
+    "Shadow Ball": {
+      "en": "Shadow Ball",
+      "he": "כדור צל"
+    },
+    "Dazzling Gleam": {
+      "en": "Dazzling Gleam",
+      "he": "ברק מסנוור"
+    },
+    "Calm Mind": {
+      "en": "Calm Mind",
+      "he": "רוח שקטה"
+    },
+    "The user crunches up the target with sharp fangs. It may also lower the target's Defense stat.": {
+      "en": "The user crunches up the target with sharp fangs. It may also lower the target's Defense stat.",
+      "he": "נוגס בניבים חדים. עלול להוריד הגנה."
+    },
+    "The user releases a horrible aura imbued with dark thoughts. It may also make the target flinch.": {
+      "en": "The user releases a horrible aura imbued with dark thoughts. It may also make the target flinch.",
+      "he": "הילה אפלה. עלולה לגרום ליריב להירתע."
+    },
+    "The target is attacked with a shock wave generated by the user's gaping mouth.": {
+      "en": "The target is attacked with a shock wave generated by the user's gaping mouth.",
+      "he": "גל הלם מפיו של הפוקימון."
+    },
+    "The user electrifies itself, then charges at the foe. It causes considerable damage to the user as well.": {
+      "en": "The user electrifies itself, then charges at the foe. It causes considerable damage to the user as well.",
+      "he": "הסתערות חשמלית. גם הפוקימון נפגע, ועלולה לשתק."
+    },
+    "A strong electric blast is loosed at the target. It may also leave the target with paralysis.": {
+      "en": "A strong electric blast is loosed at the target. It may also leave the target with paralysis.",
+      "he": "מכת חשמל חזקה. עלולה לשתק."
+    },
+    "The user damages opposing Pokémon by emitting a powerful flash.": {
+      "en": "The user damages opposing Pokémon by emitting a powerful flash.",
+      "he": "הבזק חזק שפוגע ביריבים."
+    },
+    "The user swings and hits with its strong and heavy fist. It lowers the user's Speed, however.": {
+      "en": "The user swings and hits with its strong and heavy fist. It lowers the user's Speed, however.",
+      "he": "מכה באגרוף כבד. מוריד את המהירות של המשתמש."
+    },
+    "The user looses a blast of aura power from deep within its body. This move is certain to hit.": {
+      "en": "The user looses a blast of aura power from deep within its body. This move is certain to hit.",
+      "he": "כדור של אנרגיית הילה. תמיד פוגע."
+    },
+    "The target is scorched with an intense blast of fire. It may also leave the target with a burn.": {
+      "en": "The target is scorched with an intense blast of fire. It may also leave the target with a burn.",
+      "he": "להבת אש חזקה. עלולה לגרום לכווייה."
+    },
+    "The user attacks with a blade of air that slices even the sky. It may also make the target flinch.": {
+      "en": "The user attacks with a blade of air that slices even the sky. It may also make the target flinch.",
+      "he": "להב של אוויר. עלול לגרום ליריב להירתע."
+    },
+    "The user lands and rests its body. It restores the user's HP by up to half of its max HP.": {
+      "en": "The user lands and rests its body. It restores the user's HP by up to half of its max HP.",
+      "he": "נח ומחזיר עד חצי מנקודות החיים."
+    },
+    "The user hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.": {
+      "en": "The user hurls a shadowy blob at the target. It may also lower the target's Sp. Def stat.",
+      "he": "זורק גוש של צל. עלול להוריד הגנה מיוחדת."
+    },
+    "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.": {
+      "en": "A nutrient-draining attack. The user's HP is restored by half the damage taken by the target.",
+      "he": "שואב כוח מהיריב ומשחזר חצי מהנזק כחיים."
+    },
+    "The user scatters a big cloud of sleep-inducing dust around the target.": {
+      "en": "The user scatters a big cloud of sleep-inducing dust around the target.",
+      "he": "מפזר אבקה שמרדימה."
+    },
+    "The user sets off an earthquake that strikes every Pokémon around it.": {
+      "en": "The user sets off an earthquake that strikes every Pokémon around it.",
+      "he": "מרעיד את הקרקע ופוגע בכל מי שמסביב."
+    },
+    "The user makes the ground under the foe erupt with power. It may also lower the target's Sp. Def.": {
+      "en": "The user makes the ground under the foe erupt with power. It may also lower the target's Sp. Def.",
+      "he": "האדמה מתפרצת מתחת ליריב. עלול להוריד הגנה מיוחדת."
+    },
+    "The target is struck with an icy-cold beam of energy. It may also freeze the target solid.": {
+      "en": "The target is struck with an icy-cold beam of energy. It may also freeze the target solid.",
+      "he": "קרן קפואה. עלולה להקפיא."
+    },
+    "The user drops onto the target with its full body weight. It may leave the target with paralysis.": {
+      "en": "The user drops onto the target with its full body weight. It may leave the target with paralysis.",
+      "he": "מפיל את כל משקלו על היריב. עלול לשתק."
+    },
+    "The user lunges at the target at a speed that makes it almost invisible. It is sure to strike first.": {
+      "en": "The user lunges at the target at a speed that makes it almost invisible. It is sure to strike first.",
+      "he": "זינק מהיר שכמעט תמיד מכה ראשון."
+    },
+    "Unsanitary sludge is hurled at the target. It may also poison the target.": {
+      "en": "Unsanitary sludge is hurled at the target. It may also poison the target.",
+      "he": "זורק רפש. עלול להרעיל."
+    },
+    "The target is hit by a strong telekinetic force. It may also reduce the target's Sp. Def stat.": {
+      "en": "The target is hit by a strong telekinetic force. It may also reduce the target's Sp. Def stat.",
+      "he": "כוח טלקינזי. עלול להוריד הגנה מיוחדת."
+    },
+    "The user quietly focuses its mind and calms its spirit to raise its Sp. Atk and Sp. Def stats.": {
+      "en": "The user quietly focuses its mind and calms its spirit to raise its Sp. Atk and Sp. Def stats.",
+      "he": "נרגע ומעלה את ההתקפה המיוחדת ואת ההגנה המיוחדת."
+    },
+    "The target is slammed with a steel-hard tail. It may also lower the target's Defense stat.": {
+      "en": "The target is slammed with a steel-hard tail. It may also lower the target's Defense stat.",
+      "he": "חובט בזנב קשה כפלדה. עלול להוריד הגנה."
+    },
+    "The target is blasted by a huge volume of water launched under great pressure.": {
+      "en": "The target is blasted by a huge volume of water launched under great pressure.",
+      "he": "זרם מים עצום בלחץ גבוה."
+    },
+    "Normal": {
+      "en": "Normal",
+      "he": "רגיל"
+    },
+    "Fighting": {
+      "en": "Fighting",
+      "he": "לחימה"
+    },
+    "Flying": {
+      "en": "Flying",
+      "he": "מעופף"
+    },
+    "Poison": {
+      "en": "Poison",
+      "he": "רעל"
+    },
+    "Ground": {
+      "en": "Ground",
+      "he": "אדמה"
+    },
+    "Rock": {
+      "en": "Rock",
+      "he": "סלע"
+    },
+    "Bug": {
+      "en": "Bug",
+      "he": "חרק"
+    },
+    "Ghost": {
+      "en": "Ghost",
+      "he": "רוח"
+    },
+    "Steel": {
+      "en": "Steel",
+      "he": "פלדה"
+    },
+    "Fire": {
+      "en": "Fire",
+      "he": "אש"
+    },
+    "Water": {
+      "en": "Water",
+      "he": "מים"
+    },
+    "Grass": {
+      "en": "Grass",
+      "he": "עשב"
+    },
+    "Electric": {
+      "en": "Electric",
+      "he": "חשמל"
+    },
+    "Ice": {
+      "en": "Ice",
+      "he": "קרח"
+    },
+    "Dragon": {
+      "en": "Dragon",
+      "he": "דרקון"
+    },
+    "Dark": {
+      "en": "Dark",
+      "he": "אופל"
+    },
+    "Fairy": {
+      "en": "Fairy",
+      "he": "פיה"
+    },
+    "HP": {
+      "en": "HP",
+      "he": "חיים"
+    },
+    "Attack": {
+      "en": "Attack",
+      "he": "התקפה"
+    },
+    "Defense": {
+      "en": "Defense",
+      "he": "הגנה"
+    },
+    "Special Attack": {
+      "en": "Special Attack",
+      "he": "התקפה מיוחדת"
+    },
+    "Special Defense": {
+      "en": "Special Defense",
+      "he": "הגנה מיוחדת"
+    },
+    "Speed": {
+      "en": "Speed",
+      "he": "מהירות"
+    },
+    "accuracy": {
+      "en": "accuracy",
+      "he": "דיוק"
+    },
+    "evasiveness": {
+      "en": "evasiveness",
+      "he": "התחמקות"
+    },
+    "Atk": {
+      "en": "Atk",
+      "he": "התק"
+    },
+    "Def": {
+      "en": "Def",
+      "he": "הגנ"
+    },
+    "SpAtk": {
+      "en": "SpAtk",
+      "he": "התמ"
+    },
+    "SpDef": {
+      "en": "SpDef",
+      "he": "הגמ"
+    },
+    "Spd": {
+      "en": "Spd",
+      "he": "מה"
+    },
+    "Acc": {
+      "en": "Acc",
+      "he": "דיו"
+    },
+    "Eva": {
+      "en": "Eva",
+      "he": "הת"
+    },
+    "None": {
+      "en": "None",
+      "he": "ללא"
+    },
+    "Sleep": {
+      "en": "Sleep",
+      "he": "שינה"
+    },
+    "Burn": {
+      "en": "Burn",
+      "he": "כווייה"
+    },
+    "Paralysis": {
+      "en": "Paralysis",
+      "he": "שיתוק"
+    },
+    "Frozen": {
+      "en": "Frozen",
+      "he": "קפוא"
+    },
+    "Static": {
+      "en": "Static",
+      "he": "חשמל סטטי"
+    },
+    "Blaze": {
+      "en": "Blaze",
+      "he": "להבה"
+    },
+    "Thick Fat": {
+      "en": "Thick Fat",
+      "he": "שומן עבה"
+    },
+    "Torrent": {
+      "en": "Torrent",
+      "he": "שטף"
+    },
+    "Overgrow": {
+      "en": "Overgrow",
+      "he": "צמיחת יתר"
+    },
+    "Magic Guard": {
+      "en": "Magic Guard",
+      "he": "מגן קסם"
+    },
+    "Light Ball": {
+      "en": "Light Ball",
+      "he": "כדור אור"
+    },
+    "Charcoal": {
+      "en": "Charcoal",
+      "he": "פחם"
+    },
+    "Leftovers": {
+      "en": "Leftovers",
+      "he": "שאריות"
+    },
+    "Mystic Water": {
+      "en": "Mystic Water",
+      "he": "מים מיסטיים"
+    },
+    "Black Sludge": {
+      "en": "Black Sludge",
+      "he": "בוצה שחורה"
+    },
+    "Twisted Spoon": {
+      "en": "Twisted Spoon",
+      "he": "כף מעוקלת"
+    },
+    "Team Rocket": {
+      "en": "Team Rocket",
+      "he": "מאמן"
+    },
+    "Grunt": {
+      "en": "Grunt",
+      "he": "הקרקס"
+    },
+    "The opposing {1}": {
+      "en": "The opposing {1}",
+      "he": "{1} של היריב"
+    },
+    "the opposing {1}": {
+      "en": "the opposing {1}",
+      "he": "{1} של היריב"
+    },
+    "The wild {1}": {
+      "en": "The wild {1}",
+      "he": "{1} הבר"
+    },
+    "the wild {1}": {
+      "en": "the wild {1}",
+      "he": "{1} הבר"
+    },
+    "The ally {1}": {
+      "en": "The ally {1}",
+      "he": "{1} בעל הברית"
+    },
+    "the ally {1}": {
+      "en": "the ally {1}",
+      "he": "{1} בעל הברית"
+    },
+    "The opposing team": {
+      "en": "The opposing team",
+      "he": "הקבוצה של היריב"
+    },
+    "the opposing team": {
+      "en": "the opposing team",
+      "he": "הקבוצה של היריב"
+    },
+    "Your team": {
+      "en": "Your team",
+      "he": "הקבוצה שלך"
+    },
+    "your team": {
+      "en": "your team",
+      "he": "הקבוצה שלך"
+    },
+    "You are challenged by {1}!": {
+      "en": "You are challenged by {1}!",
+      "he": "{1} מזמין אותך לקרב!"
+    },
+    "{1} sent out {2}!": {
+      "en": "{1} sent out {2}!",
+      "he": "{1} שלח את {2}!"
+    },
+    "Go! {1}!": {
+      "en": "Go! {1}!",
+      "he": "קדימה, {1}!"
+    },
+    "You defeated {1}!": {
+      "en": "You defeated {1}!",
+      "he": "ניצחת את {1}!"
+    },
+    "You lost against {1}!": {
+      "en": "You lost against {1}!",
+      "he": "הפסדת ל{1}!"
+    },
+    "You have no more Pokémon that can fight!": {
+      "en": "You have no more Pokémon that can fight!",
+      "he": "אין לך עוד פוקימון שיכול להילחם!"
+    },
+    "You blacked out!": {
+      "en": "You blacked out!",
+      "he": "איבדת את ההכרה!"
+    },
+    "{1} fainted!": {
+      "en": "{1} fainted!",
+      "he": "{1} התעלף!"
+    },
+    "{1} used {2}!": {
+      "en": "{1} used {2}!",
+      "he": "{1} השתמש במהלך {2}!"
+    },
+    "It's super effective!": {
+      "en": "It's super effective!",
+      "he": "זה יעיל במיוחד!"
+    },
+    "It's super effective on {1}!": {
+      "en": "It's super effective on {1}!",
+      "he": "זה יעיל במיוחד נגד {1}!"
+    },
+    "It's not very effective...": {
+      "en": "It's not very effective...",
+      "he": "זה לא כל כך יעיל..."
+    },
+    "It's not very effective on {1}...": {
+      "en": "It's not very effective on {1}...",
+      "he": "זה לא כל כך יעיל נגד {1}..."
+    },
+    "A critical hit!": {
+      "en": "A critical hit!",
+      "he": "פגיעה קריטית!"
+    },
+    "A critical hit on {1}!": {
+      "en": "A critical hit on {1}!",
+      "he": "פגיעה קריטית ב{1}!"
+    },
+    "{1}'s attack missed!": {
+      "en": "{1}'s attack missed!",
+      "he": "ההתקפה של {1} החטיאה!"
+    },
+    "But it failed!": {
+      "en": "But it failed!",
+      "he": "אבל זה נכשל!"
+    },
+    "It doesn't affect {1}...": {
+      "en": "It doesn't affect {1}...",
+      "he": "זה לא משפיע על {1}..."
+    },
+    "It doesn't affect {1} because of its {2}.": {
+      "en": "It doesn't affect {1} because of its {2}.",
+      "he": "זה לא משפיע על {1} בגלל {2}."
+    },
+    "{1} is unaffected!": {
+      "en": "{1} is unaffected!",
+      "he": "{1} לא מושפע!"
+    },
+    "{1} avoided the attack!": {
+      "en": "{1} avoided the attack!",
+      "he": "{1} התחמק מההתקפה!"
+    },
+    "{1} flinched and couldn't move!": {
+      "en": "{1} flinched and couldn't move!",
+      "he": "{1} נרתע ולא הצליח לזוז!"
+    },
+    "{1} is damaged by recoil!": {
+      "en": "{1} is damaged by recoil!",
+      "he": "{1} נפגע מההדף!"
+    },
+    "{1}'s HP was restored.": {
+      "en": "{1}'s HP was restored.",
+      "he": "החיים של {1} שוחזרו."
+    },
+    "{1}'s HP is full!": {
+      "en": "{1}'s HP is full!",
+      "he": "החיים של {1} מלאים!"
+    },
+    "{1} restored its health using its {2}!": {
+      "en": "{1} restored its health using its {2}!",
+      "he": "{1} שיחזר חיים בעזרת {2}!"
+    },
+    "{1} restored a little HP using its {2}!": {
+      "en": "{1} restored a little HP using its {2}!",
+      "he": "{1} שיחזר קצת חיים בעזרת {2}!"
+    },
+    "{1}'s {2} restored its HP.": {
+      "en": "{1}'s {2} restored its HP.",
+      "he": "{2} של {1} שיחזר לו חיים."
+    },
+    "{1} fell asleep!": {
+      "en": "{1} fell asleep!",
+      "he": "{1} נרדם!"
+    },
+    "{1} is fast asleep.": {
+      "en": "{1} is fast asleep.",
+      "he": "{1} ישן עמוק."
+    },
+    "{1} woke up!": {
+      "en": "{1} woke up!",
+      "he": "{1} התעורר!"
+    },
+    "{1} is already asleep!": {
+      "en": "{1} is already asleep!",
+      "he": "{1} כבר ישן!"
+    },
+    "{1} was poisoned!": {
+      "en": "{1} was poisoned!",
+      "he": "{1} הורעל!"
+    },
+    "{1} was badly poisoned!": {
+      "en": "{1} was badly poisoned!",
+      "he": "{1} הורעל קשות!"
+    },
+    "{1} was hurt by poison!": {
+      "en": "{1} was hurt by poison!",
+      "he": "{1} נפגע מהרעל!"
+    },
+    "{1} is already poisoned!": {
+      "en": "{1} is already poisoned!",
+      "he": "{1} כבר מורעל!"
+    },
+    "{1} was cured of its poisoning.": {
+      "en": "{1} was cured of its poisoning.",
+      "he": "{1} נרפא מהרעל."
+    },
+    "{1} was burned!": {
+      "en": "{1} was burned!",
+      "he": "{1} נכווה!"
+    },
+    "{1} was hurt by its burn!": {
+      "en": "{1} was hurt by its burn!",
+      "he": "{1} נפגע מהכווייה!"
+    },
+    "{1} already has a burn!": {
+      "en": "{1} already has a burn!",
+      "he": "ל{1} כבר יש כווייה!"
+    },
+    "{1}'s burn was healed.": {
+      "en": "{1}'s burn was healed.",
+      "he": "הכווייה של {1} נרפאה."
+    },
+    "{1} is paralyzed! It may be unable to move!": {
+      "en": "{1} is paralyzed! It may be unable to move!",
+      "he": "{1} משותק! אולי לא יוכל לזוז!"
+    },
+    "{1} is paralyzed! It can't move!": {
+      "en": "{1} is paralyzed! It can't move!",
+      "he": "{1} משותק! הוא לא יכול לזוז!"
+    },
+    "{1} is already paralyzed!": {
+      "en": "{1} is already paralyzed!",
+      "he": "{1} כבר משותק!"
+    },
+    "{1} was cured of paralysis.": {
+      "en": "{1} was cured of paralysis.",
+      "he": "{1} נרפא מהשיתוק."
+    },
+    "{1} was frozen solid!": {
+      "en": "{1} was frozen solid!",
+      "he": "{1} קפא!"
+    },
+    "{1} is frozen solid!": {
+      "en": "{1} is frozen solid!",
+      "he": "{1} קפוא!"
+    },
+    "{1} is already frozen solid!": {
+      "en": "{1} is already frozen solid!",
+      "he": "{1} כבר קפוא!"
+    },
+    "{1} thawed out!": {
+      "en": "{1} thawed out!",
+      "he": "{1} הפשיר!"
+    },
+    "{1} was thawed out.": {
+      "en": "{1} was thawed out.",
+      "he": "{1} הפשיר."
+    },
+    "{1} became confused!": {
+      "en": "{1} became confused!",
+      "he": "{1} התבלבל!"
+    },
+    "{1} is confused!": {
+      "en": "{1} is confused!",
+      "he": "{1} מבולבל!"
+    },
+    "{1} snapped out of its confusion.": {
+      "en": "{1} snapped out of its confusion.",
+      "he": "{1} התעשת מהבלבול."
+    },
+    "It hurt itself in its confusion!": {
+      "en": "It hurt itself in its confusion!",
+      "he": "הוא פגע בעצמו מרוב בלבול!"
+    },
+    "{1}'s {2} rose!": {
+      "en": "{1}'s {2} rose!",
+      "he": "ה{2} של {1} עלה!"
+    },
+    "{1}'s {2} rose sharply!": {
+      "en": "{1}'s {2} rose sharply!",
+      "he": "ה{2} של {1} עלה בחדות!"
+    },
+    "{1}'s {2} rose drastically!": {
+      "en": "{1}'s {2} rose drastically!",
+      "he": "ה{2} של {1} עלה מאוד!"
+    },
+    "{1}'s {2} fell!": {
+      "en": "{1}'s {2} fell!",
+      "he": "ה{2} של {1} ירד!"
+    },
+    "{1}'s {2} harshly fell!": {
+      "en": "{1}'s {2} harshly fell!",
+      "he": "ה{2} של {1} ירד בחדות!"
+    },
+    "{1}'s {2} severely fell!": {
+      "en": "{1}'s {2} severely fell!",
+      "he": "ה{2} של {1} ירד מאוד!"
+    },
+    "{1}'s {2} won't go any higher!": {
+      "en": "{1}'s {2} won't go any higher!",
+      "he": "ה{2} של {1} לא יכול לעלות יותר!"
+    },
+    "{1}'s {2} won't go any lower!": {
+      "en": "{1}'s {2} won't go any lower!",
+      "he": "ה{2} של {1} לא יכול לרדת יותר!"
+    },
+    "{1}, come back!": {
+      "en": "{1}, come back!",
+      "he": "{1}, חזור!"
+    },
+    "{1}, that's enough! Come back!": {
+      "en": "{1}, that's enough! Come back!",
+      "he": "{1}, מספיק! חזור!"
+    },
+    "{1}, switch out! Come back!": {
+      "en": "{1}, switch out! Come back!",
+      "he": "{1}, התחלף! חזור!"
+    },
+    "Good job, {1}! Come back!": {
+      "en": "Good job, {1}! Come back!",
+      "he": "עבודה טובה, {1}! חזור!"
+    },
+    "OK, {1}! Come back!": {
+      "en": "OK, {1}! Come back!",
+      "he": "אוקיי, {1}! חזור!"
+    },
+    "Go for it, {1}!": {
+      "en": "Go for it, {1}!",
+      "he": "קדימה, {1}!"
+    },
+    "{1} withdrew {2}!": {
+      "en": "{1} withdrew {2}!",
+      "he": "{1} החזיר את {2}!"
+    },
+    "{1} is about to send out {2}. Will you switch your Pokémon?": {
+      "en": "{1} is about to send out {2}. Will you switch your Pokémon?",
+      "he": "{1} עומד לשלוח את {2}. להחליף פוקימון?"
+    },
+    "Use next Pokémon?": {
+      "en": "Use next Pokémon?",
+      "he": "לשלוח את הפוקימון הבא?"
+    },
+    "Choose a Pokémon.": {
+      "en": "Choose a Pokémon.",
+      "he": "בחר פוקימון."
+    },
+    "Switch In": {
+      "en": "Switch In",
+      "he": "החלף"
+    },
+    "Summary": {
+      "en": "Summary",
+      "he": "סיכום"
+    },
+    "Use on which Pokémon?": {
+      "en": "Use on which Pokémon?",
+      "he": "על איזה פוקימון?"
+    },
+    "PP: {1}/{2}": {
+      "en": "PP: {1}/{2}",
+      "he": "כוח: {1}/{2}"
+    },
+    "PP: ---<br>TYPE/{1}": {
+      "en": "PP: ---<br>TYPE/{1}",
+      "he": "כוח: ---<br>סוג/{1}"
+    },
+    "{1} got {2} Exp. Points!": {
+      "en": "{1} got {2} Exp. Points!",
+      "he": "{1} קיבל {2} נקודות ניסיון!"
+    },
+    "{1} got a boosted {2} Exp. Points!": {
+      "en": "{1} got a boosted {2} Exp. Points!",
+      "he": "{1} קיבל {2} נקודות ניסיון מוגברות!"
+    },
+    "{1} grew to Lv. {2}!": {
+      "en": "{1} grew to Lv. {2}!",
+      "he": "{1} עלה לרמה {2}!"
+    },
+    "{1} learned {2}!": {
+      "en": "{1} learned {2}!",
+      "he": "{1} למד את {2}!"
+    },
+    "But there was no PP left for the move!": {
+      "en": "But there was no PP left for the move!",
+      "he": "לא נשאר כוח למהלך!"
+    },
+    "{1} has no moves left!": {
+      "en": "{1} has no moves left!",
+      "he": "ל{1} לא נשארו מהלכים!"
+    },
+    "{1} has no energy left to battle!": {
+      "en": "{1} has no energy left to battle!",
+      "he": "ל{1} לא נשאר כוח לקרב!"
+    },
+    "{1} is already in battle!": {
+      "en": "{1} is already in battle!",
+      "he": "{1} כבר בקרב!"
+    },
+    "{1} can't be switched out!": {
+      "en": "{1} can't be switched out!",
+      "he": "אי אפשר להחליף את {1}!"
+    },
+    "Items can't be used here.": {
+      "en": "Items can't be used here.",
+      "he": "אי אפשר להשתמש בפריטים כאן."
+    },
+    "{1} used a {2}.": {
+      "en": "{1} used a {2}.",
+      "he": "{1} השתמש ב{2}."
+    },
+    "{1} used an {2}.": {
+      "en": "{1} used an {2}.",
+      "he": "{1} השתמש ב{2}."
+    },
+    "But it had no effect!": {
+      "en": "But it had no effect!",
+      "he": "אבל לא הייתה לזה השפעה!"
+    },
+    "{1}'s {2} activated!": {
+      "en": "{1}'s {2} activated!",
+      "he": "{2} של {1} הופעל!"
+    },
+    "{1} cannot be poisoned!": {
+      "en": "{1} cannot be poisoned!",
+      "he": "אי אפשר להרעיל את {1}!"
+    },
+    "{1} cannot be burned!": {
+      "en": "{1} cannot be burned!",
+      "he": "אי אפשר לכוות את {1}!"
+    },
+    "{1} cannot be paralyzed!": {
+      "en": "{1} cannot be paralyzed!",
+      "he": "אי אפשר לשתק את {1}!"
+    },
+    "{1} cannot be frozen solid!": {
+      "en": "{1} cannot be frozen solid!",
+      "he": "אי אפשר להקפיא את {1}!"
+    },
+    "{1} stays awake!": {
+      "en": "{1} stays awake!",
+      "he": "{1} נשאר ער!"
     }
   }
 }

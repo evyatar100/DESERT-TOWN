@@ -4,7 +4,7 @@
   "map_id": 93,
   "tileset_name": "PARTY_ts",
   "is_outside": true,
-  "bgm": "Alien Party",
+  "bgm": "Calm Camps Area",
   "connections": {
     "north": null,
     "south": null,

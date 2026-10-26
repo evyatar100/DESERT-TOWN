@@ -21,18 +21,19 @@ class StarterItemTests(unittest.TestCase):
         content = (ROOT / "PBS" / "items.txt").read_text(encoding="utf-8")
         self.assertIn("[WHITEWATERBOTTLE]", content)
         self.assertIn("[USBDISK]", content)
+        self.assertIn("[EVENTPROGRAM]", content)
 
     def test_items_dat_and_keyitem_flags(self):
         with (ROOT / "Data" / "items.dat").open("rb") as handle:
             items = load(handle)
-        for name in ("WHITEWATERBOTTLE", "USBDISK"):
+        for name in ("WHITEWATERBOTTLE", "USBDISK", "EVENTPROGRAM"):
             item = items.get(Symbol(name))
             self.assertIsNotNone(item, "%s missing from items.dat" % name)
             self.assertEqual(item.attributes.get("@pocket"), 8)
             self.assertIn("KeyItem", item.attributes.get("@flags", []))
 
     def test_item_icons(self):
-        for name in ("WHITEWATERBOTTLE.png", "USBDISK.png"):
+        for name in ("WHITEWATERBOTTLE.png", "USBDISK.png", "EVENTPROGRAM.png"):
             path = ROOT / "Graphics" / "Items" / name
             self.assertTrue(path.exists(), "Icon %s missing" % path)
             with Image.open(path) as image:
@@ -45,6 +46,11 @@ class StarterItemTests(unittest.TestCase):
         self.assertEqual(translations["WHITEWATERBOTTLE"]["he"], "בקבוק מים (לבן)")
         self.assertEqual(translations["USBDISK"]["he"], "דיסק און קי")
         self.assertIn("למקרה הצורך", translations["USBDISK_DESC"]["he"])
+        self.assertEqual(translations["EVENTPROGRAM"]["he"], "תוכניה")
+        self.assertEqual(
+            translations["EVENTPROGRAM_DESC"]["he"],
+            "תוכניה מודפסת של האירוע.",
+        )
 
     def test_cannot_be_thrown_or_tossed(self):
         source = (ROOT / "Plugins" / "BurningManBag" / "burning_man_bag.rb").read_text(encoding="utf-8")

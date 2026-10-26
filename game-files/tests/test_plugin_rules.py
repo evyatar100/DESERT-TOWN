@@ -152,11 +152,34 @@ class PluginRuleTests(unittest.TestCase):
         lights = (ROOT / "Plugins" / "PartyLights" / "party_lights.rb").read_text(encoding="utf-8")
         sheep = (ROOT / "Plugins" / "SpacesheepCool" / "spacesheep_cool.rb").read_text(encoding="utf-8")
         self.assertIn("MAP_ID = 93", lights)
+        self.assertIn("SWITCH = 105", lights)
+        self.assertIn("def enter_zone", lights)
+        self.assertIn("def exit_zone", lights)
+        self.assertIn('COOL_BGM = "Alien Party"', lights)
+        self.assertIn('CALM_BGM = "Calm Camps Area"', lights)
         self.assertIn("Tone.new(100, -30, -30, 0)", lights)
         self.assertIn("Tone.new(-30, -30, 100, 0)", lights)
         self.assertIn("Tone.new(-30, 100, -30, 0)", lights)
         self.assertIn("Tone.new(100, -30, -30, 0)", sheep)
-        self.assertNotIn("pbBGMPlay", lights)
+        self.assertIn("pbBGMPlay", lights)
+        # Game loads PartyLights from PluginScripts.rxdata, not the .rb file alone.
+        import zlib
+        from rubymarshal.reader import load as load_marshal
+
+        def _text(value):
+            return value.decode("utf-8") if isinstance(value, bytes) else str(value)
+
+        with open(ROOT / "Data" / "PluginScripts.rxdata", "rb") as handle:
+            plugins = load_marshal(handle)
+        party = next(p for p in plugins if _text(p[0]) == "PartyLights")
+        compiled = {
+            _text(name): zlib.decompress(bytes(code)).decode("utf-8") for name, code in party[2]
+        }
+        self.assertEqual(
+            compiled.get("party_lights.rb"),
+            lights,
+            "PartyLights is not recompiled; run python compile_plugins.py",
+        )
         talk = (ROOT / "Plugins" / "DesertTalk" / "desert_talk.rb").read_text(encoding="utf-8")
         self.assertIn("def pbDesertSpeaker", talk)
         self.assertIn("DesertTalk.start_speaker", talk)

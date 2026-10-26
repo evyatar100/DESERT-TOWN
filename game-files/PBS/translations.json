@@ -584,6 +584,38 @@
       "en": "Just in case.",
       "he": "למקרה הצורך."
     },
+    "EVENTPROGRAM": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "Event Program": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "Event Programs": {
+      "en": "Event Programs",
+      "he": "תוכניות"
+    },
+    "EVENTPROGRAM_DESC": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "A printed program of the event.": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "תוכניה": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "תוכניה מודפסת של האירוע.": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "תוכניות": {
+      "en": "Event Programs",
+      "he": "תוכניות"
+    },
     "Cancel": {
       "en": "Cancel",
       "he": "ביטול"

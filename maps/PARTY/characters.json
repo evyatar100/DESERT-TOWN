@@ -70,5 +70,341 @@
     "y": 20,
     "graphic": "dt_a7ba5185",
     "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "d472e0a3",
+    "name": "BARDAK",
+    "x": 37,
+    "y": 16,
+    "graphic": "dt_d472e0a3",
+    "notes": "hops along custom move route; moves right and left"
+  },
+  {
+    "id": "8f6972ef",
+    "name": "Lili",
+    "x": 25,
+    "y": 14,
+    "graphic": "dt_8f6972ef",
+    "notes": "hops along custom move route; moves left then right"
+  },
+  {
+    "id": "834aef17",
+    "name": "Looti scooti balaboosti",
+    "x": 28,
+    "y": 14,
+    "graphic": "dt_834aef17",
+    "notes": "hops along custom move route; moves left, down, right, and up"
+  },
+  {
+    "id": "5cb9ff14",
+    "name": "Shanzi",
+    "x": 31,
+    "y": 14,
+    "graphic": "dt_5cb9ff14",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "0552d83f",
+    "name": "Stormrider1",
+    "x": 35,
+    "y": 4,
+    "graphic": "dt_0552d83f",
+    "notes": "hops along custom move route; moves in place"
+  },
+  {
+    "id": "ff8eab6b",
+    "name": "אביב הנסיך",
+    "x": 37,
+    "y": 14,
+    "graphic": "dt_ff8eab6b",
+    "notes": "hops along custom move route; moves down and up"
+  },
+  {
+    "id": "266d65c6",
+    "name": "אורן",
+    "x": 40,
+    "y": 14,
+    "graphic": "dt_266d65c6",
+    "notes": "hops along custom move route; moves left and right"
+  },
+  {
+    "id": "0f0fdcf5",
+    "name": "אייל הבוס",
+    "x": 43,
+    "y": 14,
+    "graphic": "dt_0f0fdcf5",
+    "notes": "hops along custom move route; moves right and left"
+  },
+  {
+    "id": "fc5dfab1",
+    "name": "איליושה",
+    "x": 29,
+    "y": 24,
+    "graphic": "dt_fc5dfab1",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "0211e32a",
+    "name": "איתן",
+    "x": 27,
+    "y": 17,
+    "graphic": "dt_0211e32a",
+    "notes": "hops along custom move route; moves in place"
+  },
+  {
+    "id": "788b2614",
+    "name": "אליאס",
+    "x": 32,
+    "y": 17,
+    "graphic": "dt_788b2614",
+    "notes": "hops along custom move route; moves up and down"
+  },
+  {
+    "id": "b5fa3a91",
+    "name": "אלעד",
+    "x": 36,
+    "y": 17,
+    "graphic": "dt_b5fa3a91",
+    "notes": "hops along custom move route; moves down and up"
+  },
+  {
+    "id": "937a4a9a",
+    "name": "אמיקו",
+    "x": 39,
+    "y": 17,
+    "graphic": "dt_937a4a9a",
+    "notes": "hops along custom move route; moves left and right"
+  },
+  {
+    "id": "2f88eb7f",
+    "name": "אנג'לאייז ג'וניור",
+    "x": 42,
+    "y": 17,
+    "graphic": "dt_2f88eb7f",
+    "notes": "hops along custom move route; moves up then down"
+  },
+  {
+    "id": "92958f4d",
+    "name": "ארי מימון",
+    "x": 34,
+    "y": 14,
+    "graphic": "dt_92958f4d",
+    "notes": "hops along custom move route; moves up, right, down, and left"
+  },
+  {
+    "id": "6a9c3d6f",
+    "name": "באבלס",
+    "x": 24,
+    "y": 19,
+    "graphic": "dt_6a9c3d6f",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "110ffafa",
+    "name": "בוּפק",
+    "x": 27,
+    "y": 20,
+    "graphic": "dt_110ffafa",
+    "notes": "hops along custom move route; moves in place"
+  },
+  {
+    "id": "3cdacb96",
+    "name": "בנג׳ו",
+    "x": 30,
+    "y": 20,
+    "graphic": "dt_3cdacb96",
+    "notes": "hops along custom move route; moves up and down"
+  },
+  {
+    "id": "4c6540a3",
+    "name": "בת של מילף",
+    "x": 34,
+    "y": 20,
+    "graphic": "dt_4c6540a3",
+    "notes": "hops along custom move route; moves down and up"
+  },
+  {
+    "id": "d4540277",
+    "name": "גברי",
+    "x": 37,
+    "y": 20,
+    "graphic": "dt_d4540277",
+    "notes": "hops along custom move route; moves left and right"
+  },
+  {
+    "id": "4b08e38a",
+    "name": "ג׳וני",
+    "x": 40,
+    "y": 20,
+    "graphic": "dt_4b08e38a",
+    "notes": "hops along custom move route; moves right and left"
+  },
+  {
+    "id": "82451b58",
+    "name": "ד\"ר סטיצ'",
+    "x": 43,
+    "y": 20,
+    "graphic": "dt_82451b58",
+    "notes": "hops along custom move route; moves up then down"
+  },
+  {
+    "id": "2082afb4",
+    "name": "דורוס",
+    "x": 32,
+    "y": 18,
+    "graphic": "dt_2082afb4",
+    "notes": "hops along custom move route; moves left then right"
+  },
+  {
+    "id": "abd7f899",
+    "name": "דיגל",
+    "x": 24,
+    "y": 22,
+    "graphic": "dt_abd7f899",
+    "notes": "hops along custom move route; moves up, right, down, and left"
+  },
+  {
+    "id": "305385c5",
+    "name": "ה-מסחריות",
+    "x": 28,
+    "y": 23,
+    "graphic": "dt_305385c5",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "b19b1f15",
+    "name": "הגרגמל",
+    "x": 31,
+    "y": 23,
+    "graphic": "dt_b19b1f15",
+    "notes": "hops along custom move route; moves in place"
+  },
+  {
+    "id": "1988218f",
+    "name": "הילה הסטרייטית",
+    "x": 34,
+    "y": 23,
+    "graphic": "dt_1988218f",
+    "notes": "hops along custom move route; moves up and down"
+  },
+  {
+    "id": "30c62b46",
+    "name": "חייזר1",
+    "x": 37,
+    "y": 23,
+    "graphic": "dt_30c62b46",
+    "notes": "hops along custom move route; moves down and up"
+  },
+  {
+    "id": "a003ee69",
+    "name": "חן",
+    "x": 40,
+    "y": 23,
+    "graphic": "dt_a003ee69",
+    "notes": "hops along custom move route; moves left and right"
+  },
+  {
+    "id": "013feab1",
+    "name": "חתול לבן",
+    "x": 43,
+    "y": 23,
+    "graphic": "dt_013feab1",
+    "notes": "hops along custom move route; moves up then down"
+  },
+  {
+    "id": "85acb2b8",
+    "name": "טווולה",
+    "x": 31,
+    "y": 4,
+    "graphic": "dt_85acb2b8",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "9b3660d1",
+    "name": "טל",
+    "x": 23,
+    "y": 25,
+    "graphic": "dt_9b3660d1",
+    "notes": "hops along custom move route; moves in place"
+  },
+  {
+    "id": "326f5ab5",
+    "name": "יוניק",
+    "x": 26,
+    "y": 26,
+    "graphic": "dt_326f5ab5",
+    "notes": "hops along custom move route; moves up and down"
+  },
+  {
+    "id": "8dafb982",
+    "name": "יעל",
+    "x": 29,
+    "y": 26,
+    "graphic": "dt_8dafb982",
+    "notes": "hops along custom move route; moves down and up"
+  },
+  {
+    "id": "d6ad577a",
+    "name": "יעלי-בלי",
+    "x": 32,
+    "y": 26,
+    "graphic": "dt_d6ad577a",
+    "notes": "hops along custom move route; moves left and right"
+  },
+  {
+    "id": "a01046dc",
+    "name": "יערודזרט",
+    "x": 35,
+    "y": 26,
+    "graphic": "dt_a01046dc",
+    "notes": "hops along custom move route; moves right and left"
+  },
+  {
+    "id": "fcba2ff5",
+    "name": "יערול",
+    "x": 38,
+    "y": 26,
+    "graphic": "dt_fcba2ff5",
+    "notes": "hops along custom move route; moves up then down"
+  },
+  {
+    "id": "c626f0d6",
+    "name": "לדה בת נחיר",
+    "x": 41,
+    "y": 26,
+    "graphic": "dt_c626f0d6",
+    "notes": "hops along custom move route; moves left then right"
+  },
+  {
+    "id": "648b924a",
+    "name": "לילי",
+    "x": 44,
+    "y": 26,
+    "graphic": "dt_648b924a",
+    "notes": "hops along custom move route; moves at random"
+  },
+  {
+    "id": "b3178e6b",
+    "name": "רוחמה",
+    "x": 47,
+    "y": 26,
+    "graphic": "dt_b3178e6b",
+    "notes": "hops along custom move route; jumps in place"
+  },
+  {
+    "id": "845a91aa",
+    "name": "מאבטח",
+    "x": 26,
+    "y": 11,
+    "graphic": "dt_845a91aa",
+    "notes": "pbDesertSpeaker"
+  },
+  {
+    "id": "cace0cde",
+    "name": "עידו",
+    "x": 34,
+    "y": 12,
+    "graphic": "dt_cace0cde",
+    "notes": "hops along custom move route; jumps in place"
   }
 ]

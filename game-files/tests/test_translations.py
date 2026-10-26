@@ -43,6 +43,25 @@ class TranslationFileTests(unittest.TestCase):
                 hebrew_found = True
         self.assertTrue(hebrew_found, "No Hebrew characters found in translation values")
 
+    def test_circus_battle_roster_is_hebrew(self):
+        path = ROOT / "PBS" / "translations.json"
+        data = json.loads(path.read_text(encoding="utf-8"))
+        entries = data["translations"]
+        needed = [
+            "Pikachu", "Charizard", "Snorlax", "Blastoise", "Venusaur", "Abra",
+            "Thunderbolt", "Volt Tackle", "Iron Tail", "Quick Attack",
+            "Flamethrower", "Air Slash", "Dragon Pulse", "Roost",
+            "Body Slam", "Earthquake", "Crunch", "Hammer Arm",
+            "Hydro Pump", "Ice Beam", "Aura Sphere", "Dark Pulse",
+            "Giga Drain", "Sludge Bomb", "Earth Power", "Sleep Powder",
+            "Psychic", "Shadow Ball", "Dazzling Gleam", "Calm Mind",
+            "{1} used {2}!", "It's super effective!", "{1} fainted!",
+        ]
+        for key in needed:
+            self.assertIn(key, entries, key)
+            hebrew = entries[key]["he"]
+            self.assertTrue(any("\u0590" <= char <= "\u05FF" for char in hebrew), key)
+
 
 if __name__ == "__main__":
     unittest.main()

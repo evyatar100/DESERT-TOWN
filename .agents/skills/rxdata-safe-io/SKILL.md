@@ -42,6 +42,8 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 - `commands`: `[{"code": 101, "parameters": ["MSG_X"]}]` appended after `talk` (the end command is added if missing).
 - `clone_from: <event id>` deep-copies that event, then applies name, x, y, graphic, talk/commands.
 - `id` defaults to max+1; after a delete that can reuse the deleted id, and the tool warns if any backup held it. Pin a fresh `id` in the spec if anything refers to events by id. Action Button trigger, direction 2, unless `trigger` or `direction` is given.
+- A JSON array adds every object in one write. Tiles and ids are checked against events already on the map and against earlier objects in the array.
+- `route` is a custom move route: `[[35, []], [14, [0, 0]], [15, [6]], [4, []]]`. Code 14 is Jump, code 15 is Wait, codes 1–4 are Down/Left/Right/Up. `move_type` 3 plays it. `skippable`, `route_repeat`, `move_speed`, `move_frequency`, `direction_fix`, `walk_anime`, `step_anime`, and `through` set the page. Omitted fields keep the standing talk-event defaults.
 - Refuses: existing id, tile outside the map, tile held by another event.
 
 ## Safety gates (built in)

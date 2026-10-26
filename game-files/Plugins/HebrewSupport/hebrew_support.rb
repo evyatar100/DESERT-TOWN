@@ -428,6 +428,16 @@ if defined?(_INTL)
   end
 end
 
+# Move, species, type, ability and trainer names come from the message
+# hash, not from _INTL. Look the English result up in translations.json.
+if defined?(pbGetMessageFromHash) && !defined?(_hebrew_original_pbGetMessageFromHash)
+  alias _hebrew_original_pbGetMessageFromHash pbGetMessageFromHash
+  def pbGetMessageFromHash(type, id)
+    text = _hebrew_original_pbGetMessageFromHash(type, id)
+    return HebrewText.translate(text)
+  end
+end
+
 #===============================================================================
 # GameData::Item Translation Overrides
 #===============================================================================

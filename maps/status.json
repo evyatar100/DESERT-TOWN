@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T22:50:38Z",
+  "generated_at": "2026-10-26T07:46:15Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -218,13 +218,12 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 6,
-      "char_count": 6,
+      "event_count": 5,
+      "char_count": 5,
       "chars": [
         "\u05d0\u05d9\u05dc\u05d9\u05d5\u05e9\u05d4",
         "\u05d1\u05e7\u05d9\u05e0\u05d4",
         "\u05d0\u05de\u05d9\u05e7\u05d5",
-        "\u05d7\u05ea\u05d5\u05dc \u05dc\u05d1\u05df",
         "\u05d7\u05ea\u05d5\u05dc\u05d9\u05de\u05d9\u05d4\u05d5",
         "\u05d3\u05d9\u05d2\u05dc"
       ],
@@ -291,8 +290,8 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 88,
-      "char_count": 88,
+      "event_count": 89,
+      "char_count": 89,
       "chars": [
         "\u05e0\u05d9\u05e1\u05d9\u05dd",
         "Looti scooti balaboosti",
@@ -381,7 +380,8 @@
         "\u05e8\u05d5\u05d7\u05de\u05d4",
         "\u05e8\u05d6 \u05d4\u05dc\u05dc",
         "\u05e8\u05d6\u05d9\u05ea",
-        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8"
+        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8",
+        "\u05e2\u05d9\u05d3\u05d5"
       ],
       "has_artifacts": false
     },
@@ -1554,7 +1554,7 @@
       "map_id": 88,
       "tileset_name": "ice-in_ts",
       "is_outside": false,
-      "bgm": "Calm Camps Area",
+      "bgm": "Ice In",
       "status": "in_progress",
       "deprecated": false,
       "notes": "Has PSD source (ice-in) left in folder; ignore for pipeline",
@@ -1963,7 +1963,7 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 6,
+      "event_count": 5,
       "char_count": 0,
       "chars": [],
       "has_artifacts": false
@@ -2267,7 +2267,7 @@
       "map_id": 93,
       "tileset_name": "PARTY_ts",
       "is_outside": true,
-      "bgm": "Deep Playa 3",
+      "bgm": "Alien Party",
       "status": "in_progress",
       "deprecated": false,
       "notes": "",
@@ -2322,8 +2322,8 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 9,
-      "char_count": 9,
+      "event_count": 51,
+      "char_count": 51,
       "chars": [
         "\u05d6\u05d9\u05d2-\u05d6\u05d0\u05d3",
         "\u05e0\u05d5\u05e8 \u05d4\u05d0\u05d1\u05d9\u05e8",
@@ -2333,7 +2333,49 @@
         "\u05e8\u05d6 \u05d4\u05d1\u05df",
         "\u05e1\u05d5\u05e4\u05e8\u05e1\u05d8\u05d0\u05e8",
         "\u05e2\u05d3\u05d9 BAMA",
-        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8"
+        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8",
+        "BARDAK",
+        "Lili",
+        "Looti scooti balaboosti",
+        "Shanzi",
+        "Stormrider1",
+        "\u05d0\u05d1\u05d9\u05d1 \u05d4\u05e0\u05e1\u05d9\u05da",
+        "\u05d0\u05d5\u05e8\u05df",
+        "\u05d0\u05d9\u05d9\u05dc \u05d4\u05d1\u05d5\u05e1",
+        "\u05d0\u05d9\u05dc\u05d9\u05d5\u05e9\u05d4",
+        "\u05d0\u05d9\u05ea\u05df",
+        "\u05d0\u05dc\u05d9\u05d0\u05e1",
+        "\u05d0\u05dc\u05e2\u05d3",
+        "\u05d0\u05de\u05d9\u05e7\u05d5",
+        "\u05d0\u05e0\u05d2'\u05dc\u05d0\u05d9\u05d9\u05d6 \u05d2'\u05d5\u05e0\u05d9\u05d5\u05e8",
+        "\u05d0\u05e8\u05d9 \u05de\u05d9\u05de\u05d5\u05df",
+        "\u05d1\u05d0\u05d1\u05dc\u05e1",
+        "\u05d1\u05d5\u05bc\u05e4\u05e7",
+        "\u05d1\u05e0\u05d2\u05f3\u05d5",
+        "\u05d1\u05ea \u05e9\u05dc \u05de\u05d9\u05dc\u05e3",
+        "\u05d2\u05d1\u05e8\u05d9",
+        "\u05d2\u05f3\u05d5\u05e0\u05d9",
+        "\u05d3\"\u05e8 \u05e1\u05d8\u05d9\u05e6'",
+        "\u05d3\u05d5\u05e8\u05d5\u05e1",
+        "\u05d3\u05d9\u05d2\u05dc",
+        "\u05d4-\u05de\u05e1\u05d7\u05e8\u05d9\u05d5\u05ea",
+        "\u05d4\u05d2\u05e8\u05d2\u05de\u05dc",
+        "\u05d4\u05d9\u05dc\u05d4 \u05d4\u05e1\u05d8\u05e8\u05d9\u05d9\u05d8\u05d9\u05ea",
+        "\u05d7\u05d9\u05d9\u05d6\u05e81",
+        "\u05d7\u05df",
+        "\u05d7\u05ea\u05d5\u05dc \u05dc\u05d1\u05df",
+        "\u05d8\u05d5\u05d5\u05d5\u05dc\u05d4",
+        "\u05d8\u05dc",
+        "\u05d9\u05d5\u05e0\u05d9\u05e7",
+        "\u05d9\u05e2\u05dc",
+        "\u05d9\u05e2\u05dc\u05d9-\u05d1\u05dc\u05d9",
+        "\u05d9\u05e2\u05e8\u05d5\u05d3\u05d6\u05e8\u05d8",
+        "\u05d9\u05e2\u05e8\u05d5\u05dc",
+        "\u05dc\u05d3\u05d4 \u05d1\u05ea \u05e0\u05d7\u05d9\u05e8",
+        "\u05dc\u05d9\u05dc\u05d9",
+        "\u05e8\u05d5\u05d7\u05de\u05d4",
+        "\u05de\u05d0\u05d1\u05d8\u05d7",
+        "\u05e2\u05d9\u05d3\u05d5"
       ],
       "has_artifacts": false
     },
@@ -2613,7 +2655,7 @@
       "event_connections": [
         "spacesheep-in-64"
       ],
-      "event_count": 14,
+      "event_count": 15,
       "char_count": 1,
       "chars": [
         "\u05d7\u05d9\u05d9\u05d6\u05e81"

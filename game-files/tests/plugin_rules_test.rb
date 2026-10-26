@@ -522,6 +522,7 @@ show = show.split("def self.slide_closed_now?", 2).first
 end
 
 load File.join(ROOT, "Plugins/zFlamingoBand/000_rules.rb")
+load File.join(ROOT, "Plugins/MomDadBattle/000_rules.rb")
 band = FlamingoBandRules.new_state
 check(FlamingoBandRules.claim(band, "c626f0d6", 77).nil?, "band: nothing before the intro")
 band[:intro_done] = true
@@ -989,6 +990,24 @@ check(missing.empty?, "temple: every TEMPLE_ key is in translations.json (missin
 
 # TG7 bags rules and hooks live in their own file (same check/$failures).
 load File.join(__dir__, "bags_rules_test.rb")
+check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
+check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
+      "battle: loss tile is (25, 3) facing down")
+check(MomDadBattleRules::MONEY == 0, "battle: money is zero")
+check(MomDadBattleRules::BATTLE_RULES == ["noMoney", "canLose", "canRun"],
+      "battle: no prize, no loss money, can lose, can run")
+check(MomDadBattleRules::INTRO == [:music, :pan, :effect, :fight],
+      "battle: music, then the camera, then the effect, then the fight")
+check(MomDadBattleRules.pan_returns_home?, "battle: the camera pan ends where it started")
+check(MomDadBattleRules::CHILDREN.length == 4, "battle: four children")
+check(MomDadBattleRules.child(0)[:id] == "4c6540a3", "battle: first child")
+check(MomDadBattleRules.child(0)[:event_id] == 8, "battle: first child event")
+check(MomDadBattleRules.child(3)[:event_id] == 20, "battle: last child event")
+check(MomDadBattleRules.child(4)[:id] == MomDadBattleRules.child(0)[:id], "battle: child index wraps")
+check(MomDadBattleRules.outcome(1) == :win, "battle: outcome 1 is a win")
+check(MomDadBattleRules.outcome(2) == :lose, "battle: a loss is a loss")
+check(MomDadBattleRules.outcome(3) == :lose, "battle: running is a loss")
+check(MomDadBattleRules.follower_name("b25567c8") == "momdad_child_b25567c8", "battle: follower name")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

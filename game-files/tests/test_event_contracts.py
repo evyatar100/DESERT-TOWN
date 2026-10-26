@@ -46,6 +46,7 @@ PLUGIN_DIRS = (
     ROOT / "Plugins" / "TempleStickers",
     ROOT / "Plugins" / "zFlamingoBand",
     ROOT / "Plugins" / "zBags",
+    ROOT / "Plugins" / "MomDadBattle",
 )
 
 

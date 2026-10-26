@@ -413,6 +413,7 @@ Outdoor = true
 [080]   # Old-City
 Name = Old-City
 Outdoor = true
+Weather = Sun,100
 #-------------------------------
 [082]   # demo-arcade
 Name = Arcade

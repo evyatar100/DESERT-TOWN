@@ -248,22 +248,104 @@ module HebrewText
     return text
   end
 
+  # Bidi class of one char or token: :R Hebrew, :L Latin, :EN digits,
+  # :CS number separator, :ET percent sign, :ON neutral.
+  def self.bidi_class(token)
+    return :ON unless token.is_a?(String) && !token.empty?
+    return :R if token.match?(HEBREW_RANGE)
+    return :EN if token.match?(/\A[0-9]+\z/)
+    return :L if token.match?(/[a-zA-Z]/)
+    return :CS if [".", ",", ":", "/"].include?(token)
+    return :ET if token == "%"
+    return :ON
+  end
+
+  # One flag per class, true when that position renders left-to-right (RTL paragraph).
+  # Neutrals between two LTR/number chars join them; the rest follow RTL.
+  def self.bidi_ltr_flags(classes)
+    cls = classes.dup
+    cls.each_index do |i|
+      next unless cls[i] == :CS
+      cls[i] = (i > 0 && cls[i - 1] == :EN && cls[i + 1] == :EN) ? :EN : :ON
+    end
+    cls.each_index do |i|
+      next unless cls[i] == :ET
+      cls[i] = (i > 0 && cls[i - 1] == :EN) ? :EN : :ON
+    end
+    flags = cls.map { |c| c == :L || c == :EN }
+    i = 0
+    while i < cls.length
+      if cls[i] != :ON
+        i += 1
+        next
+      end
+      j = i
+      j += 1 while j < cls.length && cls[j] == :ON
+      before = (i > 0) ? cls[i - 1] : :R
+      after = (j < cls.length) ? cls[j] : :R
+      ltr = [:L, :EN].include?(before) && [:L, :EN].include?(after)
+      (i...j).each { |k| flags[k] = ltr }
+      i = j
+    end
+    return flags
+  end
+
+  # Groups the flags into [ltr, start, length] runs in logical order.
+  def self.bidi_runs(flags)
+    runs = []
+    flags.each_with_index do |ltr, i|
+      if runs.empty? || runs[-1][0] != ltr
+        runs << [ltr, i, 1]
+      else
+        runs[-1][2] += 1
+      end
+    end
+    return runs
+  end
+
   # Only used for text rendering where formatting codes aren't used (like menus)
   def self.visual_reverse(text)
     return text if text.nil? || !text.is_a?(String)
     text = ensure_utf8(text)
     return text unless text.match?(HEBREW_RANGE)
 
-    # Reverse the order of words, but keep numbers and english words LTR
-    words = text.split(' ')
-    rev_words = words.map do |w|
-      if w.match?(/\A[a-zA-Z0-9\-_.,!?]+\z/)
-        w # Keep numbers/english LTR
-      else
-        w.chars.reverse.join
+    lines = text.split("\n", -1).map do |line|
+      chars = line.chars
+      runs = bidi_runs(bidi_ltr_flags(chars.map { |ch| bidi_class(ch) }))
+      runs.reverse.map do |ltr, start, len|
+        part = chars[start, len]
+        (ltr ? part : part.reverse).join
+      end.join
+    end
+    return lines.join("\n")
+  end
+
+  # Mirrors one line of getFormattedText chars ([text, x, y, width, ..., graphic]) in place.
+  # Runs are placed right to left; LTR runs keep their inner order.
+  def self.mirror_fmtchars_line(chars_on_line)
+    printable_chars = chars_on_line.select { |c| c[3] > 0 }
+    return chars_on_line if printable_chars.empty?
+
+    min_x = printable_chars.map { |c| c[1] }.min
+    max_right = printable_chars.map { |c| c[1] + c[3] }.max
+    classes = chars_on_line.map { |c| c[5] ? :L : bidi_class(c[0]) }
+
+    bidi_runs(bidi_ltr_flags(classes)).each do |ltr, start, len|
+      bchars = chars_on_line[start, len]
+      b_min_x = bchars.map { |c| c[1] }.min
+      b_max_x = bchars.map { |c| c[1] + c[3] }.max
+      b_width = b_max_x - b_min_x
+      new_b_min_x = max_right - (b_min_x - min_x) - b_width
+
+      bchars.each do |c|
+        if ltr
+          c[1] = new_b_min_x + (c[1] - b_min_x)
+        else
+          c[1] = new_b_min_x + (b_width - (c[1] - b_min_x) - c[3])
+        end
       end
     end
-    return rev_words.reverse.join(' ')
+    return chars_on_line
   end
 
   def self.translate_item_field(item, field_type, default_val)
@@ -408,67 +490,7 @@ if defined?(getFormattedText)
         lines[y] << fch
       end
       
-      lines.each do |y, chars_on_line|
-        # Only compute bounding box for objects with actual width
-        printable_chars = chars_on_line.select { |c| c[3] > 0 }
-        next if printable_chars.empty?
-        
-        min_x = printable_chars.map { |c| c[1] }.min
-        max_right = printable_chars.map { |c| c[1] + c[3] }.max
-        
-        blocks = []
-        current_block = []
-        is_ltr_block = false
-        
-        chars_on_line.each do |c|
-          char_str = c[0]
-          
-          is_ltr = false
-          if c[5] # Graphic or Icon (e.g. bagPocket8)
-            is_ltr = true
-          elsif char_str.is_a?(String) && char_str.match?(/\A[a-zA-Z0-9.,!?%\-]+\z/)
-            is_ltr = true
-          end
-          
-          if current_block.empty?
-            is_ltr_block = is_ltr
-            current_block << c
-          elsif is_ltr_block == is_ltr
-            current_block << c
-          else
-            blocks << { chars: current_block, is_ltr: is_ltr_block }
-            is_ltr_block = is_ltr
-            current_block = [c]
-          end
-        end
-        blocks << { chars: current_block, is_ltr: is_ltr_block } unless current_block.empty?
-        
-        blocks.each do |block|
-          bchars = block[:chars]
-          # Bounding box of this block
-          b_min_x = bchars.map { |c| c[1] }.min
-          b_max_x = bchars.map { |c| c[1] + c[3] }.max
-          b_width = b_max_x - b_min_x
-          
-          # Target mirrored starting position
-          new_b_min_x = max_right - (b_min_x - min_x) - b_width
-          
-          if block[:is_ltr]
-            # Maintain internal Left-to-Right order (Numbers, English, Graphics)
-            bchars.each do |c|
-              offset = c[1] - b_min_x
-              c[1] = new_b_min_x + offset
-            end
-          else
-            # Reverse internal Right-to-Left order (Hebrew)
-            bchars.each do |c|
-              old_x = c[1]
-              width = c[3]
-              c[1] = new_b_min_x + (b_width - (old_x - b_min_x) - width)
-            end
-          end
-        end
-      end
+      lines.each_value { |chars_on_line| HebrewText.mirror_fmtchars_line(chars_on_line) }
     end
     
     return fmtchars

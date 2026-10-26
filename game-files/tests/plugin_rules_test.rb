@@ -13,6 +13,45 @@ def check(condition, message)
   end
 end
 
+# Loaded before the engine stubs so its engine hooks stay off; only HebrewText is tested.
+load File.join(ROOT, "Plugins/HebrewSupport/hebrew_support.rb")
+BIDI_CASES = {
+  "ב-1980" => "1980-ב",
+  "בשנת 1977 היא" => "איה 1977 תנשב",
+  "השיר 9 to 5 של דולי" => "ילוד לש 9 to 5 רישה",
+  "20 שקל" => "לקש 20",
+  "25,000 ניסיונות" => "תונויסינ 25,000",
+  "מה?" => "?המ",
+  "50% הנחה" => "החנה 50%",
+  "בשנת 1980." => ".1980 תנשב",
+  "ראיתי 9 to 5!" => "!9 to 5 יתיאר",
+  "12:30 בבוקר" => "רקובב 12:30",
+}
+BIDI_CASES.each do |logical, visual|
+  got = HebrewText.visual_reverse(logical)
+  check(got == visual, "bidi menu: #{logical} draws as #{visual} (got #{got})")
+end
+check(HebrewText.visual_reverse("Hello 9 to 5!") == "Hello 9 to 5!", "bidi menu: pure English is unchanged")
+check(HebrewText.visual_reverse("שלום\n20 שקל") == "םולש\nלקש 20", "bidi menu: each line is reordered on its own")
+
+# Equal-width synthetic fmtchars: [text, x, y, width, height, graphic].
+def bidi_fmt_visual(tokens)
+  line = tokens.each_with_index.map do |t, i|
+    t.is_a?(Array) ? [t[0], i * 10, 0, 10, 32, true] : [t, i * 10, 0, 10, 32, false]
+  end
+  HebrewText.mirror_fmtchars_line(line)
+  line.sort_by { |c| c[1] }.map { |c| c[5] ? "[#{c[0]}]" : c[0] }.join
+end
+BIDI_CASES.each do |logical, visual|
+  got = bidi_fmt_visual(logical.chars)
+  check(got == visual, "bidi message: #{logical} lays out as #{visual} (got #{got})")
+end
+xs = [["ב", 0, 0, 10, 32, false], ["-", 10, 0, 10, 32, false], ["1", 20, 0, 10, 32, false]]
+HebrewText.mirror_fmtchars_line(xs)
+check(xs.map { |c| c[1] } == [20, 10, 0], "bidi message: ב-1 keeps the line's box and puts ב on the right")
+icon = bidi_fmt_visual(["ש", "ל", " ", ["bagPocket8"], " ", "x", "2"])
+check(icon == "[bagPocket8] x2 לש", "bidi message: an icon joins the LTR run next to it (got #{icon})")
+
 class PokemonBag
   def reset_last_selections; end
   def last_viewed_pocket; 0; end

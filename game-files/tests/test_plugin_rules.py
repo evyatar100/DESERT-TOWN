@@ -77,6 +77,125 @@ class DesertSpeaker:
         self.name_key = None
 
 
+BIDI_CASES = {
+    "ב-1980": "1980-ב",
+    "בשנת 1977 היא": "איה 1977 תנשב",
+    "השיר 9 to 5 של דולי": "ילוד לש 9 to 5 רישה",
+    "20 שקל": "לקש 20",
+    "25,000 ניסיונות": "תונויסינ 25,000",
+    "מה?": "?המ",
+    "50% הנחה": "החנה 50%",
+    "בשנת 1980.": ".1980 תנשב",
+    "ראיתי 9 to 5!": "!9 to 5 יתיאר",
+    "12:30 בבוקר": "רקובב 12:30",
+}
+
+
+def _has_hebrew(text):
+    return any("֐" <= ch <= "׿" for ch in text)
+
+
+def bidi_class(token):
+    """Python mirror of HebrewText.bidi_class."""
+    if not isinstance(token, str) or not token:
+        return "ON"
+    if _has_hebrew(token):
+        return "R"
+    if token.isascii() and token.isdigit():
+        return "EN"
+    if any(ch.isascii() and ch.isalpha() for ch in token):
+        return "L"
+    if token in (".", ",", ":", "/"):
+        return "CS"
+    if token == "%":
+        return "ET"
+    return "ON"
+
+
+def bidi_ltr_flags(classes):
+    """Python mirror of HebrewText.bidi_ltr_flags."""
+    cls = list(classes)
+    n = len(cls)
+    for i in range(n):
+        if cls[i] == "CS":
+            between = 0 < i < n - 1 and cls[i - 1] == "EN" and cls[i + 1] == "EN"
+            cls[i] = "EN" if between else "ON"
+    for i in range(n):
+        if cls[i] == "ET":
+            cls[i] = "EN" if i > 0 and cls[i - 1] == "EN" else "ON"
+    flags = [c in ("L", "EN") for c in cls]
+    i = 0
+    while i < n:
+        if cls[i] != "ON":
+            i += 1
+            continue
+        j = i
+        while j < n and cls[j] == "ON":
+            j += 1
+        before = cls[i - 1] if i > 0 else "R"
+        after = cls[j] if j < n else "R"
+        ltr = before in ("L", "EN") and after in ("L", "EN")
+        for k in range(i, j):
+            flags[k] = ltr
+        i = j
+    return flags
+
+
+def bidi_runs(flags):
+    runs = []
+    for i, ltr in enumerate(flags):
+        if runs and runs[-1][0] == ltr:
+            runs[-1][2] += 1
+        else:
+            runs.append([ltr, i, 1])
+    return runs
+
+
+def visual_reverse(text):
+    """Python mirror of HebrewText.visual_reverse."""
+    if not _has_hebrew(text):
+        return text
+    out = []
+    for line in text.split("\n"):
+        chars = list(line)
+        parts = []
+        for ltr, start, length in reversed(bidi_runs(bidi_ltr_flags([bidi_class(c) for c in chars]))):
+            part = chars[start : start + length]
+            parts.append("".join(part if ltr else reversed(part)))
+        out.append("".join(parts))
+    return "\n".join(out)
+
+
+def mirror_fmtchars_line(chars_on_line):
+    """Python mirror of HebrewText.mirror_fmtchars_line; edits x (index 1) in place."""
+    printable = [c for c in chars_on_line if c[3] > 0]
+    if not printable:
+        return chars_on_line
+    min_x = min(c[1] for c in printable)
+    max_right = max(c[1] + c[3] for c in printable)
+    classes = ["L" if c[5] else bidi_class(c[0]) for c in chars_on_line]
+    for ltr, start, length in bidi_runs(bidi_ltr_flags(classes)):
+        block = chars_on_line[start : start + length]
+        b_min_x = min(c[1] for c in block)
+        b_width = max(c[1] + c[3] for c in block) - b_min_x
+        new_b_min_x = max_right - (b_min_x - min_x) - b_width
+        for c in block:
+            if ltr:
+                c[1] = new_b_min_x + (c[1] - b_min_x)
+            else:
+                c[1] = new_b_min_x + (b_width - (c[1] - b_min_x) - c[3])
+    return chars_on_line
+
+
+def fmt_visual(tokens):
+    line = [
+        [t[0], i * 10, 0, 10, 32, True] if isinstance(t, tuple) else [t, i * 10, 0, 10, 32, False]
+        for i, t in enumerate(tokens)
+    ]
+    mirror_fmtchars_line(line)
+    return "".join(f"[{c[0]}]" if c[5] else c[0] for c in sorted(line, key=lambda c: c[1]))
+
+
 AUTOSAVE_INTERVAL = 20 * 60
 
 
@@ -183,6 +302,29 @@ class PluginRuleTests(unittest.TestCase):
         show = show.split("def self.slide_closed_now?", 1)[0]
         for token in ("Audio.", "pbBGM", "bgm_play", "bgm_stop", "bgm_fade", "bgm_pause"):
             self.assertNotIn(token, show)
+
+    def test_hebrew_bidi_without_ruby(self):
+        for logical, visual in BIDI_CASES.items():
+            self.assertEqual(visual_reverse(logical), visual, logical)
+            self.assertEqual(fmt_visual(list(logical)), visual, logical)
+        self.assertEqual(visual_reverse("Hello 9 to 5!"), "Hello 9 to 5!")
+        self.assertEqual(visual_reverse("שלום\n20 שקל"), "םולש\nלקש 20")
+        line = [["ב", 0, 0, 10, 32, False], ["-", 10, 0, 10, 32, False], ["1", 20, 0, 10, 32, False]]
+        mirror_fmtchars_line(line)
+        self.assertEqual([c[1] for c in line], [20, 10, 0])
+        self.assertEqual(fmt_visual(["ש", "ל", " ", ("bagPocket8",), " ", "x", "2"]), "[bagPocket8] x2 לש")
+
+    def test_hebrew_paths_share_the_bidi_helper(self):
+        src = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(encoding="utf-8")
+        hook = src.split("alias _hebrew_original_getFormattedText getFormattedText", 1)[1]
+        hook = hook.split("alias _hebrew_original_pbDrawShadowText", 1)[0]
+        self.assertIn("HebrewText.mirror_fmtchars_line(", hook)
+        self.assertIn("<ar>", hook)
+        self.assertNotIn("match?(/\\A[a-zA-Z0-9", src)
+        for name in ("visual_reverse", "mirror_fmtchars_line"):
+            body = src.split(f"def self.{name}(", 1)[1].split("\n  end\n", 1)[0]
+            self.assertIn("bidi_ltr_flags(", body)
+        self.assertEqual(src.count("HebrewText.visual_reverse(string)"), 3)
 
     def test_arcade_rules_without_ruby(self):
         self.assertTrue(autosave_due(5000, None))

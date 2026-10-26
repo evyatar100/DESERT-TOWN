@@ -297,7 +297,7 @@ end
 # Starter Items (Single Instance Guarantee)
 #===============================================================================
 module BurningManBag
-  STARTER_ITEMS = [:WHITEWATERBOTTLE, :USBDISK]
+  STARTER_ITEMS = [:WHITEWATERBOTTLE, :USBDISK, :EVENTPROGRAM]
 
   # Clamp one item to a single copy. No game database required.
   def self.normalize_starter_quantity(bag, item_id)

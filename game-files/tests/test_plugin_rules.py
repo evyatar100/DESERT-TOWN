@@ -428,6 +428,87 @@ class PluginRuleTests(unittest.TestCase):
             "the first letter of ריצה is not on the right",
         )
 
+    def test_temple_rules_without_ruby(self):
+        from tests import temple_rules as tr
+
+        table = tr.sticker_table()
+        self.assertEqual(len(table), 12)
+        self.assertNotIn("CURRY_RICE", table)
+        self.assertEqual({h: len(tr.stickers_for(h)) for h in tr.HONOREES}, dict.fromkeys(tr.HONOREES, 3))
+        import random
+
+        hands = set()
+        for seed in range(3000):
+            rng = random.Random(seed)
+            hand = tr.deal(lambda n: rng.randrange(n))
+            self.assertEqual([table[s] for s in hand], tr.HONOREES)
+            hands.add(tuple(hand))
+        self.assertEqual(len(hands), 81)
+
+        name = tr.TextBuffer(tr.NAME_MAX)
+        self.assertEqual([name.type(c) for c in "12@"], ["rejected"] * 3)
+        for _ in range(13):
+            name.type("א")
+        self.assertEqual(len(name.text), 12)
+        sentence = tr.TextBuffer(tr.SENTENCE_MAX)
+        for _ in range(45):
+            sentence.type("a")
+        self.assertEqual(len(sentence.text), 40)
+        self.assertEqual(tr.TextBuffer(12, "Ido 2024@").text, "Ido ")
+        blank = tr.TextBuffer(12)
+        blank.type(" ")
+        self.assertFalse(blank.done())
+        self.assertEqual([blank.backspace(), blank.backspace()], ["deleted", "cancel"])
+
+        code = "".join(random.choice("abcdefghij") for _ in range(8))
+        cfg = tr.parse_cfg("﻿# staff\r\ncode=" + code + "\r\n")
+        self.assertTrue(tr.staff_matches(code, cfg) and tr.staff_matches(" " + code + " ", cfg))
+        self.assertFalse(tr.staff_matches(code.upper(), cfg) or tr.staff_matches(code, None))
+        self.assertFalse(tr.staff_matches("", {"code": ""}))
+        self.assertTrue(tr.reward_on(cfg) and tr.reward_on(None))
+        off = tr.with_reward("code=" + code + "\r\n", False)
+        self.assertFalse(tr.reward_on(tr.parse_cfg(off)))
+        self.assertTrue(tr.staff_matches(code, tr.parse_cfg(off)))
+        self.assertEqual(tr.with_reward(off, True).count("reward="), 1)
+
+        pages = []
+        tr.add_item(pages, 3, "runA", "KUSAMA_DOT", 3)
+        self.assertIsNone(tr.add_item(pages, 3, "runB", "YONATH_KEY", 3))
+        self.assertIsNotNone(tr.add_item(pages, 3, "runB", "YONATH_KEY", 4))
+        self.assertIsNone(tr.add_item(pages, 5, "runA", "KUSAMA_DOT", 0))
+        tr.add_item(pages, 1, "runC", "CURRY_HEEL", 0)
+        self.assertEqual([p["depth"] for p in pages], [1, 3])
+        full = []
+        for c in range(28):
+            tr.add_item(full, 2, "run%d" % c, "PARTON_BOOK", c)
+        self.assertEqual(tr.target(full, 2)["sheet"], 1)
+        big = []
+        for d in range(301):
+            tr.add_item(big, d, "run%d" % d, "PARTON_BOOK", 0)
+        self.assertEqual((len(big), big[0]["depth"]), (300, 1))
+        tr.add_item(big, 0, "again", "PARTON_BOOK", 0)
+        self.assertEqual(big[0]["depth"], 0)
+        self.assertIsNone(tr.code_problem({"code": code}))
+        self.assertEqual(tr.code_problem({"code": "ab12"}), "untypeable")
+        self.assertEqual(tr.code_problem({"code": "a" * 13}), "too_long")
+
+        src = {p.name: p.read_text(encoding="utf-8") for p in tr.TEMPLE_DIR.glob("*.rb")}
+        self.assertIn("SaveData.register(:temple_stickers)", src["003_run.rb"])
+        register = src["003_run.rb"].split("SaveData.register(:temple_stickers)", 1)[1]
+        self.assertNotIn("ensure_class", register)
+        store = src["004_wall_store.rb"].split("def self.save(", 1)[1]
+        self.assertLess(store.index('".tmp"'), store.index('".bak"'))
+        self.assertLess(store.index('".bak"'), store.index("File.rename(tmp, main)"))
+        self.assertIn("temple_wall.bad-", src["004_wall_store.rb"])
+        self.assertIn("restore_main(main)", src["004_wall_store.rb"])
+        end_def = "\n    end\n"
+        warn = src["002_staff.rb"].split("def self.warn_if_untypeable", 1)[1].split(end_def, 1)[0]
+        self.assertNotIn("#{code", warn)
+        self.assertNotIn('cfg["code"]', warn)
+        sign = src["008_board_scene.rb"].split("def sign(item)", 1)[1].split(end_def, 1)[0]
+        self.assertNotIn("Staff", sign)
+        self.assertNotRegex(src["001_key_buffer.rb"], r"\(\"0\"|\"@\"")
+
     def test_decision_behavior(self):
         if shutil.which("ruby"):
             completed = subprocess.run(

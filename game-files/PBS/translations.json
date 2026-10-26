@@ -1847,6 +1847,134 @@
     "REFEREE": {
       "en": "The rules are clear. Whoever loses is sent to detention and then expelled from Desert Town. Are you ready for the fight?",
       "he": "החוקים הם ברורים. מי שמפסיד נשלח למעצר ואז מגורש מדזרטאון. האם אתם מוכנים לקרב?"
+    },
+    "TEMPLE_ASK_SIGN": {
+      "en": "Add your name and a sentence?",
+      "he": "להוסיף שם ומשפט?"
+    },
+    "TEMPLE_NAME_PROMPT": {
+      "en": "First name or nickname",
+      "he": "שם פרטי או כינוי"
+    },
+    "TEMPLE_PROMPT_KUSAMA": {
+      "en": "What do you do again and again?",
+      "he": "מה חוזר אצלך שוב ושוב?"
+    },
+    "TEMPLE_PROMPT_YONATH": {
+      "en": "What are you still trying?",
+      "he": "מה עדיין לא הפסקת לנסות?"
+    },
+    "TEMPLE_PROMPT_CURRY": {
+      "en": "Who did you first join in with?",
+      "he": "למי הצטרפת בפעם הראשונה?"
+    },
+    "TEMPLE_PROMPT_PARTON": {
+      "en": "What were you given that you still use?",
+      "he": "מה קיבלת שעדיין משמש אותך?"
+    },
+    "TEMPLE_HINT_BROWSE": {
+      "en": "Joystick: look / Blue: leave",
+      "he": "ג'ויסטיק: הסתכלות / כחול: יציאה"
+    },
+    "TEMPLE_HINT_HAND": {
+      "en": "Orange: sticker / Red: stick / Blue: leave",
+      "he": "כתום: מדבקה / אדום: הדבקה / כחול: יציאה"
+    },
+    "TEMPLE_HINT_PLACE": {
+      "en": "Joystick: spot / Red: stick / Blue: back",
+      "he": "ג'ויסטיק: מקום / אדום: הדבקה / כחול: חזרה"
+    },
+    "TEMPLE_HINT_STAFF": {
+      "en": "White: staff menu",
+      "he": "לבן: תפריט צוות"
+    },
+    "TEMPLE_KB_TAB_HE": {
+      "en": "עברית",
+      "he": "עברית"
+    },
+    "TEMPLE_KB_SPACE": {
+      "en": "Space",
+      "he": "רווח"
+    },
+    "TEMPLE_KB_DEL": {
+      "en": "Delete",
+      "he": "מחיקה"
+    },
+    "TEMPLE_KB_DONE": {
+      "en": "Done",
+      "he": "סיום"
+    },
+    "TEMPLE_KB_HINT": {
+      "en": "Red: type / Blue: delete / Orange: letters / White: space / Green: done",
+      "he": "אדום: הקלדה / כחול: מחיקה / כתום: אותיות / לבן: רווח / ירוק: סיום"
+    },
+    "TEMPLE_STAFF_ON": {
+      "en": "Staff mode is on.",
+      "he": "מצב צוות פעיל."
+    },
+    "TEMPLE_STAFF_DEL_TEXT": {
+      "en": "Delete the sentence",
+      "he": "מחיקת המשפט"
+    },
+    "TEMPLE_STAFF_DEL_STICKER": {
+      "en": "Delete the sticker",
+      "he": "מחיקת המדבקה"
+    },
+    "TEMPLE_STAFF_DEL_PAGE": {
+      "en": "Delete this page",
+      "he": "מחיקת הדף"
+    },
+    "TEMPLE_STAFF_WIPE_BOARD": {
+      "en": "Wipe this board",
+      "he": "ניקוי הלוח"
+    },
+    "TEMPLE_STAFF_WIPE_WALL": {
+      "en": "Wipe the whole wall",
+      "he": "ניקוי כל הקיר"
+    },
+    "TEMPLE_STAFF_REWARD_ON": {
+      "en": "Ido visit: on (turn off)",
+      "he": "ביקור עידו: פעיל (לכבות)"
+    },
+    "TEMPLE_STAFF_REWARD_OFF": {
+      "en": "Ido visit: off (turn on)",
+      "he": "ביקור עידו: כבוי (להפעיל)"
+    },
+    "TEMPLE_STAFF_SURE": {
+      "en": "Continue?",
+      "he": "להמשיך?"
+    },
+    "TEMPLE_STAFF_SURE2": {
+      "en": "This cannot be undone in the game. Continue anyway?",
+      "he": "אי אפשר לבטל את זה במשחק. להמשיך בכל זאת?"
+    },
+    "TEMPLE_STAFF_CANCEL": {
+      "en": "Cancel",
+      "he": "ביטול"
+    },
+    "TEMPLE_TAB_DEPTH": {
+      "en": "Depth {1}",
+      "he": "עומק {1}"
+    },
+    "TEMPLE_TAB_DEPTH_SHEET": {
+      "en": "Depth {1} ({2})",
+      "he": "עומק {1} ({2})"
+    },
+    "TEMPLE_STAFF_CODE_PROMPT": {
+      "en": "Staff code",
+      "he": "קוד צוות"
+    },
+    "TEMPLE_STAFF_CODE_WRONG": {
+      "en": "That code does not work.",
+      "he": "הקוד הזה לא מתאים."
+    },
+    "TEMPLE_SAVE_FAILED": {
+      "en": "The board could not be saved. Your sticker is still in your hand.",
+      "he": "לא הצלחנו לשמור את הלוח. המדבקה עדיין אצלך."
+    },
+    "TEMPLE_SIGN_SAVE_FAILED": {
+      "en": "The board could not be saved.",
+      "he": "לא הצלחנו לשמור את הלוח."
     }
   }
 }

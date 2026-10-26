@@ -567,6 +567,176 @@ check(start_now && !held, "band end: re-entering the zone makes the intro due ag
 check(!FlamingoBandRules.intro_gate(running, false, true)[0], "band: no intro once it has played")
 check(FlamingoBandRules.claim(fresh.merge(intro_done: true), "c626f0d6", 77) == 1, "band end: all flamingos eligible again")
 
+# Temple sticker boards: pure units only (scenes need the engine).
+require "tmpdir"
+temple_dir = File.join(ROOT, "Plugins/TempleStickers")
+%w[000_data 001_key_buffer 002_staff 003_run 004_wall_store].each { |f| load File.join(temple_dir, "#{f}.rb") }
+TS = TempleStickers
+temple_ids = %w[KUSAMA_DOT KUSAMA_MIRROR KUSAMA_PUMPKIN YONATH_CRYSTAL YONATH_BEAR YONATH_KEY
+                CURRY_HEEL CURRY_BUBBLE CURRY_TICKET PARTON_BOOK PARTON_NAILS PARTON_SONG]
+check(TS::STICKERS.keys.sort == temple_ids.sort, "temple: the 12 stickers are Michal's final list")
+check(TS::HONOREES.all? { |h| TS.stickers_for(h).length == 3 }, "temple: 3 stickers per honoree")
+check(TS::STICKERS.select { |_, s| s[:map] == 113 }.keys.sort == %w[CURRY_HEEL KUSAMA_DOT PARTON_BOOK YONATH_CRYSTAL],
+      "temple: the 4 pedestal stickers are dot, crystal, heel, book")
+check(TS::STICKERS["CURRY_TICKET"].values_at(:map, :x, :y) == [96, 17, 43], "temple: the ticket moved to town (17,43)")
+check(TS.depth == DesertTownArcade.depth, "temple: tabs follow the arcade Inception depth")
+
+hands = (1..3000).map { |seed| TS.deal(Random.new(seed)) }
+check(hands.all? { |h| h.length == 4 && h.uniq.length == 4 }, "temple deal: 4 distinct stickers")
+check(hands.all? { |h| h.map { |s| TS.home_board(s) } == TS::HONOREES }, "temple deal: exactly one per honoree")
+check(hands.uniq.length == 81, "temple deal: all 81 hands occur (got #{hands.uniq.length})")
+
+run = TS.new_run(Random.new(7))
+check(run[:run_id].match?(/\A\h{16}\z/) && run[:collected].empty? && run[:placed].empty?, "temple run: fresh run shape")
+check(TS.normalize_run(nil)[:hand].length == 4, "temple run: an old save without the key gets a fresh run")
+check(TS.normalize_run({ run_id: "x", hand: %w[NOPE] })[:run_id] != "x", "temple run: a broken hand is replaced")
+check(TS.normalize_run(run) == run, "temple run: a valid run loads unchanged")
+check(TS.placeable(run).empty?, "temple run: nothing placeable before collecting")
+check(!TS.record_placement(run, run[:hand][0], "kusama"), "temple run: cannot place an uncollected sticker")
+check(TS.collect(run, run[:hand][0]) && !TS.collect(run, run[:hand][0]), "temple run: collect once only")
+check(!TS.collect(run, (TS::STICKERS.keys - run[:hand]).first), "temple run: a sticker outside the hand is not collected")
+check(TS.set_name(run, "  עידו ") == "עידו" && TS.set_name(run, " ").nil? && run[:name].nil?, "temple run: set_name trims and clears")
+
+WS = TS::WallStore
+ok_save = ->(_w) { true }
+Dir.mktmpdir("temple") do |dir|
+  wall = WS.load(dir)
+  check(WS.last_status == :missing && wall == WS.empty_wall, "temple wall: no file gives an empty wall")
+  a = WS.add_item(wall, "kusama", 3, "runA", "KUSAMA_DOT", 3, "עידו", 100)
+  check(a && WS.pages(wall, "kusama")[0].values_at("depth", "sheet") == [3, 0], "temple tab: first sticker makes the depth-3 tab")
+  check(WS.add_item(wall, "kusama", 3, "runB", "YONATH_KEY", 3).nil?, "temple tab: a taken cell is refused")
+  check(WS.add_item(wall, "kusama", 3, "runB", "YONATH_KEY", 4), "temple tab: another run at the same depth shares the tab")
+  check(WS.add_item(wall, "yonath", 3, "runA", "KUSAMA_DOT", 0).nil?, "temple tab: a run cannot place a sticker twice")
+  check(WS.add_item(wall, "kusama", 3, "runC", "CURRY_HEEL", 99).nil?, "temple tab: a cell off the page is refused")
+  WS.add_item(wall, "kusama", 1, "runD", "CURRY_HEEL", 0)
+  WS.add_item(wall, "kusama", 5, "runE", "CURRY_HEEL", 0)
+  check(WS.pages(wall, "kusama").map { |p| p["depth"] } == [1, 3, 5], "temple tab: tabs are ordered by depth")
+  check(WS.target(wall, "kusama", 3).equal?(WS.pages(wall, "kusama")[1]), "temple tab: depth 3 writes on its own tab")
+  full = WS.empty_wall
+  28.times { |c| WS.add_item(full, "parton", 2, "run#{c}", "PARTON_BOOK", c) }
+  check(WS.target(full, "parton", 2).values_at("sheet", "items") == [1, []], "temple tab: a full tab grows a new sheet")
+  check(WS.add_item(full, "parton", 2, "late", "PARTON_BOOK", 0) && WS.pages(full, "parton").length == 2, "temple tab: the new sheet is stored on use")
+
+  check(WS.save(dir, wall) && !File.exist?(WS.path(dir) + ".tmp"), "temple wall: save leaves no tmp file")
+  first_bytes = File.binread(WS.path(dir))
+  check(WS.load(dir) == wall && WS.last_status == :ok, "temple wall: round trip keeps depths, names and Hebrew")
+  WS.add_item(wall, "curry", 3, "runB", "CURRY_TICKET", 0)
+  WS.save(dir, wall)
+  check(File.binread(WS.path(dir) + ".bak") == first_bytes, "temple wall: .bak holds the previous file")
+
+  # QA sequence: corrupt main, load, load again, place.
+  File.binwrite(WS.path(dir), "not a marshal file")
+  first = WS.load(dir)
+  check(WS.last_status == :restored_bak && Dir.glob(File.join(dir, "temple_wall.bad-*.dat")).length == 1, "temple wall: corrupt main is quarantined, .bak used")
+  check(File.binread(WS.path(dir)) == first_bytes, "temple wall: the .bak is written back as the main file")
+  second = WS.load(dir)
+  check(WS.last_status == :ok && second == first, "temple wall: the second load reads the restored main file")
+  qa_run = TS.new_run(Random.new(11))
+  TS.collect(qa_run, qa_run[:hand][1])
+  outcome, _ = TS.place(second, qa_run, "yonath", 3, qa_run[:hand][1], 5, ->(w) { WS.save(dir, w) })
+  check(outcome == :ok && WS.load(dir)["boards"]["kusama"].length == 3, "temple wall: placing after recovery keeps the old pages")
+  File.delete(WS.path(dir))
+  check(WS.load(dir)["boards"]["yonath"].empty? && WS.last_status == :restored_bak, "temple wall: missing main falls back to .bak")
+  check(File.exist?(WS.path(dir)), "temple wall: and restores it as main")
+  File.delete(WS.path(dir) + ".bak")
+  File.binwrite(WS.path(dir), Marshal.dump([1, 2, 3]))
+  check(WS.load(dir) == WS.empty_wall && WS.last_status == :quarantined, "temple wall: wrong shape, no .bak: empty wall")
+
+  v1 = { "v" => 1, "boards" => { "kusama" => [{ "run" => "old", "name" => "דנה", "t" => 5,
+                                               "items" => [{ "s" => "KUSAMA_DOT", "c" => 2, "text" => "שלום" }, { "s" => "RICE", "c" => 1 }] }, 5] } }
+  migrated = WS.sanitize(v1)["boards"]["kusama"]
+  check(migrated.length == 1 && migrated[0].values_at("depth", "sheet") == [0, 0], "temple wall: a v1 page migrates to depth 0")
+  check(migrated[0]["items"] == [{ "s" => "KUSAMA_DOT", "c" => 2, "run" => "old", "name" => "דנה", "text" => "שלום" }],
+        "temple wall: v1 names move onto items; unknown stickers dropped")
+  over = WS.empty_wall
+  over["boards"]["curry"] = (0..304).map { |d| { "depth" => d, "sheet" => 0, "t" => 0, "items" => [] } }
+  trimmed = WS.sanitize(over)["boards"]["curry"]
+  check(trimmed.length == 300 && trimmed[0]["depth"] == 5, "temple wall: load trims to the cap, lowest depths first")
+  big = WS.empty_wall
+  301.times { |d| WS.add_item(big, "parton", d, "run#{d}", "PARTON_BOOK", 0) }
+  check(WS.pages(big, "parton").length == 300 && WS.pages(big, "parton")[0]["depth"] == 1, "temple wall: cap 300 drops the lowest depth")
+  low = WS.add_item(big, "parton", 0, "again", "PARTON_BOOK", 0)
+  check(low && WS.pages(big, "parton")[0]["depth"] == 0, "temple wall: the cap never drops the page just written")
+
+  WS.delete_text(wall, "kusama", 1, 3)
+  check(WS.find_item(WS.pages(wall, "kusama")[1], 3)["text"].nil?, "temple staff: delete sentence keeps the sticker")
+  WS.delete_item(wall, "kusama", 1, 3)
+  check(WS.find_item(WS.pages(wall, "kusama")[1], 3).nil?, "temple staff: delete sticker")
+  check(WS.delete_page(wall, "kusama", 0) && WS.pages(wall, "kusama").length == 2, "temple staff: delete page")
+  WS.wipe_all(dir, wall)
+  check(wall == WS.empty_wall && Dir.glob(File.join(dir, "temple_wall.wiped-*.dat")).length == 1, "temple staff: wipe keeps a copy")
+end
+
+place_run = TS.new_run(Random.new(5))
+place_run[:hand].each { |s| TS.collect(place_run, s) }
+pwall = WS.empty_wall
+outcome, = TS.place(pwall, place_run, "curry", 2, place_run[:hand][0], 0, ->(_w) { false })
+check(outcome == :save_failed && TS.placeable(place_run).length == 4, "temple place: a failed save keeps the sticker in the hand")
+check(pwall == WS.empty_wall, "temple place: a failed save leaves the wall unchanged")
+outcome, item = TS.place(pwall, place_run, "curry", 2, place_run[:hand][0], 0, ok_save)
+check(outcome == :ok && item["run"] == place_run[:run_id] && TS.placeable(place_run).length == 3, "temple place: ok records the placement")
+check(TS.place(pwall, place_run, "kusama", 2, place_run[:hand][0], 1, ok_save)[0] == :refused, "temple place: a placement is final")
+
+ST = TS::Staff
+Dir.mktmpdir("temple") do |dir|
+  code = Array.new(8) { ("a".."z").to_a.sample }.join
+  check(ST.read(dir).nil? && !ST.matches?(code, ST.read(dir)), "temple staff: no cfg means no staff mode")
+  File.binwrite(ST.path(dir), "﻿# staff\r\ncode=#{code}\r\n")
+  cfg = ST.read(dir)
+  check(ST.matches?(code, cfg) && ST.matches?(" #{code} ", cfg), "temple staff: the cfg code matches (BOM, CRLF)")
+  check(!ST.matches?(code.upcase, cfg) && !ST.matches?(code[0..-2], cfg), "temple staff: anything else does not")
+  check(!ST.matches?("", { "code" => "" }), "temple staff: an empty code never matches")
+  check(ST.code_problem(cfg).nil?, "temple staff: a letters-only code is typeable")
+  check(ST.reward_on?(cfg) && ST.reward_on?(nil), "temple staff: Ido visit on by default")
+  check(ST.write_reward(dir, false) && !ST.reward_on?(ST.read(dir)), "temple staff: reward=off is written")
+  check(ST.matches?(code, ST.read(dir)), "temple staff: the code line survives the toggle")
+  check(ST.write_reward(dir, true) && ST.reward_on?(ST.read(dir)), "temple staff: and back on")
+  check(File.binread(ST.path(dir)).scan("reward=").length == 1, "temple staff: one reward line")
+end
+bad_code = "zq" + rand(10..99).to_s
+logged = []
+Object.send(:define_method, :echoln) { |msg| logged << msg }
+check(ST.warn_if_untypeable({ "code" => bad_code }) == :untypeable, "temple staff: a code with digits is untypeable")
+check(logged.length == 1 && !logged[0].include?(bad_code), "temple staff: the warning never shows the code")
+check(ST.code_problem({ "code" => "a" * 13 }) == :too_long && ST.code_problem({}) == :missing, "temple staff: too long / missing")
+logged.clear
+check(ST.warn_if_untypeable({ "code" => "abc" }).nil? && logged.empty?, "temple staff: a good code logs nothing")
+Object.send(:remove_method, :echoln)
+ST.activate
+TS.start_new_run
+check(!ST.active?, "temple staff: a new run ends staff mode")
+board_src = File.read(File.join(temple_dir, "008_board_scene.rb"), encoding: "utf-8")
+sign_src = board_src.split("def sign(item)", 2)[1].split("\n    end\n", 2)[0]
+check(!sign_src.include?("Staff"), "temple staff: the name flow never checks the staff code")
+check(board_src.include?("mask: true"), "temple staff: the code keyboard masks what is typed")
+
+KB = TS::Keyboard
+all_keys = KB::TABS.flat_map { |t| KB.rows(t).flatten.select { |c| c.is_a?(String) } }
+check(all_keys.none? { |c| c.match?(/[0-9@]/) }, "temple keyboard: no digits or @ on any tab")
+check(KB::TABS.all? { |t| KB::PUNCT.all? { |c| KB.rows(t).flatten.include?(c) } }, "temple keyboard: every tab has the punctuation and geresh")
+check(KB.rows(:he).flatten.count { |c| c.is_a?(String) && c.match?(/[א-ת]/) } == 27, "temple keyboard: 22 letters + 5 finals")
+name = TS::TextBuffer.new(TS::NAME_MAX)
+check("12@".chars.map { |c| name.type(c) } == [:rejected] * 3 && name.text.empty?, "temple keyboard: digits and @ are rejected")
+13.times { name.type("א") }
+check(name.text.length == 12, "temple keyboard: name caps at 12")
+sentence = TS::TextBuffer.new(TS::SENTENCE_MAX)
+45.times { sentence.type("a") }
+check(sentence.text.length == 40, "temple keyboard: sentence caps at 40")
+check(TS::TextBuffer.new(12, "Ido 2024@").text == "Ido ", "temple keyboard: a prefill drops untypeable chars")
+blank = TS::TextBuffer.new(12)
+blank.type(" ")
+check(!blank.done? && blank.backspace == :deleted && blank.backspace == :cancel, "temple keyboard: spaces are not a name; Blue on empty cancels")
+rows = KB.rows(:he)
+check(KB.move(rows, 1, 0, :left) == [1, rows[1].length - 1], "temple keyboard: left edge wraps")
+check(KB.move(rows, 0, 0, :up)[0] == rows.length - 1, "temple keyboard: up from the tabs wraps to done row")
+check(rows[1].last[0] == "א", "temple keyboard: alef is on the right")
+
+tr_text = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
+temple_keys = Dir.glob(File.join(temple_dir, "*.rb")).flat_map { |f| File.read(f, encoding: "utf-8").scan(/"(TEMPLE_[A-Z0-9_]+)"/).flatten }
+temple_keys += TS::BOARDS.values.map { |b| b[:prompt_key] }
+missing = temple_keys.uniq.reject { |k| tr_text.include?("\"#{k}\": {") }
+check(missing.empty?, "temple: every TEMPLE_ key is in translations.json (missing #{missing.inspect})")
+
 if $failures.empty?
   puts "Plugin rule tests passed."
   exit 0

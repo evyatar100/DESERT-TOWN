@@ -46,3 +46,9 @@ mastolit-stems-quest/*.wav
 
 # Founder drop-in folder for files to place in the project
 external_files/
+
+# Temple sticker boards: shared wall and the staff code file (never tracked)
+temple_staff.cfg
+temple_staff.cfg.tmp
+temple_wall*.dat
+temple_wall*.dat.*

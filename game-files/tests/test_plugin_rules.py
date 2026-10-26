@@ -254,6 +254,34 @@ class PluginRuleTests(unittest.TestCase):
         for token in ("Audio.", "pbBGM", "bgm_play", "bgm_stop", "bgm_fade", "bgm_pause"):
             self.assertNotIn(token, show)
 
+    def test_hebrew_support_plugin_is_recompiled(self):
+        """Bag text loads from PluginScripts.rxdata, not the loose .rb file."""
+        import zlib
+
+        from rubymarshal.reader import load
+
+        source = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(
+            encoding="utf-8"
+        )
+        with open(ROOT / "Data" / "PluginScripts.rxdata", "rb") as handle:
+            plugins = load(handle)
+        compiled = None
+        for plugin in plugins:
+            name = plugin[0].decode("utf-8") if isinstance(plugin[0], bytes) else str(plugin[0])
+            if name != "HebrewSupport":
+                continue
+            for fname, blob in plugin[2]:
+                fname = fname.decode("utf-8") if isinstance(fname, bytes) else str(fname)
+                if fname == "hebrew_support.rb":
+                    compiled = zlib.decompress(bytes(blob)).decode("utf-8")
+        self.assertIsNotNone(compiled, "HebrewSupport missing from PluginScripts.rxdata")
+        self.assertEqual(
+            compiled,
+            source,
+            "hebrew_support.rb is not recompiled; run python compile_plugins.py",
+        )
+        self.assertIn("MIRROR_PAIRS", compiled)
+
     def test_arcade_rules_without_ruby(self):
         self.assertTrue(autosave_due(5000, None))
         self.assertFalse(autosave_due(1000 + 1199, 1000))

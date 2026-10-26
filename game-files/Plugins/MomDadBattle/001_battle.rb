@@ -77,6 +77,9 @@ module MomDadBattle
 end
 
 def pbMomDadBattleIntro(event)
+  # The event locks everyone before this runs. Unlock so they keep walking
+  # through the music and the camera pan, then lock them again for the fight.
+  pbGlobalUnlock if respond_to?(:pbGlobalUnlock)
   MomDadBattleRules::INTRO.each do |step|
     case step
     when :music
@@ -90,6 +93,7 @@ def pbMomDadBattleIntro(event)
       pbExclaim(event) if event
     end
   end
+  pbGlobalLock if respond_to?(:pbGlobalLock)
 end
 
 def pbMomDadBattleStart
@@ -129,6 +133,19 @@ EventHandlers.add(:on_frame_update, :momdad_hide_won_children,
 
 if defined?(Battle::Scene)
   class Battle::Scene
+    alias momdad_pbCreateTrainerFrontSprite pbCreateTrainerFrontSprite unless method_defined?(:momdad_pbCreateTrainerFrontSprite)
+    alias momdad_pbCreateTrainerBackSprite pbCreateTrainerBackSprite unless method_defined?(:momdad_pbCreateTrainerBackSprite)
+
+    def pbCreateTrainerFrontSprite(idxTrainer, trainerType, numTrainers = 1)
+      return if MomDadBattle.active?
+      momdad_pbCreateTrainerFrontSprite(idxTrainer, trainerType, numTrainers)
+    end
+
+    def pbCreateTrainerBackSprite(idxTrainer, trainerType, numTrainers = 1)
+      return if MomDadBattle.active?
+      momdad_pbCreateTrainerBackSprite(idxTrainer, trainerType, numTrainers)
+    end
+
     alias momdad_pbCommandMenu pbCommandMenu unless method_defined?(:momdad_pbCommandMenu)
 
     def pbCommandMenu(idxBattler, firstAction)

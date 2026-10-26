@@ -301,6 +301,16 @@ class PluginRuleTests(unittest.TestCase):
             "the first letter of ריצה is not on the right",
         )
 
+    def test_camera_pan_keeps_events_moving(self):
+        source = (ROOT / "Plugins" / "MomDadBattle" / "001_battle.rb").read_text(encoding="utf-8")
+        intro = source.split("def pbMomDadBattleIntro", 1)[1].split("def pbMomDadBattleStart", 1)[0]
+        unlock_at = intro.find("pbGlobalUnlock")
+        pan_at = intro.find("pbScrollMap")
+        lock_at = intro.find("pbGlobalLock")
+        self.assertGreaterEqual(unlock_at, 0)
+        self.assertLess(unlock_at, pan_at)
+        self.assertLess(pan_at, lock_at)
+
     def test_momdad_children_are_on_the_circus_map(self):
         golden = json.loads((ROOT / "tests" / "golden" / "Map089.json").read_text(encoding="utf-8"))
         by_id = {event["id"]: event for event in golden["events"]}

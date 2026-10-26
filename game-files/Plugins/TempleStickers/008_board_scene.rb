@@ -196,9 +196,8 @@ module TempleStickers
       name = KeyboardScene.new(_INTL("TEMPLE_NAME_PROMPT"), NAME_MAX, @run[:name]).run
       return if name.nil?
       TempleStickers.set_name(@run, name)
-      item["name"] = @run[:name]
       sentence = KeyboardScene.new(_INTL(BOARDS[@board][:prompt_key]), SENTENCE_MAX).run
-      item["text"] = sentence if sentence
+      return unless WallStore.sign_item(@wall, @board, item, @run[:name], sentence)
       pbMessage(_INTL("TEMPLE_SIGN_SAVE_FAILED")) unless saver.call(@wall)
     end
 

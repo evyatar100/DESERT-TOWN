@@ -570,14 +570,14 @@ check(FlamingoBandRules.claim(fresh.merge(intro_done: true), "c626f0d6", 77) == 
 # Temple sticker boards: pure units only (scenes need the engine).
 require "tmpdir"
 temple_dir = File.join(ROOT, "Plugins/TempleStickers")
-%w[000_data 001_key_buffer 002_staff 003_run 004_wall_store].each { |f| load File.join(temple_dir, "#{f}.rb") }
+%w[000_data 001_key_buffer 002_staff 003_run 004_wall_store 006_art 009_signs 010_reward].each { |f| load File.join(temple_dir, "#{f}.rb") }
 TS = TempleStickers
 temple_ids = %w[KUSAMA_DOT KUSAMA_MIRROR KUSAMA_PUMPKIN YONATH_CRYSTAL YONATH_BEAR YONATH_KEY
-                CURRY_HEEL CURRY_BUBBLE CURRY_TICKET PARTON_BOOK PARTON_NAILS PARTON_SONG]
+                CURRY_TOAST CURRY_BUBBLE CURRY_TICKET PARTON_BOOK PARTON_NAILS PARTON_SONG]
 check(TS::STICKERS.keys.sort == temple_ids.sort, "temple: the 12 stickers are Michal's final list")
 check(TS::HONOREES.all? { |h| TS.stickers_for(h).length == 3 }, "temple: 3 stickers per honoree")
-check(TS::STICKERS.select { |_, s| s[:map] == 113 }.keys.sort == %w[CURRY_HEEL KUSAMA_DOT PARTON_BOOK YONATH_CRYSTAL],
-      "temple: the 4 pedestal stickers are dot, crystal, heel, book")
+check(TS::STICKERS.select { |_, s| s[:map] == 113 }.keys.sort == %w[CURRY_TOAST KUSAMA_DOT PARTON_BOOK YONATH_CRYSTAL],
+      "temple: the 4 pedestal stickers are dot, crystal, toast, book")
 check(TS::STICKERS["CURRY_TICKET"].values_at(:map, :x, :y) == [96, 17, 43], "temple: the ticket moved to town (17,43)")
 check(TS.depth == DesertTownArcade.depth, "temple: tabs follow the arcade Inception depth")
 
@@ -607,9 +607,9 @@ Dir.mktmpdir("temple") do |dir|
   check(WS.add_item(wall, "kusama", 3, "runB", "YONATH_KEY", 3).nil?, "temple tab: a taken cell is refused")
   check(WS.add_item(wall, "kusama", 3, "runB", "YONATH_KEY", 4), "temple tab: another run at the same depth shares the tab")
   check(WS.add_item(wall, "yonath", 3, "runA", "KUSAMA_DOT", 0).nil?, "temple tab: a run cannot place a sticker twice")
-  check(WS.add_item(wall, "kusama", 3, "runC", "CURRY_HEEL", 99).nil?, "temple tab: a cell off the page is refused")
-  WS.add_item(wall, "kusama", 1, "runD", "CURRY_HEEL", 0)
-  WS.add_item(wall, "kusama", 5, "runE", "CURRY_HEEL", 0)
+  check(WS.add_item(wall, "kusama", 3, "runC", "CURRY_TOAST", 99).nil?, "temple tab: a cell off the page is refused")
+  WS.add_item(wall, "kusama", 1, "runD", "CURRY_TOAST", 0)
+  WS.add_item(wall, "kusama", 5, "runE", "CURRY_TOAST", 0)
   check(WS.pages(wall, "kusama").map { |p| p["depth"] } == [1, 3, 5], "temple tab: tabs are ordered by depth")
   check(WS.target(wall, "kusama", 3).equal?(WS.pages(wall, "kusama")[1]), "temple tab: depth 3 writes on its own tab")
   full = WS.empty_wall
@@ -730,6 +730,93 @@ rows = KB.rows(:he)
 check(KB.move(rows, 1, 0, :left) == [1, rows[1].length - 1], "temple keyboard: left edge wraps")
 check(KB.move(rows, 0, 0, :up)[0] == rows.length - 1, "temple keyboard: up from the tabs wraps to done row")
 check(rows[1].last[0] == "א", "temple keyboard: alef is on the right")
+
+# --- temple phase 2: signs, home boards, Ido's visit ---
+load File.join(ROOT, "Plugins/DesertCharSelect/000_playable.rb")
+sign_run = TS.new_run(Random.new(3))
+mine = sign_run[:hand][0]
+other = (TS::STICKERS.keys - sign_run[:hand]).first
+check(TS.read_sign(sign_run, mine) == :sticker && sign_run[:collected] == [mine], "temple sign: a hand sticker's sign gives it")
+check(TS.read_sign(sign_run, mine) == :fact && sign_run[:collected] == [mine], "temple sign: re-reading gives nothing more")
+check(TS.read_sign(sign_run, other) == :fact && !sign_run[:collected].include?(other), "temple sign: a sign outside the hand only shows text")
+# Minimal display stubs: the got-sticker line shows the sticker art, then disposes it.
+$temple_sprites = []
+module Graphics
+  def self.width = 512
+  def self.height = 384
+end unless defined?(Graphics)
+class Viewport
+  attr_accessor :z
+  def initialize(*) = (@disposed = false)
+  def dispose = (@disposed = true)
+  def disposed? = @disposed
+end unless defined?(Viewport)
+class Sprite
+  attr_accessor :bitmap, :x, :y
+  def initialize(_vp) = ($temple_sprites << self; @disposed = false)
+  def dispose = (@disposed = true)
+  def disposed? = @disposed
+end unless defined?(Sprite)
+TS::Art.define_singleton_method(:bitmap) { |id| "art:#{id}" }
+$temple_stickers = sign_run
+$messages = []
+pbTempleSign(sign_run[:hand][1].downcase.to_sym)
+key = TS.sign_key(sign_run[:hand][1], 1)
+check($messages == [key, key.sub(/_1\z/, "_2"), "TEMPLE_GOT_STICKER"], "temple sign: two boxes, then the got-sticker line")
+check($temple_sprites.length == 1 && $temple_sprites[0].bitmap == "art:#{sign_run[:hand][1]}" && $temple_sprites[0].disposed?,
+      "temple sign: the got-sticker line shows the sticker art, then disposes it")
+$messages = []
+check(pbTempleSign("NOPE") == false && $messages.empty?, "temple sign: an unknown sign id is logged, not raised")
+$messages = []
+pbTempleSign(sign_run[:hand][1])
+check($messages.length == 2, "temple sign: second read shows the two boxes only")
+check(TS.sign_key("CURRY_TOAST", 2) == "TEMPLE_SIGN_CURRY_HEEL_2", "temple sign: the toast keeps the pedestal's sign copy")
+sign_tr = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
+sign_keys = TS::STICKERS.keys.flat_map { |s| [TS.sign_key(s, 1), TS.sign_key(s, 2)] }
+check(sign_keys.all? { |k| sign_tr.include?("\"#{k}\": {") }, "temple sign: all 24 sign keys are in translations.json")
+check(TS.normalize_run({ run_id: "old", hand: %w[KUSAMA_DOT YONATH_KEY CURRY_HEEL PARTON_BOOK],
+                         collected: %w[CURRY_HEEL], placed: [%w[CURRY_HEEL curry]] })[:placed] == [%w[CURRY_TOAST curry]],
+      "temple run: a saved CURRY_HEEL loads as CURRY_TOAST")
+
+home = TS.new_run(Random.new(9))
+home[:hand].each { |s| TS.collect(home, s) }
+home[:hand][0, 3].each { |s| TS.record_placement(home, s, TS.home_board(s)) }
+check(!TS.home_complete?(home) && !TS.reward_due?(home, true), "temple home: 3 of 4 is not complete")
+cross = Marshal.load(Marshal.dump(home))
+wrong = TS::HONOREES.find { |h| h != TS.home_board(cross[:hand][3]) }
+TS.record_placement(cross, cross[:hand][3], wrong)
+check(!TS.home_complete?(cross) && !TS.reward_due?(cross, true), "temple home: one sticker on another board means no visit")
+TS.record_placement(home, home[:hand][3], TS.home_board(home[:hand][3]))
+check(TS.home_complete?(home), "temple home: all 4 on their own boards")
+check(!TS.reward_due?(home, false), "temple reward: staff switch off means no visit")
+check(TS.reward_due?(home, true), "temple reward: due when complete and on")
+check(TS.arm_messenger(113, 96, home, true) && TS.take_messenger && !TS.take_messenger, "temple reward: leaving the temple arms one visit")
+check(!TS.arm_messenger(93, 96, home, true) && !TS.take_messenger, "temple reward: arriving from elsewhere does not")
+TS.mark_reward_shown(home)
+check(!TS.reward_due?(home, true) && !TS.arm_messenger(113, 96, home, true), "temple reward: once per run")
+check(TS.normalize_run(home)[:reward_shown] == true, "temple reward: shown survives a save")
+check(!TS.reward_due?(TS.start_new_run, true), "temple reward: a new run starts without a visit")
+roster = DesertCharSelect::PLAYABLE
+check(TS.messenger_for("dt_6b53f14c", roster)[:id] == "idi4", "temple reward: the messenger is Ido")
+check(TS.messenger_for(nil, roster)[:id] == "idi4", "temple reward: Ido when no character was chosen")
+check(TS.messenger_for("idi4", roster) == roster[1], "temple reward: a player who is Ido meets the next roster entry")
+
+check(TS::Art.sheet_rect("KUSAMA_DOT") == [0, 0, 48, 48] && TS::Art.sheet_rect("KUSAMA_PUMPKIN") == [0, 48, 48, 48],
+      "temple art: sheet frames are row-major 48 px cells")
+check(TS::Art.sheet_rect("CURRY_TOAST") == [0, 0, 48, 48] && TS::Art.sheet_rect("PARTON_NAILS") == [48, 0, 48, 48],
+      "temple art: frames follow STICKERS order per honoree")
+
+sw = WS.empty_wall
+sitem = WS.add_item(sw, "parton", 0, "r1", "PARTON_BOOK", 2)
+check(WS.sign_item(sw, "parton", sitem, "דנה", "a" * 50) && sitem["name"] == "דנה" && sitem["text"].length == 40,
+      "temple wall: sign_item stores name and capped sentence")
+check(!WS.sign_item(sw, "kusama", sitem, "x", "y") && sitem["name"] == "דנה", "temple wall: sign_item refuses another board")
+check(WS.sanitize({ "v" => 3, "boards" => {} }).nil?, "temple wall: a newer wall version is refused")
+v1_empty = { "v" => 1, "boards" => { "yonath" => [{ "run" => "r", "items" => [{ "s" => "RICE", "c" => 0 }] },
+                                                 { "run" => "s", "items" => [{ "s" => "YONATH_KEY", "c" => 1 }] }] } }
+check(WS.sanitize(v1_empty)["boards"]["yonath"].map { |p| p["sheet"] } == [1], "temple wall: a migrated sheet with no items is dropped")
+heel_wall = { "v" => 2, "boards" => { "curry" => [{ "depth" => 0, "sheet" => 0, "items" => [{ "s" => "CURRY_HEEL", "c" => 0 }] }] } }
+check(WS.sanitize(heel_wall)["boards"]["curry"][0]["items"][0]["s"] == "CURRY_TOAST", "temple wall: a stored heel becomes the toast")
 
 tr_text = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
 temple_keys = Dir.glob(File.join(temple_dir, "*.rb")).flat_map { |f| File.read(f, encoding: "utf-8").scan(/"(TEMPLE_[A-Z0-9_]+)"/).flatten }

@@ -1,7 +1,7 @@
 #===============================================================================
-# TempleStickers - TEMPORARY debug hook (until the phase 2 signs exist).
+# TempleStickers - debug hook for laptop testing (F9 menu, debug playtests only).
 # Debug > Desert Town... > Temple sticker board: collects the whole hand and
-# opens a board. Remove once signs give stickers.
+# opens a board.
 #===============================================================================
 
 module TempleStickers
@@ -15,7 +15,7 @@ end
 MenuHandlers.add(:debug_menu, :dt_temple_board, {
   "name"        => "Temple sticker board",
   "parent"      => :desert_town_menu,
-  "description" => "Collect this run's 4 temple stickers and open a board (temporary, before signs).",
+  "description" => "Collect this run's 4 temple stickers and open a board.",
   "always_show" => true,
   "effect"      => proc {
     if !$player

@@ -81,16 +81,21 @@ module TempleStickers
       "#{base}-#{n}.dat"
     end
 
-    # Keeps the valid parts; nil when the top level is not a wall at all.
-    # A v1 wall (one page per run) becomes depth-0 sheets, one per old page.
+    # Keeps the valid parts; nil when the top level is not a wall at all, or
+    # was written by a newer version. A v1 wall becomes depth-0 sheets, one per
+    # old page; a migrated sheet left with no items is dropped.
     def self.sanitize(obj)
       return nil unless obj.is_a?(Hash) && obj["boards"].is_a?(Hash)
+      return nil if obj["v"].is_a?(Integer) && obj["v"] > VERSION
       wall = empty_wall
       BOARDS.keys.each do |b|
         raw = obj["boards"][b]
         next unless raw.is_a?(Array)
-        raw = raw.each_with_index.map { |p, i| migrate_v1_page(p, i) } unless obj["v"] == VERSION
-        ps = raw.map { |p| sanitize_page(p) }.compact.sort_by { |p| [p["depth"], p["sheet"]] }
+        migrate = obj["v"] != VERSION
+        raw = raw.each_with_index.map { |p, i| migrate_v1_page(p, i) } if migrate
+        ps = raw.map { |p| sanitize_page(p) }.compact
+        ps.reject! { |p| p["items"].empty? } if migrate
+        ps = ps.sort_by { |p| [p["depth"], p["sheet"]] }
         wall["boards"][b] = ps.uniq { |p| [p["depth"], p["sheet"]] }
         cap!(wall, b)
       end
@@ -115,10 +120,10 @@ module TempleStickers
       sheet = page["sheet"]
       return nil unless depth.is_a?(Integer) && depth >= 0 && sheet.is_a?(Integer) && sheet >= 0
       items = page["items"].select do |it|
-        it.is_a?(Hash) && STICKERS.key?(it["s"]) && it["c"].is_a?(Integer) && it["c"].between?(0, PAGE_CELLS - 1)
+        it.is_a?(Hash) && STICKERS.key?(TempleStickers.canonical(it["s"])) && it["c"].is_a?(Integer) && it["c"].between?(0, PAGE_CELLS - 1)
       end
       items = items.uniq { |it| it["c"] }.map do |it|
-        { "s" => it["s"], "c" => it["c"], "run" => it["run"].is_a?(String) ? it["run"] : "",
+        { "s" => TempleStickers.canonical(it["s"]), "c" => it["c"], "run" => it["run"].is_a?(String) ? it["run"] : "",
           "name" => clean_text(it["name"], NAME_MAX), "text" => clean_text(it["text"], SENTENCE_MAX) }
       end
       { "depth" => depth, "sheet" => sheet, "t" => page["t"].is_a?(Integer) ? page["t"] : 0, "items" => items }
@@ -189,6 +194,14 @@ module TempleStickers
       return false unless page
       page["items"].reject! { |it| it.equal?(item) }
       ps.delete(page) if page["items"].empty?
+      true
+    end
+
+    # Name and sentence on a stored item; false when the item is not on this board.
+    def self.sign_item(wall, board, item, name, text)
+      return false unless pages(wall, board).any? { |p| p["items"].any? { |it| it.equal?(item) } }
+      item["name"] = clean_text(name, NAME_MAX)
+      item["text"] = clean_text(text, SENTENCE_MAX)
       true
     end
 

@@ -14,8 +14,8 @@ module TempleStickers
     "parton" => { prompt_key: "TEMPLE_PROMPT_PARTON" }
   }.freeze
 
-  # Sticker id == sign id (sign key TEMPLE_SIGN_<id>). map/x/y are for phase 2.
-  # shape/color drive the placeholder art in 005_art.rb only.
+  # Sign keys are TEMPLE_SIGN_<sign or id>_1/_2; map/x/y is the sign's tile.
+  # shape/color drive the placeholder art in 006_art.rb only.
   STICKERS = {
     "KUSAMA_DOT"     => { honoree: "kusama", map: 113, x: 3,  y: 10, shape: :circle,   color: [200, 40, 40] },
     "KUSAMA_MIRROR"  => { honoree: "kusama", map: 96,  x: 25, y: 32, shape: :ring,     color: [200, 40, 40] },
@@ -23,13 +23,16 @@ module TempleStickers
     "YONATH_CRYSTAL" => { honoree: "yonath", map: 113, x: 4,  y: 17, shape: :diamond,  color: [120, 170, 230] },
     "YONATH_BEAR"    => { honoree: "yonath", map: 96,  x: 14, y: 35, shape: :blob,     color: [235, 235, 245] },
     "YONATH_KEY"     => { honoree: "yonath", map: 96,  x: 18, y: 16, shape: :square,   color: [79, 114, 184] },
-    "CURRY_HEEL"     => { honoree: "curry",  map: 113, x: 10, y: 9,  shape: :triangle, color: [40, 40, 48] },
+    "CURRY_TOAST"    => { honoree: "curry",  map: 113, x: 10, y: 9,  shape: :blob,     color: [214, 170, 100], sign: "CURRY_HEEL" },
     "CURRY_BUBBLE"   => { honoree: "curry",  map: 96,  x: 12, y: 24, shape: :circle,   color: [140, 60, 160] },
     "CURRY_TICKET"   => { honoree: "curry",  map: 96,  x: 17, y: 43, shape: :square,   color: [181, 72, 63] },
     "PARTON_BOOK"    => { honoree: "parton", map: 113, x: 10, y: 15, shape: :square,   color: [216, 138, 59] },
     "PARTON_NAILS"   => { honoree: "parton", map: 96,  x: 12, y: 47, shape: :triangle, color: [230, 90, 170] },
     "PARTON_SONG"    => { honoree: "parton", map: 96,  x: 25, y: 27, shape: :diamond,  color: [216, 170, 59] }
   }.freeze
+
+  # Renamed stickers: old saves and wall files still load.
+  STICKER_ALIASES = { "CURRY_HEEL" => "CURRY_TOAST" }.freeze
 
   PAGE_COLS = 7
   PAGE_ROWS = 4
@@ -44,6 +47,14 @@ module TempleStickers
 
   def self.stickers_for(honoree)
     STICKERS.select { |_id, s| s[:honoree] == honoree }.keys
+  end
+
+  def self.canonical(sticker_id)
+    STICKER_ALIASES.fetch(sticker_id, sticker_id)
+  end
+
+  def self.sign_key(sticker_id, box)
+    "TEMPLE_SIGN_#{STICKERS[sticker_id][:sign] || sticker_id}_#{box}"
   end
 
   def self.home_board(sticker_id)

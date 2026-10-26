@@ -138,3 +138,28 @@ def add_item(pages, depth, run_id, sticker, cell, max_pages=MAX_PAGES):
     while len(pages) > max_pages:
         pages.pop(1 if pages[0] is page else 0)
     return item
+
+
+def home_board(sticker):
+    return sticker_table()[sticker]
+
+
+def read_sign(run, sticker):
+    """A sign gives its sticker only when in the hand and not yet collected."""
+    if sticker in run["hand"] and sticker not in run["collected"]:
+        run["collected"].append(sticker)
+        return "sticker"
+    return "fact"
+
+
+def home_complete(run):
+    return len(run["placed"]) == len(run["hand"]) and all(
+        (s, home_board(s)) in run["placed"] for s in run["hand"])
+
+
+def reward_due(run, reward_is_on):
+    return reward_is_on is True and not run["reward_shown"] and home_complete(run)
+
+
+def messenger_for(player_charset, roster):
+    return roster[1] if roster[0]["charset"] == player_charset else roster[0]

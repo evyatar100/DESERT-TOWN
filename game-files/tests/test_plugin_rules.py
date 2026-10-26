@@ -476,7 +476,7 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIsNone(tr.add_item(pages, 3, "runB", "YONATH_KEY", 3))
         self.assertIsNotNone(tr.add_item(pages, 3, "runB", "YONATH_KEY", 4))
         self.assertIsNone(tr.add_item(pages, 5, "runA", "KUSAMA_DOT", 0))
-        tr.add_item(pages, 1, "runC", "CURRY_HEEL", 0)
+        tr.add_item(pages, 1, "runC", "CURRY_TOAST", 0)
         self.assertEqual([p["depth"] for p in pages], [1, 3])
         full = []
         for c in range(28):
@@ -491,6 +491,21 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIsNone(tr.code_problem({"code": code}))
         self.assertEqual(tr.code_problem({"code": "ab12"}), "untypeable")
         self.assertEqual(tr.code_problem({"code": "a" * 13}), "too_long")
+
+        run = {"hand": ["KUSAMA_DOT", "YONATH_KEY", "CURRY_TOAST", "PARTON_BOOK"], "collected": [],
+               "placed": [], "reward_shown": False}
+        self.assertEqual([tr.read_sign(run, "KUSAMA_DOT"), tr.read_sign(run, "KUSAMA_DOT")], ["sticker", "fact"])
+        self.assertEqual(tr.read_sign(run, "KUSAMA_MIRROR"), "fact")
+        run["placed"] = [(s, tr.home_board(s)) for s in run["hand"][:3]] + [("PARTON_BOOK", "curry")]
+        self.assertFalse(tr.reward_due(run, True))
+        run["placed"][3] = ("PARTON_BOOK", "parton")
+        self.assertTrue(tr.reward_due(run, True))
+        self.assertFalse(tr.reward_due(run, False))
+        run["reward_shown"] = True
+        self.assertFalse(tr.reward_due(run, True))
+        roster = [{"id": "idi4", "charset": "idi4"}, {"id": "d472e0a3", "charset": "dt_d472e0a3"}]
+        self.assertEqual(tr.messenger_for("dt_x", roster)["id"], "idi4")
+        self.assertEqual(tr.messenger_for("idi4", roster)["id"], "d472e0a3")
 
         src = {p.name: p.read_text(encoding="utf-8") for p in tr.TEMPLE_DIR.glob("*.rb")}
         self.assertIn("SaveData.register(:temple_stickers)", src["003_run.rb"])
@@ -516,6 +531,7 @@ class PluginRuleTests(unittest.TestCase):
                 cwd=str(ROOT),
                 capture_output=True,
                 text=True,
+                encoding="utf-8",
                 check=False,
             )
             output = (completed.stdout or "") + (completed.stderr or "")

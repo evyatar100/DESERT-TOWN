@@ -1,6 +1,7 @@
 #===============================================================================
-# TempleStickers - per-run state. One run = one Game.start_new; each run gets
-# its own page on every board it sticks on. Core types only, so old saves load.
+# TempleStickers - per-run state. One run = one Game.start_new: its hand, the
+# stickers collected and placed, its name and whether Ido's visit was shown.
+# Pages on the wall are per Inception depth (004). Core types only.
 #===============================================================================
 
 module TempleStickers
@@ -31,13 +32,14 @@ module TempleStickers
   def self.normalize_run(value, rng = Random.new)
     return new_run(rng) unless value.is_a?(Hash)
     return new_run(rng) unless value[:run_id].is_a?(String) && !value[:run_id].empty?
-    hand = Array(value[:hand]).select { |s| STICKERS.key?(s) }
+    hand = Array(value[:hand]).map { |s| canonical(s) }.select { |s| STICKERS.key?(s) }
     return new_run(rng) unless hand.length == HONOREES.length
+    placed = Array(value[:placed]).select { |p| p.is_a?(Array) }.map { |p| [canonical(p[0]), p[1]] }
     {
       run_id: value[:run_id],
       hand: hand,
-      collected: Array(value[:collected]).select { |s| hand.include?(s) }.uniq,
-      placed: Array(value[:placed]).select { |p| p.is_a?(Array) && hand.include?(p[0]) && board?(p[1]) },
+      collected: Array(value[:collected]).map { |s| canonical(s) }.select { |s| hand.include?(s) }.uniq,
+      placed: placed.select { |p| hand.include?(p[0]) && board?(p[1]) },
       name: value[:name].is_a?(String) ? value[:name] : nil,
       reward_shown: value[:reward_shown] == true
     }
@@ -63,6 +65,26 @@ module TempleStickers
     return false unless placeable(run).include?(sticker_id)
     run[:placed] << [sticker_id, board_id.to_s]
     true
+  end
+
+  # A sign gives its sticker only when it is in the hand and not yet collected.
+  def self.read_sign(run, sticker_id)
+    collect(run, sticker_id) ? :sticker : :fact
+  end
+
+  # All 4 hand stickers placed, each on its own honoree's board.
+  def self.home_complete?(run)
+    return false unless run[:placed].length == run[:hand].length
+    run[:hand].all? { |s| run[:placed].include?([s, home_board(s)]) }
+  end
+
+  # Ido's visit: home boards complete, staff switch on, not yet shown this run.
+  def self.reward_due?(run, reward_on)
+    reward_on == true && !run[:reward_shown] && home_complete?(run)
+  end
+
+  def self.mark_reward_shown(run)
+    run[:reward_shown] = true
   end
 
   # The run's name, prefilled in later name keyboards. Nil or blank clears it.

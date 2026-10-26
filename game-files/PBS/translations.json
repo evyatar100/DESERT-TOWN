@@ -1975,6 +1975,114 @@
     "TEMPLE_SIGN_SAVE_FAILED": {
       "en": "The board could not be saved.",
       "he": "לא הצלחנו לשמור את הלוח."
+    },
+    "TEMPLE_SIGN_KUSAMA_DOT_1": {
+      "en": "In 2002 Yayoi Kusama made a white room for children and handed out dot stickers.",
+      "he": "ב-2002 בנתה יאיוי קוסאמה חדר לבן לילדים וחילקה מדבקות של נקודות."
+    },
+    "TEMPLE_SIGN_KUSAMA_DOT_2": {
+      "en": "Visitors stuck dots everywhere, until the white disappeared.",
+      "he": "המבקרים הדביקו נקודות בכל מקום, עד שהלבן נעלם."
+    },
+    "TEMPLE_SIGN_KUSAMA_MIRROR_1": {
+      "en": "In 1965 Kusama lined a room with mirrors, and a few dots inside looked endless.",
+      "he": "ב-1965 ריפדה קוסאמה חדר במראות, וכמה נקודות בתוכו נראו אינסופיות."
+    },
+    "TEMPLE_SIGN_KUSAMA_MIRROR_2": {
+      "en": "Her mirror rooms became the Tate's most visited show of all time.",
+      "he": "חדרי המראות שלה היו התערוכה הכי מבוקרת אי פעם במוזיאון טייט בלונדון."
+    },
+    "TEMPLE_SIGN_KUSAMA_PUMPKIN_1": {
+      "en": "Kusama grew up on a seed farm. In 1994 her yellow dotted pumpkin went up on a pier in Japan.",
+      "he": "קוסאמה גדלה בחוות זרעים. ב-1994 הוצבה הדלעת הצהובה והמנוקדת שלה על מזח ביפן."
+    },
+    "TEMPLE_SIGN_KUSAMA_PUMPKIN_2": {
+      "en": "\"…the pumpkin's generous unpretentiousness. That and its solid spiritual balance.\" — Yayoi Kusama",
+      "he": "\"…חוסר היומרה הנדיב של הדלעת, והאיזון הרוחני היציב שלה.\" — יאיוי קוסאמה"
+    },
+    "TEMPLE_SIGN_YONATH_CRYSTAL_1": {
+      "en": "Ada Yonath tried about 25,000 times before her first ribosome crystals grew, in 1980.",
+      "he": "עדה יונת ניסתה כ-25,000 פעמים עד שגבישי הריבוזום הראשונים שלה צמחו ב-1980."
+    },
+    "TEMPLE_SIGN_YONATH_CRYSTAL_2": {
+      "en": "\"I became the World's dreamer, the village fool, the so-called scientist…\" — Ada Yonath",
+      "he": "\"הפכתי לחולמת של העולם, לשוטת הכפר, ל'מדענית' כביכול…\" — עדה יונת"
+    },
+    "TEMPLE_SIGN_YONATH_BEAR_1": {
+      "en": "Ada Yonath read that hibernating polar bears pack their ribosomes in neat order. That gave her the idea.",
+      "he": "עדה יונת קראה שדובי קוטב בתרדמת חורף אורזים ריבוזומים בסדר. משם בא הרעיון."
+    },
+    "TEMPLE_SIGN_YONATH_BEAR_2": {
+      "en": "\"I have four tips: Curiosity. Go after your curiosity. More curiosity. Even more curiosity. Passion.\" — Ada Yonath",
+      "he": "\"יש לי ארבע עצות: סקרנות. ללכת אחרי הסקרנות. עוד סקרנות. ועוד. ותשוקה.\" — עדה יונת"
+    },
+    "TEMPLE_SIGN_YONATH_KEY_1": {
+      "en": "Ada Yonath showed how more than 20 antibiotics lock into pockets in a germ's ribosome.",
+      "he": "עדה יונת הראתה איך מעל 20 אנטיביוטיקות ננעלות בכיסים בריבוזום של חיידקים."
+    },
+    "TEMPLE_SIGN_YONATH_KEY_2": {
+      "en": "Her work opened the way to new antibiotics and to fighting germs that resist them.",
+      "he": "המחקר שלה סלל את הדרך לאנטיביוטיקות חדשות ולמאבק בחיידקים עמידים."
+    },
+    "TEMPLE_SIGN_CURRY_HEEL_1": {
+      "en": "Audiences threw toast at the screen, and outsider fans found a safe place around Tim Curry's Frank-N-Furter.",
+      "he": "קהל זרק לחם קלוי על המסך, ושונים מצאו מקום בטוח סביב פרנק נ. פורטר של טים קארי."
+    },
+    "TEMPLE_SIGN_CURRY_HEEL_2": {
+      "en": "\"He gave a lot of teenagers permission to be different…\" — Tim Curry",
+      "he": "\"הוא נתן להרבה בני נוער רשות להיות שונים…\" — טים קארי"
+    },
+    "TEMPLE_SIGN_CURRY_BUBBLE_1": {
+      "en": "In 1976 a fan talked back to Tim Curry's film. Soon whole crowds answered the screen, in costume.",
+      "he": "ב-1976 צופה ענה בקול לסרט של טים קארי. מהר מאוד קהלים שלמים ענו למסך, בתחפושות."
+    },
+    "TEMPLE_SIGN_CURRY_BUBBLE_2": {
+      "en": "\"…it's also a chance for people to try on a few roles for size.\" — Tim Curry",
+      "he": "\"…זו גם הזדמנות לאנשים למדוד כמה תפקידים, ולראות מה מתאים להם.\" — טים קארי"
+    },
+    "TEMPLE_SIGN_CURRY_TICKET_1": {
+      "en": "Tim Curry's film flopped in 1975. In 1976 midnight screenings began, and audiences came back week after week.",
+      "he": "הסרט של טים קארי נכשל ב-1975. ב-1976 החלו הקרנות חצות, והקהל חזר שבוע אחרי שבוע."
+    },
+    "TEMPLE_SIGN_CURRY_TICKET_2": {
+      "en": "\"For your first movie to run for 50 years is crazy.\" — Tim Curry",
+      "he": "\"שהסרט הראשון שלך ירוץ 50 שנה, זה מטורף.\" — טים קארי"
+    },
+    "TEMPLE_SIGN_PARTON_BOOK_1": {
+      "en": "Dolly Parton's father could not read. From 1995 she mailed a free book every month to children up to 5.",
+      "he": "אביה של דולי פרטון לא ידע לקרוא. מ-1995 שלחה לילדים עד גיל 5 ספר חינם בכל חודש."
+    },
+    "TEMPLE_SIGN_PARTON_BOOK_2": {
+      "en": "By 2025 she had sent more than 300 million books.",
+      "he": "עד 2025 היא שלחה יותר מ-300 מיליון ספרים."
+    },
+    "TEMPLE_SIGN_PARTON_NAILS_1": {
+      "en": "Dolly Parton clacked her long nails like a typewriter, and that became the beat of \"9 to 5\".",
+      "he": "דולי פרטון הקישה בציפורניה הארוכות כמו במכונת כתיבה, וכך נולד הקצב של \"9 to 5\"."
+    },
+    "TEMPLE_SIGN_PARTON_NAILS_2": {
+      "en": "\"It takes a lot of money to look this cheap.\" — Dolly Parton",
+      "he": "\"צריך הרבה כסף כדי להיראות כל כך זול.\" — דולי פרטון"
+    },
+    "TEMPLE_SIGN_PARTON_SONG_1": {
+      "en": "Elvis's manager asked for half the rights to \"I Will Always Love You\". Dolly Parton said no and kept them.",
+      "he": "מנהל אלביס ביקש חצי מזכויות \"I Will Always Love You\". דולי פרטון סירבה ושמרה אותן."
+    },
+    "TEMPLE_SIGN_PARTON_SONG_2": {
+      "en": "\"I count my blessings more than I count my money, but I need to count my money, too.\" — Dolly Parton",
+      "he": "\"אני סופרת את הברכות יותר משאני סופרת כסף, אבל גם כסף צריך לספור.\" — דולי פרטון"
+    },
+    "TEMPLE_GOT_STICKER": {
+      "en": "You got a sticker.",
+      "he": "קיבלת מדבקה."
+    },
+    "TEMPLE_REWARD_1": {
+      "en": "A little gift is waiting for you too. Head over to the game's creators, they're somewhere in Kosumo, 8:00 & A.",
+      "he": "גם עבורך מחכה שי קטן. אפשר ללכת ליוצרי המשחק, הם איפשהו בקוסומו, שעה 8:00 & A."
+    },
+    "TEMPLE_REWARD_2": {
+      "en": "Tell them Kusama sent you.",
+      "he": "כדאי להגיד שקוסאמה שלחה אותך."
     }
   }
 }

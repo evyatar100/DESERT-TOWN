@@ -6581,6 +6581,33 @@ Price = 0
 Flags = KeyItem
 Description = A bag of ice bought from the ice vendor.
 #-------------------------------
+[SURPRISEBAG]
+Name = Surprise Bag
+NamePlural = Surprise Bags
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+ShowQuantity = true
+Description = A shiny bag sealed with tape. Something inside rustles.
+#-------------------------------
+[BAGOFBAGS]
+Name = Bag of Bags
+NamePlural = Bags of Bags
+Pocket = 8
+Price = 0
+FieldUse = Direct
+Flags = KeyItem
+Description = One bag that holds every bag there could be. A gift from Toga.
+#-------------------------------
+[DESERTBAG]
+Name = Desert Bag
+NamePlural = Desert Bags
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A bag full of sand and desert.
+#-------------------------------
 [WHITEWATERBOTTLE]
 Name = White Water Bottle
 NamePlural = White Water Bottles

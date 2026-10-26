@@ -1,6 +1,6 @@
 #===============================================================================
-# TempleStickers - Ido's visit. Leaving Map113 for Map096 with all 4 stickers on
-# their home boards (and staff reward on) starts the "temple_messenger" event at
+# TempleStickers - Ido's visit. Leaving Map113 for Map096 with the reward earned
+# (reward_earned?, 003) and staff reward on starts the "temple_messenger" event at
 # (11,16): it steps up, says the two boxes, walks south and vanishes. Once per run.
 #===============================================================================
 

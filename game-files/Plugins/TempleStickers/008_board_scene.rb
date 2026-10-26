@@ -3,19 +3,16 @@
 # the left. You stick only on the current depth's tab; every other tab is
 # read-only. Opens on the current depth's tab.
 #   strip: left/right flips tabs, down enters the page
-#   page:  the cursor steps over stickers; the bottom box shows name + sentence
-#   place: Orange picks a hand sticker, Red jumps to your tab, Red sticks it
+#   page:  left/right step over stickers; where stickers overlap, up/down pick one
+#          from the list (newest first) and the bottom box shows its name + sentence
+#   place: Orange picks a hand sticker, Red jumps to your tab, Red sticks it.
+#          The tray shows only stickers whose home is this board.
 #   White + Green together: staff code keyboard (works with an empty hand)
 #===============================================================================
 
 module TempleStickers
   class BoardScene
-    PAGE_X = 8
-    PAGE_Y = 44
-    CELL = 64
-    HAND_X = 460
-    STRIP_MARKS = 5
-    MARK_W = 88
+    View = BoardView
 
     attr_reader :placed_any
 
@@ -28,7 +25,8 @@ module TempleStickers
       @placed_any = false
       @mode = :strip
       @item = 0
-      @cell = 0
+      @spot = 0
+      @pick = 0
       @hand = 0
       refresh_pages
       @page = target_index
@@ -54,12 +52,46 @@ module TempleStickers
       WallStore.pages(@wall, @board).index { |p| p.equal?(page) }
     end
 
+    # Every sticker still to place; only `fits` can go on this board.
     def hand
       TempleStickers.placeable(@run)
     end
 
+    # Cached per refresh; refresh clears it.
+    def fits
+      @fits ||= TempleStickers.placeable_on(@run, @board)
+    end
+
+    def selected
+      fits.empty? ? nil : fits[@hand % fits.length]
+    end
+
+    # Nil unless the hand has stickers and none of them fit this board.
+    def other_board_line
+      return nil if hand.empty? || !fits.empty?
+      names = TempleStickers.other_homes(@run, @board).map { |b| _INTL(BOARDS[b][:name_key]) }
+      _INTL("TEMPLE_HAND_OTHER_BOARD", names.join(", "))
+    end
+
+    # Browse stops in reading order (spot); the stored order stays oldest first.
     def items
-      @list[@page]["items"].sort_by { |it| it["c"] }
+      @list[@page]["items"].sort_by { |it| it["p"] }
+    end
+
+    # Every sticker overlapping the current stop, newest first.
+    def stack
+      stop = items[@item]
+      stop ? WallStore.stack_at(@list[@page], stop["p"]) : []
+    end
+
+    # The sticker whose name and sentence show: the picked one in the stack.
+    def current
+      stack[@pick] || items[@item]
+    end
+
+    def go_to_stop(index)
+      @item = index
+      @pick = stack.index { |it| it.equal?(items[@item]) } || 0
     end
 
     def saver
@@ -90,7 +122,7 @@ module TempleStickers
       end
       return :exit if Input.trigger?(Input::BACK) && @mode != :place
       if TempleStickers.raw_color?(:orange)
-        @hand = hand.empty? ? 0 : (@hand + 1) % hand.length
+        @hand = fits.empty? ? 0 : (@hand + 1) % fits.length
         return true
       end
       if Staff.active? && (TempleStickers.raw_color?(:white) || Input.trigger?(Input::ACTION))
@@ -111,7 +143,7 @@ module TempleStickers
         @page += 1
       elsif Input.trigger?(Input::DOWN) && !items.empty?
         @mode = :page
-        @item = 0
+        go_to_stop(0)
       elsif Input.trigger?(Input::USE)
         start_placing
       else
@@ -120,15 +152,19 @@ module TempleStickers
       true
     end
 
+    # Up/down cycle the overlap list when there is one; otherwise they step like left/right.
     def input_page
-      if Input.repeat?(Input::UP) || Input.repeat?(Input::LEFT)
+      many = stack.length > 1
+      if many && (Input.repeat?(Input::UP) || Input.repeat?(Input::DOWN))
+        @pick = (@pick + (Input.repeat?(Input::UP) ? -1 : 1)) % stack.length
+      elsif Input.repeat?(Input::UP) || Input.repeat?(Input::LEFT)
         if @item.zero?
           @mode = :strip
         else
-          @item -= 1
+          go_to_stop(@item - 1)
         end
       elsif Input.repeat?(Input::DOWN) || Input.repeat?(Input::RIGHT)
-        @item = [@item + 1, items.length - 1].min
+        go_to_stop([@item + 1, items.length - 1].min)
       elsif Input.trigger?(Input::USE)
         start_placing
       else
@@ -137,19 +173,14 @@ module TempleStickers
       true
     end
 
+    # The cursor moves half a sticker per press, so stickers can partly overlap.
     def input_place
-      col = @cell % PAGE_COLS
-      row = @cell / PAGE_COLS
+      dir = { Input::LEFT => :left, Input::RIGHT => :right, Input::UP => :up, Input::DOWN => :down }
+            .find { |key, _| Input.repeat?(key) }&.last
       if Input.trigger?(Input::BACK)
         @mode = :strip
-      elsif Input.repeat?(Input::LEFT)
-        @cell = row * PAGE_COLS + (col - 1) % PAGE_COLS
-      elsif Input.repeat?(Input::RIGHT)
-        @cell = row * PAGE_COLS + (col + 1) % PAGE_COLS
-      elsif Input.repeat?(Input::UP)
-        @cell = ((row - 1) % PAGE_ROWS) * PAGE_COLS + col
-      elsif Input.repeat?(Input::DOWN)
-        @cell = ((row + 1) % PAGE_ROWS) * PAGE_COLS + col
+      elsif dir
+        @spot = WallStore.move_spot(@spot, dir)
       elsif Input.trigger?(Input::USE)
         place
       else
@@ -160,20 +191,25 @@ module TempleStickers
 
     # Placing always happens on the current depth's writable page.
     def start_placing
-      if hand.empty?
+      if fits.empty?
         pbPlayBuzzerSE if defined?(pbPlayBuzzerSE)
+        pbMessage(other_board_line) if other_board_line
         return
       end
       @page = target_index
-      taken = @target["items"].map { |it| it["c"] }
-      @cell = (0...PAGE_CELLS).find { |c| !taken.include?(c) } || 0
+      @spot = WallStore.free_spot(@target)
       @mode = :place
     end
 
     def place
-      sticker = hand[@hand % hand.length]
-      outcome, item = TempleStickers.place(@wall, @run, @board, @depth, sticker, @cell, saver)
-      if outcome == :save_failed
+      sticker = selected
+      outcome, item = TempleStickers.place(@wall, @run, @board, @depth, sticker, @spot, saver)
+      @fits = nil
+      if outcome == :recovered
+        pbMessage(_INTL("TEMPLE_ALREADY_PLACED"))
+        show_item(item)
+        return
+      elsif outcome == :save_failed
         pbMessage(_INTL("TEMPLE_SAVE_FAILED"))
         @mode = :strip
         return
@@ -181,14 +217,24 @@ module TempleStickers
         pbPlayBuzzerSE if defined?(pbPlayBuzzerSE)
         return
       end
+      show_item(item)
+      sign(item) if pbConfirmMessage(_INTL("TEMPLE_ASK_SIGN"))
+    end
+
+    # Flips to the page holding item (if it is on this board) and selects it.
+    def show_item(item)
       @placed_any = true
       @hand = 0
       refresh_pages
-      @page = @list.index { |p| p["items"].any? { |it| it.equal?(item) } }
-      @mode = :page
-      @item = items.index { |it| it.equal?(item) } || 0
+      page = @list.index { |p| p["items"].any? { |it| it.equal?(item) } }
+      if page
+        @page = page
+        @mode = :page
+        go_to_stop(items.index { |it| it.equal?(item) } || 0)
+      else
+        @mode = :strip
+      end
       refresh
-      sign(item) if pbConfirmMessage(_INTL("TEMPLE_ASK_SIGN"))
     end
 
     # Name (prefilled after the first time), then the board's sentence prompt.
@@ -219,7 +265,7 @@ module TempleStickers
 
     def staff_menu
       idx = stored_index(@list[@page])
-      item = @mode == :page && idx ? items[@item] : nil
+      item = @mode == :page && idx ? current : nil
       cmds = []
       cmds << [:del_text, _INTL("TEMPLE_STAFF_DEL_TEXT")] if item && item["text"]
       cmds << [:del_sticker, _INTL("TEMPLE_STAFF_DEL_STICKER")] if item
@@ -235,8 +281,8 @@ module TempleStickers
 
     def staff_action(action, idx, item, reward)
       case action
-      when :del_text then WallStore.delete_text(@wall, @board, idx, item["c"])
-      when :del_sticker then WallStore.delete_item(@wall, @board, idx, item["c"])
+      when :del_text then WallStore.delete_text(@wall, @board, idx, item["p"])
+      when :del_sticker then WallStore.delete_item(@wall, @board, idx, item["p"])
       when :del_page then WallStore.delete_page(@wall, @board, idx)
       when :wipe_board then return unless sure? && WallStore.wipe_board(@dir, @wall, @board)
       when :wipe_wall then return unless sure? && WallStore.wipe_all(@dir, @wall)
@@ -247,7 +293,7 @@ module TempleStickers
       refresh_pages
       @page = [[@page, @list.length - 1].min, 0].max
       @mode = :strip if items.empty?
-      @item = [[@item, items.length - 1].min, 0].max
+      go_to_stop([[@item, items.length - 1].min, 0].max)
     end
 
     def sure?
@@ -257,20 +303,26 @@ module TempleStickers
     #--- drawing ----------------------------------------------------------------
     def create
       @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
-      @viewport.z = 99_990
+      # Same z as pbFadeOutIn's black layer but created later, so drawn above it.
+      @viewport.z = 99_999
       @sprite = Sprite.new(@viewport)
       @sprite.bitmap = Bitmap.new(Graphics.width, Graphics.height)
       pbSetSystemFont(@sprite.bitmap) if defined?(pbSetSystemFont)
     end
 
     def refresh
+      @fits = nil
       bmp = @sprite.bitmap
       bmp.clear
-      bmp.fill_rect(0, 0, bmp.width, bmp.height, Color.new(50, 40, 36))
-      draw_strip(bmp)
+      View.draw_background(bmp)
+      View.draw_title(bmp, _INTL("TEMPLE_BOARD_TITLE", _INTL(BOARDS[@board][:name_key])))
+      View.draw_tabs(bmp, @list.map { |p| tab_label(p) }, @page, target_index, @mode == :strip)
       draw_page(bmp)
-      draw_hand(bmp)
-      draw_bottom(bmp)
+      # Only this board's stickers (at most 3); the info box names other boards.
+      View.draw_hand(bmp, _INTL("TEMPLE_HAND_TITLE"), fits, fits.index(selected),
+                     hand.empty? ? _INTL("TEMPLE_HAND_EMPTY") : nil)
+      draw_info(bmp)
+      View.draw_legend(bmp, legend)
     end
 
     def tab_label(page)
@@ -278,81 +330,57 @@ module TempleStickers
       _INTL("TEMPLE_TAB_DEPTH_SHEET", page["depth"], page["sheet"] + 1)
     end
 
-    def draw_strip(bmp)
-      count = @list.length
-      first = [[@page - STRIP_MARKS / 2, count - STRIP_MARKS].min, 0].max
-      TempleStickers.draw_text(bmp, 0, 4, 20, 28, "<", TEXT_BASE, TEXT_SHADOW, 1) if first > 0
-      TempleStickers.draw_text(bmp, 492, 4, 20, 28, ">", TEXT_BASE, TEXT_SHADOW, 1) if first + STRIP_MARKS < count
-      [STRIP_MARKS, count - first].min.times do |slot|
-        i = first + slot
-        x = 24 + slot * (MARK_W + 6)
-        if i == @page
-          ring = @mode == :strip ? Color.new(216, 138, 59) : Color.new(160, 150, 130)
-          bmp.fill_rect(x - 3, 3, MARK_W + 6, 34, ring)
-        end
-        mine = @list[i].equal?(@target)
-        bmp.fill_rect(x, 6, MARK_W, 28, mine ? Color.new(200, 225, 200) : TempleStickers.color(PAPER))
-        TempleStickers.draw_text(bmp, x + 2, 6, MARK_W - 4, 28, tab_label(@list[i]), INK, INK_SHADOW, 1)
-      end
-    end
-
     def draw_page(bmp)
-      bmp.fill_rect(PAGE_X, PAGE_Y, PAGE_COLS * CELL, PAGE_ROWS * CELL, TempleStickers.color(PAPER))
       page_items = @list[@page]["items"]
-      page_items.each { |it| blt_sticker(bmp, it["s"], it["c"], 255) }
-      if @mode == :page && items[@item]
-        frame(bmp, items[@item]["c"], Color.new(216, 138, 59))
+      page_items.each { |it| View.draw_sticker(bmp, it["s"], it["p"]) }   # stored oldest first: newest on top
+      if page_items.empty? && @mode != :place
+        lines = [_INTL("TEMPLE_BOARD_EMPTY")]
+        lines << _INTL("TEMPLE_BOARD_EMPTY_FIRST") if @list[@page].equal?(@target) && !fits.empty?
+        View.draw_empty(bmp, lines)
+      end
+      if @mode == :page && current
+        View.draw_sticker(bmp, current["s"], current["p"]) if stack.length > 1   # lift the picked one
+        View.draw_cursor(bmp, current["p"], View::BUTTONS[:orange])
       elsif @mode == :place
-        frame(bmp, @cell, Color.new(95, 154, 108))
-        sticker = hand[@hand % [hand.length, 1].max]
-        free = page_items.none? { |it| it["c"] == @cell }
-        blt_sticker(bmp, sticker, @cell, 140) if sticker && free
+        sticker = selected
+        free = page_items.none? { |it| it["p"] == @spot }
+        View.draw_sticker(bmp, sticker, @spot, 140) if sticker && free
+        View.draw_cursor(bmp, @spot, View::BUTTONS[:green])
       end
     end
 
-    def cell_origin(cell)
-      [PAGE_X + (cell % PAGE_COLS) * CELL, PAGE_Y + (cell / PAGE_COLS) * CELL]
-    end
-
-    def blt_sticker(bmp, sticker, cell, opacity)
-      src = Art.bitmap(sticker)
-      x, y = cell_origin(cell)
-      bmp.blt(x + (CELL - Art::SIZE) / 2, y + (CELL - Art::SIZE) / 2, src, src.rect, opacity)
-    end
-
-    def frame(bmp, cell, color)
-      x, y = cell_origin(cell)
-      [[x, y, CELL, 3], [x, y + CELL - 3, CELL, 3], [x, y, 3, CELL], [x + CELL - 3, y, 3, CELL]].each do |r|
-        bmp.fill_rect(*r, color)
+    # Page: who stuck it and their sentence. Strip: the board's question, or
+    # where the hand's stickers belong when none fit here.
+    def draw_info(bmp)
+      if @mode == :place
+        View.draw_info(bmp, nil, _INTL("TEMPLE_PLACE_INFO"))
+      elsif @mode == :page && stack.length > 1
+        View.draw_stack_info(bmp, stack.map { |it| stack_label(it) }, @pick, current["text"].to_s)
+      elsif @mode == :page && current
+        name = current["name"].to_s
+        top = name.empty? ? _INTL("TEMPLE_ITEM_NO_NAME") : name
+        View.draw_info(bmp, top, current["text"].to_s, name.empty? ? View::DIM : View::LABEL)
+      elsif other_board_line
+        View.draw_info(bmp, nil, other_board_line)
+      else
+        View.draw_info(bmp, _INTL("TEMPLE_BOARD_ASKS"), _INTL(BOARDS[@board][:prompt_key]))
       end
     end
 
-    def draw_hand(bmp)
-      hand.each_with_index do |sticker, i|
-        y = PAGE_Y + i * CELL
-        if i == @hand % hand.length
-          bmp.fill_rect(HAND_X - 4, y + 4, Art::SIZE + 8, Art::SIZE + 8, Color.new(216, 138, 59))
-        end
-        src = Art.bitmap(sticker)
-        bmp.blt(HAND_X, y + 8, src, src.rect)
-      end
+    # Overlap list entry: the signer's name, else the sticker's honoree.
+    def stack_label(item)
+      name = item["name"].to_s
+      name.empty? ? _INTL(BOARDS[TempleStickers.home_board(item["s"])][:name_key]) : name
     end
 
-    def draw_bottom(bmp)
-      if @mode == :page && items[@item]
-        TempleStickers.draw_text(bmp, 12, 302, 488, 28, items[@item]["name"].to_s, TEXT_BASE, TEXT_SHADOW)
-        TempleStickers.draw_text(bmp, 12, 328, 488, 28, items[@item]["text"].to_s, TEXT_BASE, TEXT_SHADOW)
-      end
-      key = if @mode == :place then "TEMPLE_HINT_PLACE"
-            elsif hand.empty? then "TEMPLE_HINT_BROWSE"
-            else "TEMPLE_HINT_HAND"
-            end
-      hint = _INTL(key)
-      hint += " / " + _INTL("TEMPLE_HINT_STAFF") if Staff.active?
-      size = bmp.font.size
-      bmp.font.size = [size - 6, 16].max
-      TempleStickers.draw_text(bmp, 8, 356, 496, 26, hint, TEXT_BASE, TEXT_SHADOW, 1)
-      bmp.font.size = size
+    # Red/Orange/Blue only; the White + Green staff combo is never listed.
+    def legend
+      list = [[:joy, _INTL(@mode == :place ? "TEMPLE_LEG_SPOT" : "TEMPLE_LEG_LOOK")]]
+      list << [:red, _INTL("TEMPLE_LEG_STICK")] unless fits.empty?
+      list << [:orange, _INTL("TEMPLE_LEG_NEXT")] if fits.length > 1
+      list << [:blue, _INTL(@mode == :place ? "TEMPLE_LEG_BACK" : "TEMPLE_LEG_LEAVE")]
+      list << [:white, _INTL("TEMPLE_LEG_STAFF")] if Staff.active?
+      list
     end
 
     def dispose
@@ -366,6 +394,8 @@ end
 # Event Script command: pbTempleBoard(:kusama) / :yonath / :curry / :parton.
 def pbTempleBoard(board)
   raise ArgumentError, "Unknown temple board: #{board}" unless TempleStickers.board?(board)
+  name = _INTL(TempleStickers::BOARDS[board.to_s][:name_key])
+  return true unless pbConfirmMessage(_INTL("TEMPLE_BOARD_APPROACH", name))
   scene = nil
   pbFadeOutIn { scene = TempleStickers::BoardScene.new(board).tap(&:run) }
   # The run state lives in Game.rxdata; save so a reset cannot re-place a sticker.

@@ -465,9 +465,10 @@
                 [
                   "CHOICE_7A2A022C_EXIST",
                   "CHOICE_7A2A022C_MEAN",
+                  "CHOICE_7A2A022C_BAG",
                   "CHOICE_7A2A022C_ENOUGH"
                 ],
-                3
+                4
               ]
             },
             {
@@ -505,6 +506,54 @@
               "indent": 0,
               "parameters": [
                 2,
+                "CHOICE_7A2A022C_BAG"
+              ]
+            },
+            {
+              "code": 111,
+              "indent": 1,
+              "parameters": [
+                12,
+                "pbBagsToga"
+              ]
+            },
+            {
+              "code": 115,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 411,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 119,
+              "indent": 2,
+              "parameters": [
+                "TOGA_CHOOSE"
+              ]
+            },
+            {
+              "code": 0,
+              "indent": 2,
+              "parameters": []
+            },
+            {
+              "code": 412,
+              "indent": 1,
+              "parameters": []
+            },
+            {
+              "code": 402,
+              "indent": 0,
+              "parameters": [
+                3,
                 "CHOICE_7A2A022C_ENOUGH"
               ]
             },

@@ -8,10 +8,10 @@ module TempleStickers
 
   # One board per honoree. The prompt follows the board, not the sticker.
   BOARDS = {
-    "kusama" => { prompt_key: "TEMPLE_PROMPT_KUSAMA" },
-    "yonath" => { prompt_key: "TEMPLE_PROMPT_YONATH" },
-    "curry"  => { prompt_key: "TEMPLE_PROMPT_CURRY" },
-    "parton" => { prompt_key: "TEMPLE_PROMPT_PARTON" }
+    "kusama" => { prompt_key: "TEMPLE_PROMPT_KUSAMA", name_key: "TEMPLE_HONOREE_KUSAMA" },
+    "yonath" => { prompt_key: "TEMPLE_PROMPT_YONATH", name_key: "TEMPLE_HONOREE_YONATH" },
+    "curry"  => { prompt_key: "TEMPLE_PROMPT_CURRY", name_key: "TEMPLE_HONOREE_CURRY" },
+    "parton" => { prompt_key: "TEMPLE_PROMPT_PARTON", name_key: "TEMPLE_HONOREE_PARTON" }
   }.freeze
 
   # Sign keys are TEMPLE_SIGN_<sign or id>_1/_2; map/x/y is the sign's tile.
@@ -36,7 +36,11 @@ module TempleStickers
 
   PAGE_COLS = 7
   PAGE_ROWS = 4
-  PAGE_CELLS = PAGE_COLS * PAGE_ROWS
+  PAGE_CELLS = PAGE_COLS * PAGE_ROWS   # stickers per sheet (overlap allowed, same density as the old grid)
+  # Stickers sit on a half-cell grid ("spots"), so they can partly overlap.
+  SPOT_COLS = PAGE_COLS * 2 - 1
+  SPOT_ROWS = PAGE_ROWS * 2 - 1
+  SPOTS = SPOT_COLS * SPOT_ROWS
   NAME_MAX = 12
   SENTENCE_MAX = 40
   CODE_MAX = 12

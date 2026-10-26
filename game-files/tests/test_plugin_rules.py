@@ -6,6 +6,7 @@ out. Otherwise the same cases run against the pure decisions copied below.
 
 from __future__ import annotations
 
+import re
 import shutil
 import subprocess
 import sys
@@ -151,19 +152,42 @@ def bidi_runs(flags):
     return runs
 
 
+MARK_CLASS = "[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]"
+MARK_ONLY = re.compile(r"\A" + MARK_CLASS + r"+\Z")
+
+
+def clusters(line):
+    """A letter plus its following combining marks (HebrewText::MARK_CLASS) is one unit."""
+    return re.findall(f"(?:(?!{MARK_CLASS}).){MARK_CLASS}*|{MARK_CLASS}+", line, re.S)
+
+
 def visual_reverse(text):
     """Python mirror of HebrewText.visual_reverse."""
     if not _has_hebrew(text):
         return text
     out = []
     for line in text.split("\n"):
-        chars = list(line)
+        chars = clusters(line)
         parts = []
         for ltr, start, length in reversed(bidi_runs(bidi_ltr_flags([bidi_class(c) for c in chars]))):
             part = chars[start : start + length]
             parts.append("".join(part if ltr else reversed(part)))
         out.append("".join(parts))
     return "\n".join(out)
+
+
+def fmt_mark(c):
+    return not c[5] and isinstance(c[0], str) and bool(MARK_ONLY.match(c[0]))
+
+
+def fmt_clusters(chars_on_line):
+    groups = []
+    for i, c in enumerate(chars_on_line):
+        if fmt_mark(c) and groups:
+            groups[-1].append(i)
+        else:
+            groups.append([i])
+    return groups
 
 
 def mirror_fmtchars_line(chars_on_line):
@@ -173,18 +197,43 @@ def mirror_fmtchars_line(chars_on_line):
         return chars_on_line
     min_x = min(c[1] for c in printable)
     max_right = max(c[1] + c[3] for c in printable)
-    classes = ["L" if c[5] else bidi_class(c[0]) for c in chars_on_line]
+    groups = fmt_clusters(chars_on_line)
+    classes = ["L" if chars_on_line[g[0]][5] else bidi_class(chars_on_line[g[0]][0]) for g in groups]
     for ltr, start, length in bidi_runs(bidi_ltr_flags(classes)):
-        block = chars_on_line[start : start + length]
+        bgroups = groups[start : start + length]
+        block = [chars_on_line[i] for g in bgroups for i in g]
         b_min_x = min(c[1] for c in block)
         b_width = max(c[1] + c[3] for c in block) - b_min_x
         new_b_min_x = max_right - (b_min_x - min_x) - b_width
-        for c in block:
+        for g in bgroups:
+            members = [chars_on_line[i] for i in g]
+            base = members[0]
             if ltr:
-                c[1] = new_b_min_x + (c[1] - b_min_x)
-            else:
-                c[1] = new_b_min_x + (b_width - (c[1] - b_min_x) - c[3])
+                for c in members:
+                    c[1] = new_b_min_x + (c[1] - b_min_x)
+                continue
+            g_width = max(c[1] + c[3] for c in members) - base[1]
+            base[1] = new_b_min_x + (b_width - (base[1] - b_min_x) - g_width)
+            for m in members[1:]:
+                m[1] = base[1] + (base[3] - m[3]) // 2
     return chars_on_line
+
+
+SAKIT = "\u05E9\u05B7\u05C2\u05E7\u05B4\u05BC\u05D9\u05EA"
+
+
+def niqqud_mirror_ok(word, mark_w):
+    """True when every mark ends up centred on its own letter after mirroring."""
+    line, x = [], 0
+    for ch in word:
+        w = mark_w if MARK_ONLY.match(ch) else 10
+        line.append([ch, x, 0, w, 32, False])
+        x += w
+    bases = []
+    for c in line:
+        bases.append(bases[-1] if MARK_ONLY.match(c[0]) else c)
+    mirror_fmtchars_line(line)
+    return all(b is c or c[1] * 2 + c[3] == b[1] * 2 + b[3] for c, b in zip(line, bases))
 
 
 def fmt_visual(tokens):
@@ -313,6 +362,10 @@ class PluginRuleTests(unittest.TestCase):
         mirror_fmtchars_line(line)
         self.assertEqual([c[1] for c in line], [20, 10, 0])
         self.assertEqual(fmt_visual(["ש", "ל", " ", ("bagPocket8",), " ", "x", "2"]), "[bagPocket8] x2 לש")
+        for mark_w in (0, 2):
+            self.assertTrue(niqqud_mirror_ok(SAKIT, mark_w), mark_w)
+        self.assertEqual(visual_reverse(SAKIT), "\u05EA\u05D9\u05E7\u05B4\u05BC\u05E9\u05B7\u05C2")
+        self.assertEqual(visual_reverse("בית־ספר"), "רפס־תיב")
 
     def test_hebrew_paths_share_the_bidi_helper(self):
         src = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(encoding="utf-8")
@@ -437,13 +490,9 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual({h: len(tr.stickers_for(h)) for h in tr.HONOREES}, dict.fromkeys(tr.HONOREES, 3))
         import random
 
-        hands = set()
-        for seed in range(3000):
-            rng = random.Random(seed)
-            hand = tr.deal(lambda n: rng.randrange(n))
-            self.assertEqual([table[s] for s in hand], tr.HONOREES)
-            hands.add(tuple(hand))
-        self.assertEqual(len(hands), 81)
+        self.assertFalse(hasattr(tr, "deal"))
+        self.assertEqual({h: len(tr.placeable_on({"collected": list(table), "placed": []}, h)) for h in tr.HONOREES},
+                         dict.fromkeys(tr.HONOREES, 3))
 
         name = tr.TextBuffer(tr.NAME_MAX)
         self.assertEqual([name.type(c) for c in "12@"], ["rejected"] * 3)
@@ -471,6 +520,18 @@ class PluginRuleTests(unittest.TestCase):
         self.assertTrue(tr.staff_matches(code, tr.parse_cfg(off)))
         self.assertEqual(tr.with_reward(off, True).count("reward="), 1)
 
+        self.assertEqual([tr.cell_to_spot(c) for c in (0, 6, 7, 8, 27)], [0, 12, 26, 28, 90])
+        self.assertEqual((tr.move_spot(0, "right"), tr.move_spot(0, "left"), tr.move_spot(0, "up")), (1, 12, 78))
+        ov = []
+        for run_id, spot in (("r1", 14), ("r2", 15), ("r3", 28), ("r4", 17)):
+            self.assertIsNotNone(tr.add_item(ov, 0, run_id, "KUSAMA_DOT" if run_id != "r4" else "KUSAMA_PUMPKIN", spot))
+        self.assertIsNone(tr.add_item(ov, 0, "r5", "KUSAMA_MIRROR", 15))
+        self.assertIsNone(tr.add_item(ov, 0, "r6", "KUSAMA_MIRROR", 91))
+        self.assertEqual([it["run"] for it in tr.stack_at(ov[0], 14)], ["r3", "r2", "r1"])
+        self.assertEqual([it["run"] for it in tr.stack_at(ov[0], 17)], ["r4"])
+        self.assertEqual(ov[0]["items"][-1]["run"], "r4")
+        self.assertEqual((tr.free_spot(ov[0]), tr.free_spot({"items": [{"p": 0}]})), (6, 2))
+
         pages = []
         tr.add_item(pages, 3, "runA", "KUSAMA_DOT", 3)
         self.assertIsNone(tr.add_item(pages, 3, "runB", "YONATH_KEY", 3))
@@ -492,14 +553,38 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual(tr.code_problem({"code": "ab12"}), "untypeable")
         self.assertEqual(tr.code_problem({"code": "a" * 13}), "too_long")
 
-        run = {"hand": ["KUSAMA_DOT", "YONATH_KEY", "CURRY_TOAST", "PARTON_BOOK"], "collected": [],
-               "placed": [], "reward_shown": False}
+        four = ["KUSAMA_DOT", "YONATH_KEY", "CURRY_TOAST", "PARTON_BOOK"]
+        run = {"collected": [], "placed": [], "reward_shown": False}
         self.assertEqual([tr.read_sign(run, "KUSAMA_DOT"), tr.read_sign(run, "KUSAMA_DOT")], ["sticker", "fact"])
-        self.assertEqual(tr.read_sign(run, "KUSAMA_MIRROR"), "fact")
-        run["placed"] = [(s, tr.home_board(s)) for s in run["hand"][:3]] + [("PARTON_BOOK", "curry")]
+        self.assertEqual(tr.read_sign(run, "KUSAMA_MIRROR"), "sticker")
+        self.assertEqual(tr.read_sign(run, "NOPE"), "fact")
+        run["collected"] = list(four)
+        self.assertEqual(tr.placeable_on(run, "curry"), ["CURRY_TOAST"])
+        self.assertFalse(tr.record_placement(run, "PARTON_BOOK", "curry"))
+        for s in four[:3]:
+            self.assertTrue(tr.record_placement(run, s, tr.home_board(s)))
         self.assertFalse(tr.reward_due(run, True))
-        run["placed"][3] = ("PARTON_BOOK", "parton")
+        run["collected"].append("KUSAMA_MIRROR")
+        self.assertTrue(tr.record_placement(run, "KUSAMA_MIRROR", "kusama"))
+        self.assertFalse(tr.record_placement(run, "KUSAMA_MIRROR", "kusama"))
+        self.assertFalse(tr.reward_earned(run))
+        self.assertEqual((tr.placeable_on(run, "curry"), tr.other_homes(run, "curry")), ([], ["parton"]))
+        self.assertEqual(tr.other_homes(run, "parton"), [])
+        self.assertTrue(tr.record_placement(run, "PARTON_BOOK", "parton"))
         self.assertTrue(tr.reward_due(run, True))
+        old_cross = dict(run, placed=list(zip(four, ["yonath", "curry", "parton", "kusama"])))
+        self.assertTrue(tr.reward_earned(old_cross))
+        self.assertTrue(tr.music_carry_after(False, 113, 96))
+        self.assertTrue(tr.music_carry_after(True, 96, 96))
+        self.assertFalse(tr.music_carry_after(False, 96, 96))
+        self.assertFalse(tr.music_carry_after(True, 96, 93))
+        self.assertFalse(tr.music_carry_after(True, 96, 113))
+        self.assertFalse(tr.music_carry_after(True, 93, 96))
+        self.assertTrue(tr.music_owns(True, 96))
+        self.assertFalse(tr.music_owns(True, 113) or tr.music_owns(False, 96))
+        music = (tr.TEMPLE_DIR / "012_temple_music.rb").read_text(encoding="utf-8")
+        self.assertIn('TRACK = "Time-Warp"', music)
+        self.assertIn("EventHandlers.add(:on_leave_map, :temple_music", music)
         self.assertFalse(tr.reward_due(run, False))
         run["reward_shown"] = True
         self.assertFalse(tr.reward_due(run, True))

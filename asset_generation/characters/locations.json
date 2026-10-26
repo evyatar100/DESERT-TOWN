@@ -2143,6 +2143,30 @@
       "actions": [
         "hops along custom move route"
       ]
+    },
+    {
+      "character_id": null,
+      "event_name": "bags_unicorn_esther",
+      "map_id": 95,
+      "event_id": 17,
+      "x": 20,
+      "y": 10,
+      "line_key": null,
+      "actions": [
+        "pbBagsUnicorn(:esther): encore offer or payoff recovery; page waits on S106"
+      ]
+    },
+    {
+      "character_id": null,
+      "event_name": "bags_unicorn_shirpaz",
+      "map_id": 95,
+      "event_id": 18,
+      "x": 22,
+      "y": 10,
+      "line_key": null,
+      "actions": [
+        "pbBagsUnicorn(:shirpaz): encore offer or payoff recovery; page waits on S106"
+      ]
     }
   ]
 }

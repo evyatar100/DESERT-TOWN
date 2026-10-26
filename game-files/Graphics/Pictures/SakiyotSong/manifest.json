@@ -1,0 +1,367 @@
+{
+  "source": "external_files/sakiyot_stickers_sheet.jpg",
+  "stickers": [
+    {
+      "name": "duo_friends_badge",
+      "file": "duo_friends_badge.png",
+      "in": true,
+      "reason": "Duo badge 'chaverim ksumim'",
+      "size": [
+        160,
+        157
+      ]
+    },
+    {
+      "name": "esther_pink",
+      "file": "esther_pink.png",
+      "in": true,
+      "reason": "Pink Esther with her label",
+      "size": [
+        138,
+        160
+      ]
+    },
+    {
+      "name": "bag_title_garbled",
+      "file": null,
+      "in": false,
+      "reason": "Garbled 'Esther and Shirpaz magic bag' title"
+    },
+    {
+      "name": "kids_series_label",
+      "file": "kids_series_label.png",
+      "in": true,
+      "reason": "'The successful kids series, the tape' label",
+      "size": [
+        160,
+        39
+      ]
+    },
+    {
+      "name": "shirpaz_purple",
+      "file": "shirpaz_purple.png",
+      "in": true,
+      "reason": "Purple Shirpaz, cropped above the garbled label",
+      "size": [
+        160,
+        152
+      ]
+    },
+    {
+      "name": "asrafan_oval_garbled",
+      "file": null,
+      "in": false,
+      "reason": "Garbled 'asrafan' oval"
+    },
+    {
+      "name": "haklata_text",
+      "file": "haklata_text.png",
+      "in": true,
+      "reason": "'Ha-klata' lettering",
+      "size": [
+        128,
+        62
+      ]
+    },
+    {
+      "name": "price_tag_1990",
+      "file": "price_tag_1990.png",
+      "in": true,
+      "reason": "Price tag, 19.90",
+      "size": [
+        128,
+        75
+      ]
+    },
+    {
+      "name": "unicorn_horn",
+      "file": "unicorn_horn.png",
+      "in": true,
+      "reason": "Gold unicorn horn",
+      "size": [
+        78,
+        128
+      ]
+    },
+    {
+      "name": "star_gold_big",
+      "file": "star_gold_big.png",
+      "in": true,
+      "reason": "Big gold star",
+      "size": [
+        75,
+        75
+      ]
+    },
+    {
+      "name": "rainbow_horn",
+      "file": "rainbow_horn.png",
+      "in": true,
+      "reason": "Rainbow horn",
+      "size": [
+        160,
+        104
+      ]
+    },
+    {
+      "name": "burlap_sack",
+      "file": "burlap_sack.png",
+      "in": true,
+      "reason": "Starry burlap sack (also the Bag of Bags icon source)",
+      "size": [
+        157,
+        160
+      ]
+    },
+    {
+      "name": "tower",
+      "file": "tower.png",
+      "in": true,
+      "reason": "Castle tower",
+      "size": [
+        66,
+        160
+      ]
+    },
+    {
+      "name": "moon_gold",
+      "file": "moon_gold.png",
+      "in": true,
+      "reason": "Gold crescent moon",
+      "size": [
+        102,
+        121
+      ]
+    },
+    {
+      "name": "star_gold_small",
+      "file": "star_gold_small.png",
+      "in": true,
+      "reason": "Gold star next to the moon",
+      "size": [
+        74,
+        74
+      ]
+    },
+    {
+      "name": "mushroom_house",
+      "file": "mushroom_house.png",
+      "in": true,
+      "reason": "Mushroom house",
+      "size": [
+        160,
+        144
+      ]
+    },
+    {
+      "name": "kal_text",
+      "file": "kal_text.png",
+      "in": true,
+      "reason": "'Kal' lettering",
+      "size": [
+        118,
+        105
+      ]
+    },
+    {
+      "name": "kaved_text",
+      "file": "kaved_text.png",
+      "in": true,
+      "reason": "'Kaved' lettering",
+      "size": [
+        128,
+        60
+      ]
+    },
+    {
+      "name": "mini_row_strip",
+      "file": "mini_row_strip.png",
+      "in": true,
+      "reason": "Small star/heart/moon strip",
+      "size": [
+        160,
+        31
+      ]
+    },
+    {
+      "name": "esther_says_blank_badge",
+      "file": null,
+      "in": false,
+      "reason": "Blank 'Esther says' badge"
+    },
+    {
+      "name": "yael_cohen_scroll",
+      "file": "yael_cohen_scroll.png",
+      "in": true,
+      "reason": "Founder approved 2026-10-26 (dec:tg-16)",
+      "size": [
+        145,
+        160
+      ]
+    },
+    {
+      "name": "vhs_tape_klata",
+      "file": "vhs_tape_klata.png",
+      "in": true,
+      "reason": "VHS tape 'ha-klata ha-mitzlicha'",
+      "size": [
+        127,
+        160
+      ]
+    },
+    {
+      "name": "keep_in_touch_teal",
+      "file": "keep_in_touch_teal.png",
+      "in": true,
+      "reason": "'Tishmeru al kesher!' teal square",
+      "size": [
+        160,
+        150
+      ]
+    },
+    {
+      "name": "row_star_gold",
+      "file": "row_star_gold.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        35,
+        34
+      ]
+    },
+    {
+      "name": "row_star_teal",
+      "file": "row_star_teal.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        35,
+        34
+      ]
+    },
+    {
+      "name": "row_star_purple",
+      "file": "row_star_purple.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        36,
+        34
+      ]
+    },
+    {
+      "name": "row_star_magenta",
+      "file": "row_star_magenta.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        36,
+        34
+      ]
+    },
+    {
+      "name": "row_star_gold_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_teal_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_gold_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_purple_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_teal_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_purple_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_magenta_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_gold_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_teal_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_purple_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_star_gold_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_moon_gold",
+      "file": "row_moon_gold.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        28,
+        33
+      ]
+    },
+    {
+      "name": "row_heart_magenta",
+      "file": "row_heart_magenta.png",
+      "in": true,
+      "reason": "Single sticker from the bottom row",
+      "size": [
+        35,
+        32
+      ]
+    },
+    {
+      "name": "row_heart_magenta_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_heart_magenta_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    },
+    {
+      "name": "row_heart_magenta_dup",
+      "file": null,
+      "in": false,
+      "reason": "Duplicate of the kept bottom-row sticker"
+    }
+  ]
+}

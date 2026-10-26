@@ -1,6 +1,6 @@
 #===============================================================================
 # TempleStickers - fact signs. Each sign shows its two boxes (no name plate) and
-# gives its sticker once, if that sticker is in this run's hand.
+# gives its own sticker the first time it is read in a run.
 #===============================================================================
 
 module TempleStickers

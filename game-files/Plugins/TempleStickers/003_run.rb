@@ -1,18 +1,10 @@
 #===============================================================================
-# TempleStickers - per-run state. One run = one Game.start_new: its hand, the
-# stickers collected and placed, its name and whether Ido's visit was shown.
+# TempleStickers - per-run state. One run = one Game.start_new: the stickers
+# collected (each sign gives its own) and placed, its name and Ido's visit.
 # Pages on the wall are per Inception depth (004). Core types only.
 #===============================================================================
 
 module TempleStickers
-  # 4 stickers, exactly one per honoree, each uniform among that honoree's 3.
-  def self.deal(rng = Random.new)
-    HONOREES.map do |h|
-      options = stickers_for(h)
-      options[rng.rand(options.length)]
-    end
-  end
-
   def self.new_run_id(rng = Random.new)
     format("%08x%08x", rng.rand(2**32), rng.rand(2**32))
   end
@@ -20,7 +12,6 @@ module TempleStickers
   def self.new_run(rng = Random.new)
     {
       run_id: new_run_id(rng),
-      hand: deal(rng),
       collected: [],
       placed: [],      # [[sticker_id, board_id], ...]
       name: nil,
@@ -28,59 +19,75 @@ module TempleStickers
     }
   end
 
-  # Repairs a loaded value; anything unusable becomes a fresh run.
+  # Repairs a loaded value; anything unusable becomes a fresh run. An old save's
+  # :hand is dropped; its collected and placed stickers stay as they were.
   def self.normalize_run(value, rng = Random.new)
     return new_run(rng) unless value.is_a?(Hash)
     return new_run(rng) unless value[:run_id].is_a?(String) && !value[:run_id].empty?
-    hand = Array(value[:hand]).map { |s| canonical(s) }.select { |s| STICKERS.key?(s) }
-    return new_run(rng) unless hand.length == HONOREES.length
+    collected = Array(value[:collected]).map { |s| canonical(s) }.select { |s| STICKERS.key?(s) }.uniq
     placed = Array(value[:placed]).select { |p| p.is_a?(Array) }.map { |p| [canonical(p[0]), p[1]] }
     {
       run_id: value[:run_id],
-      hand: hand,
-      collected: Array(value[:collected]).map { |s| canonical(s) }.select { |s| hand.include?(s) }.uniq,
-      placed: placed.select { |p| hand.include?(p[0]) && board?(p[1]) },
+      collected: collected,
+      placed: placed.select { |p| collected.include?(p[0]) && board?(p[1]) }.uniq { |p| p[0] },
       name: value[:name].is_a?(String) ? value[:name] : nil,
       reward_shown: value[:reward_shown] == true
     }
   end
 
-  # Collected and not yet placed, in hand order.
+  # The hand: collected and not yet placed, in STICKERS (honoree) order.
   def self.placeable(run)
     done = run[:placed].map { |p| p[0] }
-    run[:hand].select { |s| run[:collected].include?(s) && !done.include?(s) }
+    STICKERS.keys.select { |s| run[:collected].include?(s) && !done.include?(s) }
   end
 
-  # Gives a hand sticker; false when not in hand or already collected.
+  # The placeable stickers whose home is this board; only these can go on it.
+  def self.placeable_on(run, board_id)
+    placeable(run).select { |s| home_board(s) == board_id.to_s }
+  end
+
+  # Home boards of the placeable stickers that do not fit board_id.
+  def self.other_homes(run, board_id)
+    (placeable(run) - placeable_on(run, board_id)).map { |s| home_board(s) }.uniq
+  end
+
+  # Gives a sticker once per run; false when unknown or already collected.
   def self.collect(run, sticker_id)
-    return false unless run[:hand].include?(sticker_id)
+    return false unless STICKERS.key?(sticker_id)
     return false if run[:collected].include?(sticker_id)
     run[:collected] << sticker_id
     true
   end
 
-  # A placement is final: false when the sticker cannot be placed now.
+  # A placement is final and only on the sticker's home board.
   def self.record_placement(run, sticker_id, board_id)
-    return false unless board?(board_id)
-    return false unless placeable(run).include?(sticker_id)
+    return false unless placeable_on(run, board_id).include?(sticker_id)
     run[:placed] << [sticker_id, board_id.to_s]
     true
   end
 
-  # A sign gives its sticker only when it is in the hand and not yet collected.
+  # Records a placement already stored on the wall (any board, e.g. an old cross-board item).
+  def self.record_stored_placement(run, sticker_id, board_id)
+    return false unless board?(board_id) && placeable(run).include?(sticker_id)
+    run[:placed] << [sticker_id, board_id.to_s]
+    true
+  end
+
+  # A sign gives its own sticker the first time in a run; later reads show text only.
   def self.read_sign(run, sticker_id)
     collect(run, sticker_id) ? :sticker : :fact
   end
 
-  # All 4 hand stickers placed, each on its own honoree's board.
-  def self.home_complete?(run)
-    return false unless run[:placed].length == run[:hand].length
-    run[:hand].all? { |s| run[:placed].include?([s, home_board(s)]) }
+  # The reward rule (confirmed by founder 2026-10-26): this run stuck at least one
+  # sticker on each of the 4 boards.
+  def self.reward_earned?(run)
+    boards = run[:placed].map { |p| p[1] }
+    HONOREES.all? { |b| boards.include?(b) }
   end
 
-  # Ido's visit: home boards complete, staff switch on, not yet shown this run.
+  # Ido's visit: reward earned, staff switch on, not yet shown this run.
   def self.reward_due?(run, reward_on)
-    reward_on == true && !run[:reward_shown] && home_complete?(run)
+    reward_on == true && !run[:reward_shown] && reward_earned?(run)
   end
 
   def self.mark_reward_shown(run)

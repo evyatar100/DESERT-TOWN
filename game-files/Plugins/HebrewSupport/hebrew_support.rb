@@ -142,6 +142,10 @@ end
 
 module HebrewText
   HEBREW_RANGE = /[\u0590-\u05FF]/
+  # Zero-advance niqqud/cantillation; maqaf, paseq, sof pasuq and nun hafukha take space.
+  MARK_CLASS = "[\u0591-\u05BD\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]"
+  MARK_ONLY = /\A#{MARK_CLASS}+\z/
+  CLUSTER_RE = /(?:(?!#{MARK_CLASS}).)#{MARK_CLASS}*|#{MARK_CLASS}+/m
   PRIMARY_FILE = "PBS/translations.json"
   FALLBACK_FILE = "Data/translations.json"
 
@@ -303,6 +307,11 @@ module HebrewText
     return runs
   end
 
+  # A letter plus its following combining marks (MARK_CLASS) is one unit.
+  def self.clusters(line)
+    line.scan(CLUSTER_RE)
+  end
+
   # Only used for text rendering where formatting codes aren't used (like menus)
   def self.visual_reverse(text)
     return text if text.nil? || !text.is_a?(String)
@@ -310,7 +319,7 @@ module HebrewText
     return text unless text.match?(HEBREW_RANGE)
 
     lines = text.split("\n", -1).map do |line|
-      chars = line.chars
+      chars = clusters(line)
       runs = bidi_runs(bidi_ltr_flags(chars.map { |ch| bidi_class(ch) }))
       runs.reverse.map do |ltr, start, len|
         part = chars[start, len]
@@ -320,29 +329,53 @@ module HebrewText
     return lines.join("\n")
   end
 
+  def self.fmt_mark?(c)
+    !c[5] && c[0].is_a?(String) && c[0].match?(MARK_ONLY)
+  end
+
+  # Index groups [base, mark, ...]: each combining mark joins the char before it.
+  def self.fmt_clusters(chars_on_line)
+    groups = []
+    chars_on_line.each_with_index do |c, i|
+      if fmt_mark?(c) && !groups.empty?
+        groups[-1] << i
+      else
+        groups << [i]
+      end
+    end
+    return groups
+  end
+
   # Mirrors one line of getFormattedText chars ([text, x, y, width, ..., graphic]) in place.
-  # Runs are placed right to left; LTR runs keep their inner order.
+  # Runs are placed right to left; LTR runs keep their inner order. A Hebrew letter moves
+  # with its marks, and each mark is centred on its own letter (the font gives them no advance).
   def self.mirror_fmtchars_line(chars_on_line)
     printable_chars = chars_on_line.select { |c| c[3] > 0 }
     return chars_on_line if printable_chars.empty?
 
     min_x = printable_chars.map { |c| c[1] }.min
     max_right = printable_chars.map { |c| c[1] + c[3] }.max
-    classes = chars_on_line.map { |c| c[5] ? :L : bidi_class(c[0]) }
+    groups = fmt_clusters(chars_on_line)
+    classes = groups.map { |g| c = chars_on_line[g[0]]; c[5] ? :L : bidi_class(c[0]) }
 
     bidi_runs(bidi_ltr_flags(classes)).each do |ltr, start, len|
-      bchars = chars_on_line[start, len]
+      bgroups = groups[start, len]
+      bchars = bgroups.flatten.map { |i| chars_on_line[i] }
       b_min_x = bchars.map { |c| c[1] }.min
       b_max_x = bchars.map { |c| c[1] + c[3] }.max
       b_width = b_max_x - b_min_x
       new_b_min_x = max_right - (b_min_x - min_x) - b_width
 
-      bchars.each do |c|
+      bgroups.each do |g|
+        base = chars_on_line[g[0]]
+        members = g.map { |i| chars_on_line[i] }
         if ltr
-          c[1] = new_b_min_x + (c[1] - b_min_x)
-        else
-          c[1] = new_b_min_x + (b_width - (c[1] - b_min_x) - c[3])
+          members.each { |c| c[1] = new_b_min_x + (c[1] - b_min_x) }
+          next
         end
+        g_width = members.map { |c| c[1] + c[3] }.max - base[1]
+        base[1] = new_b_min_x + (b_width - (base[1] - b_min_x) - g_width)
+        members.drop(1).each { |m| m[1] = base[1] + (base[3] - m[3]) / 2 }
       end
     end
     return chars_on_line

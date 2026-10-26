@@ -14,6 +14,10 @@ HONOREES = ["kusama", "yonath", "curry", "parton"]
 NAME_MAX = 12
 SENTENCE_MAX = 40
 PAGE_CELLS = 28
+PAGE_COLS = 7
+SPOT_COLS = 13
+SPOT_ROWS = 7
+SPOTS = SPOT_COLS * SPOT_ROWS
 MAX_PAGES = 300
 
 HEBREW = list("אבגדהוזחטיכלמנסעפצקרשת")
@@ -31,15 +35,6 @@ def sticker_table():
 
 def stickers_for(honoree):
     return [s for s, h in sticker_table().items() if h == honoree]
-
-
-def deal(rand):
-    """rand(n) -> int in [0, n); one sticker per honoree."""
-    hand = []
-    for h in HONOREES:
-        options = stickers_for(h)
-        hand.append(options[rand(len(options))])
-    return hand
 
 
 class TextBuffer:
@@ -128,16 +123,44 @@ def add_item(pages, depth, run_id, sticker, cell, max_pages=MAX_PAGES):
     if any(it["run"] == run_id and it["s"] == sticker for p in pages for it in p["items"]):
         return None
     page = target(pages, depth)
-    if any(it["c"] == cell for it in page["items"]):
+    if not 0 <= cell < SPOTS or any(it["p"] == cell for it in page["items"]):
         return None
     if not any(p is page for p in pages):
         pages.append(page)
         pages.sort(key=lambda p: (p["depth"], p["sheet"]))
-    item = {"s": sticker, "c": cell, "run": run_id}
+    item = {"s": sticker, "p": cell, "run": run_id}
     page["items"].append(item)
     while len(pages) > max_pages:
         pages.pop(1 if pages[0] is page else 0)
     return item
+
+
+def cell_to_spot(cell):
+    """A v1/v2 whole cell's top-left spot on the half-cell grid."""
+    return (cell // PAGE_COLS) * 2 * SPOT_COLS + (cell % PAGE_COLS) * 2
+
+
+def overlap(a, b):
+    return abs(a % SPOT_COLS - b % SPOT_COLS) <= 1 and abs(a // SPOT_COLS - b // SPOT_COLS) <= 1
+
+
+def stack_at(page, spot):
+    """Items overlapping spot, newest first (stored oldest first)."""
+    return [it for it in reversed(page["items"]) if overlap(it["p"], spot)]
+
+
+def move_spot(spot, direction):
+    x, y = spot % SPOT_COLS, spot // SPOT_COLS
+    dx, dy = {"left": (-1, 0), "right": (1, 0), "up": (0, -1), "down": (0, 1)}[direction]
+    return ((y + dy) % SPOT_ROWS) * SPOT_COLS + (x + dx) % SPOT_COLS
+
+
+def free_spot(page):
+    used = [it["p"] for it in page["items"]]
+    for s in range(SPOTS):
+        if not any(overlap(u, s) for u in used):
+            return s
+    return next((s for s in range(SPOTS) if s not in used), 0)
 
 
 def home_board(sticker):
@@ -145,20 +168,59 @@ def home_board(sticker):
 
 
 def read_sign(run, sticker):
-    """A sign gives its sticker only when in the hand and not yet collected."""
-    if sticker in run["hand"] and sticker not in run["collected"]:
+    """A sign gives its own sticker the first time in a run."""
+    if sticker in sticker_table() and sticker not in run["collected"]:
         run["collected"].append(sticker)
         return "sticker"
     return "fact"
 
 
-def home_complete(run):
-    return len(run["placed"]) == len(run["hand"]) and all(
-        (s, home_board(s)) in run["placed"] for s in run["hand"])
+def placeable(run):
+    done = [p[0] for p in run["placed"]]
+    return [s for s in sticker_table() if s in run["collected"] and s not in done]
+
+
+def placeable_on(run, board):
+    """Only stickers whose home is this board can be placed on it."""
+    return [s for s in placeable(run) if home_board(s) == board]
+
+
+def other_homes(run, board):
+    homes = [home_board(s) for s in placeable(run) if home_board(s) != board]
+    return list(dict.fromkeys(homes))
+
+
+def record_placement(run, sticker, board):
+    if sticker not in placeable_on(run, board):
+        return False
+    run["placed"].append((sticker, board))
+    return True
+
+
+def reward_earned(run):
+    """Confirmed by founder 2026-10-26: at least one sticker on each of the 4 boards."""
+    boards = {p[1] for p in run["placed"]}
+    return all(b in boards for b in HONOREES)
 
 
 def reward_due(run, reward_is_on):
-    return reward_is_on is True and not run["reward_shown"] and home_complete(run)
+    return reward_is_on is True and not run["reward_shown"] and reward_earned(run)
+
+
+
+TEMPLE_MAP = 113
+TOWN_MAP = 96
+
+
+def music_carry_after(carry, old_map, new_map):
+    """Time-Warp carries from the temple onto map 96 and ends on leaving 96."""
+    if new_map != TOWN_MAP:
+        return False
+    return old_map == TEMPLE_MAP or (carry is True and old_map == TOWN_MAP)
+
+
+def music_owns(carry, map_id):
+    return carry is True and map_id == TOWN_MAP
 
 
 def messenger_for(player_charset, roster):

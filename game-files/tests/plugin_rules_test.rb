@@ -32,6 +32,10 @@ BIDI_CASES.each do |logical, visual|
   check(got == visual, "bidi menu: #{logical} draws as #{visual} (got #{got})")
 end
 check(HebrewText.visual_reverse("Hello 9 to 5!") == "Hello 9 to 5!", "bidi menu: pure English is unchanged")
+require "json"
+reward_he = JSON.parse(File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8"))["translations"]["TEMPLE_REWARD_1"]["he"]
+check(reward_he.include?("8:00 & א") && HebrewText.visual_reverse(reward_he).include?(".א & 8:00 העש"),
+      "bidi reward: the Hebrew address draws as 'שעה 8:00 & א' right to left")
 check(HebrewText.visual_reverse("שלום\n20 שקל") == "םולש\nלקש 20", "bidi menu: each line is reordered on its own")
 
 # Equal-width synthetic fmtchars: [text, x, y, width, height, graphic].
@@ -51,6 +55,34 @@ HebrewText.mirror_fmtchars_line(xs)
 check(xs.map { |c| c[1] } == [20, 10, 0], "bidi message: ב-1 keeps the line's box and puts ב on the right")
 icon = bidi_fmt_visual(["ש", "ל", " ", ["bagPocket8"], " ", "x", "2"])
 check(icon == "[bagPocket8] x2 לש", "bidi message: an icon joins the LTR run next to it (got #{icon})")
+
+# Niqqud: letters 10 px, marks 0 px (or 2 px); each mark must sit centred on its own letter.
+def niqqud_line(word, mark_w)
+  x = 0
+  word.chars.map do |ch|
+    w = ch.match?(HebrewText::MARK_ONLY) ? mark_w : 10
+    c = [ch, x, 0, w, 32, false]
+    x += w
+    c
+  end
+end
+SAKIT = "שַׂקִּית"
+[0, 2].each do |mark_w|
+  word = SAKIT
+  line = niqqud_line(word, mark_w)
+  bases = {}
+  line.each_with_index { |c, i| bases[i] = (c[0].match?(HebrewText::MARK_ONLY) ? bases[i - 1] : c) }
+  HebrewText.mirror_fmtchars_line(line)
+  on_own = line.each_with_index.all? do |c, i|
+    b = bases[i]
+    b.equal?(c) || (c[1] * 2 + c[3] == b[1] * 2 + b[3])
+  end
+  letters = line.reject { |c| c[0].match?(HebrewText::MARK_ONLY) }.sort_by { |c| c[1] }.map { |c| c[0] }.join
+  check(on_own && letters == "תיקש" && line.map { |c| c[1] }.min == 0,
+        "bidi niqqud (mark #{mark_w}px): each mark is centred on its own letter in #{word}")
+end
+check(HebrewText.visual_reverse(SAKIT) == "תיקִּשַׂ", "bidi niqqud: menus keep each mark after its letter")
+check(HebrewText.visual_reverse("בית־ספר") == "רפס־תיב", "bidi niqqud: maqaf is a character of its own, not a mark")
 
 class PokemonBag
   def reset_last_selections; end
@@ -581,20 +613,22 @@ check(TS::STICKERS.select { |_, s| s[:map] == 113 }.keys.sort == %w[CURRY_TOAST 
 check(TS::STICKERS["CURRY_TICKET"].values_at(:map, :x, :y) == [96, 17, 43], "temple: the ticket moved to town (17,43)")
 check(TS.depth == DesertTownArcade.depth, "temple: tabs follow the arcade Inception depth")
 
-hands = (1..3000).map { |seed| TS.deal(Random.new(seed)) }
-check(hands.all? { |h| h.length == 4 && h.uniq.length == 4 }, "temple deal: 4 distinct stickers")
-check(hands.all? { |h| h.map { |s| TS.home_board(s) } == TS::HONOREES }, "temple deal: exactly one per honoree")
-check(hands.uniq.length == 81, "temple deal: all 81 hands occur (got #{hands.uniq.length})")
-
+FOUR = %w[KUSAMA_DOT YONATH_KEY CURRY_TOAST PARTON_BOOK].freeze   # one per honoree
+check(!TS.respond_to?(:deal), "temple run: no random dealt hand")
 run = TS.new_run(Random.new(7))
-check(run[:run_id].match?(/\A\h{16}\z/) && run[:collected].empty? && run[:placed].empty?, "temple run: fresh run shape")
-check(TS.normalize_run(nil)[:hand].length == 4, "temple run: an old save without the key gets a fresh run")
-check(TS.normalize_run({ run_id: "x", hand: %w[NOPE] })[:run_id] != "x", "temple run: a broken hand is replaced")
+check(run[:run_id].match?(/\A\h{16}\z/) && run[:collected].empty? && run[:placed].empty? && !run.key?(:hand),
+      "temple run: fresh run shape, no hand")
+check(TS.normalize_run(nil)[:collected].empty?, "temple run: an old save without the key gets a fresh run")
+check(TS.normalize_run({ run_id: "" })[:run_id] != "", "temple run: a broken run is replaced")
 check(TS.normalize_run(run) == run, "temple run: a valid run loads unchanged")
 check(TS.placeable(run).empty?, "temple run: nothing placeable before collecting")
-check(!TS.record_placement(run, run[:hand][0], "kusama"), "temple run: cannot place an uncollected sticker")
-check(TS.collect(run, run[:hand][0]) && !TS.collect(run, run[:hand][0]), "temple run: collect once only")
-check(!TS.collect(run, (TS::STICKERS.keys - run[:hand]).first), "temple run: a sticker outside the hand is not collected")
+check(!TS.record_placement(run, "KUSAMA_DOT", "kusama"), "temple run: cannot place an uncollected sticker")
+check(TS.collect(run, "KUSAMA_DOT") && !TS.collect(run, "KUSAMA_DOT"), "temple run: collect once only")
+check(!TS.collect(run, "NOPE") && run[:collected] == ["KUSAMA_DOT"], "temple run: an unknown sticker is not collected")
+all_run = TS.new_run(Random.new(8))
+check(TS::STICKERS.keys.all? { |s| TS.collect(all_run, s) } && TS.placeable(all_run) == TS::STICKERS.keys,
+      "temple run: all 12 stickers can be held at once")
+check(TS::HONOREES.all? { |b| TS.placeable_on(all_run, b).length == 3 }, "temple tray: at most 3 stickers fit a board's 4 slots")
 check(TS.set_name(run, "  עידו ") == "עידו" && TS.set_name(run, " ").nil? && run[:name].nil?, "temple run: set_name trims and clears")
 
 WS = TS::WallStore
@@ -632,8 +666,8 @@ Dir.mktmpdir("temple") do |dir|
   second = WS.load(dir)
   check(WS.last_status == :ok && second == first, "temple wall: the second load reads the restored main file")
   qa_run = TS.new_run(Random.new(11))
-  TS.collect(qa_run, qa_run[:hand][1])
-  outcome, _ = TS.place(second, qa_run, "yonath", 3, qa_run[:hand][1], 5, ->(w) { WS.save(dir, w) })
+  TS.collect(qa_run, "YONATH_KEY")
+  outcome, _ = TS.place(second, qa_run, "yonath", 3, "YONATH_KEY", 5, ->(w) { WS.save(dir, w) })
   check(outcome == :ok && WS.load(dir)["boards"]["kusama"].length == 3, "temple wall: placing after recovery keeps the old pages")
   File.delete(WS.path(dir))
   check(WS.load(dir)["boards"]["yonath"].empty? && WS.last_status == :restored_bak, "temple wall: missing main falls back to .bak")
@@ -646,8 +680,8 @@ Dir.mktmpdir("temple") do |dir|
                                                "items" => [{ "s" => "KUSAMA_DOT", "c" => 2, "text" => "שלום" }, { "s" => "RICE", "c" => 1 }] }, 5] } }
   migrated = WS.sanitize(v1)["boards"]["kusama"]
   check(migrated.length == 1 && migrated[0].values_at("depth", "sheet") == [0, 0], "temple wall: a v1 page migrates to depth 0")
-  check(migrated[0]["items"] == [{ "s" => "KUSAMA_DOT", "c" => 2, "run" => "old", "name" => "דנה", "text" => "שלום" }],
-        "temple wall: v1 names move onto items; unknown stickers dropped")
+  check(migrated[0]["items"] == [{ "s" => "KUSAMA_DOT", "p" => 4, "run" => "old", "name" => "דנה", "text" => "שלום" }],
+        "temple wall: v1 names move onto items; unknown stickers dropped; cell 2 becomes spot 4")
   over = WS.empty_wall
   over["boards"]["curry"] = (0..304).map { |d| { "depth" => d, "sheet" => 0, "t" => 0, "items" => [] } }
   trimmed = WS.sanitize(over)["boards"]["curry"]
@@ -668,14 +702,27 @@ Dir.mktmpdir("temple") do |dir|
 end
 
 place_run = TS.new_run(Random.new(5))
-place_run[:hand].each { |s| TS.collect(place_run, s) }
+FOUR.each { |s| TS.collect(place_run, s) }
 pwall = WS.empty_wall
-outcome, = TS.place(pwall, place_run, "curry", 2, place_run[:hand][0], 0, ->(_w) { false })
+outcome, = TS.place(pwall, place_run, "kusama", 2, "KUSAMA_DOT", 0, ->(_w) { false })
 check(outcome == :save_failed && TS.placeable(place_run).length == 4, "temple place: a failed save keeps the sticker in the hand")
 check(pwall == WS.empty_wall, "temple place: a failed save leaves the wall unchanged")
-outcome, item = TS.place(pwall, place_run, "curry", 2, place_run[:hand][0], 0, ok_save)
+outcome, item = TS.place(pwall, place_run, "kusama", 2, "KUSAMA_DOT", 0, ok_save)
 check(outcome == :ok && item["run"] == place_run[:run_id] && TS.placeable(place_run).length == 3, "temple place: ok records the placement")
-check(TS.place(pwall, place_run, "kusama", 2, place_run[:hand][0], 1, ok_save)[0] == :refused, "temple place: a placement is final")
+check(TS.place(pwall, place_run, "kusama", 2, "KUSAMA_DOT", 1, ok_save)[0] == :refused, "temple place: a placement is final")
+crash_run = Marshal.load(Marshal.dump(place_run))
+crash_run[:placed].clear   # the wall was saved, Game.rxdata was not
+outcome, again = TS.place(pwall, crash_run, "kusama", 2, "KUSAMA_DOT", 5, ok_save)
+check(outcome == :recovered && again.equal?(item) && TS.placeable(crash_run).length == 3,
+      "temple place: a sticker already on the wall is marked placed and keeps its stored item")
+check(WS.pages(pwall, "kusama").sum { |p| p["items"].length } == 1, "temple place: recovery adds no second copy")
+cross_wall = WS.empty_wall
+WS.add_item(cross_wall, "parton", 0, "xr", "KUSAMA_MIRROR", 0)   # an old cross-board item
+cross_run = TS.new_run(Random.new(6)).merge(run_id: "xr")
+TS.collect(cross_run, "KUSAMA_MIRROR")
+outcome, = TS.place(cross_wall, cross_run, "kusama", 0, "KUSAMA_MIRROR", 3, ok_save)
+check(outcome == :recovered && cross_run[:placed] == [%w[KUSAMA_MIRROR parton]],
+      "temple place: recovery records the board the stored item is on")
 
 ST = TS::Staff
 Dir.mktmpdir("temple") do |dir|
@@ -734,11 +781,11 @@ check(rows[1].last[0] == "א", "temple keyboard: alef is on the right")
 # --- temple phase 2: signs, home boards, Ido's visit ---
 load File.join(ROOT, "Plugins/DesertCharSelect/000_playable.rb")
 sign_run = TS.new_run(Random.new(3))
-mine = sign_run[:hand][0]
-other = (TS::STICKERS.keys - sign_run[:hand]).first
-check(TS.read_sign(sign_run, mine) == :sticker && sign_run[:collected] == [mine], "temple sign: a hand sticker's sign gives it")
-check(TS.read_sign(sign_run, mine) == :fact && sign_run[:collected] == [mine], "temple sign: re-reading gives nothing more")
-check(TS.read_sign(sign_run, other) == :fact && !sign_run[:collected].include?(other), "temple sign: a sign outside the hand only shows text")
+check(TS::STICKERS.keys.all? { |s| TS.read_sign(sign_run, s) == :sticker } && sign_run[:collected] == TS::STICKERS.keys,
+      "temple sign: every sign gives its own sticker the first time")
+check(TS::STICKERS.keys.all? { |s| TS.read_sign(sign_run, s) == :fact } && sign_run[:collected].length == 12,
+      "temple sign: re-reading gives nothing more")
+sign_run = TS.new_run(Random.new(4))
 # Minimal display stubs: the got-sticker line shows the sticker art, then disposes it.
 $temple_sprites = []
 module Graphics
@@ -760,34 +807,55 @@ end unless defined?(Sprite)
 TS::Art.define_singleton_method(:bitmap) { |id| "art:#{id}" }
 $temple_stickers = sign_run
 $messages = []
-pbTempleSign(sign_run[:hand][1].downcase.to_sym)
-key = TS.sign_key(sign_run[:hand][1], 1)
+pbTempleSign(:yonath_bear)
+key = TS.sign_key("YONATH_BEAR", 1)
 check($messages == [key, key.sub(/_1\z/, "_2"), "TEMPLE_GOT_STICKER"], "temple sign: two boxes, then the got-sticker line")
-check($temple_sprites.length == 1 && $temple_sprites[0].bitmap == "art:#{sign_run[:hand][1]}" && $temple_sprites[0].disposed?,
+check($temple_sprites.length == 1 && $temple_sprites[0].bitmap == "art:YONATH_BEAR" && $temple_sprites[0].disposed?,
       "temple sign: the got-sticker line shows the sticker art, then disposes it")
 $messages = []
 check(pbTempleSign("NOPE") == false && $messages.empty?, "temple sign: an unknown sign id is logged, not raised")
 $messages = []
-pbTempleSign(sign_run[:hand][1])
+pbTempleSign("YONATH_BEAR")
 check($messages.length == 2, "temple sign: second read shows the two boxes only")
 check(TS.sign_key("CURRY_TOAST", 2) == "TEMPLE_SIGN_CURRY_HEEL_2", "temple sign: the toast keeps the pedestal's sign copy")
 sign_tr = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
 sign_keys = TS::STICKERS.keys.flat_map { |s| [TS.sign_key(s, 1), TS.sign_key(s, 2)] }
 check(sign_keys.all? { |k| sign_tr.include?("\"#{k}\": {") }, "temple sign: all 24 sign keys are in translations.json")
-check(TS.normalize_run({ run_id: "old", hand: %w[KUSAMA_DOT YONATH_KEY CURRY_HEEL PARTON_BOOK],
-                         collected: %w[CURRY_HEEL], placed: [%w[CURRY_HEEL curry]] })[:placed] == [%w[CURRY_TOAST curry]],
-      "temple run: a saved CURRY_HEEL loads as CURRY_TOAST")
+old_save = TS.normalize_run({ run_id: "old", hand: %w[KUSAMA_DOT YONATH_KEY CURRY_HEEL PARTON_BOOK],
+                              collected: %w[CURRY_HEEL YONATH_KEY], placed: [%w[CURRY_HEEL curry]] })
+check(old_save[:placed] == [%w[CURRY_TOAST curry]], "temple run: a saved CURRY_HEEL loads as CURRY_TOAST")
+check(old_save[:run_id] == "old" && !old_save.key?(:hand) && TS.placeable(old_save) == ["YONATH_KEY"],
+      "temple run: an old save with a dealt hand loads and its collected stickers stay usable")
+check(TS.collect(old_save, "KUSAMA_MIRROR"), "temple run: an old save can collect stickers outside its old hand")
 
 home = TS.new_run(Random.new(9))
-home[:hand].each { |s| TS.collect(home, s) }
-home[:hand][0, 3].each { |s| TS.record_placement(home, s, TS.home_board(s)) }
-check(!TS.home_complete?(home) && !TS.reward_due?(home, true), "temple home: 3 of 4 is not complete")
-cross = Marshal.load(Marshal.dump(home))
-wrong = TS::HONOREES.find { |h| h != TS.home_board(cross[:hand][3]) }
-TS.record_placement(cross, cross[:hand][3], wrong)
-check(!TS.home_complete?(cross) && !TS.reward_due?(cross, true), "temple home: one sticker on another board means no visit")
-TS.record_placement(home, home[:hand][3], TS.home_board(home[:hand][3]))
-check(TS.home_complete?(home), "temple home: all 4 on their own boards")
+check(TS::HONOREES.all? { |b| TS.placeable_on(home, b).empty? }, "temple home: nothing fits any board before collecting")
+FOUR.each { |s| TS.collect(home, s) }
+check(TS::HONOREES.all? { |b| TS.placeable_on(home, b) == [FOUR.find { |s| TS.home_board(s) == b }] },
+      "temple home: on each board only that honoree's sticker can be picked")
+last = FOUR[3]
+wrong = TS::HONOREES.find { |h| h != TS.home_board(last) }
+check(!TS.record_placement(home, last, wrong) && TS.placeable(home).include?(last),
+      "temple home: a sticker cannot be placed on another honoree's board")
+hw = WS.empty_wall
+check(TS.place(hw, home, wrong, 0, last, 0, ->(_w) { true }) == [:refused, nil] && hw == WS.empty_wall,
+      "temple home: place refuses another board and leaves the wall unchanged")
+FOUR[0, 3].each { |s| TS.record_placement(home, s, TS.home_board(s)) }
+check(!TS.reward_earned?(home) && !TS.reward_due?(home, true), "temple reward: 3 of 4 boards is not enough")
+TS.collect(home, "KUSAMA_MIRROR")
+TS.record_placement(home, "KUSAMA_MIRROR", "kusama")
+check(!TS.reward_earned?(home), "temple reward: a second sticker on the same board does not count twice")
+check(TS.placeable_on(home, wrong).empty? && TS.other_homes(home, wrong) == [TS.home_board(last)],
+      "temple home: with no fit, the board names where the rest belong")
+check(TS.other_homes(home, TS.home_board(last)).empty?, "temple home: no hint on the sticker's own board")
+check(!TS.record_placement(home, "KUSAMA_MIRROR", "kusama"), "temple home: the same sticker cannot be placed twice")
+TS.record_placement(home, last, TS.home_board(last))
+check(TS.reward_earned?(home), "temple reward: one sticker on each of the 4 boards")
+check(TS.normalize_run(home.merge(placed: home[:placed] + [["KUSAMA_MIRROR", "yonath"]]))[:placed].length == 5,
+      "temple run: a duplicate placement record is dropped on load")
+old_cross = TS.normalize_run({ run_id: "x", collected: FOUR, placed: FOUR.zip(%w[yonath curry parton kusama]) })
+check(old_cross[:placed].length == 4 && TS.reward_earned?(old_cross),
+      "temple reward: an old save with cross-board placements keeps them and they count per board")
 check(!TS.reward_due?(home, false), "temple reward: staff switch off means no visit")
 check(TS.reward_due?(home, true), "temple reward: due when complete and on")
 check(TS.arm_messenger(113, 96, home, true) && TS.take_messenger && !TS.take_messenger, "temple reward: leaving the temple arms one visit")
@@ -811,18 +879,116 @@ sitem = WS.add_item(sw, "parton", 0, "r1", "PARTON_BOOK", 2)
 check(WS.sign_item(sw, "parton", sitem, "דנה", "a" * 50) && sitem["name"] == "דנה" && sitem["text"].length == 40,
       "temple wall: sign_item stores name and capped sentence")
 check(!WS.sign_item(sw, "kusama", sitem, "x", "y") && sitem["name"] == "דנה", "temple wall: sign_item refuses another board")
-check(WS.sanitize({ "v" => 3, "boards" => {} }).nil?, "temple wall: a newer wall version is refused")
+check(WS.sanitize({ "v" => 4, "boards" => {} }).nil?, "temple wall: a newer wall version is refused")
+# Finer placement: spots on a half-cell grid, overlap allowed, newest drawn on top.
+check(TS::SPOT_COLS == 13 && TS::SPOT_ROWS == 7, "temple spots: 13 x 7 half-cell positions")
+check([0, 6, 7, 27].map { |c| WS.cell_to_spot(c) } == [0, 12, 26, 90], "temple spots: old cells map to their top-left spot")
+v2_wall = { "v" => 2, "boards" => { "yonath" => [{ "depth" => 1, "sheet" => 0, "items" => [
+  { "s" => "YONATH_KEY", "c" => 8, "run" => "a" }, { "s" => "YONATH_BEAR", "c" => 99, "run" => "b" }] }] } }
+v2_items = WS.sanitize(v2_wall)["boards"]["yonath"][0]["items"]
+check(v2_items == [{ "s" => "YONATH_KEY", "p" => 28, "run" => "a", "name" => nil, "text" => nil }],
+      "temple spots: a v2 item's cell 8 loads at spot 28; a bad cell is dropped")
+check(WS.sanitize(WS.sanitize(v2_wall))["boards"] == WS.sanitize(v2_wall)["boards"], "temple spots: a v3 wall round-trips")
+check(WS.move_spot(0, :right) == 1 && WS.move_spot(0, :left) == 12 && WS.move_spot(0, :up) == 78 && WS.move_spot(78, :down) == 0,
+      "temple spots: the cursor steps half a sticker and wraps")
+ov = WS.empty_wall
+a1 = WS.add_item(ov, "kusama", 0, "r1", "KUSAMA_DOT", 14)
+a2 = WS.add_item(ov, "kusama", 0, "r2", "KUSAMA_DOT", 15)
+a3 = WS.add_item(ov, "kusama", 0, "r3", "KUSAMA_MIRROR", 28)
+far = WS.add_item(ov, "kusama", 0, "r4", "KUSAMA_PUMPKIN", 17)
+opage = WS.pages(ov, "kusama")[0]
+check(a1 && a2 && a3 && far && WS.add_item(ov, "kusama", 0, "r5", "KUSAMA_DOT", 15).nil?,
+      "temple spots: overlapping spots are allowed, the exact same spot is not")
+check(opage["items"].last.equal?(far), "temple spots: items are stored oldest first, so the newest is drawn last (on top)")
+check(WS.stack_at(opage, 14).map { |it| it["run"] } == %w[r3 r2 r1], "temple spots: the stack under a spot lists every overlap, newest first")
+check(WS.stack_at(opage, 17).map { |it| it["run"] } == %w[r4], "temple spots: a lone sticker has a stack of one")
+check(WS.stack_at(opage, 15).map { |it| it["run"] } == %w[r3 r2 r1] && !WS.overlap?(15, 17),
+      "temple spots: two half-steps apart do not overlap")
+check(WS.free_spot(opage) == 6 && WS.free_spot({ "items" => [{ "p" => 0 }] }) == 2, "temple spots: placing starts on an untouched spot")
 v1_empty = { "v" => 1, "boards" => { "yonath" => [{ "run" => "r", "items" => [{ "s" => "RICE", "c" => 0 }] },
                                                  { "run" => "s", "items" => [{ "s" => "YONATH_KEY", "c" => 1 }] }] } }
 check(WS.sanitize(v1_empty)["boards"]["yonath"].map { |p| p["sheet"] } == [1], "temple wall: a migrated sheet with no items is dropped")
+old_wall = { "v" => 2, "boards" => { "kusama" => [{ "depth" => 0, "sheet" => 0, "items" => [{ "s" => "PARTON_BOOK", "c" => 1, "run" => "r" }] }] } }
+check(WS.sanitize(old_wall)["boards"]["kusama"][0]["items"][0]["s"] == "PARTON_BOOK",
+      "temple wall: an old item on another honoree's board still loads")
 heel_wall = { "v" => 2, "boards" => { "curry" => [{ "depth" => 0, "sheet" => 0, "items" => [{ "s" => "CURRY_HEEL", "c" => 0 }] }] } }
 check(WS.sanitize(heel_wall)["boards"]["curry"][0]["items"][0]["s"] == "CURRY_TOAST", "temple wall: a stored heel becomes the toast")
+
+# Temple music: Time-Warp carries from 113 onto 96 only. Engine stubs first.
+class PokemonGlobalMetadata; end
+class Game_Map
+  attr_reader :map_id
+  def initialize(id) = (@map_id = id; @map = Struct.new(:autoplay_bgs, :bgs).new(false, nil))
+  def autoplay = ($bgm_calls << [:own, @map_id])
+  def autoplayAsCue = ($bgm_calls << [:own_cue, @map_id])
+end
+class Scene_Map
+  def autofade(mapid) = ($bgm_calls << [:fade, mapid])
+end
+module Graphics
+  def self.frame_reset; end
+end
+$bgm_calls = []
+$bgm_now = nil
+def pbBGMPlay(name) = ($bgm_calls << [:play, name]; $bgm_now = name)
+def pbAutoplayOnSave = $game_map.autoplay
+$game_system = Object.new
+def $game_system.playing_bgm = ($bgm_now ? Struct.new(:name).new($bgm_now) : nil)
+load File.join(temple_dir, "012_temple_music.rb")
+MU = TS::Music
+check(MU.carry_after(false, 113, 96), "temple music: leaving the temple onto 96 carries Time-Warp")
+check(MU.carry_after(true, 96, 96) && !MU.carry_after(false, 96, 96), "temple music: a transfer inside 96 keeps the carry as it was")
+check(!MU.carry_after(true, 96, 93) && !MU.carry_after(true, 96, 113), "temple music: leaving 96 ends the carry")
+check(!MU.carry_after(false, 93, 96) && !MU.carry_after(true, 93, 96), "temple music: 96 from elsewhere plays its own music")
+check(MU.owns?(true, 96) && !MU.owns?(true, 113) && !MU.owns?(false, 96), "temple music: only a carried 96 skips its own BGM")
+pg = PokemonGlobalMetadata.new
+$PokemonGlobal = pg
+leave = $event_handlers[:temple_music]
+scene = Scene_Map.new
+walk = lambda do |from, to|
+  $game_map = Game_Map.new(from)
+  scene.autofade(to)
+  leave.call(to, nil)
+  $game_map = Game_Map.new(to)
+  $game_map.autoplay
+end
+$bgm_now = "Time-Warp"
+$bgm_calls = []
+walk.call(113, 96)
+check($bgm_calls.empty? && $bgm_now == "Time-Warp" && pg.temple_music_carry == true,
+      "temple music: 113 -> 96 neither fades nor replaces Time-Warp")
+$bgm_calls = []
+walk.call(96, 96)
+check($bgm_calls.empty?, "temple music: a door inside 96 keeps Time-Warp")
+$bgm_calls = []
+walk.call(96, 93)
+check($bgm_calls == [[:fade, 93], [:own, 93]] && pg.temple_music_carry == false, "temple music: 96 -> 93 fades to the normal track")
+$bgm_calls = []
+walk.call(93, 96)
+check($bgm_calls == [[:fade, 96], [:own, 96]], "temple music: 93 -> 96 plays 96's own track")
+# A real load restores playing_bgm = Time-Warp while the title music sounds.
+pg.temple_music_carry = true
+$bgm_now = "Time-Warp"
+$bgm_calls = []
+$game_map = Game_Map.new(96)
+pbAutoplayOnSave
+check($bgm_calls == [[:play, "Time-Warp"]], "temple music: a load on a carried 96 replays Time-Warp")
+$bgm_calls = []
+$game_map.autoplayAsCue
+check($bgm_calls.empty?, "temple music: after the load, a cue keeps the running track")
+pg.temple_music_carry = false
+pbAutoplayOnSave
+check($bgm_calls == [[:own, 96]], "temple music: a load on an uncarried 96 plays its own track")
+$PokemonGlobal = nil
 
 tr_text = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
 temple_keys = Dir.glob(File.join(temple_dir, "*.rb")).flat_map { |f| File.read(f, encoding: "utf-8").scan(/"(TEMPLE_[A-Z0-9_]+)"/).flatten }
 temple_keys += TS::BOARDS.values.map { |b| b[:prompt_key] }
 missing = temple_keys.uniq.reject { |k| tr_text.include?("\"#{k}\": {") }
 check(missing.empty?, "temple: every TEMPLE_ key is in translations.json (missing #{missing.inspect})")
+
+# TG7 bags rules and hooks live in their own file (same check/$failures).
+load File.join(__dir__, "bags_rules_test.rb")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

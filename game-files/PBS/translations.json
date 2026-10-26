@@ -1174,7 +1174,7 @@
     },
     "NAME_IDI4": {
       "en": "Ido",
-      "he": "עידו"
+      "he": "עדו"
     },
     "MSG_CHARSEL_CONFIRM": {
       "en": "Play as {1}?",
@@ -1934,11 +1934,11 @@
     },
     "TEMPLE_STAFF_REWARD_ON": {
       "en": "Ido visit: on (turn off)",
-      "he": "ביקור עידו: פעיל (לכבות)"
+      "he": "ביקור עדו: פעיל (לכבות)"
     },
     "TEMPLE_STAFF_REWARD_OFF": {
       "en": "Ido visit: off (turn on)",
-      "he": "ביקור עידו: כבוי (להפעיל)"
+      "he": "ביקור עדו: כבוי (להפעיל)"
     },
     "TEMPLE_STAFF_SURE": {
       "en": "Continue?",
@@ -2009,8 +2009,8 @@
       "he": "\"הפכתי לחולמת של העולם, לשוטת הכפר, ל'מדענית' כביכול…\" — עדה יונת"
     },
     "TEMPLE_SIGN_YONATH_BEAR_1": {
-      "en": "Ada Yonath read that hibernating polar bears pack their ribosomes in neat order. That gave her the idea.",
-      "he": "עדה יונת קראה שדובי קוטב בתרדמת חורף אורזים ריבוזומים בסדר. משם בא הרעיון."
+      "en": "In hibernation, ribosomes in polar bear cells fall into rows. Ada Yonath: so crystals could be made.",
+      "he": "בתרדמת חורף, ריבוזומים בתאי דובי קוטב מסתדרים בשורות. עדה יונת: אז אפשר ליצור גבישים."
     },
     "TEMPLE_SIGN_YONATH_BEAR_2": {
       "en": "\"I have four tips: Curiosity. Go after your curiosity. More curiosity. Even more curiosity. Passion.\" — Ada Yonath",
@@ -2078,11 +2078,617 @@
     },
     "TEMPLE_REWARD_1": {
       "en": "A little gift is waiting for you too. Head over to the game's creators, they're somewhere in Kosumo, 8:00 & A.",
-      "he": "גם עבורך מחכה שי קטן. אפשר ללכת ליוצרי המשחק, הם איפשהו בקוסומו, שעה 8:00 & A."
+      "he": "גם עבורך מחכה שי קטן. אפשר ללכת ליוצרי המשחק, הם איפשהו בקוסומו, שעה 8:00 & א."
     },
     "TEMPLE_REWARD_2": {
       "en": "Tell them Kusama sent you.",
       "he": "כדאי להגיד שקוסאמה שלחה אותך."
+    },
+    "TEMPLE_HONOREE_KUSAMA": {
+      "en": "Yayoi Kusama",
+      "he": "יאיוי קוסאמה",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HONOREE_YONATH": {
+      "en": "Ada Yonath",
+      "he": "עדה יונת",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HONOREE_CURRY": {
+      "en": "Tim Curry",
+      "he": "טים קארי",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HONOREE_PARTON": {
+      "en": "Dolly Parton",
+      "he": "דולי פרטון",
+      "draft": "Yotam"
+    },
+    "TEMPLE_BOARD_TITLE": {
+      "en": "{1}'s board",
+      "he": "לוח של {1}",
+      "draft": "Yotam"
+    },
+    "TEMPLE_BOARD_APPROACH": {
+      "en": "{1}'s board. Take a closer look?",
+      "he": "לוח של {1}. להתקרב?",
+      "draft": "Yotam"
+    },
+    "TEMPLE_BOARD_ASKS": {
+      "en": "This board asks",
+      "he": "הלוח שואל",
+      "draft": "Yotam"
+    },
+    "TEMPLE_BOARD_EMPTY": {
+      "en": "No stickers here yet.",
+      "he": "עוד אין כאן מדבקות.",
+      "draft": "Yotam"
+    },
+    "TEMPLE_BOARD_EMPTY_FIRST": {
+      "en": "Yours can be the first.",
+      "he": "המדבקה שלך יכולה להיות הראשונה.",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HAND_TITLE": {
+      "en": "In hand",
+      "he": "ביד",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HAND_EMPTY": {
+      "en": "Stickers come from the signs.",
+      "he": "מדבקות מקבלים מהשלטים.",
+      "draft": "Yotam"
+    },
+    "TEMPLE_ALREADY_PLACED": {
+      "en": "This sticker is already on the board.",
+      "he": "המדבקה הזאת כבר על הלוח.",
+      "draft": "Yotam"
+    },
+    "TEMPLE_HAND_OTHER_BOARD": {
+      "en": "Your stickers go on: {1}",
+      "he": "המדבקות שלך הולכות ללוח של: {1}",
+      "draft": "Yotam"
+    },
+    "TEMPLE_ITEM_NO_NAME": {
+      "en": "No name",
+      "he": "בלי שם",
+      "draft": "Yotam"
+    },
+    "TEMPLE_PLACE_INFO": {
+      "en": "Pick a spot. A sticker stays where you put it.",
+      "he": "לבחור מקום. מדבקה נשארת איפה שמדביקים אותה.",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_LOOK": {
+      "en": "Look",
+      "he": "להסתכל",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_SPOT": {
+      "en": "Move",
+      "he": "להזיז",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_STICK": {
+      "en": "Stick",
+      "he": "להדביק",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_NEXT": {
+      "en": "Next sticker",
+      "he": "מדבקה אחרת",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_LEAVE": {
+      "en": "Leave",
+      "he": "לצאת",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_BACK": {
+      "en": "Back",
+      "he": "לחזור",
+      "draft": "Yotam"
+    },
+    "TEMPLE_LEG_STAFF": {
+      "en": "Staff menu",
+      "he": "תפריט צוות",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_ASK_1": {
+      "en": "It's my birthday today! And I want just one thing: Shirpaz & Esther. Yes, those two. From TV. From the nineties.",
+      "he": "היום יש לי יום הולדת! ואני רוצה רק דבר אחד: שירפז ואסתר. כן, ההן. מהטלוויזיה. מהניינטיז.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_ASK_2": {
+      "en": "Their agent said they only come for surprise bags. Exactly two. It's in the contract.",
+      "he": "הסוכן שלהן אמר שהן באות רק תמורת שקיות הפתעה. בדיוק שתיים. זה כתוב בחוזה.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_ASK_3": {
+      "en": "There's a punk dog around here, Pixel, who deals in bags. What exactly does he sell? Nobody knows. Neither does he.",
+      "he": "יש פה כלב פושטק אחד, פיקסל, שסוחר בשקיות. מה בדיוק הוא מוכר? אף אחד לא יודע. גם הוא לא.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_NOTENOUGH": {
+      "en": "Surprise bags on you: {1}. They need two. Not one more, not one less. That's stars for you.",
+      "he": "שקיות הפתעה אצלך: {1}. הן צריכות שתיים. לא אחת יותר, לא אחת פחות. ככה זה עם כוכבות.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_GIVE_ASK": {
+      "en": "You've got enough! Give me two and summon Shirpaz & Esther?",
+      "he": "יש לך מספיק! לתת לי שתיים ולהזמין את שירפז ואסתר?",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_CHOICE_GIVE": {
+      "en": "Give two",
+      "he": "לתת שתיים",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_CHOICE_NOTYET": {
+      "en": "Not yet",
+      "he": "עוד לא",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_NOTYET": {
+      "en": "Fine. I'll wait. A birthday lasts all day.",
+      "he": "בסדר. אני מחכה. יום הולדת זה כל היום.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_SUMMON": {
+      "en": "Shirpaz! Esther! Shirpaz! Esther!",
+      "he": "שירפז! אסתר! שירפז! אסתר!",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_PARTY_1": {
+      "en": "Best birthday I've ever had. Also the first one where a purple unicorn signed my forehead.",
+      "he": "זה יום ההולדת הכי טוב שהיה לי. וגם הראשון שבו חד קרן סגולה חתמה לי על המצח.",
+      "draft": "Yotam"
+    },
+    "BAGS_INBAR_PARTY_2": {
+      "en": "The chorus is still in my head. It won't leave. I think it lives there now.",
+      "he": "הפזמון עדיין בראש שלי. הוא לא יוצא. נראה לי שהוא גר שם עכשיו.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ARRIVE_1": {
+      "en": "Hellooo kids! Hello hello! Remember us? We remember you. Roughly.",
+      "he": "שלוווום ילדים! שלום שלום! זוכרים אותנו? אנחנו זוכרות אתכם. בערך.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ARRIVE_2": {
+      "en": "I'm Shirpaz, the purple one! Yes, we're unicorns now. We had a very creative agent.",
+      "he": "אני שירפז, הסגולה! כן, אנחנו חדות קרן עכשיו. היה לנו סוכן מאוד יצירתי.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ARRIVE_3": {
+      "en": "And I'm Esther, the pink one! We don't go on camera without makeup and we don't sing without bags. It's in the contract.",
+      "he": "ואני אסתר, הוורודה! אנחנו לא מצטלמות בלי איפור ולא שרות בלי שקיות. ככה כתוב בחוזה.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_STAR_1": {
+      "en": "We used to have thousands of surprise bags. We gave and gave and gave, and then one day we opened the box...",
+      "he": "פעם היו לנו אלפי שקיות הפתעה. חילקנו וחילקנו וחילקנו, ואז יום אחד פתחנו את הארגז...",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_STAR_2": {
+      "en": "...and we ran out of all the surprise bags. No surprise at all. Since then we take two up front. One for Shirpaz, one for me.",
+      "he": "...ונגמרו לנו כל שקיות ההפתעה. בלי שום הפתעה. מאז אנחנו מקבלות שתיים מראש. אחת לשירפז, אחת לי.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_GIVEN": {
+      "en": "You handed over two surprise bags.",
+      "he": "מסרת שתי שקיות הפתעה.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ACCEPT_1": {
+      "en": "Two! Exactly two! Esther, check there's no cat in them.",
+      "he": "שתיים! בדיוק שתיים! אסתר, תבדקי שאין בהן חתול.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ACCEPT_2": {
+      "en": "No cat. Everyone line up, hands in the air, and a VHS-cassette smile.",
+      "he": "אין חתול. כולם לעמוד בשורה, ידיים למעלה, וחיוך של קלטת VHS.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_PRESONG": {
+      "en": "And a one, and a two, and a three... music!",
+      "he": "ואחת, ושתיים, ושלוש... מוזיקה!",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_AFTER_1": {
+      "en": "Wait, before the song! Esther, get your bag out. Like the song says...",
+      "he": "רגע, לפני השיר! אסתר, תוציאי את השקית שלך. כמו שאומרים בשיר..."
+    },
+    "BAGS_UNICORN_AFTER_2": {
+      "en": "...\"he'll give a surprise bag to every guest.\" Here. One. For every guest. We counted.",
+      "he": "...\"יַעֲנִיק שַׂקִּית הַפְתָּעָה לְכֹל אוֹרֵחַ\". הנה. אחת. לכל אורח. ספרנו.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_AFTER_3": {
+      "en": "You brought two, you got one. That's show business, sweetie.",
+      "he": "הבאת שתיים, קיבלת אחת. זה נקרא תעשיית הבידור, מותק.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_AFTER_4": {
+      "en": "And the other one? Appearance fee. Even a unicorn has rent to pay.",
+      "he": "והשנייה? דמי הופעה. גם חד קרן צריכה לשלם שכירות.",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_SONG_END": {
+      "en": "What?? The bag's run out? Shirpaz, come on, we're going to the Spaceship, I heard they've got loads of bags",
+      "he": "מה?? נגמרה השקית? שירפז בואי, הולכות לספייסשיפ, שמעתי יש להם מלא שקיות",
+      "draft": "founder verbatim"
+    },
+    "BAGS_UNICORN_ENCORE_ASK": {
+      "en": "The crowd wants an encore? We're out of bags, but we've got an encore!",
+      "he": "הקהל רוצה הדרן? שקיות אין, אבל הדרן יש!",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_CHOICE_ENCORE": {
+      "en": "Encore!",
+      "he": "הדרן!",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_CHOICE_NO": {
+      "en": "No, thanks",
+      "he": "לא, תודה",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ENCORE_YES": {
+      "en": "Shirpaz, places! Music!",
+      "he": "שירפז, למקומות! מוזיקה!",
+      "draft": "Yotam"
+    },
+    "BAGS_UNICORN_ENCORE_NO": {
+      "en": "Fine. We're here till the end of the burn. Autographs in pink marker only.",
+      "he": "בסדר. אנחנו פה עד סוף האירוע. חתימות רק בטוש ורוד.",
+      "draft": "Yotam"
+    },
+    "BAGS_SHIRPAZ_COWBOY_CLASH": {
+      "en": "A purple unicorn called Shirpaz? This town ain't big enough for two Shirpazes.",
+      "he": "חד קרן סגולה בשם שירפז? העיר הזאת קטנה מדי לשני שירפזים.",
+      "draft": "Yotam"
+    },
+    "BAGS_SHIRPAZ_COWBOY_GIFT_1": {
+      "en": "A surprise bag for you. On the playa we don't trade, we gift. It's a principle. Number two of ten.",
+      "he": "שקית הפתעה בשבילך. בפלאיה לא סוחרים, מעניקים. זה עיקרון. השני מתוך עשרה."
+    },
+    "BAGS_SHIRPAZ_COWBOY_GIFT_2": {
+      "en": "Another one? There's always another one. I brought one box to the burn and it still hasn't run out. I haven't checked why. I won't.",
+      "he": "עוד אחת? תמיד יש עוד אחת. הבאתי לאירוע ארגז אחד, והוא עדיין לא נגמר. לא בדקתי למה. ולא אבדוק."
+    },
+    "BAGS_SHIRPAZ_COWBOY_GIFT_3": {
+      "en": "They say there's another Shirpaz here, a unicorn, who charges two bags up front. Here it's free. That's how you tell us apart.",
+      "he": "אומרים שיש פה עוד שירפז, חד קרן, שגובה שתי שקיות מראש. פה זה בחינם. ככה יודעים להבדיל בינינו."
+    },
+    "BAGS_PIXEL_OFFER_1": {
+      "en": "Want a cat in a sack? You pay first, you look later. That's the whole point.",
+      "he": "רוצה חתול בשק? משלמים קודם, מסתכלים אחר כך. זה כל הקטע.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_OFFER_2": {
+      "en": "Yes, I'm a dog selling a cat. How did the cat get in the bag? I didn't ask. In Florentin you don't ask.",
+      "he": "כן, אני כלב שמוכר חתול. איך החתול נכנס לשקית? לא שאלתי. בפלורנטין לא שואלים.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOOSE": {
+      "en": "What are you paying with?",
+      "he": "במה משלמים?",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOICE_BILL": {
+      "en": "20-sheckel bill",
+      "he": "שטר של 20",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOICE_DESERT": {
+      "en": "Desert bag",
+      "he": "שקית מדבר",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOICE_ICE": {
+      "en": "Bag of ice",
+      "he": "שקית קרח",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOICE_NEVERMIND": {
+      "en": "Never mind",
+      "he": "עזוב",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOOSE_ONE": {
+      "en": "You've got exactly one thing I take. Saved me a menu. Deal?",
+      "he": "יש לך בדיוק דבר אחד שאני לוקח. חסכת לי תפריט. עסקה?",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_CHOICE_DEAL": {
+      "en": "Deal",
+      "he": "עסקה",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_PAID_BILL": {
+      "en": "Twenty sheckels. In Florentin that's almost half a beer.",
+      "he": "עשרים שקל. בפלורנטין זה כמעט חצי בירה.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_PAID_DESERT": {
+      "en": "A desert bag! I love bags. Even with desert in them.",
+      "he": "שקית מדבר! אני אוהב שקיות. גם כשיש בהן מדבר.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_PAID_ICE": {
+      "en": "A bag for a bag. The fairest deal you'll make today.",
+      "he": "שקית תמורת שקית. העסקה הכי הוגנת שתעשה היום.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_MEOW": {
+      "en": "From inside the bag: \"Meow.\"",
+      "he": "מתוך השקית: \"מיאו.\"",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_REVEAL": {
+      "en": "Hear that? Meow. That's a good sign. Or a bad one. That's why it's a surprise bag. No returns.",
+      "he": "שמעת? מיאו. זה סימן טוב. או רע. בגלל זה זו שקית הפתעה. החזרות אין.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_NEVERMIND": {
+      "en": "Fine. The cat's not going anywhere. It's in the sack.",
+      "he": "בסדר. החתול לא הולך לשום מקום. הוא בשק.",
+      "draft": "Yotam"
+    },
+    "BAGS_PIXEL_NOTHING": {
+      "en": "You've got nothing for me. Toga, the barrel guy on the Playa, has a bag of bags. Worth asking him what a bag is.",
+      "he": "אין לך כלום בשבילי. טוגה, זה מהחבית בפלאיה, מסתובב עם שקית של שקיות. שווה לשאול אותו מה זאת שקית.",
+      "draft": "Yotam"
+    },
+    "BAGOFBAGS": {
+      "en": "Bag of Bags",
+      "he": "שקית של שקיות",
+      "draft": "Yotam"
+    },
+    "Bag of Bags": {
+      "en": "Bag of Bags",
+      "he": "שקית של שקיות",
+      "draft": "Yotam"
+    },
+    "Bags of Bags": {
+      "en": "Bags of Bags",
+      "he": "שקיות של שקיות",
+      "draft": "Yotam"
+    },
+    "DESERTBAG": {
+      "en": "Desert Bag",
+      "he": "שקית מדבר",
+      "draft": "Yotam"
+    },
+    "Desert Bag": {
+      "en": "Desert Bag",
+      "he": "שקית מדבר",
+      "draft": "Yotam"
+    },
+    "Desert Bags": {
+      "en": "Desert Bags",
+      "he": "שקיות מדבר",
+      "draft": "Yotam"
+    },
+    "SURPRISEBAG": {
+      "en": "Surprise Bag",
+      "he": "שקית הפתעה",
+      "draft": "Yotam"
+    },
+    "Surprise Bag": {
+      "en": "Surprise Bag",
+      "he": "שקית הפתעה",
+      "draft": "Yotam"
+    },
+    "Surprise Bags": {
+      "en": "Surprise Bags",
+      "he": "שקיות הפתעה",
+      "draft": "Yotam"
+    },
+    "SURPRISEBAG_DESC": {
+      "en": "A shiny bag sealed with tape. Something inside rustles. There's no way to know what, except one.",
+      "he": "שקית מבריקה סגורה בסלוטייפ. משהו בפנים מרשרש. אין דרך לדעת מה, חוץ מדרך אחת.",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_WARN_INBAR": {
+      "en": "Wait. Inbar needs two for Shirpaz & Esther. Not one less.",
+      "he": "רגע. ענבר צריכה שתיים בשביל שירפז ואסתר. לא אחת פחות.",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_CONFIRM": {
+      "en": "Open the surprise bag? After that it's not a surprise anymore.",
+      "he": "לפתוח את שקית ההפתעה? אחרי זה היא כבר לא הפתעה.",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_BILL": {
+      "en": "Inside: a 20-sheckel bill, folded eight times, the proper way.",
+      "he": "בפנים: שטר של 20 שקלים, מקופל שמונה פעמים, כמו שצריך.",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_RECURSE": {
+      "en": "Inside: a surprise bag. Which might have a surprise bag in it. Which might have...",
+      "he": "בפנים: שקית הפתעה. שאולי יש בה שקית הפתעה. שאולי יש בה...",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_CONFETTI": {
+      "en": "Poof! Confetti everywhere, and that's it. From now on it's your MOOP.",
+      "he": "פוף! קונפטי לכל עבר, וזה הכול. מעכשיו זה ה-MOOP שלך.",
+      "draft": "Yotam"
+    },
+    "BAGS_SURPRISE_NOTE": {
+      "en": "Inside: a note. It says \"Surprise!\". Technically true.",
+      "he": "בפנים: פתק. כתוב עליו \"הפתעה!\". טכנית, נכון.",
+      "draft": "Yotam"
+    },
+    "CHOICE_7A2A022C_BAG": {
+      "en": "A question about a bag",
+      "he": "שאלה על שקית",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_1": {
+      "en": "A bag? You're asking me about a bag. Finally. Everyone asks about God.",
+      "he": "שקית? אתה שואל אותי על שקית. סוף סוף. כולם שואלים על אלוהים.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_2": {
+      "en": "A bag is a space with an address. Fill it, it's an object. Empty it, still an object. What changed? Only the hope.",
+      "he": "שקית היא חלל עם כתובת. ממלאים אותה, זה חפץ. מרוקנים אותה, זה עדיין חפץ. מה השתנה? רק התקווה.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_3": {
+      "en": "And my barrel? It's a bag too. Just one that insisted. A bag with a spine that decided not to fold.",
+      "he": "והחבית שלי? גם היא שקית. פשוט כזו שהתעקשה. שקית עם עמוד שדרה, שהחליטה לא להתקפל.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_Q": {
+      "en": "So tell me, from the side of someone who isn't sitting in a barrel: an empty bag, what is it?",
+      "he": "אז תגיד לי, מהצד של מי שלא יושב בחבית: שקית ריקה, מה היא?",
+      "draft": "Michal"
+    },
+    "CHOICE_7A2A022C_BAG_A": {
+      "en": "Still a bag",
+      "he": "עדיין שקית",
+      "draft": "Michal"
+    },
+    "CHOICE_7A2A022C_BAG_B": {
+      "en": "Air in a wrapper",
+      "he": "אוויר בעטיפה",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_4A": {
+      "en": "Right. What it can hold decides what it is, not what it held. I'm empty too, and I'm still Toga.",
+      "he": "נכון. מה שהיא יכולה להחזיק קובע מה היא, לא מה שהחזיקה. גם אני ריק, ועדיין טוגה.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_4B": {
+      "en": "Air in a wrapper. Nice. But so are you, if you think about it. Just with more opinions.",
+      "he": "אוויר בעטיפה. יפה. אבל גם אתה, אם תחשוב על זה. פשוט עם יותר דעות.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_5": {
+      "en": "Now the hard one. Many bags, or one bag of every bag there could be?",
+      "he": "עכשיו הקשה. הרבה שקיות, או שקית אחת של כל השקיות שיכולות להיות?",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_6": {
+      "en": "I say one. The simulation won't waste memory on many when one bag can hold them all.",
+      "he": "אני אומר אחת. הסימולציה לא תבזבז זיכרון על הרבה כשאפשר שקית שמחזיקה את כולן.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_GIFT": {
+      "en": "You sat through to the end and asked about a bag, not about God. I don't have much, but I have this.",
+      "he": "ישבת עד הסוף ושאלת על שקית, לא על אלוהים. אין לי הרבה, אבל יש לי את זו.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_GIFT_2": {
+      "en": "A bag of bags. Don't worry, it doesn't run out. I sat on it for a year and it never complained.",
+      "he": "שקית של שקיות. אל תפחד, היא לא נגמרת. ישבתי עליה שנה והיא לא התלוננה.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_GIFT_3": {
+      "en": "Don't thank me. Move, you're blocking my sun.",
+      "he": "אל תודה לי. תזוז, אתה מסתיר לי את השמש.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_AGAIN_1": {
+      "en": "Bags again? Fine. An empty bag waits. A full bag has already decided. Which one is freer?",
+      "he": "שוב שקיות? טוב. שקית ריקה מחכה. שקית מלאה כבר החליטה. איזו מהן חופשית יותר?",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_AGAIN_2": {
+      "en": "If you put a barrel inside a bag, is it still a barrel? Or is the bag now the world?",
+      "he": "אם שמים חבית בתוך שקית, היא נשארת חבית? או שהשקית עכשיו היא העולם?",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_BAG_AGAIN_3": {
+      "en": "You have a bag of bags. That means you have everything you don't have yet. Not bad for a man without a barrel.",
+      "he": "יש לך שקית של שקיות. זה אומר שיש לך כל מה שאין לך עדיין. לא רע לאדם בלי חבית.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_1": {
+      "en": "Wait. What have you got in that bag? Sand? Wind? That's... that's the desert. In a bag.",
+      "he": "רגע. מה יש לך שם בשקית? חול? רוח? זה... זה המדבר. בשקית.",
+      "draft": "Michal"
+    },
+    "CHOICE_7A2A022C_DESERTBAG_GIVE": {
+      "en": "Give him the Desert Bag",
+      "he": "תן לו את שקית המדבר",
+      "draft": "Michal"
+    },
+    "CHOICE_7A2A022C_DESERTBAG_KEEP": {
+      "en": "Not yet",
+      "he": "עוד לא",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_KEEP": {
+      "en": "Don't rush. A good desert doesn't run away. That's its talent.",
+      "he": "אל תמהר. מדבר טוב לא בורח. זה הכישרון שלו.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_2": {
+      "en": "You brought me the outside, inside. I've been in this barrel for years and nobody thought to bring me what's outside it.",
+      "he": "הבאת לי את החוץ, פנימה. אני יושב בתוך חבית כבר שנים ואף אחד לא חשב להביא לי את מה שמחוץ לה.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_3": {
+      "en": "Now I have a barrel, a sun, and a bag with a desert in it. Three worlds, one inside the other.",
+      "he": "עכשיו יש לי חבית, שמש ושקית עם מדבר. שלושה עולמות, אחד בתוך השני.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_4": {
+      "en": "And the terrible question: is the desert in the bag still the desert, or just a sample? Don't answer. Let me enjoy it.",
+      "he": "והשאלה הנוראה: האם המדבר בשקית הוא עדיין המדבר, או רק דוגמה? אל תענה. תן לי ליהנות.",
+      "draft": "Michal"
+    },
+    "MSG_7A2A022C_DESERTBAG_SEEN": {
+      "en": "Your desert is still with me. It behaves nicely, doesn't make a mess. Just like in the simulation.",
+      "he": "המדבר שלך עדיין אצלי. הוא מתנהג יפה, לא מלכלך. בדיוק כמו בסימולציה.",
+      "draft": "Michal"
+    },
+    "BAGS_BAGOFBAGS_USE_1": {
+      "en": "You pull a bag out of the bag. Fill it with sand. Now you have a desert in your pocket.",
+      "he": "שולפים שקית מתוך השקית. ממלאים אותה בחול. עכשיו יש לך מדבר בכיס.",
+      "draft": "Michal"
+    },
+    "BAGS_BAGOFBAGS_USE_2": {
+      "en": "The inner bag opened, filled with wind and sand, and closed by itself. A desert bag.",
+      "he": "השקית הפנימית נפתחה, נמלאה ברוח ובחול, ונסגרה לבד. שקית מדבר.",
+      "draft": "Michal"
+    },
+    "BAGS_BAGOFBAGS_USE_3": {
+      "en": "You reached in, pulled out a bag, and the desert poured inside. Don't ask how.",
+      "he": "הושטת יד, שלפת שקית, והמדבר נשפך פנימה. אל תשאל איך.",
+      "draft": "Michal"
+    },
+    "BAGS_BAGOFBAGS_USE_FULL": {
+      "en": "You already have a desert in your pocket. One is enough, more than that is real estate.",
+      "he": "כבר יש לך מדבר בכיס. אחד מספיק, אחרת זה כבר נכס.",
+      "draft": "Michal"
+    },
+    "BAGOFBAGS_DESC": {
+      "en": "One bag that holds every bag there could be. A gift from Toga. You can pull a bag out of it.",
+      "he": "שקית אחת שמחזיקה את כל השקיות האפשריות. מתנה מטוגה. אפשר לשלוף ממנה שקית.",
+      "draft": "Michal"
+    },
+    "DESERTBAG_DESC": {
+      "en": "A bag full of sand and desert. Weighs about as much as outside. Toga likes these.",
+      "he": "שקית מלאה בחול ובמדבר. שוקלת כמו חוץ. טוגה אוהב כאלה.",
+      "draft": "Michal"
+    },
+    "BAGS_NAME_ESTHER": {
+      "en": "Esther",
+      "he": "אסתר",
+      "draft": "Noam spec"
+    },
+    "BAGS_NAME_SHIRPAZ": {
+      "en": "Shirpaz",
+      "he": "שירפז",
+      "draft": "Noam spec"
+    },
+    "BAGS_NAME_DUO": {
+      "en": "Shirpaz & Esther",
+      "he": "שירפז ואסתר",
+      "draft": "Noam spec"
     }
   }
 }

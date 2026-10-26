@@ -113,7 +113,8 @@ module TempleStickers
 
     def create
       @viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
-      @viewport.z = 99_995
+      # Equal z, created later: above the board and pbFadeOutIn's black layer.
+      @viewport.z = 99_999
       @sprite = Sprite.new(@viewport)
       @sprite.bitmap = Bitmap.new(Graphics.width, Graphics.height)
       pbSetSystemFont(@sprite.bitmap) if defined?(pbSetSystemFont)

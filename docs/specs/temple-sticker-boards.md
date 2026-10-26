@@ -2,9 +2,9 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 
 ## Goal
 
-- **What:** Fact signs (in Temple Inside and on the road to it) each give the player one sticker. The player sticks it on one of four honoree boards and can leave a first name and one sentence. Later players flip through those pages, and a player who puts every sticker on its home board gets a visit from Ido outside the temple.
+- **What:** Fact signs (in Temple Inside and on the road to it) each give the player one sticker. The player sticks it on its own honoree's board (founder decision 2026-10-26) and can leave a first name and one sentence. Later players flip through those pages, and a player who has placed at least one sticker on each of the 4 boards this run (confirmed by founder 2026-10-26) gets a visit from Ido outside the temple.
 - **Why:** The temple needs one activity that works on a joystick-and-buttons cabinet, teaches four true things, and leaves strangers' marks for the next player (founder: "I liked the idea that people can see other people sentences!").
-- **Done when:** On the cabinet, with no keyboard, a player reads signs, earns 4 stickers, places them, types a Hebrew or English sentence, starts a new game, and the next player sees that sentence on the board. A player with all 4 on their home boards meets Ido at the temple door.
+- **Done when:** On the cabinet, with no keyboard, a player reads signs, earns stickers, places them, types a Hebrew or English sentence, starts a new game, and the next player sees that sentence on the board. A player with a sticker on every board meets Ido at the temple door.
 
 ---
 
@@ -20,11 +20,13 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 
 - **Verbatim (2026-10-26):** "No! Lets put signs on the map, each sign will contain a fact about a person, if some one reads it -> it gives it a sticker each person will have few stickers and it will be given ranndomly. now, each sticker will belong to a borad, but you will be able to put the sticker on every board , when you put the sticker you can add name, and a sentence . If a person put all the stickers inn thier right placed, the defauklt char, the one which you open the game is the 1st one (i can tinf dits id) comes to you and says "גם עבורך מחכה שי קטן, מוזמן ללכת ליוצרי המשחק, הם איפשהו בקוסומו - שעה 8:00א. תגיד שקוסאמה שלחה אותך" we need to define it better. I liked the idea that people cna see other people sentences!" Earlier, from the same message: "each statue will have its own board … an option for a keyboard, such that user can wirte a sentence and put it on the wall". The cabinet has a joystick and buttons.
 - **Later answers, relayed by Claudet:** default character = first char-select entry `idi4`. Camp = קוסומו, address "8:00 & A". Some signs go in town. A player = "maybe lets have tabs and each iteration opens a new one?". A moderation "mod player" mode, for the founder and Evyatar only. Reward line: Yotam's gender-neutral version, approved as final. Sign texts are researched by Tamar: inspirational, and Curry's cultural and LGBTQ impact must come through.
-- **Interpretation:** a quiet scavenger walk that ends in a shared wall. The player learns one true deed per sticker, can give it to any honoree, and leaves a small true sentence about their own life. Strangers' pages are the point. The reward is a real-world gift, and only "knowing" (home-board placement) earns it. "Loving" (cross-placement) is never marked as wrong (Michal's binding framing).
+- **Interpretation:** a quiet scavenger walk that ends in a shared wall. The player learns one true deed per sticker, sticks it on that honoree's board, and leaves a small true sentence about their own life. Strangers' pages are the point. The reward is a real-world gift for a sticker on every board.
+- **Founder decision 2026-10-26 (supersedes cross-placement):** "you can put stickers only on their persona page; we will make it easier for them". A board's tray shows only the hand stickers that belong to it. When none fit, the board says which board(s) they go on (`TEMPLE_HAND_OTHER_BOARD`). The earlier "any sticker on any board" rule and Michal's "loving" cross-placement are retired.
+- **Founder decision 2026-10-26 (playtest, supersedes the dealt hand):** every sign gives its own sticker the first time it is read in a run, so the person on the sign gets a sticker. There is no random hand of 4; the hand holds up to 12. Reward (confirmed by founder 2026-10-26): at least one sticker placed on each of the 4 boards in the run, once per run (`reward_earned?`).
 - **Acceptance criteria (what the founder will see):**
   1. With only the joystick and colour buttons, he reads a sign and sees "you got a sticker". He opens a board, sticks it, types "עידו" and a Hebrew sentence that reads right to left.
   2. He starts a "New deserttown game" on the cabinet. The next player opens the same board and can flip to his page and read his sentence.
-  3. When he places all 4 stickers on their home boards and walks out of the temple, Ido walks up and says the two-box line. If any sticker went elsewhere, nothing happens and nothing says so.
+  3. When he has a sticker on each of the 4 boards (each sticker can only go on its home board) and walks out of the temple, Ido walks up and says the two-box line. Otherwise nothing happens.
   4. From staff mode he can delete one sentence, one page, or the whole wall, and turn the Ido visit off.
 
 ---
@@ -39,7 +41,7 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 | Stock text entry | `pbEnterText` -> `PokemonEntryScene2` (cursor grid, 13x5, used when `textinput != 1`). Charsets are hard-coded Latin/accents/symbols, **no Hebrew**. Tab switching is on `Input::SPECIAL` (D) and jump-to-OK on `Input::ACTION` (Z); neither is a colour button, but both are also reachable by the cursor. BACK deletes. Verdict: joystick-usable for English only. **Build our own keyboard scene modelled on it; do not edit the stock one** (its `@@Characters` class variable is shared with subclasses). | `317_UI_TextEntry.rb` l.260-275, 666-720, 754-770 |
 | Hebrew display of typed text | `pbDrawShadowText`/`pbDrawOutlineText`/`pbDrawPlainText` are hooked and run `HebrewText.visual_reverse` (bidi runs, fixed in 35cb960) on any Hebrew string, right-aligned. Logical-order input strings will display correctly if drawn through these. | `Plugins/HebrewSupport/hebrew_support.rb` l.251-320, 500-535 |
 | Colour buttons inside a scene | The help/map slides (White F, Green G) only open when `slide_allowed?`, which is false while the map interpreter runs. Our scenes start from events, so F/G/K are free to read raw with `Input.triggerex?`. Red mirrors USE, Blue mirrors BACK. | `000_controls.rb` l.152-178, `MIRROR_INPUT` |
-| Chosen player character | Stored in `$PokemonGlobal.desert_player_charset`; `PLAYABLE[0]` = `idi4` / `NAME_IDI4` (Ido / עידו); `PLAYABLE[1]` = `d472e0a3`. | `DesertCharSelect/000_playable.rb`, `001_char_select.rb` l.198 |
+| Chosen player character | Stored in `$PokemonGlobal.desert_player_charset`; `PLAYABLE[0]` = `idi4` / `NAME_IDI4` (Ido / עדו); `PLAYABLE[1]` = `d472e0a3`. | `DesertCharSelect/000_playable.rb`, `001_char_select.rb` l.198 |
 | Map113 | 13x24. Walkable hall cols 2-11, rows 5-19. Row 4 = top wall (blocked). Pedestal blocks: Kusama (3-4, 9-10), Curry (9-10, 8-9), Parton (9-10, 14-15), Yonath (3-5, 16-17). Exit events E1-E3 at (5-7, 20) -> Map096 (11,14) facing down. BGM Time-Warp. | passability dump from `Tilesets.rxdata` id 61 + `Map113.rxdata` |
 | Map096 (Squere Road Temple, outdoor) | 32x56. Temple doors at (11,13), (12,13), (21,11), (26,13). Player enters from party map 093 at the south edge (`map_connections.txt` 93 North <-> 96 South). Existing events: (11,49) (8,54) (15,54) (28,28) (5,28) (20,33) (18,33) (17,46) (7,17) (16,20). | same dump; `PBS/map_connections.txt` l.49-62 |
 
@@ -50,22 +52,24 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 ### What "a player" is: one run = one page
 - A player is one **run**, from one `Game.start_new` (cabinet "New deserttown Game" or first boot) to the next. The founder asked for "tabs and each iteration opens a new one". So **each run gets its own page (tab) on every board it sticks on**.
 - Run id: random token made in the run's `new_game_value` (not the depth counter, which debug can edit).
-- Per-run state (save value `:temple_stickers`, reset by `start_new`): `run_id`, `hand` (4 sticker ids), `collected`, `placed` ([sticker, board]), `name`, `reward_shown`.
+- Per-run state (save value `:temple_stickers`, reset by `start_new`): `run_id`, `collected`, `placed` ([sticker, board]), `name`, `reward_shown`.
 
 ### Stickers and the draw (no unreachable "all right")
 - 12 stickers, 3 per honoree, **one sticker per sign** (12 signs). The sticker list is Michal's: Kusama: red polka dot, small mirror, yellow dotted pumpkin. Yonath: crystal, snowflake, key in a pocket. Curry: grain of rice, speech bubble, midnight ticket. Parton: book in an envelope, painted nails on a typewriter key, cassette. Reserves (art only, not in v1 play): dot sheet, small factory, microphone, mailbox. **If Tamar's sign drafts drop or change an object, the sticker follows the sign. Lock the 12 before art generation.**
-- **Hand:** at run start, deal **4 stickers, exactly one per honoree, each picked uniformly from that honoree's 3**. That gives 81 combinations, so strangers' pages differ.
-- Reading a sign whose sticker is in your hand and not yet collected shows the fact, then a quiet "you got a sticker" line with the sticker image. Any other sign shows the fact only, with no "not for you" line. Re-reading shows the fact only.
-- Why this is always reachable: there are no duplicates, every hand sticker has exactly one sign, all 12 signs sit on walkable-adjacent tiles, and the hand covers all 4 boards.
+- **Hand (2026-10-26):** no deal. Reading a sign the first time in a run shows the fact, then a quiet "you got a sticker" line with that sign's sticker. Re-reading shows the fact only. The hand is every collected, unplaced sticker (up to 12). An old save's dealt `hand` is dropped on load; its collected and placed stickers stay.
+- Why this is always reachable: every sticker has exactly one sign, all 12 signs sit on walkable-adjacent tiles, and each board has 3 signs.
 - Stickers have no names on screen (Michal): the only way to know the home board is the sign.
 
 ### Boards, pages, placement
-- 4 boards, one per honoree. A board accepts any sticker the same way: no sound, colour or line for "wrong", no counter, no undo. A placement is final.
-- Board screen (full-screen, 512x384): one page = a 7x4 grid of 64 px cells. A run sticks at most 4 stickers in total, so a page never fills.
+- 4 boards, one per honoree. A board accepts only the stickers whose home it is (founder decision 2026-10-26); other hand stickers are not shown there, and with no fit the info box names their board. No counter, no undo. A placement is final.
+- Old wall files may hold items stuck on another honoree's board before 2026-10-26; they still load and display. An old save whose run holds such a placement still counts that sticker as placed.
+- Board screen (full-screen, 512x384): one page = a 7x4 grid of 64 px cells. A run sticks at most 12 stickers (3 per board), so it never fills a 28-sticker sheet alone.
+- **Founder decision 2026-10-26 (playtest, finer placement):** the place cursor moves half a sticker per press (founder: "4 tiles" -> "2"), so stickers can partly overlap. Positions are spots on a 13x7 half-cell grid (wall file v3, item key `p`); old v1/v2 items keep their place (cell c -> spot at column 2*(c%7), row 2*(c/7)). Only the exact same spot is refused. A sheet still holds 28 stickers: overlap is allowed, but the old density keeps a full sheet readable. Later stickers are drawn on top.
+- **Founder decision 2026-10-26 (overlaps):** browsing, left/right step over stickers. Where the current sticker overlaps others, the info box lists all of them newest first (signer name, else the honoree's name) and up/down pick one; the picked sticker is lifted on top with the cursor and its name and sentence show. A lone sticker behaves as before. No new button.
 - **Opening a board:** it shows the **most recent page by someone else** first (strangers' marks first, Michal). If the board is empty, it shows your own blank page.
 - The page strip at the top shows one small mark per page, newest on the right. It shows the name if one was given, else a dot. There are no numbers.
-- **Joystick left/right** on the strip flips pages. **Up/down** moves into the page; the cursor stops on stickers, and the bottom box shows "name: sentence" (or nothing).
-- **Placing:** with stickers in hand, a hand strip shows at the bottom. **Orange (K)** picks the next hand sticker. **Red** jumps to your page, the joystick moves the cursor to an empty cell, and **Red** sticks it. **Blue** backs out without placing.
+- **Joystick left/right** on the strip flips pages. **Down** moves into the page; left/right step over stickers (up/down too, unless several overlap), and the bottom box shows "name: sentence" (or nothing).
+- **Placing:** with stickers in hand, the hand tray shows 4 slots on the right holding only this board's stickers (at most 3). **Orange (K)** picks the next sticker that belongs on this board. **Red** jumps to your page, the joystick moves the cursor half a sticker per press, and **Red** sticks it (overlap allowed, not the same spot). **Blue** backs out without placing.
 - After sticking, one yes/no: "add your name and a sentence?" Yes opens the keyboard (name first on the first placement only; after that the name is prefilled and editable), then the sentence. No leaves the sticker unsigned.
 - Sentence prompt per board (Michal's, worded by Yotam; it follows the board, not the sticker). Kusama: what do you do again and again? Yonath: what are you still trying? Curry: who did you first join in with? Parton: what were you given that you still use? The name prompt says "first name or nickname".
 - Silence: the board and keyboard scenes fade the map BGM out on entry and restore it on exit.
@@ -80,7 +84,7 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 
 ### Shared wall storage
 - File: `File.join(System.data_directory, "temple_wall.dat")`. It sits next to `Game.rxdata` but is not part of `SaveData`, so it survives every new run and game update. It is never in the repo.
-- Format: `Marshal` of core types only, so a code change cannot break loading. The shape is `{"v"=>1, "boards"=>{"kusama"=>[page,...],...}}`. A page is `{"run"=>id, "name"=>str|nil, "t"=>time, "items"=>[{"s"=>sticker_id, "c"=>cell, "text"=>str|nil}]}`.
+- Format: `Marshal` of core types only, so a code change cannot break loading. The shape is `{"v"=>1, "boards"=>{"kusama"=>[page,...],...}}` (original v1; v3 since 2026-10-26: see `004_wall_store.rb`, items carry a spot `p`). A page is `{"run"=>id, "name"=>str|nil, "t"=>time, "items"=>[{"s"=>sticker_id, "c"=>cell, "text"=>str|nil}]}`.
 - Read on board open. Write after every placement and every sentence: write `temple_wall.dat.tmp`, copy the current file to `.bak`, then rename. One cabinet runs one process, so no lock is needed.
 - If the load fails, rename the bad file to `temple_wall.bad-<time>.dat` and open an empty wall. The game never crashes on it.
 - Cap: 300 pages per board. When over, the oldest page drops.
@@ -107,15 +111,18 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 - The map owner may shift any sign ±2 tiles for looks. The rule that binds: all 12 stay reachable and none sits on an existing event or door tile.
 - **Sign text:** taken from Tamar's draft section in `docs/research/temple-activities-research.md` (founder: inspirational, Curry's cultural and LGBTQ impact must come through). Yotam does the final copy edit. Michal's register applies: museum label, third person, past tense, numbers "about", no quotes, no name plate, max 2 lines (68 chars). Each sign must name its sticker's object. This spec writes no sign copy. The keys are `TEMPLE_SIGN_<HONOREE>_<OBJECT>`.
 
+### Temple music (founder decision 2026-10-26)
+- Map113 autoplays "Time-Warp". Leaving the temple onto Map096 keeps Time-Warp playing there; leaving Map096 for any other map returns to normal map music. Map096 entered from anywhere else plays its own track. Implemented as a plugin hook (`012_temple_music.rb`), no map data edit.
+
 ### Reward
-- **Trigger:** all 4 hand stickers placed, each on its home board. It is checked at the moment of the 4th placement and sets `reward_pending`. It fires once per run.
+- **Trigger (confirmed by founder 2026-10-26):** at least one sticker placed on each of the 4 boards this run (`reward_earned?`, one pure predicate). It is checked at each placement and sets `reward_pending`. It fires once per run.
 - **Where:** never inside the temple (Michal). On the transfer from Map113 to Map096 (player lands at (11,14) facing down), if `reward_pending`, the reward is on, and it has not been shown yet: a messenger event appears at **(11,16)** facing up. It steps to (11,15), says the line, walks south and vanishes. Then `reward_shown = true`.
-- **Messenger appearance:** charset `idi4`, plate `pbDesertSpeaker("idi4")` (Ido / עידו). **Edge case:** if the player chose Ido (`desert_player_charset == "idi4"`), the messenger is `PLAYABLE[1]` (`d472e0a3`) with its own plate. The fallback reads from the roster, not a hard-coded id.
+- **Messenger appearance:** charset `idi4`, plate `pbDesertSpeaker("idi4")` (Ido / עדו, founder copy fix 2026-10-26). **Edge case:** if the player chose Ido (`desert_player_charset == "idi4"`), the messenger is `PLAYABLE[1]` (`d472e0a3`) with its own plate. The fallback reads from the roster, not a hard-coded id.
 - **Line (final, founder-approved; two boxes; Yotam may fix typography only):**
-  - Box 1: "גם עבורך מחכה שי קטן. אפשר ללכת ליוצרי המשחק, הם איפשהו בקוסומו, שעה 8:00 & A."
+  - Box 1: "גם עבורך מחכה שי קטן. אפשר ללכת ליוצרי המשחק, הם איפשהו בקוסומו, שעה 8:00 & א." (Hebrew letter א, founder copy fix 2026-10-26; EN keeps "A")
   - Box 2: "כדאי להגיד שקוסאמה שלחה אותך."
   - EN: "A little gift is waiting for you too. Head over to the game's creators, they're somewhere in Kosumo, 8:00 & A. Tell them Kusama sent you."
-- A player who cross-placed gets no visit and no message. That is an absence, not a verdict.
+- A player without a sticker on every board gets no visit and no message. That is an absence, not a verdict.
 
 ---
 
@@ -124,7 +131,7 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 | In scope (v1) | Out of scope (v1) |
 |---|---|
 | 12 fact signs: 4 plaques on Map113, 8 on Map096 | Signs on other town maps |
-| 12 stickers, a random hand of 4 (1 per honoree) per run | Reserve stickers in play; trading stickers |
+| 12 stickers, each sign gives its own (no dealt hand, 2026-10-26) | Reserve stickers in play; trading stickers |
 | 4 boards on the Map113 top wall, a page per run, flip pages | One shared free canvas; zoom; sticker rotation or size |
 | Optional name (12) + sentence (40) per placement | Editing or deleting your own entry after saving |
 | Own Hebrew/English cursor keyboard, no digits | A physical keyboard path; emoji; digits; a word filter |
@@ -133,20 +140,20 @@ Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 | Ido visit outside the arch with the approved two-box line | Any in-game item or reward; a visit inside the temple |
 | BGM fade in the board/keyboard scenes | Changing Map113's Time-Warp BGM elsewhere in the hall |
 | Pure-rule tests (draw, home check, cap, file round-trip) | Golden playthrough automation of the whole flow |
-| No counters, no "3/12", no wrong-board feedback | Trainer-card badge; a completion jingle |
+| No counters, no "3/12"; off-board stickers are left out of the tray, with a "goes on X" line when none fit (2026-10-26) | Trainer-card badge; a completion jingle |
 
 ---
 
 ## User flow
 
-1. A new run starts (cabinet "New deserttown Game" or first boot). The game deals 4 hidden stickers, one per honoree.
-2. On Map096, walking north to the temple, the player passes signs. Pressing Red on a sign shows its fact (2 lines, no plate). If its sticker is in the hand, a quiet line follows with the sticker image.
+1. A new run starts (cabinet "New deserttown Game" or first boot). No stickers are dealt; the hand starts empty.
+2. On Map096, walking north to the temple, the player passes signs. Pressing Red on a sign shows its fact (2 lines, no plate). The first read in a run follows with a quiet line and that sign's sticker image.
 3. Inside Map113 the player reads the pedestal plaques the same way.
 4. At a board on the top wall, Red opens the board screen. It shows the latest stranger's page first, with stickers and sentences on hover.
-5. Joystick left/right flips pages and up/down reads stickers. Orange picks a hand sticker, Red goes to your own page, then the joystick and Red stick it in a cell.
+5. Joystick left/right flips pages and up/down reads stickers. Orange picks a hand sticker that belongs on this board, Red goes to your own page, then the joystick and Red stick it on a spot (half-sticker steps).
 6. "Add your name and a sentence?" Yes opens the keyboard. The name is asked on the first placement, then the board's sentence prompt. Green = done. No skips it.
-7. Repeat for the other stickers on any boards. Blue leaves the board.
-8. Leaving through the arch: if all 4 went to their home boards, Ido (or the fallback) walks up at (11,15) and says the two boxes, then leaves. Otherwise nothing happens.
+7. Repeat for the other stickers on their own boards. Blue leaves the board.
+8. Leaving through the arch: if every board has one of your stickers, Ido (or the fallback) walks up at (11,15) and says the two boxes, then leaves. Otherwise nothing happens.
 9. The next player starts a new run. Your page is now one of the "strangers' pages" they flip through.
 10. Staff: type the staff code as a name, then delete or wipe or toggle the visit as needed.
 

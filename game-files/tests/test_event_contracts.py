@@ -45,6 +45,7 @@ PLUGIN_DIRS = (
     ROOT / "Plugins" / "DesertTownArcade",
     ROOT / "Plugins" / "TempleStickers",
     ROOT / "Plugins" / "zFlamingoBand",
+    ROOT / "Plugins" / "zBags",
 )
 
 

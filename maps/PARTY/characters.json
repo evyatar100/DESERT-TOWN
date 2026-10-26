@@ -74,8 +74,8 @@
   {
     "id": "d472e0a3",
     "name": "BARDAK",
-    "x": 22,
-    "y": 14,
+    "x": 37,
+    "y": 16,
     "graphic": "dt_d472e0a3",
     "notes": "hops along custom move route; moves right and left"
   },
@@ -106,8 +106,8 @@
   {
     "id": "0552d83f",
     "name": "Stormrider1",
-    "x": 34,
-    "y": 14,
+    "x": 35,
+    "y": 4,
     "graphic": "dt_0552d83f",
     "notes": "hops along custom move route; moves in place"
   },
@@ -138,8 +138,8 @@
   {
     "id": "fc5dfab1",
     "name": "איליושה",
-    "x": 47,
-    "y": 14,
+    "x": 29,
+    "y": 24,
     "graphic": "dt_fc5dfab1",
     "notes": "hops along custom move route; moves at random"
   },
@@ -186,8 +186,8 @@
   {
     "id": "92958f4d",
     "name": "ארי מימון",
-    "x": 47,
-    "y": 17,
+    "x": 34,
+    "y": 14,
     "graphic": "dt_92958f4d",
     "notes": "hops along custom move route; moves up, right, down, and left"
   },
@@ -250,8 +250,8 @@
   {
     "id": "2082afb4",
     "name": "דורוס",
-    "x": 46,
-    "y": 20,
+    "x": 32,
+    "y": 18,
     "graphic": "dt_2082afb4",
     "notes": "hops along custom move route; moves left then right"
   },
@@ -314,8 +314,8 @@
   {
     "id": "85acb2b8",
     "name": "טווולה",
-    "x": 48,
-    "y": 23,
+    "x": 31,
+    "y": 4,
     "graphic": "dt_85acb2b8",
     "notes": "hops along custom move route; moves at random"
   },
@@ -384,11 +384,27 @@
     "notes": "hops along custom move route; moves at random"
   },
   {
-    "id": "845a91aa",
-    "name": "מאבטח",
+    "id": "b3178e6b",
+    "name": "רוחמה",
     "x": 47,
     "y": 26,
+    "graphic": "dt_b3178e6b",
+    "notes": "hops along custom move route; jumps in place"
+  },
+  {
+    "id": "845a91aa",
+    "name": "מאבטח",
+    "x": 26,
+    "y": 11,
     "graphic": "dt_845a91aa",
-    "notes": "hops along custom move route; moves in place"
+    "notes": "pbDesertSpeaker"
+  },
+  {
+    "id": "cace0cde",
+    "name": "עידו",
+    "x": 34,
+    "y": 12,
+    "graphic": "dt_cace0cde",
+    "notes": "hops along custom move route; jumps in place"
   }
 ]

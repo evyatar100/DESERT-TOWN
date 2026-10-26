@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-25T23:18:52Z",
+  "generated_at": "2026-10-26T07:46:15Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -290,8 +290,8 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 88,
-      "char_count": 88,
+      "event_count": 89,
+      "char_count": 89,
       "chars": [
         "\u05e0\u05d9\u05e1\u05d9\u05dd",
         "Looti scooti balaboosti",
@@ -380,7 +380,8 @@
         "\u05e8\u05d5\u05d7\u05de\u05d4",
         "\u05e8\u05d6 \u05d4\u05dc\u05dc",
         "\u05e8\u05d6\u05d9\u05ea",
-        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8"
+        "\u05ea\u05d5\u05e8 \u05dc\u05d9 \u05d0\u05d5\u05e8",
+        "\u05e2\u05d9\u05d3\u05d5"
       ],
       "has_artifacts": false
     },
@@ -2266,7 +2267,7 @@
       "map_id": 93,
       "tileset_name": "PARTY_ts",
       "is_outside": true,
-      "bgm": "Aliens",
+      "bgm": "Alien Party",
       "status": "in_progress",
       "deprecated": false,
       "notes": "",
@@ -2321,8 +2322,8 @@
         "west": null
       },
       "event_connections": [],
-      "event_count": 49,
-      "char_count": 49,
+      "event_count": 51,
+      "char_count": 51,
       "chars": [
         "\u05d6\u05d9\u05d2-\u05d6\u05d0\u05d3",
         "\u05e0\u05d5\u05e8 \u05d4\u05d0\u05d1\u05d9\u05e8",
@@ -2372,7 +2373,9 @@
         "\u05d9\u05e2\u05e8\u05d5\u05dc",
         "\u05dc\u05d3\u05d4 \u05d1\u05ea \u05e0\u05d7\u05d9\u05e8",
         "\u05dc\u05d9\u05dc\u05d9",
-        "\u05de\u05d0\u05d1\u05d8\u05d7"
+        "\u05e8\u05d5\u05d7\u05de\u05d4",
+        "\u05de\u05d0\u05d1\u05d8\u05d7",
+        "\u05e2\u05d9\u05d3\u05d5"
       ],
       "has_artifacts": false
     },
@@ -2652,7 +2655,7 @@
       "event_connections": [
         "spacesheep-in-64"
       ],
-      "event_count": 14,
+      "event_count": 15,
       "char_count": 1,
       "chars": [
         "\u05d7\u05d9\u05d9\u05d6\u05e81"

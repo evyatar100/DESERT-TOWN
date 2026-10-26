@@ -702,5 +702,13 @@
     "y": 27,
     "graphic": "dt_a7ba5185",
     "notes": "camp=_(no camp)_; pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "cace0cde",
+    "name": "עידו",
+    "x": 33,
+    "y": 27,
+    "graphic": "dt_cace0cde",
+    "notes": "camp=_(no camp)_; pbDesertSpeaker + pbDesertTalk"
   }
 ]

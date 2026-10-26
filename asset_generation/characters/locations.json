@@ -2141,8 +2141,8 @@
       "character_id": "d472e0a3",
       "map_id": 93,
       "event_id": 10,
-      "x": 22,
-      "y": 14,
+      "x": 37,
+      "y": 16,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2189,8 +2189,8 @@
       "character_id": "0552d83f",
       "map_id": 93,
       "event_id": 14,
-      "x": 34,
-      "y": 14,
+      "x": 35,
+      "y": 4,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2237,8 +2237,8 @@
       "character_id": "fc5dfab1",
       "map_id": 93,
       "event_id": 18,
-      "x": 47,
-      "y": 14,
+      "x": 29,
+      "y": 24,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2309,8 +2309,8 @@
       "character_id": "92958f4d",
       "map_id": 93,
       "event_id": 24,
-      "x": 47,
-      "y": 17,
+      "x": 34,
+      "y": 14,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2405,8 +2405,8 @@
       "character_id": "2082afb4",
       "map_id": 93,
       "event_id": 32,
-      "x": 46,
-      "y": 20,
+      "x": 32,
+      "y": 18,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2501,8 +2501,8 @@
       "character_id": "85acb2b8",
       "map_id": 93,
       "event_id": 40,
-      "x": 48,
-      "y": 23,
+      "x": 31,
+      "y": 4,
       "line_key": null,
       "actions": [
         "hops along custom move route",
@@ -2606,7 +2606,7 @@
       ]
     },
     {
-      "character_id": "845a91aa",
+      "character_id": "b3178e6b",
       "map_id": 93,
       "event_id": 49,
       "x": 47,
@@ -2614,7 +2614,37 @@
       "line_key": null,
       "actions": [
         "hops along custom move route",
-        "moves in place"
+        "jumps in place"
+      ]
+    },
+    {
+      "character_id": "845a91aa",
+      "map_id": 93,
+      "event_id": 51,
+      "x": 26,
+      "y": 11,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "cace0cde",
+      "map_id": 111,
+      "event_id": 89,
+      "x": 33,
+      "y": 27,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "cace0cde",
+      "map_id": 93,
+      "event_id": 50,
+      "x": 34,
+      "y": 12,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route",
+        "jumps in place"
       ]
     }
   ]

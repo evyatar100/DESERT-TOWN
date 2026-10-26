@@ -2,7 +2,7 @@
   "events": [
     {
       "id": 1,
-      "name": "ice-block-2",
+      "name": "dt_0f0fdcf5",
       "pages": [
         {
           "commands": [
@@ -466,7 +466,7 @@
     },
     {
       "id": 2,
-      "name": "ince-block-1",
+      "name": "dt_11eaf4fa",
       "pages": [
         {
           "commands": [
@@ -868,10 +868,24 @@
     },
     {
       "id": 3,
-      "name": "EV003",
+      "name": "dt_a715ed37",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"a715ed37\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"a715ed37\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,

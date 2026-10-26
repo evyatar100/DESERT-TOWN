@@ -2646,6 +2646,123 @@
         "hops along custom move route",
         "jumps in place"
       ]
+    },
+    {
+      "character_id": "0f0fdcf5",
+      "map_id": 88,
+      "event_id": 1,
+      "x": 29,
+      "y": 4,
+      "line_key": null,
+      "actions": [
+        "slides along the ice path"
+      ]
+    },
+    {
+      "character_id": "11eaf4fa",
+      "map_id": 88,
+      "event_id": 2,
+      "x": 44,
+      "y": 4,
+      "line_key": null,
+      "actions": [
+        "slides along the ice path"
+      ]
+    },
+    {
+      "character_id": "a715ed37",
+      "map_id": 88,
+      "event_id": 3,
+      "x": 45,
+      "y": 23,
+      "line_key": null,
+      "actions": []
+    },
+    {
+      "character_id": "4b08e38a",
+      "map_id": 91,
+      "event_id": 3,
+      "x": 25,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "648b924a",
+      "map_id": 91,
+      "event_id": 4,
+      "x": 26,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "f9348fd0",
+      "map_id": 91,
+      "event_id": 5,
+      "x": 24,
+      "y": 23,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "d4540277",
+      "map_id": 91,
+      "event_id": 6,
+      "x": 24,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "3cdacb96",
+      "map_id": 91,
+      "event_id": 7,
+      "x": 27,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "b25567c8",
+      "map_id": 91,
+      "event_id": 8,
+      "x": 20,
+      "y": 25,
+      "line_key": null,
+      "actions": [
+        "walks into the line when the player joins"
+      ]
+    },
+    {
+      "character_id": "a4012984",
+      "map_id": 91,
+      "event_id": 13,
+      "x": 28,
+      "y": 24,
+      "line_key": null,
+      "actions": [
+        "turns toward the line"
+      ]
+    },
+    {
+      "character_id": "963c65ea",
+      "map_id": 91,
+      "event_id": 14,
+      "x": 29,
+      "y": 24,
+      "line_key": null,
+      "actions": []
     }
   ]
 }

@@ -1,1 +1,66 @@
-[]
+[
+  {
+    "id": "4b08e38a",
+    "name": "ג׳וני",
+    "x": 25,
+    "y": 24,
+    "graphic": "dt_4b08e38a",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "648b924a",
+    "name": "לילי",
+    "x": 26,
+    "y": 24,
+    "graphic": "dt_648b924a",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "f9348fd0",
+    "name": "שורטי",
+    "x": 24,
+    "y": 23,
+    "graphic": "dt_f9348fd0",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "d4540277",
+    "name": "גברי",
+    "x": 24,
+    "y": 24,
+    "graphic": "dt_d4540277",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "3cdacb96",
+    "name": "בנג׳ו",
+    "x": 27,
+    "y": 24,
+    "graphic": "dt_3cdacb96",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "b25567c8",
+    "name": "פרא",
+    "x": 20,
+    "y": 25,
+    "graphic": "dt_b25567c8",
+    "notes": "walks into the line when the player joins"
+  },
+  {
+    "id": "a4012984",
+    "name": "נטע לובנש",
+    "x": 28,
+    "y": 24,
+    "graphic": "dt_a4012984",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "963c65ea",
+    "name": "נור האביר",
+    "x": 29,
+    "y": 24,
+    "graphic": "dt_963c65ea",
+    "notes": ""
+  }
+]

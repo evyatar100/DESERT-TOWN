@@ -1,5 +1,5 @@
 # Safe RPG Maker XP map event I/O through real Ruby Marshal (see ../SKILL.md).
-# Usage: ruby rxdata_io.rb <dump|add|move|set-move|delete|verify> MAP.rxdata [options]
+# Usage: ruby rxdata_io.rb <dump|add|move|set-move|retarget|delete|verify> MAP.rxdata [options]
 require 'json'
 require 'optparse'
 require 'fileutils'
@@ -366,6 +366,74 @@ def cmd_set_move(path, o)
   safe_write(o[:out] || path, map, before, ids, o[:scratch])
 end
 
+# Change an existing event in place. Keeps its id, tile, direction, and any command
+# that is not listed in drop_text. talk prepends pbDesertSpeaker / pbDesertTalk.
+# graphic is applied to every page. page limits talk / insert_before_end to one page.
+def apply_retarget(e, ed)
+  ivs(e, name: bin(ed['name'])) if ed['name']
+  pages = iv(e, :pages)
+  fail!("event #{iv(e, :id)} has no pages") if pages.nil? || pages.empty?
+  pages.each_with_index do |page, i|
+    if ed['graphic']
+      graphic = iv(page, :graphic) or fail!("event #{iv(e, :id)} page #{i} has no graphic")
+      graphic.instance_variable_set(:@character_name, bin(ed['graphic']))
+    end
+    next unless ed['talk'] || ed['insert_before_end']
+    next if ed.key?('page') && i != ed['page']
+    list = iv(page, :list) || []
+    if ed['talk']
+      cid = ed['talk'].to_s
+      fail!("talk must be a hex character id, got #{cid.inspect}") unless cid.match?(/\A\h+\z/)
+      drop = Array(ed['drop_text']).map { |s| s.to_s }
+      kept = list.reject do |c|
+        params = iv(c, :parameters) || []
+        iv(c, :code) == 101 && params[0] && drop.include?(txt(params[0]))
+      end
+      kept = kept[0...-1] if kept.last && iv(kept.last, :code) == 0
+      new_list = [
+        cmd(355, [bin(%(pbDesertSpeaker("#{cid}")))]),
+        cmd(355, [bin(%(pbDesertTalk("#{cid}")))])
+      ]
+      new_list.concat(kept)
+      new_list << cmd(0, [])
+      ivs(page, list: new_list)
+    else
+      body = list.dup
+      body.pop if body.last && iv(body.last, :code) == 0
+      ed['insert_before_end'].each do |c|
+        fail!('each insert_before_end command needs a code') unless c.is_a?(Hash) && c['code'].is_a?(Integer)
+        params = (c['parameters'] || []).map { |p| p.is_a?(String) ? bin(p) : p }
+        body << cmd(c['code'], params, c['indent'] || 0)
+      end
+      body << cmd(0, [])
+      ivs(page, list: body)
+    end
+  end
+end
+
+def cmd_retarget(path, o)
+  fail!('retarget needs --spec FILE.json') unless o[:spec]
+  spec = JSON.parse(File.read(o[:spec], encoding: 'UTF-8'))
+  edits = spec['events']
+  fail!('retarget spec needs an "events" list') unless edits.is_a?(Array) && !edits.empty?
+  map = load_map(path)
+  events = iv(map, :events)
+  ids = edits.map do |ed|
+    fail!('each retarget event needs an id') unless ed.is_a?(Hash) && ed['id'].is_a?(Integer)
+    events[ed['id']] or fail!("no event #{ed['id']}")
+    ed['id']
+  end
+  fail!("retarget ids repeat: #{ids.inspect}") unless ids.uniq.size == ids.size
+  before = fingerprint(map)
+  edits.each { |ed| apply_retarget(events[ed['id']], ed) }
+  if o[:dry]
+    edits.each { |ed| puts "DRY RUN would retarget #{event_summary(events[ed['id']])}" }
+    return
+  end
+  safe_write(o[:out] || path, map, before, ids, o[:scratch])
+  edits.each { |ed| puts "retargeted #{event_summary(events[ed['id']])}" }
+end
+
 def cmd_move(path, o)
   fail!('move needs --id N --x X --y Y') unless o[:id] && o[:x] && o[:y]
   map = load_map(path)
@@ -423,7 +491,7 @@ OptionParser.new do |op|
   op.on('--allow-overlap') { o[:overlap] = true }
   op.on('--scratch-copy') { o[:scratch] = true }
 end.parse!(ARGV)
-path = ARGV.shift or fail!('usage: rxdata_io.rb <dump|add|move|delete|verify> MAP.rxdata [options]')
-cmds = { 'dump' => :cmd_dump, 'add' => :cmd_add, 'move' => :cmd_move, 'set-move' => :cmd_set_move, 'delete' => :cmd_delete, 'verify' => :cmd_verify }
+path = ARGV.shift or fail!('usage: rxdata_io.rb <dump|add|move|set-move|retarget|delete|verify> MAP.rxdata [options]')
+cmds = { 'dump' => :cmd_dump, 'add' => :cmd_add, 'move' => :cmd_move, 'set-move' => :cmd_set_move, 'retarget' => :cmd_retarget, 'delete' => :cmd_delete, 'verify' => :cmd_verify }
 fail!("unknown command #{sub.inspect}") unless cmds[sub]
 send(cmds[sub], path, o)

@@ -22,6 +22,7 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 | Add event | `ruby $R add MAP --spec spec.json [--dry-run] [--allow-overlap]` |
 | Move | `ruby $R move MAP --id 5 --x 10 --y 12` |
 | Autonomous movement | `ruby $R set-move MAP --id 4 --move-type 1 --move-speed 3 --move-frequency 4` (repeat `--id` for several events). Type 0 fixed, 1 random, 2 approach, 3 custom. Speed 3 is Slow, frequency 4 is High. |
+| Retarget in place | `ruby $R retarget MAP --spec spec.json`. Keeps the event id and tile. `graphic` is set on every page. `talk` prepends `pbDesertSpeaker` / `pbDesertTalk` and drops Show Text lines listed in `drop_text`. `insert_before_end` adds commands before the final end command. `page` limits those command edits to one page. |
 | Delete | `ruby $R delete MAP --id 5` |
 | Read-only check | `ruby $R verify MAP` (BYTE_EXACT or SEMANTIC_EQUAL is good; MISMATCH exits 3) |
 
@@ -39,6 +40,8 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 ```
 
 - `talk` must be a hex character id and expands to `pbDesertSpeaker("<id>")`, `pbDesertTalk("<id>")`, then the end command, the same shape as `asset_generation/characters/place_kusumo_on_map95.py`.
+- `through: true` makes the new event non-blocking. Use it for an invisible autorun.
+- `retarget` spec: `{"events":[{"id":3,"name":"dt_11eaf4fa","graphic":"dt_11eaf4fa","talk":"11eaf4fa","drop_text":["ICE-CUSTOMER-1"]}]}`. Omit `talk` to keep the command list and only change the sprite.
 - `commands`: `[{"code": 101, "parameters": ["MSG_X"]}]` appended after `talk` (the end command is added if missing).
 - `clone_from: <event id>` deep-copies that event, then applies name, x, y, graphic, talk/commands.
 - `id` defaults to max+1; after a delete that can reuse the deleted id, and the tool warns if any backup held it. Pin a fresh `id` in the spec if anything refers to events by id. Action Button trigger, direction 2, unless `trigger` or `direction` is given.

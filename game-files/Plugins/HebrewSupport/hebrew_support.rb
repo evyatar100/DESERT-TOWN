@@ -145,6 +145,15 @@ module HebrewText
   PRIMARY_FILE = "PBS/translations.json"
   FALLBACK_FILE = "Data/translations.json"
 
+  # Paired punctuation must swap glyphs when character order is reversed for RTL,
+  # otherwise bag names like "בקבוק מים (לבן)" show as ")לבן(".
+  MIRROR_PAIRS = {
+    "(" => ")", ")" => "(",
+    "[" => "]", "]" => "[",
+    "{" => "}", "}" => "{",
+    "<" => ">", ">" => "<",
+  }.freeze
+
   @translations = nil
   @language = :he
 
@@ -248,6 +257,23 @@ module HebrewText
     return text
   end
 
+  def self.mirror_bidi_char(char)
+    return char unless char.is_a?(String)
+    MIRROR_PAIRS[char] || char
+  end
+
+  # Reverse a Hebrew (or mixed) token for LTR bitmap drawing, mirroring paired marks.
+  def self.reverse_hebrew_token(token)
+    token.chars.map { |c| mirror_bidi_char(c) }.reverse.join
+  end
+
+  # True when the token is English/digits (optionally wrapped in paired punctuation).
+  def self.ltr_token?(token)
+    return true if token.match?(/\A[a-zA-Z0-9\-_.,!?]+\z/)
+    core = token.gsub(/\A[\(\[\{<]+/, "").gsub(/[\)\]\}>]+\z/, "")
+    !core.empty? && core.match?(/\A[a-zA-Z0-9\-_.,!?]+\z/)
+  end
+
   # Only used for text rendering where formatting codes aren't used (like menus)
   def self.visual_reverse(text)
     return text if text.nil? || !text.is_a?(String)
@@ -257,10 +283,10 @@ module HebrewText
     # Reverse the order of words, but keep numbers and english words LTR
     words = text.split(' ')
     rev_words = words.map do |w|
-      if w.match?(/\A[a-zA-Z0-9\-_.,!?]+\z/)
-        w # Keep numbers/english LTR
+      if ltr_token?(w)
+        w # Keep numbers/english LTR (including wrapping parentheses)
       else
-        w.chars.reverse.join
+        reverse_hebrew_token(w)
       end
     end
     return rev_words.reverse.join(' ')
@@ -470,11 +496,13 @@ if defined?(getFormattedText)
               c[1] = new_b_min_x + offset
             end
           else
-            # Reverse internal Right-to-Left order (Hebrew)
+            # Reverse internal Right-to-Left order (Hebrew), and mirror
+            # paired punctuation so "(" / ")" keep the correct visual shape.
             bchars.each do |c|
               old_x = c[1]
               width = c[3]
               c[1] = new_b_min_x + (b_width - (old_x - b_min_x) - width)
+              c[0] = HebrewText.mirror_bidi_char(c[0]) if c[0].is_a?(String)
             end
           end
         end

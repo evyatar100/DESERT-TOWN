@@ -140,6 +140,47 @@ def next_depth(depth):
     return int(depth) + 1
 
 
+MIRROR_PAIRS = {
+    "(": ")",
+    ")": "(",
+    "[": "]",
+    "]": "[",
+    "{": "}",
+    "}": "{",
+    "<": ">",
+    ">": "<",
+}
+HEBREW_RANGE = range(0x0590, 0x05FF + 1)
+
+
+def mirror_bidi_char(char):
+    return MIRROR_PAIRS.get(char, char)
+
+
+def reverse_hebrew_token(token):
+    return "".join(mirror_bidi_char(c) for c in reversed(token))
+
+
+def ltr_token(token):
+    import re
+
+    if re.fullmatch(r"[a-zA-Z0-9\-_.,!?]+", token):
+        return True
+    core = re.sub(r"^[(\[{<]+", "", token)
+    core = re.sub(r"[)\]}>]+$", "", core)
+    return bool(core) and bool(re.fullmatch(r"[a-zA-Z0-9\-_.,!?]+", core))
+
+
+def visual_reverse(text):
+    if text is None or not isinstance(text, str):
+        return text
+    if not any(ord(c) in HEBREW_RANGE for c in text):
+        return text
+    words = text.split(" ")
+    rev_words = [w if ltr_token(w) else reverse_hebrew_token(w) for w in words]
+    return " ".join(reversed(rev_words))
+
+
 class PluginRuleTests(unittest.TestCase):
     def test_plugins_call_the_decision_methods(self):
         seller = (ROOT / "Plugins" / "HebrewSupport" / "ice_seller.rb").read_text(encoding="utf-8")
@@ -149,6 +190,12 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        hebrew = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("MIRROR_PAIRS", hebrew)
+        self.assertIn("mirror_bidi_char", hebrew)
+        self.assertIn("reverse_hebrew_token", hebrew)
         lights = (ROOT / "Plugins" / "PartyLights" / "party_lights.rb").read_text(encoding="utf-8")
         sheep = (ROOT / "Plugins" / "SpacesheepCool" / "spacesheep_cool.rb").read_text(encoding="utf-8")
         self.assertIn("MAP_ID = 93", lights)
@@ -354,6 +401,13 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual([91, 41, 35, 2][0:3], [91, 41, 35])
         for amount in (0, 1, 4):
             self.assertEqual(normalize_starter_quantity(amount), 1)
+        bottle = visual_reverse("בקבוק מים (לבן)")
+        self.assertIn("(ןבל)", bottle)
+        self.assertNotIn(")ןבל(", bottle)
+        self.assertEqual(visual_reverse("שלום"), "םולש")
+        self.assertEqual(visual_reverse("בדיקה (OK)"), "(OK) הקידב")
+        self.assertEqual(mirror_bidi_char("("), ")")
+        self.assertEqual(mirror_bidi_char(")"), "(")
 
         speaker = DesertSpeaker()
         speaker.start_speaker("11eaf4fa")

@@ -68,6 +68,7 @@ class Scene_Map
 end
 
 load File.join(ROOT, "Plugins/BurningManBag/burning_man_bag.rb")
+load File.join(ROOT, "Plugins/HebrewSupport/hebrew_support.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_in_timer.rb")
 load File.join(ROOT, "Plugins/HebrewSupport/ice_seller.rb")
 
@@ -547,6 +548,24 @@ check(MomDadBattleRules.outcome(1) == :win, "battle: outcome 1 is a win")
 check(MomDadBattleRules.outcome(2) == :lose, "battle: a loss is a loss")
 check(MomDadBattleRules.outcome(3) == :lose, "battle: running is a loss")
 check(MomDadBattleRules.follower_name("b25567c8") == "momdad_child_b25567c8", "battle: follower name")
+
+# --- Hebrew RTL parentheses (bag item names) ---
+bottle = "בקבוק מים (לבן)"
+reversed_bottle = HebrewText.visual_reverse(bottle)
+check(reversed_bottle.include?("(ןבל)"),
+      "bag Hebrew name keeps opening '(' on the visual left of the word")
+check(reversed_bottle.include?(")"),
+      "bag Hebrew name keeps closing ')' on the visual right of the word")
+check(!reversed_bottle.include?(")ןבל("),
+      "bag Hebrew name does not show reversed parentheses glyphs")
+check(HebrewText.visual_reverse("שלום") == "םולש", "plain Hebrew still reverses")
+check(HebrewText.visual_reverse("20 Shekel") == "20 Shekel",
+      "English without Hebrew is left alone")
+check(HebrewText.mirror_bidi_char("(") == ")", "mirror open paren")
+check(HebrewText.mirror_bidi_char(")") == "(", "mirror close paren")
+check(HebrewText.ltr_token?("(OK)"), "English in parentheses stays LTR")
+check(HebrewText.visual_reverse("בדיקה (OK)") == "(OK) הקידב",
+      "English parenthetical stays intact inside Hebrew")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

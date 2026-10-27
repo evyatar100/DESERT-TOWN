@@ -999,6 +999,8 @@ load File.join(__dir__, "planet_rules_test.rb")
 load File.join(__dir__, "toaster_rules_test.rb")
 # TG14 arm wrestling rules, bots, the cowboy flow and the scene smoke run, same pattern.
 load File.join(__dir__, "arm_rules_test.rb")
+# TG23 Alla's stand rules, talk flow and the rush scene smoke run, same pattern.
+load File.join(__dir__, "alla_rules_test.rb")
 check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
 check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
       "battle: loss tile is (25, 3) facing down")

@@ -2810,6 +2810,17 @@
       "actions": [
         "sells ice"
       ]
+    },
+    {
+      "character_id": "4c4e039d",
+      "map_id": 98,
+      "event_id": 15,
+      "x": 11,
+      "y": 14,
+      "line_key": null,
+      "actions": [
+        "starts the Hot-Dog Stand quest (zAllaStand)"
+      ]
     }
   ]
 }

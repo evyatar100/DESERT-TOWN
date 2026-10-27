@@ -94,5 +94,13 @@
     "y": 38,
     "graphic": "dt_f9348fd0",
     "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "4c4e039d",
+    "name": "עלא",
+    "x": 11,
+    "y": 14,
+    "graphic": "dt_4c4e039d",
+    "notes": "pbDesertSpeaker + pbDesertTalk"
   }
 ]

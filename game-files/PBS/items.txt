@@ -6656,6 +6656,14 @@ Price = 0
 Flags = KeyItem
 Description = One crumb, framed. Fell on the first Toast Day. Approved by the Appliance Committee, retroactively.
 #-------------------------------
+[ALLAHOTDOG]
+Name = Alla's Hot Dog
+NamePlural = Alla's Hot Dogs
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A state hot dog. Decree printed on the wrapper: all toppings are legal today.
+#-------------------------------
 [EVENTPROGRAM]
 Name = Event Program
 NamePlural = Event Programs

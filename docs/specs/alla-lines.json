@@ -1,0 +1,250 @@
+{
+  "ALLA_ASK_1": {
+    "he": "הדוכן סגור. לא אני סגרתי. העם עוד לא החליט.",
+    "en": "The stand is closed. I didn't close it. The people haven't decided yet."
+  },
+  "ALLA_ASK_2": {
+    "he": "יהיה משאל עם על שם הדוכן. בפתק יש אפשרות אחת. ככה אף אחד לא מתבלבל.",
+    "en": "There will be a referendum on the stand's name. The ballot has one option. That way nobody gets confused."
+  },
+  "ALLA_ASK_3": {
+    "he": "צריך שלושה קולות מקאמפ הפי אוור: טל, אליאס ומאריו. הם מצביעים. אני סופר.",
+    "en": "I need three votes from Happy Hour camp: Tal, Elias and Mario. They vote. I count."
+  },
+  "ALLA_ASK_4": {
+    "he": "מהרגע הזה אתה שר הקלפיות. זה חוק. חוקקתי אותו עכשיו.",
+    "en": "As of this moment you are Minister of Ballots. That's a law. I passed it just now."
+  },
+  "ALLA_REMIND": {
+    "he": "בקלפי: {1}/3. עוד לא הצביעו: {2}. הדמוקרטיה מחכה. גם אני.",
+    "en": "In the box: {1}/3. Still to vote: {2}. Democracy is waiting. So am I."
+  },
+  "ALLA_VOTE_TAL_1": {
+    "he": "הצבעה? על מה? אני רק רוצה לחלק נקניקיות.",
+    "en": "A vote? On what? I just want to hand out hot dogs."
+  },
+  "ALLA_VOTE_TAL_2": {
+    "he": "טוב. אני מצביעה בעד הנקניקייה. רוצה אחת בינתיים?",
+    "en": "Fine. I vote for the hot dog. Want one in the meantime?"
+  },
+  "ALLA_VOTED_TAL": {
+    "he": "כבר הצבעתי. בעד הנקניקייה. רוצה נקניקייה?",
+    "en": "I already voted. For the hot dog. Want a hot dog?"
+  },
+  "ALLA_VOTE_ELIAS_1": {
+    "he": "מצביעים? רגע, חמוריקו רץ?",
+    "en": "We're voting? Wait, is Hamoriko running?"
+  },
+  "ALLA_VOTE_ELIAS_2": {
+    "he": "אני מצביע חמוריקו. אם הוא יופיע, תגידו לו שיש לו קול.",
+    "en": "I vote Hamoriko. If he turns up, tell him he has a vote."
+  },
+  "ALLA_VOTED_ELIAS": {
+    "he": "הצבעתי חמוריקו. עכשיו רק צריך למצוא את המועמד.",
+    "en": "I voted Hamoriko. Now we just need to find the candidate."
+  },
+  "ALLA_VOTE_MARIO_1": {
+    "he": "פתק? אוכלים את זה?",
+    "en": "A ballot? Do you eat it?"
+  },
+  "ALLA_VOTE_MARIO_2": {
+    "he": "אוכל. אני מצביע אוכל.",
+    "en": "Food. I vote food."
+  },
+  "ALLA_VOTED_MARIO": {
+    "he": "הצבעתי. עכשיו אוכל?",
+    "en": "I voted. Now food?"
+  },
+  "ALLA_COUNT_1": {
+    "he": "הקלפי נסגרה. הספירה גלויה ושקופה. כמו המשקפיים שלי.",
+    "en": "The ballot box is closed. The count is open and transparent. Like my sunglasses."
+  },
+  "ALLA_COUNT_2": {
+    "he": "פתק ראשון, טל: \"בעד הנקניקייה\". הנקניקייה זה עלא. קול לעלא.",
+    "en": "Ballot one, Tal: \"For the hot dog.\" The hot dog is Alla. A vote for Alla."
+  },
+  "ALLA_COUNT_3": {
+    "he": "פתק שני, אליאס: \"חמוריקו\". חמוריקו לא רץ. הקול עובר למועמד הבא. עלא.",
+    "en": "Ballot two, Elias: \"Hamoriko.\" Hamoriko isn't running. The vote passes to the next candidate. Alla."
+  },
+  "ALLA_COUNT_4": {
+    "he": "פתק שלישי, מאריו: \"אוכל\". מי נותן פה אוכל? עלא. קול לעלא.",
+    "en": "Ballot three, Mario: \"Food.\" Who gives out food around here? Alla. A vote for Alla."
+  },
+  "ALLA_COUNT_5": {
+    "he": "3 מתוך 3. מאה אחוז דמוקרטיה. החוק הראשון עבר תוך שלוש שניות: פותחים.",
+    "en": "3 out of 3. One hundred percent democracy. The first law passed in three seconds: we open."
+  },
+  "ALLA_RUSH_PRE_1": {
+    "he": "הדוכן פתוח. הם מזמינים, אתה מגיש. לפי החוק.",
+    "en": "The stand is open. They order, you serve. According to the law."
+  },
+  "ALLA_RUSH_PRE_2": {
+    "he": "החוק עשוי להשתנות במהלך המשמרת. אני אודיע. תוך שלוש שניות.",
+    "en": "The law may change during the shift. I'll announce it. Within three seconds."
+  },
+  "ALLA_RUSH_LOSE": {
+    "he": "הלקוחות מחו. המחאה תויקה בתיבת ההצעות. היא בפח.",
+    "en": "The customers protested. The protest has been filed in the suggestion box. It's in the bin."
+  },
+  "ALLA_RETRY_ASK": {
+    "he": "לפתוח שוב את הדוכן?",
+    "en": "Open the stand again?"
+  },
+  "ALLA_RETRY_YES": {
+    "he": "כן",
+    "en": "Yes"
+  },
+  "ALLA_RETRY_NO": {
+    "he": "לא עכשיו",
+    "en": "Not now"
+  },
+  "ALLA_LAW_NUM": {
+    "he": "חוק מס' {1}",
+    "en": "Law No. {1}"
+  },
+  "ALLA_LAW_0": {
+    "he": "כמו שהזמינו",
+    "en": "As ordered"
+  },
+  "ALLA_LAW_1": {
+    "he": "חרדל אסור",
+    "en": "Mustard is banned"
+  },
+  "ALLA_LAW_2": {
+    "he": "קטשופ על כל נקניקייה",
+    "en": "Ketchup on every hot dog"
+  },
+  "ALLA_LAW_3": {
+    "he": "רק שתי התוספות הראשונות",
+    "en": "Only the first two toppings"
+  },
+  "ALLA_LAW_4": {
+    "he": "בצל רק למי שהצביע",
+    "en": "Onion only for voters"
+  },
+  "ALLA_LAW_5": {
+    "he": "כרוב כבוש רק עם חרדל",
+    "en": "Sauerkraut only with mustard"
+  },
+  "ALLA_LAW_BANNER": {
+    "he": "חוק חדש. הדיון: 3 שניות.",
+    "en": "New law. Debate: 3 seconds."
+  },
+  "ALLA_TOP_KETCHUP": {
+    "he": "קטשופ",
+    "en": "Ketchup"
+  },
+  "ALLA_TOP_MUSTARD": {
+    "he": "חרדל",
+    "en": "Mustard"
+  },
+  "ALLA_TOP_ONION": {
+    "he": "בצל מטוגן",
+    "en": "Fried onion"
+  },
+  "ALLA_TOP_KRAUT": {
+    "he": "כרוב כבוש",
+    "en": "Sauerkraut"
+  },
+  "ALLA_RUSH_COUNT": {
+    "he": "הזמנה {1}/{2}",
+    "en": "Order {1}/{2}"
+  },
+  "ALLA_RUSH_VOTED": {
+    "he": "פתק בקלפי",
+    "en": "Voted"
+  },
+  "ALLA_RUSH_HINT": {
+    "he": "ג'ויסטיק = תוספת · אדום = הגשה · כחול = לפח",
+    "en": "Joystick = topping · Red = serve · Blue = bin"
+  },
+  "ALLA_RUSH_OK": {
+    "he": "טעים וחוקי",
+    "en": "Tasty and legal"
+  },
+  "ALLA_RUSH_ILLEGAL": {
+    "he": "לא חוקתי",
+    "en": "Unconstitutional"
+  },
+  "ALLA_RUSH_LATE": {
+    "he": "הצביע ברגליים",
+    "en": "Voted with their feet"
+  },
+  "ALLA_RUSH_RESULT": {
+    "he": "הזמנות חוקיות: {1}/{2}",
+    "en": "Legal orders: {1}/{2}"
+  },
+  "ALLA_RUSH_PASS": {
+    "he": "העם שבע רצון",
+    "en": "The people are satisfied"
+  },
+  "ALLA_RUSH_FAIL": {
+    "he": "העם מוחה",
+    "en": "The people protest"
+  },
+  "ALLA_END_TITLE": {
+    "he": "הנקנקיה של עלא",
+    "en": "Alla's Hot Dog Stand"
+  },
+  "ALLA_CEREMONY_1": {
+    "he": "רגע חגיגי. מדליית הדוכן מוענקת לי. היא תיתלה ליד פרס הנובל שלי. גם הוא ממני.",
+    "en": "A solemn moment. The Stand Medal is awarded to me. It will hang next to my Nobel Prize. Also from me."
+  },
+  "ALLA_CEREMONY_2": {
+    "he": "ולשר הקלפיות: נקניקייה ממלכתית. החוק אוסר להחזיר אותה.",
+    "en": "And to the Minister of Ballots: a state hot dog. The law forbids returning it."
+  },
+  "ALLA_CEREMONY_3": {
+    "he": "שאלות מהעיתונות? אין עיתונות. מצוין. מסיבת העיתונאים הסתיימה.",
+    "en": "Questions from the press? There is no press. Excellent. The press conference is over."
+  },
+  "ALLA_GOT_HOTDOG": {
+    "he": "הנקניקייה הממלכתית בתיק. על העטיפה מודפס חוק.",
+    "en": "The state hot dog is in the bag. A law is printed on the wrapper."
+  },
+  "ALLA_HOTDOG_RECOVER": {
+    "he": "רגע. שר הקלפיות בלי נקניקייה ממלכתית? זה לא חוקי. הנה.",
+    "en": "Wait. A Minister of Ballots without a state hot dog? That's illegal. Here."
+  },
+  "ALLA_AFTER_1": {
+    "he": "הצעות לשיפור יתקבלו בתיבת ההצעות. היא ליד הדוכן. היא הפח.",
+    "en": "Suggestions for improvement are welcome in the suggestion box. It's next to the stand. It's the bin."
+  },
+  "ALLA_AFTER_2": {
+    "he": "הבחירות הבאות כבר נקבעו. גם התוצאות.",
+    "en": "The next election has already been scheduled. So have the results."
+  },
+  "ALLA_AFTER_3": {
+    "he": "שאלה קשה? אני לא רואה שום שאלה. יש לי חול במשקפיים.",
+    "en": "A hard question? I don't see any question. There's sand in my sunglasses."
+  },
+  "ALLA_AFTER_TAL": {
+    "he": "הדוכן פתוח, אז עכשיו זה חוקי. רוצה נקניקייה?",
+    "en": "The stand is open, so now it's legal. Want a hot dog?"
+  },
+  "ALLA_AFTER_ELIAS": {
+    "he": "עלא אומר שחמוריקו זה הוא. בדקתי. אין לו אוזניים ארוכות.",
+    "en": "Alla says he is Hamoriko. I checked. He doesn't have long ears."
+  },
+  "ALLA_AFTER_MARIO": {
+    "he": "נקניקייה. סוף סוף, אוכל.",
+    "en": "A hot dog. Finally, food."
+  },
+  "ALLAHOTDOG": {
+    "he": "נקניקייה ממלכתית",
+    "en": "Alla's Hot Dog"
+  },
+  "Alla's Hot Dog": {
+    "he": "נקניקייה ממלכתית",
+    "en": "Alla's Hot Dog"
+  },
+  "Alla's Hot Dogs": {
+    "he": "נקניקיות ממלכתיות",
+    "en": "Alla's Hot Dogs"
+  },
+  "ALLAHOTDOG_DESC": {
+    "he": "צו על העטיפה: אסור לאכול את הנקניקייה הזו. היא ממלכתית. החתום: העם (עלא).",
+    "en": "Decree on the wrapper: this hot dog may not be eaten. It is a state hot dog. Signed: the People (Alla)."
+  }
+}

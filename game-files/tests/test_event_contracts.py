@@ -50,6 +50,7 @@ PLUGIN_DIRS = (
     ROOT / "Plugins" / "zPlanetarium",
     ROOT / "Plugins" / "zToaster",
     ROOT / "Plugins" / "zArmWrestle",
+    ROOT / "Plugins" / "zAllaStand",
     ROOT / "Plugins" / "MomDadBattle",
 )
 

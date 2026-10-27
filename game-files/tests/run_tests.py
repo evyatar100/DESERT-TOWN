@@ -68,6 +68,7 @@ def main(argv=None):
         "tests.test_planetarium",
         "tests.test_toaster",
         "tests.test_arm_wrestle",
+        "tests.test_alla",
         "tests.test_compiled_plugins",
         "tests.test_flamingo_band",
         "tests.test_plugin_rules",

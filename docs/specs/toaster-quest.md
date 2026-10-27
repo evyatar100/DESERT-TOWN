@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-27 | TG9 חירום טוסט (Toast Emergency): Eyal the Boss, the Appliance Committee and the possessed toaster
 
+> **Superseded in part by "Revision 2026-10-27 (founder, TG17)" at the end of this file.** Where the two conflict, the revision wins: Eyal HaNoodles is now the quest giver and the one who gets the toast, Eyal the Boss is out of the quest, and the Yunik duel and the Rotom battle are replaced by two form mini-games. Everything the revision does not mention stays as written below.
+
 ## Goal
 
 - **What:** A Kusomo quest in which Eyal the Boss sends the player after the camp's confiscated toaster. The trail runs through a carb duel with the other Eyal, a bureaucratic hearing at the Old City, a mummy-guarded casino vault and a possessed toaster. It ends back at Kusomo, where Eyal finally gets his toast.
@@ -281,4 +283,322 @@ Noam Peretz | 2026-10-27 | TG9 חירום טוסט (Toast Emergency): Eyal the B
 
 - `tests/golden/Map089.json` is stale: the live circus fight is on ev3 `dt_b25567c8` at (17,21), while the golden expects ev5. `test_event_snapshot` is also red on many stock maps and is missing goldens for 100, 101, 105 and 108. Claudet decides whether to refresh them.
 
-Ready for founder approval.
+---
+
+## Revision 2026-10-27 (founder, TG17)
+
+Binding. It supersedes the sections above wherever they conflict. All numbers are reversible defaults. There are no open questions: the founder picked every option in `docs/specs/toaster-forms-options.html`.
+
+### R0. Founder intent
+
+**Verbatim (2026-10-27):**
+1. "regarding the toster quest -> one fight with eyal the nodle is fine, but the rest- lets find other mini games the user will do with Yoni that are not fight"
+2. "I liked the idea of "form fight" lets do it something with forms"
+3. "lets switch that eyal the noodle is the one that initiate this toaster quest and remove the 1st eyal"
+4. Picks from the options page:
+   - Story spine: "The secret toast: HaNoodles asks, duels you first as a test, gets the toast at the end"
+   - Clerk hearing: "The stamp desk: forms slide in, Red approve / Blue reject by the current rule, rules get amended mid-hearing", with the note "moop in hebrew = חשל"ש"
+   - Vault: "Eviction notice: Rotom (the squatter in the toaster) hops between 9 vault appliances; joystick + Red to stamp it 5 times while Yunik reads the eviction notice"
+   - Ending line: "אייל הנודלס קיבל טוסט."
+
+**Interpretation:** the quest keeps its spine and exactly one fight, the noodle duel. Both other confrontations become short, skill-based form games played with Yunik. HaNoodles owns the quest from first line to last. In Hebrew, MOOP is always written חשל"ש.
+
+**Acceptance (what the founder sees):**
+1. Talking to Eyal HaNoodles at Kusomo starts the quest, and he duels you as a loyalty test. Eyal the Boss only ever says his own line.
+2. At the Old City, Yunik runs a stamp-desk hearing. Forms slide in, you stamp approve or reject by a rule that keeps changing, and you need about 90 seconds and a pass mark to get the Release Form. If you fail, the game asks "again?" and gets slightly easier.
+3. At the casino altar Yunik appears, and you chase the Rotom squatter around a 3×3 grid of appliances with a stamp cursor until it has 5 stamps. Then you get the toaster. If you fail, the game asks "again?", and if you say no you are escorted out with the form kept.
+4. Back at Kusomo, HaNoodles unplugs Oren's AC or his own noodle pot, the toast pops, the narration says exactly "אייל הנודלס קיבל טוסט.", and you get the crumb once. Old saves at any stage keep working.
+
+**Classification:** no boundaries doc exists for dt-game yet (gap flagged, not a blocker). This extends the existing "Toaster quest" feature in `game-files/Plugins/zToaster/`, and all new code stays in that folder. **STRUCTURE-TRIGGER: yes**: two new modal scenes and a new pure rules module. Dor adds an amendment to `docs/design/TG9-structure.md`.
+
+### R1. New beats (these replace "The story" and "User flow")
+
+**Premise change:** a Committee חשל"ש sweep confiscated Kusomo's toaster, and nobody reported it. In public HaNoodles says toast is a phase; in private he wants it back "for a friend".
+
+| # | Where | What happens | Stage after |
+|---|---|---|---|
+| 1 | Kusomo, HaNoodles (95 ev5) | First talk: his own line, then `TOAST_NOODLE_ASK_1..4`, then `ask!`. Then `TOAST_NOODLE_PRE_1..3`: before he trusts you with something this shameful, you must beat noodles. **Duel 1** follows at once (unchanged `pbDuel`, profile, moves and speeches). Win: `lead!`, then `TOAST_NOODLE_WIN_1..2` (go to Yunik). Loss: `TOAST_NOODLE_LOSE`. | `asked`, or `lead` after a win |
+| 1b | same | At `asked`, talking to him again gives the short pre-duel line (PRE_3 only after the first time this session), then the duel | `asked`, or `lead` after a win |
+| 2 | Old City, Yunik (80 ev3, existing injected `pbToasterClerk`) | `TOAST_CLERK_PRE_1..3` (PRE_3 only after the first time this session), then the **Stamp Desk** (R4). Pass: `permit!`, `TOAST_CLERK_WIN_1`, form fanfare, `TOAST_CLERK_WIN_2..4`. Fail: `TOAST_CLERK_LOSE`, then the retry prompt (R6) | `permit` after a pass |
+| 3 | Casino altar (94 ev9, unchanged event) | The first attempt per session starts with the sparks beat (`Voltorb Flip explosion` SE, shake), then `TOAST_ALTAR_POSSESSED_1..2` (a tenant is in the toaster), then `TOAST_VAULT_YUNIK_1..2` (Yunik appears "filed under Y" and reads the eviction notice), then the **Eviction** (R5). Win: `claim!`, the live altar graphic is emptied, `Slots coin`, `TOAST_ALTAR_WIN_1..2`, toaster fanfare, `TOAST_GOT_TOASTER`, then `escort_out`. Fail: the retry prompt (R6). "No" gives `TOAST_ALTAR_LOSE` and `escort_out`, with the form kept | `toaster` after a win |
+| 4 | Kusomo, HaNoodles | With the toaster held: `TOAST_NOODLE_FINALE_1..3`, then the plug choice `[TOAST_PLUG_CHOICE_AC / TOAST_PLUG_CHOICE_POT / TOAST_PLUG_CHOICE_NOTYET]`. AC: `TOAST_PLUG_AC_1` (HaNoodles), then `TOAST_PLUG_AC_2` (Oren). Pot: `TOAST_PLUG_POT_1`, then a 3 s `pbWait` with no text, then `TOAST_PLUG_POT_2` (both HaNoodles). Then `pop`, then **`TOAST_END_RECEIVED` = `אייל הנודלס קיבל טוסט.`** (narration, byte-exact), then the `Slots big win` ME, `TOAST_CEREMONY_1..4` and `crumb!`. "Not yet" or Back: `TOAST_PLUG_NOTYET`, nothing changes | `done` |
+| After | — | HaNoodles rotates `TOAST_NOODLE_AFTER_1..3`. Yunik: `TOAST_CLERK_CLOSED`. Oren: `TOAST_OREN_AC_AFTER` only if `plug == :ac`. The altar is empty | — |
+
+- **Eyal the Boss (`0f0fdcf5`):** no hook at all. He says only his own line on Map095 and Map093. The brain-in-the-jar plug option is gone.
+- **Lent team:** gone. Yunik no longer lends Pikachu, Charizard and Snorlax.
+
+### R2. `giver_decide` (replaces `eyal_decide` and `noodles_decide`)
+
+`ToasterRules.giver_decide(state, bag)` runs for HaNoodles only, on map 95:
+
+| Stage | Bag | Result | Caller does |
+|---|---|---|---|
+| `:none` | — | `:intro` | ASK lines, `ask!`, PRE lines, duel, then `lead!` on a win |
+| `:asked` | — | `:duel` | PRE (short after the first time this session), duel, then `lead!` on a win |
+| `:lead` | — | `:remind_clerk` | `TOAST_NOODLE_REMIND_CLERK` |
+| `:permit` | — | `:remind_vault` | `TOAST_NOODLE_REMIND_VAULT` |
+| `:toaster` | TOASTER held | `:finale` | Beat 4 |
+| `:toaster` | not held | `:remind_altar` | `TOAST_NOODLE_REMIND_ALTAR` |
+| `:done` | `crumb_given` false | `:crumb_recover` | `TOAST_CRUMB_RECOVER`, then `crumb!` |
+| `:done` | `crumb_given` true | `:after` | Rotate `TOAST_NOODLE_AFTER_1..3` |
+
+- `clerk_decide` and `altar_decide` are unchanged. Only what the caller does for `:hearing` and `:fight` changes: they run R4 and R5.
+- `ask!`, `lead!`, `permit!`, `reissue!`, `claim!`, `regive!`, `crumb!` and `debug_jump!` are unchanged.
+
+### R3. State, `normalize` and save compatibility
+
+| Item | Change |
+|---|---|
+| `STAGES` | Unchanged: `none asked lead permit toaster done`, with the same meanings |
+| Items | Unchanged: TOASTPERMIT, TOASTER and TOASTCRUMB, given and removed at the same points |
+| `PLUGS` | `[nil, :ac, :jar, :pot]`. `:jar` stays valid only so that finished old saves load; nothing new writes it |
+| `deliver!` | Accepts `%i[ac pot]` |
+| `plug_for` | `{0 => :ac, 1 => :pot}`. Anything else is `nil` (not yet) |
+| Saved keys | Unchanged (`stage crumb_given plug`). The retry-easing counters are **session-only** module variables, not saved (a reload resets the easing, which does no harm) |
+
+**Old saves (no migration step):**
+
+| Saved at | What happens now |
+|---|---|
+| `:none` | HaNoodles starts the quest |
+| `:asked` (asked by the Boss) | HaNoodles runs the duel, exactly as before |
+| `:lead` | Yunik runs the Stamp Desk instead of the duel |
+| `:permit` | The altar runs the Eviction instead of the battle |
+| `:toaster` | The finale runs at HaNoodles |
+| `:done`, no crumb | HaNoodles recovers the crumb |
+| `:done` with `plug == :jar` | Loads fine, no Oren line |
+
+### R4. Stamp Desk (Yunik's hearing)
+
+**Files:**
+- Pure rules: `zToaster/000_game_rules.rb`, `module ToasterDeskRules` (no graphics, audio or messages).
+- Scene: `zToaster/006_desk.rb`, `Toaster::DeskScene`.
+- Copy the modal pattern from `zTempleHoop/003_scene.rb`: own viewport at z 99999, a `run` loop with `Graphics.update`/`Input.update`, `ensure dispose`, and on-screen text through the same `text()` and `pbDrawOutlineText` path, which applies the Hebrew bidi (dec:tg-9).
+- The BGM is untouched.
+
+**Screen (512×384):**
+
+| Area | Content |
+|---|---|
+| Top band, y 0-56 | The current rule (`TOAST_DESK_RULE_n`), centred, 24 px. Above it, small: `TOAST_DESK_AMEND_N` ("נוסח מקורי" / "תיקון 1" / "תיקון 2") |
+| Left, x 16-120 | Yunik: frame 0 (facing down) of `Graphics/Characters/dt_326f5ab5.png` (128×192 sheet, 32×48 frames), drawn at 2× |
+| Right, x 400-500 | `TOAST_DESK_COUNT` "{1}/12" (form number). Below it ✓ correct and ✗ wrong as digits |
+| Centre, x 166-346, y 70-300 | The form: a 180×220 off-white sheet. A 28 px stripe across the top in the form's colour, with the colour word on it (`TOAST_DESK_COLOR_*`, so the game doesn't rely on colour alone). 0, 1 or 2 offset sheets behind it for 2 or 3 copies, plus the text `TOAST_DESK_COPIES` "{1} עותקים". The appliance word (`TOAST_DESK_APPL_1..8`) in the centre at 30 px |
+| Under the form, y 306-316 | The decision timer bar, shrinking right to left |
+| Bottom, y 350-384 | `TOAST_DESK_HINT` ("אדום = מאושר · כחול = נדחה") |
+
+**A form** has three attributes: `stripe ∈ {green, red, blue, yellow}`, `copies ∈ {1, 2, 3}` and `appliance ∈ 1..8`:
+
+| Appliances 1-4 heat (`heats` = true) | Appliances 5-8 don't |
+|---|---|
+| קומקום (kettle), טוסטר (toaster), מפזר חום (heater), פלטה (hot plate) | מאוורר (fan), רמקול (speaker), שרשרת אורות (fairy lights), מטען (charger) |
+
+**Rule pool.** Each rule is a predicate, and the correct answer is approve if it holds, reject if not:
+
+| id | Rule (approve if…) | Key |
+|---|---|---|
+| R1 | `copies == 3` (triplicate only) | `TOAST_DESK_RULE_1` |
+| R2 | `!heats` (nothing that heats; "חשל"ש risk") | `TOAST_DESK_RULE_2` |
+| R3 | `stripe == green` | `TOAST_DESK_RULE_3` |
+| R4 | `stripe != red` | `TOAST_DESK_RULE_4` |
+| R5 | `stripe != blue \|\| copies >= 2` | `TOAST_DESK_RULE_5` |
+| R6 | `!heats \|\| stripe == yellow` | `TOAST_DESK_RULE_6` |
+
+**Flow:**
+- 12 forms in 3 phases of 4.
+- Phase 1's rule is drawn from {R1, R3, R4}. Phases 2 and 3 each draw from the whole pool, never repeating the rule just used.
+- Each phase holds exactly 2 approve forms and 2 reject forms in shuffled order, so pressing one button for everything can't pass. Forms are generated by re-rolling random forms until each one has the needed answer.
+- All randomness comes from one `Random` seeded per hearing. Tests pass a fixed seed.
+- The intro banner shows the original rule for 2.0 s, with the timer paused.
+- An amendment comes after forms 4 and 8: `TOAST_DESK_AMEND_BANNER` plus the new rule, shown for 2.0 s with SE `GUI summary change page` and the timer paused.
+
+**Timings (per form):**
+- Slide in from the right: 0.25 s.
+- Input ignored for 0.15 s after the form settles.
+- Decision window `T = min(6.0 + 1.0 × losses, 9.0)` s.
+- Stamp imprint: 0.4 s.
+- Slide out to the left: 0.25 s.
+- A full hearing lasts at most about 95 s.
+
+**Controls:**
+- Red (`Input::USE`) = approve; Blue (`Input::BACK`) = reject.
+- There is no quit during play: the hearing is bounded and short.
+- The end card is dismissed with Red or Blue, after 1.0 s.
+
+**Feedback:**
+
+| Result | What plays |
+|---|---|
+| Correct | SE `Mining hammer`; the imprint `TOAST_DESK_STAMP_OK` ("מאושר", green) or `TOAST_DESK_STAMP_NO` ("נדחה", red); a 2-frame shake on the sheet |
+| Wrong | The same imprint, plus SE `GUI sel buzzer` and a 6-frame red tint on the sheet |
+| Timeout | `TOAST_DESK_STAMP_LATE` ("פג תוקף", grey) plus the buzzer. Counts as wrong |
+
+**Scoring:**
+- Pass mark `P = max(10 - losses, 7)`.
+- The hearing ends early as a fail as soon as `wrong > 12 - P`.
+- End card: `TOAST_DESK_RESULT` "{1}/{2}" (correct out of shown), then `TOAST_DESK_PASS` or `TOAST_DESK_FAIL`.
+
+**Result and easing:**
+- The scene returns `{passed:, correct:, shown:}`.
+- `Toaster.@desk_losses` goes up by 1 per fail (no cap needed: `T` and `P` clamp) and is reset to 0 on a pass.
+
+### R5. Eviction (the casino altar)
+
+**Files:**
+- Pure rules: `000_game_rules.rb`, `module ToasterEvictRules`.
+- Scene: `zToaster/008_eviction.rb`, `Toaster::EvictScene`.
+- The same modal pattern as R4.
+- The debug menu (007) calls the scenes only at runtime, so the load order is safe.
+
+**Screen (512×384):**
+
+| Area | Content |
+|---|---|
+| Top band, y 0-56 | Yunik frame 0 at the left, x 12. To his right: `TOAST_VAULT_NOTICE` "הודעת פינוי — חותמות: {1}/5", plus up to 5 small red stamp circles |
+| y 58-64 | The time bar, 60 s, shrinking |
+| Grid, x 104-408, y 72-336 | 3×3 cells, each 96×80 with an 8 px gap. Each cell is a dark rounded panel with an appliance word (`TOAST_VAULT_APPL_1..9`). The centre cell (index 4) shows the `Graphics/Items/TOASTER.png` icon above its word. The other 8 are casino and vault appliances (slot machine ×3, roulette, fan, heater, kettle, coffee maker) |
+| Bottom, y 350-384 | `TOAST_VAULT_HINT` ("ג'ויסטיק = הזזה · אדום = חותמת · כחול = יציאה") |
+| Cursor | A 4 px yellow frame around one cell. It starts on the centre cell |
+| Rotom | `Graphics/Pokemon/Front/ROTOM_1.png`, zoomed to fit 72 px in height, popping up from the cell bottom over 0.12 s. A fake-out flicker is the same sprite with `Tone.new(-160,-160,-160,255)` |
+
+**Controls:**
+- Joystick moves one cell per press (`Input.repeat?` on UP/DOWN/LEFT/RIGHT), in screen space, with no wrapping.
+- Red stamps the cursor cell.
+- Blue quits at once, and quitting counts as a fail.
+
+**Rotom behaviour:**
+- **Spawn:** a uniformly random cell, never the previous cell and never the cursor cell.
+- **Visible window `W(h)`**, where `h` is the current stamps:
+
+  | h | 0 | 1 | 2 | 3 | 4 |
+  |---|---|---|---|---|---|
+  | seconds, × E | 1.60 | 1.35 | 1.15 | 0.95 | 0.80 |
+
+  `E = min(1 + 0.10 × losses, 1.40)`.
+- **Gaps:** 0.35 s between appearances, 0.60 s after a hit.
+- **Fake-outs:** when `h >= 2`, each spawn has a 25% chance of a flicker first. A dark silhouette shows for 0.25 s in another eligible cell, then the real spawn appears in a cell that is neither the flicker cell nor the cursor cell.
+- **Hit:** Red pressed while the real Rotom is visible in the cursor cell. That gives `h += 1`, Rotom's cry, a 4-frame white flash, and a stamp circle on the notice. Rotom vanishes, then comes the post-hit gap.
+- **Waste:** Red on any other cell, or on a flicker. SE `GUI sel buzzer`, `TOAST_VAULT_WASTE` ("חותמת בזבוז") floats over that cell for 0.5 s, and stamping is locked for 0.50 s. After a hit, stamping is locked for 0.25 s.
+- **Head start on retry:** `start_h = min(max(last_hits - 1, 0), 3)`. Stamps from the previous attempt still count, minus one, and at least 2 new stamps are always needed.
+
+**Results:**
+
+| Result | What happens |
+|---|---|
+| Win, `h == 5` | Rotom zips off the right edge (0.5 s), SE `Slots coin`, the card `TOAST_VAULT_WIN` ("פונה!") for 1.5 s, return `true` |
+| Fail, time out | The card `TOAST_VAULT_FAIL` ("הדייר נשאר") for 1.5 s, return `false` |
+| Fail, Blue | Return `false` at once, no card |
+
+**Easing:** `Toaster.@vault_losses` goes up by 1 per fail. `@vault_last_hits` is set at the end of every attempt. Both reset to 0 on a win.
+
+### R6. Retry prompts (normal message boxes, speaker Yunik)
+
+| After | Prompt | Yes | No or Back |
+|---|---|---|---|
+| A failed hearing | `TOAST_CLERK_LOSE`, then `TOAST_RETRY_HEARING_ASK` `[TOAST_RETRY_YES / TOAST_RETRY_NO]` | The desk runs again at once (no PRE lines), with the new easing | The event ends with the stage unchanged. Talk to him again any time |
+| A failed eviction | `TOAST_RETRY_VAULT_ASK` `[TOAST_RETRY_YES / TOAST_RETRY_NO]` | The eviction runs again at once (no sparks or PRE lines) | `TOAST_ALTAR_LOSE`, then `escort_out` to (80, 8,15). The form is kept and the stage stays `:permit` |
+
+Nothing in either loop mutates state except `permit!` or `claim!` on a win. Either way, a loss is only ever "try again".
+
+### R7. Code removed or retired (in the same change)
+
+| File | Change |
+|---|---|
+| `000_rules.rb` | Remove `eyal_decide`, `noodles_decide`, `battle_won?`, `ROTOM_LEVEL`, `ROTOM_FORM`, `ROTOM_MOVES`, `BATTLE_RULES`. Add `giver_decide`, `DELIVER_PLUGS`, `:pot`. Keep `OUT_*` and the altar constants |
+| `001_state.rb` | Remove `EYAL` and `NAME_KEYS[:eyal]` |
+| `002_duels.rb` | `DUELS` keeps `:noodles` only. Remove the clerk profile, so `DESERT_DUEL_PROFILES[[80,"dt_326f5ab5"]]` is no longer added |
+| `003_talk_hooks.rb` | `after_talk` on map 95: NOODLES runs `giver_talk`, OREN is unchanged, there is no EYAL branch. Delete `eyal_talk` and `noodles_talk`. `clerk_talk :hearing` runs the R4 loop. The injection into Map080 and `restore_saved_map` are unchanged |
+| `004_altar.rb` | `altar_fight` runs the R1 beat 3 plus the R5 loop. Delete `toaster_rotom` and `final_battle` |
+| `005_finale.rb` | Speaker `:noodles`. `PLUG_CHOICES` = AC / POT / NOTYET. `PLUG_LINES` = `{ac: [[AC_1, :noodles], [AC_2, :oren]], pot: [[POT_1, :noodles], [:wait3], [POT_2, :noodles]]}` |
+| `meta.txt` | Drop `ShadowBasicBattle` from `Requires`. Keep `DesertTalk` and `HebrewSupport` |
+| New files | `000_game_rules.rb`, `006_desk.rb`, `008_eviction.rb` |
+| Maps | No change. Map080, 093, 094 and 095 stay byte-identical, and so do their goldens |
+
+### R8. Debug (F9 → Desert Town)
+
+| Entry | Effect |
+|---|---|
+| "Toaster: reset quest" | Unchanged. Also zeroes `@desk_losses`, `@vault_losses` and `@vault_last_hits` |
+| "Toaster: jump to stage…" | Unchanged (`asked/lead/permit/toaster`) |
+| "Toaster: test stamp desk (no state change)" | Runs the desk with the current easing and shows `passed/correct/shown`. Never mutates quest state or the easing counters |
+| "Toaster: test eviction (no state change)" | The same, for the eviction. Shows `won/hits` |
+| "Toaster: test final battle" | **Removed** |
+
+### R9. Translation keys for Yotam (`TOAST_` prefix; he plus an en gloss; Michal reviews first)
+
+**Hebrew rule: MOOP is always written `חשל"ש`, never "MOOP", "מוּפ" or "מופ".** The `"` inside `חשל"ש` is the ASCII double quote, written `\"` inside the JSON string, as the existing `סמנכ"ל` already is.
+
+| Group | Keys | Status |
+|---|---|---|
+| HaNoodles, giver | `TOAST_NOODLE_ASK_1..4`, `TOAST_NOODLE_REMIND_CLERK`, `_REMIND_VAULT`, `_REMIND_ALTAR`, `TOAST_NOODLE_FINALE_1..3`, `TOAST_NOODLE_AFTER_1..3` | **New** (14) |
+| HaNoodles, duel | `TOAST_NOODLE_PRE_1..3` (now a loyalty test: he did not report it), `TOAST_NOODLE_WIN_1..2` (now "go see Yunik at the Old City") | **Rewrite** (5) |
+| HaNoodles, duel | `TOAST_NOODLE_LOSE`, `TOAST_NOODLE_MOVE1..4`, `_BLK1..3`, `_PRC1..3`, `_FRC1..3`, `_SPC1..3` | Unchanged (17) |
+| Plug | `TOAST_PLUG_CHOICE_POT`, `TOAST_PLUG_POT_1..2` | **New** (3) |
+| Plug | `TOAST_PLUG_ASK`, `TOAST_PLUG_AC_1` (speaker is now HaNoodles), `TOAST_PLUG_NOTYET` (currently the Boss's "since build week" habit) | **Rewrite** (3) |
+| Plug | `TOAST_PLUG_CHOICE_AC`, `TOAST_PLUG_CHOICE_NOTYET`, `TOAST_PLUG_AC_2` | Unchanged (3) |
+| Ending | `TOAST_END_RECEIVED` he = `אייל הנודלס קיבל טוסט.` byte-exact (Claudet sets it; Yotam does not edit it) | **Fixed** (1) |
+| Ceremony | `TOAST_CEREMONY_1` (mentions "the jar"), `TOAST_CEREMONY_4` (says MOOP), `TOAST_CRUMB_RECOVER` (speaker is now HaNoodles) | **Rewrite** (3) |
+| Ceremony | `TOAST_CEREMONY_2..3` | Review only: voice check for HaNoodles |
+| Clerk | `TOAST_CLERK_PRE_3` (says "the hearing is a duel"), `TOAST_CLERK_WIN_2` (says the lent team), `TOAST_CLERK_LOSE` (lead-in to the retry prompt) | **Rewrite** (3) |
+| Clerk | `TOAST_CLERK_PRE_1..2`, `_WIN_1`, `_WIN_3..4`, `_REISSUE`, `_REMIND`, `_CLOSED` | Unchanged (8) |
+| Stamp Desk | `TOAST_DESK_RULE_1..6`, `TOAST_DESK_AMEND_0..2` (original / amendment 1 / amendment 2), `TOAST_DESK_AMEND_BANNER`, `TOAST_DESK_APPL_1..8`, `TOAST_DESK_COLOR_GREEN/_RED/_BLUE/_YELLOW`, `TOAST_DESK_COPIES` ({1}), `TOAST_DESK_COUNT` ({1}/{2}), `TOAST_DESK_HINT`, `TOAST_DESK_STAMP_OK/_NO/_LATE`, `TOAST_DESK_RESULT` ({1}/{2}), `TOAST_DESK_PASS`, `TOAST_DESK_FAIL` | **New** (32) |
+| Vault | `TOAST_VAULT_YUNIK_1..2`, `TOAST_VAULT_NOTICE` ({1}), `TOAST_VAULT_APPL_1..9`, `TOAST_VAULT_HINT`, `TOAST_VAULT_WASTE`, `TOAST_VAULT_WIN`, `TOAST_VAULT_FAIL` | **New** (16) |
+| Altar | `TOAST_ALTAR_POSSESSED_2` (now a squatter with tenant's rights, not "an oven"), `TOAST_ALTAR_LOSE` (now "escorted out", not "zapped") | **Rewrite** (2) |
+| Altar | `TOAST_ALTAR_POSSESSED_1`, `_WIN_1..2`, `_SEALED`, `_REGIVE`, `_EMPTY`, `TOAST_GOT_TOASTER` | Unchanged (7) |
+| Retry | `TOAST_RETRY_HEARING_ASK`, `TOAST_RETRY_VAULT_ASK`, `TOAST_RETRY_YES`, `TOAST_RETRY_NO` | **New** (4) |
+| Items | `TOASTER_DESC` (says "Eyal the Boss's toaster") | **Rewrite** (1) |
+| Items | `TOASTPERMIT_DESC`, `TOASTCRUMB_DESC` and the 6 name keys | Unchanged |
+| Oren | `TOAST_OREN_AC_AFTER` | Unchanged |
+| **Retired, deleted from `translations.json`** | `TOAST_EYAL_ASK_1..4`, `_REMIND_NOODLES/_CLERK/_VAULT/_ALTAR`, `_FINALE_1..3`, `_AFTER_1..3` (14); `TOAST_PLUG_CHOICE_JAR`, `TOAST_PLUG_JAR_1..2` (3); `TOAST_NOODLE_REMIND`, `TOAST_NOODLE_AFTER` (2); `TOAST_CLERK_MOVE1..4`, `_BLK1..3`, `_PRC1..3`, `_FRC1..3`, `_SPC1..3` (16); `TOAST_ROTOM_NAME` (1) | 36 removed |
+
+**MOOP grep (2026-10-27).** I ran `python -X utf8` over `PBS/translations.json`'s `translations` with the pattern `מוּפ|מופ|MOOP|חשל`. Results:
+
+| Key | Text | Action |
+|---|---|---|
+| `TOAST_CEREMONY_4` | he and en both contain "MOOP" | Yotam rewrites the he with `חשל"ש` (this is in scope; it is on the Rewrite list above) |
+| `TOAST_CLERK_SPC1` | "תקנה 404 מופעלת!" | A false hit (מופעלת = "activated"). The key is retired anyway |
+| `BAGS_SURPRISE_CONFETTI` | he: "…מעכשיו זה ה-MOOP שלך." | **Outside TG17's scope (zBags).** Written up as a finding for Claudet or the founder: the same חשל"ש rule probably applies. Not edited here |
+
+No other toaster line uses MOOP, in Latin or Hebrew letters.
+
+### R10. Tests (these replace rows 1, 7, 10 and 11 of the TG9 table; the other rows stand)
+
+**Pure rules, in Ruby (`tests/toaster_rules_test.rb`) and the Python mirror (`tests/toaster_rules.py`):**
+
+| # | Case |
+|---|---|
+| T1 | `giver_decide` returns the R2 answer for every stage × {toaster held, not held} × {crumb given or not} |
+| T2 | `normalize` accepts `:pot` and `:jar`, maps an unknown plug to nil, and leaves stages unchanged |
+| T3 | `deliver!` succeeds with `:ac` and `:pot`, and returns false with no change for `:jar`, nil or junk. `plug_for` gives 0→`:ac`, 1→`:pot`, anything else nil |
+| T4 | Happy path from `:none` to `:done` through `ask!`, `lead!`, `permit!`, `claim!`, `deliver!(:pot)` and `crumb!`: the bag ends with TOASTCRUMB 1, TOASTER 0, TOASTPERMIT 0 |
+| T5 | The old-save table in R3: each saved stage decides as listed (no crash, no item change on load) |
+| T6 | Desk: each of R1-R6 gives the expected answer on hand-built forms (including the boundary cases `copies` 2 vs 3 and blue with 1 copy) |
+| T7 | Desk: over 200 seeds, each phase has exactly 2 approves and 2 rejects. Phase 1's rule is in {R1, R3, R4}, and no phase repeats the rule before it. The same seed gives the same hearing |
+| T8 | Desk: `pass_mark(losses)` is 10, 9, 8, 7, 7…; `window(losses)` is 6, 7, 8, 9, 9…; `early_fail?` is true exactly when `wrong > 12 - P`. Pressing only Red, or only Blue, for all 12 forms never passes at `losses = 0` |
+| T9 | Eviction: `W(h, losses)` matches the table, with E capped at 1.40. A spawn is never the previous cell or the cursor cell (fuzzed over 1000 rolls). No flicker happens when `h < 2`. `start_h` is `min(max(last - 1, 0), 3)` |
+
+**Content and integration:**
+
+| # | Case |
+|---|---|
+| T10 | Translations: every `TOAST_*` key the code uses exists with non-empty he and en. `TOAST_END_RECEIVED` he equals `אייל הנודלס קיבל טוסט.` byte for byte. None of the 36 retired keys remains. No `TOAST_*` he value matches `MOOP\|מוּפ\|מופ(?!על)` |
+| T11 | Duel profiles: exactly one zToaster key, `[95,"dt_c081cd67"]`, with 4 MOVE keys and 12 speech keys. `[80,"dt_326f5ab5"]` is absent |
+| T12 | `zToaster` does not reference `pbShadowBasicParty`, `WildBattle` or `0f0fdcf5` (grep) |
+| T13 | Maps 080, 093, 094 and 095 match their goldens. `test_compiled_plugins` is green after `python compile_plugins.py`. `run_tests.py` shows no new failures beyond the pre-existing snapshot drift |
+
+**In-game QA (qa-reviewer, then Inbar Doron). Keep what was played separate from what was code-inspected:**
+- New game, no debug: HaNoodles starts the quest, then the duel, Yunik's desk, the eviction, the finale with the pot, then the crumb. Use a second save for the AC option and Oren's line.
+- Eyal the Boss on 95 and on 93 says only his own line at every stage.
+- Fail the desk twice and check that the window and the pass mark ease. Say "No" at the retry prompt, then talk to Yunik again.
+- Fail the eviction once by time-out and once with Blue. Check the head start on retry. Say "No": you are back at the Old City (8,15) with the form kept.
+- Load a save from before TG17 at `asked`, `lead`, `permit` and `toaster`, and finish from each one.
+- Read every new Hebrew screen line: right-to-left order, digits and "{1}/{2}" in LTR, no clipped text on the form or in the cells.
+
+### R11. Implementation order (coder)
+
+1. Dor adds the amendment to `docs/design/TG9-structure.md` (the two scenes and the pure modules).
+2. Michal's frame (the hypocrite giver, and form as ritual), then Yotam's copy for R9, then Claudet merges and runs `validate_translations.py`.
+3. Rules, then the scenes, then the hooks and finale, then debug, then tests, then `python compile_plugins.py` and `python tests/run_tests.py`.
+4. QA (R10).
+
+Ready for founder approval (closed: build may start).

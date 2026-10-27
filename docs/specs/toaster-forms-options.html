@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toaster Forms Options</title>
+<style>
+  :root { --bg:#faf6ef; --card:#fff; --ink:#2a2420; --mut:#6d625a; --acc:#c4622d; --rec:#2f7d4f; --line:#e4dccf; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+  main { max-width:860px; margin:0 auto; padding:16px 14px 120px; }
+  h1 { font-size:1.45rem; margin:.3em 0; }
+  h2 { font-size:1.2rem; margin:1.6em 0 .4em; border-bottom:2px solid var(--acc); padding-bottom:4px; }
+  h3 { font-size:1.05rem; margin:0 0 .3em; }
+  .sub { color:var(--mut); font-size:.92rem; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:10px 0; }
+  .card.rec { border:2px solid var(--rec); }
+  label.pick { display:flex; gap:10px; align-items:flex-start; cursor:pointer; }
+  label.pick input { margin-top:5px; width:20px; height:20px; flex:none; }
+  .tag { display:inline-block; font-size:.75rem; font-weight:700; padding:1px 7px; border-radius:20px; margin-inline-start:6px; vertical-align:middle; }
+  .tag.rec { background:var(--rec); color:#fff; }
+  .tag.size { background:#efe6d8; color:#5a4a3a; }
+  ul { margin:.3em 0 .3em 1.1em; padding:0; }
+  li { margin:.15em 0; }
+  .he { direction:rtl; unicode-bidi:isolate; display:block; background:#f4efe6; border-inline-end:3px solid var(--acc); padding:4px 10px; margin:6px 0; border-radius:4px; font-size:1.02rem; }
+  table { border-collapse:collapse; width:100%; font-size:.9rem; }
+  th, td { border:1px solid var(--line); padding:5px 7px; text-align:start; vertical-align:top; }
+  th { background:#f1e9dc; }
+  .tblwrap { overflow-x:auto; }
+  textarea { width:100%; min-height:60px; font:inherit; padding:6px; border:1px solid var(--line); border-radius:6px; }
+  .bar { position:fixed; left:0; right:0; bottom:0; background:#2a2420; color:#fff; padding:10px 14px; display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; }
+  .bar button { font:inherit; font-weight:700; background:var(--acc); color:#fff; border:0; border-radius:8px; padding:10px 18px; cursor:pointer; }
+  #copied { font-size:.9rem; }
+  code { background:#f1e9dc; padding:0 4px; border-radius:3px; font-size:.88em; }
+</style>
+</head>
+<body>
+<main>
+<h1>TG17: the toaster quest with forms instead of fights</h1>
+<div class="sub">Noam Peretz (PM) | 2026-10-27 | design proposal, nothing built yet | <code>toaster-quest.md</code> is unchanged until you pick</div>
+
+<div class="card">
+  <b>How to answer:</b> pick one item in each of the 3 sections (the green ones are my recommendation), add a note if you like, then press <b>Copy my choices</b> at the bottom and paste it into chat. Answering "approve recommended" also works.
+  <ul>
+    <li>What I took from your messages: one fight stays (the noodle duel). The clerk hearing and the casino Rotom battle become form mini-games played with Yunik. Eyal HaNoodles now starts the quest and gets the toast. Eyal the Boss leaves the quest.</li>
+    <li>The Hebrew lines are placeholders. Yotam writes the final copy after you pick.</li>
+    <li>Size calibration, from code already in the repo: <b>S</b> = no new screen, or a reskin of a stock Essentials minigame (about 1 day). <b>M</b> = about the size of the temple hoop (<code>zTempleHoop</code>, about 640 lines). <b>L</b> = about the size of arm wrestling (<code>zArmWrestle</code>, about 1100 lines).</li>
+  </ul>
+</div>
+
+<!-- ============================================================ -->
+<h2>1. New story spine (Eyal HaNoodles starts it and gets the toast)</h2>
+
+<div class="card rec" data-group="spine">
+<label class="pick"><input type="radio" name="spine" value="The secret toast: HaNoodles asks, duels you first as a test, gets the toast at the end" checked>
+<div>
+  <h3>The secret toast: the noodle man secretly wants toast <span class="tag rec">RECOMMENDED</span></h3>
+  <ul>
+    <li><b>The ask (Kusomo, HaNoodles):</b> the Appliance Committee took Kusomo's toaster in a MOOP sweep. In public HaNoodles says toast is a phase. In private he asks you to bring it back, "for a friend".</li>
+    <li><b>The one fight (unchanged):</b> before he trusts you with something this shameful, you have to beat noodles in a carb duel: "if you can't beat noodles, you don't deserve toast". It is the same <code>pbDuel</code> with the same moves and speeches. Only the lead-in lines change. Losing means you talk to him again and retry.</li>
+    <li><b>The clerk (Old City, Yunik):</b> the form hearing mini-game (section 2). Winning it gets you the Appliance Release Form.</li>
+    <li><b>The vault (casino altar):</b> the form mini-game with Yunik (section 3). Winning it gets you the toaster.</li>
+    <li><b>The toast (Kusomo, HaNoodles):</b> "it's not for me". The generator can carry one more thing, so what gets unplugged? <i>[Oren's AC / my noodle pot / not yet]</i>. The noodle pot is a betrayal of his whole faction: 3 seconds of silence, then he does it. Tick, tick, pop. The fixed narration line: <span class="he">אייל הנודלס קיבל טוסט.</span> Then the over-the-top ceremony ("noodle toast" declared the official Kusomo dish), and the framed crumb, once.</li>
+    <li>Why I recommend it: the duel now has a reason (a test of loyalty), the founder's "one fight with eyal the noodle" stays, and the hypocrite joke gives him a real arc from denial to toast.</li>
+  </ul>
+  <span class="he">אני לא אוהב טוסט. אני רק צריך שתביא לי טוסטר. זה לא אותו דבר.</span>
+</div></label>
+</div>
+
+<div class="card" data-group="spine">
+<label class="pick"><input type="radio" name="spine" value="Toast must be destroyed: HaNoodles wants the toaster to get rid of toast forever, tries one and converts">
+<div>
+  <h3>Toast must be destroyed: he wants the toaster to get rid of it, then converts <span class="tag size">same size</span></h3>
+  <ul>
+    <li>HaNoodles wants the toaster back from the Committee so that <i>he</i> can bury it properly. "Confiscation is not closure."</li>
+    <li>The duel at the start is the same loyalty test, flipped: "prove you are noodle enough".</li>
+    <li>Finale: he plugs it in "one last time, for science". The pop, the narration line, and the ceremony is his conversion.</li>
+    <li>The difference from the recommendation: the player is tricked for most of the quest. The ending lands harder, but the early lines have to lie convincingly.</li>
+  </ul>
+</div></label>
+</div>
+
+<div class="card" data-group="spine">
+<label class="pick"><input type="radio" name="spine" value="The duel is the finale: no fight at the start; HaNoodles makes toast beat noodles in one official duel before eating it">
+<div>
+  <h3>The duel is the finale: no fight at the start, one official duel before the toast <span class="tag size">same size</span></h3>
+  <ul>
+    <li>HaNoodles asks, and you go straight to Yunik.</li>
+    <li>When you come back with the toaster, he says "toast must officially beat noodles once" and you do the noodle duel. Win it and the toast pops.</li>
+    <li>The difference: the only fight is the climax. On the other hand the quest opens with no action, and the stage machine needs one extra step (a "duel won" flag at the toaster stage). That makes it the only spine here that changes saved state.</li>
+  </ul>
+</div></label>
+</div>
+
+<div class="card">
+  <b>Eyal the Boss (0f0fdcf5):</b> my default is that he stays on Kusomo and at the party with his own line only, and the quest no longer hooks him. The brain-in-a-jar gag goes with him. Reversible.
+  <textarea data-note="spine" placeholder="Note on the spine (optional)"></textarea>
+</div>
+
+<!-- ============================================================ -->
+<h2>2. The clerk hearing with Yunik (replaces duel 2)</h2>
+<div class="sub">The story beat stays: Regulation 404 says every appeal gets a hearing. Yunik is the Committee's acting deputy temporary clerk, and his whole line is "פלייסהולדר". Winning gives the Appliance Release Form. Losing gives "ערעור נדחה" and you try again on the spot.</div>
+
+<div class="card rec" data-group="clerk">
+<label class="pick"><input type="radio" name="clerk" value="The stamp desk: forms slide in, Red approve / Blue reject by the current rule, rules get amended mid-hearing" checked>
+<div>
+  <h3>The stamp desk: approve or reject forms as the rules keep changing <span class="tag rec">RECOMMENDED</span> <span class="tag size">M</span></h3>
+  <ul>
+    <li><b>On screen:</b> a desk, with Yunik behind it (his existing character sprite, drawn big). The current rule is on a sign at the top. Forms slide in one at a time, each drawn as a coloured sheet with a stripe colour, a number of copies (1 to 3 stacked) and an appliance icon taken from the existing item icons.</li>
+    <li><b>The player:</b> Red stamps "מאושר", Blue stamps "נדחה". Each stamp lands with a thump, a small shake and a flash.</li>
+    <li><b>The skill:</b> reading the rule under time pressure. Every 4 forms Yunik reads out an amendment ("תיקון לתקנה 404"), so the rule changes. The rules come from a fixed list, for example "only in triplicate", "nothing that heats", "green stripe needs 2 copies".</li>
+    <li><b>Length and pass mark:</b> 12 forms, about 90 seconds. 10 correct passes. A forgiving timer of about 6 seconds per form, and a form that times out counts as wrong. Each loss lowers the bar by 1, down to a minimum of 7, so it is always winnable (the arm-wrestle precedent).</li>
+    <li><b>Reuses:</b> the modal-scene skeleton and Red/Blue polling from <code>zTempleHoop/003_scene.rb</code>, the Hebrew bidi helper (dec:tg-9), item icons, and the SE <code>Mining hammer</code> (stamp), <code>GUI sel buzzer</code> (wrong) and <code>Slots coin</code>. No new art.</li>
+    <li><b>Why it's the pick:</b> it is literally a form fight, easy to read in a second, and it plays on the cabinet with the two big buttons.</li>
+  </ul>
+  <span class="he">תיקון לתקנה 404: מעכשיו רק טפסים בשלושה עותקים. אני ממלא מקום זמני. גם התקנה.</span>
+</div></label>
+</div>
+
+<div class="card" data-group="clerk">
+<label class="pick"><input type="radio" name="clerk" value="The approval chain: Yunik stamps a growing sequence across 4 committee windows; repeat it with the joystick (memory)">
+<div>
+  <h3>The approval chain: remember which window stamps next <span class="tag size">S-M</span></h3>
+  <ul>
+    <li><b>On screen:</b> 4 windows on the 4 sides of the screen: the Appliance Committee, the MOOP Committee, Leave No Trace and "the Committee for Committees". Yunik walks the form through a chain of windows, and each window lights up with its own stamp sound.</li>
+    <li><b>The player:</b> repeats the chain with the joystick (up, down, left, right) and confirms with Red. Each round adds one more window. Reach a chain of 6 to win. A mistake gives "נא להתחיל מחדש בטופס חדש" and the round restarts.</li>
+    <li><b>The skill:</b> memory, the Simon-says pattern. About 1 to 2 minutes.</li>
+    <li><b>Reuses:</b> the same modal skeleton, with 4 drawn rectangles and text labels. No new art.</li>
+    <li>The trade-off: it's cheaper and different from everything else in the game, but it feels less like reading a form.</li>
+  </ul>
+  <span class="he">ועדת המכשירים — אושר. ועדת MOOP — אושר. ועדת הוועדות — בבדיקה.</span>
+</div></label>
+</div>
+
+<div class="card" data-group="clerk">
+<label class="pick"><input type="radio" name="clerk" value="Fill in Form 404: a 5-field form in message choices; Yunik's rules make only one combination legal (logic puzzle, no new screen)">
+<div>
+  <h3>Fill in Form 404: a logic puzzle in plain dialogue choices <span class="tag size">S</span></h3>
+  <ul>
+    <li><b>On screen:</b> normal message boxes. Yunik first reads 5 short regulations. Then the form asks 5 fields as menus: the appliance type, how much MOOP it makes, who owns it, its purpose and the signature.</li>
+    <li><b>The puzzle:</b> the regulations make exactly one combination legal. For example, the word "טוסטר" is itself confiscated, so the type must be "מכשיר חימום לחם". The owner can't be a person, because "persons are not appliances". The signature must be "פלייסהולדר".</li>
+    <li><b>Lose:</b> Yunik stamps the whole form "נדחה" without saying which field was wrong, and you can re-read the rules before trying again.</li>
+    <li><b>Reuses:</b> only <code>Toaster.choose</code> and <code>pbMessage</code>. No scene and no art.</li>
+    <li>The trade-off: it's the cheapest and the funniest to write, but it is a quiz, not a game, and replaying it means knowing the answer.</li>
+  </ul>
+  <span class="he">סעיף 3: אסור לכתוב את המילה "טוסטר" בטופס. היא מוחרמת.</span>
+</div></label>
+</div>
+<div class="card"><textarea data-note="clerk" placeholder="Note on the hearing (optional)"></textarea></div>
+
+<!-- ============================================================ -->
+<h2>3. The vault with Yunik (replaces the Rotom battle at the casino altar)</h2>
+<div class="sub">The casino has no exit door, so after a win the "archive staff" still escort you to the Old City (8,15), as today. After a loss the scene asks "עוד ניסיון?". Yes retries on the spot. No walks you out with the form kept. Yunik shows up inside the scene ("filed under Y, always was"), so no map edit is needed.</div>
+
+<div class="card rec" data-group="vault">
+<label class="pick"><input type="radio" name="vault" value="Eviction notice: Rotom (the squatter in the toaster) hops between 9 vault appliances; joystick + Red to stamp it 5 times while Yunik reads the eviction notice" checked>
+<div>
+  <h3>The eviction notice: stamp the ghost squatting in the toaster <span class="tag rec">RECOMMENDED</span> <span class="tag size">M</span></h3>
+  <ul>
+    <li><b>The story:</b> the toaster is there, but something has been living in it so long that it now has squatter's rights. You can't fight a tenant. You have to evict it properly. Yunik arrives with the eviction notice, which needs 5 stamps <i>on the tenant</i>.</li>
+    <li><b>On screen:</b> a 3×3 grid of confiscated vault appliances (slot machines, the toaster and other item icons). Rotom, with its existing sprite and cry, pops out of one appliance at a time and hides again.</li>
+    <li><b>The player:</b> moves a stamp cursor with the joystick and presses Red to stamp. A hit gives a stamp mark on Rotom, the cry and a flash. A stamp on an empty appliance gives a buzzer and "חותמת בזבוז".</li>
+    <li><b>The skill:</b> aim plus reaction. Rotom gets faster after every hit, and there are fake-out flickers. You get 5 hits within 60 seconds. A loss keeps your hits at minus 1, so it is always winnable.</li>
+    <li><b>The ending:</b> the fifth stamp makes Rotom bolt into the slot machines (<code>Slots coin</code>, the current win beat). Yunik stamps the form "בוצע" and you get the toaster.</li>
+    <li><b>Rotom stays as a character,</b> as a tenant instead of a boss fight. That keeps the setup you already have in the spec, and the sprite and cry exist.</li>
+    <li><b>Reuses:</b> the modal skeleton, the Rotom form-1 sprite and cry, item icons for the appliances, Yunik's sprite and the slots and stamp SE. No new art. The lent party, <code>WildBattle</code> and the Rotom moves are retired.</li>
+    <li><b>Why it differs from the hearing:</b> the hearing is about judgement with two buttons. This one is about aiming with the joystick and timing.</li>
+  </ul>
+  <span class="he">הודעת פינוי: הדייר בטוסטר מתבקש לפנות לאלתר. נדרשות חמש חותמות. על הדייר.</span>
+</div></label>
+</div>
+
+<div class="card" data-group="vault">
+<label class="pick"><input type="radio" name="vault" value="Shredded original: the archive shredded the form; slide 9 strips back into the stamped original (stock Essentials tile puzzle, reskinned). Rotom removed">
+<div>
+  <h3>The shredded original: slide the torn form back together <span class="tag size">S</span></h3>
+  <ul>
+    <li><b>The story:</b> the vault takes only the original form. The archive staff "filed" it through the shredder. Yunik insists the release is valid "once it's whole again".</li>
+    <li><b>On screen:</b> the stock Essentials tile puzzle, reskinned as a 3×3 sliding puzzle (stock game 3, "Mystic Square") of the Appliance Release Form, with Yunik's stamp and the toaster drawing on it. That is about 1 to 2 minutes.</li>
+    <li><b>The player:</b> joystick plus Red, the stock controls. Back quits, which counts as a loss and nothing changes. I checked this in <code>Scripts.rxdata</code>: solving returns true and Back returns false.</li>
+    <li><b>Assets:</b> one 192×192 form image plus a 512×384 background, rendered in Python with the repo's Hebrew slide renderer. No image generation is needed.</li>
+    <li><b>Rotom is removed.</b> The altar is "sealed pending paperwork" and nothing more.</li>
+    <li>The trade-off: it's the cheapest, but it's a stock puzzle with little Yunik in it, and the Kusomo humour lives only in the before and after lines.</li>
+  </ul>
+  <span class="he">המקור נגרס. אבל אם תדביק אותו, טכנית הוא עדיין מקור.</span>
+</div></label>
+</div>
+
+<div class="card" data-group="vault">
+<label class="pick"><input type="radio" name="vault" value="Vault inventory: memory-match each confiscated appliance to its confiscation form in a wall of drawers; toaster is the last pair; Rotom optional cameo">
+<div>
+  <h3>The vault inventory: match every confiscated appliance to its form <span class="tag size">M</span></h3>
+  <ul>
+    <li><b>The story:</b> Yunik can release the toaster only after the vault's annual inventory, which is today, and which you are doing.</li>
+    <li><b>On screen:</b> a wall of 12 drawers. Opening one shows either an appliance (an item icon) or its form (a sheet with the matching icon and a stamp). Two that match stay open with a stamp.</li>
+    <li><b>The player:</b> joystick plus Red, memory pairs. The toaster's pair always comes last. You have a move limit (for example 20 flips) with 1 extra flip per retry, so it is always winnable.</li>
+    <li><b>Reuses:</b> the modal skeleton and item icons. No new art.</li>
+    <li><b>Rotom:</b> an optional cameo. One drawer holds Rotom, which costs you a flip and plays its cry.</li>
+    <li>The trade-off: it's calm and readable, but it's the same "memory" muscle as the approval chain, so don't pick both.</li>
+  </ul>
+  <span class="he">ספירת מלאי שנתית. היא היום. אתה סופר.</span>
+</div></label>
+</div>
+<div class="card"><textarea data-note="vault" placeholder="Note on the vault (optional)"></textarea></div>
+
+<!-- ============================================================ -->
+<h2>4. What stays the same, and old saves</h2>
+<div class="tblwrap"><table>
+<tr><th>Thing</th><th>With the recommended pair</th></tr>
+<tr><td>Stages <code>none asked lead permit toaster done</code></td><td>Unchanged, with the same meanings. <code>asked</code> = asked, duel not yet won. <code>lead</code> = duel won, go to Yunik. <code>permit</code> = hearing won, form held. <code>toaster</code> = toaster held.</td></tr>
+<tr><td>Items <code>TOASTPERMIT TOASTER TOASTCRUMB</code></td><td>Unchanged, with the same give and remove points.</td></tr>
+<tr><td><code>normalize</code></td><td>One change: the allowed <code>plug</code> values become <code>nil :ac :jar :pot</code>. <code>:jar</code> stays valid, so a finished old save still loads.</td></tr>
+<tr><td>Hooks</td><td>The <code>0f0fdcf5</code> dispatch is removed, so the Boss is untouched. The <code>c081cd67</code> dispatch becomes the quest giver: <code>eyal_decide</code> and <code>noodles_decide</code> merge into one <code>giver_decide</code>, where <code>:none</code> gives the ask and the duel, <code>:asked</code> gives a duel retry, and the reminders, finale, crumb recovery and after-lines follow as before. <code>clerk_decide</code> and <code>altar_decide</code> are unchanged. Only the bodies for <code>:hearing</code> and <code>:fight</code> swap to the new mini-games.</td></tr>
+<tr><td>Old saves mid-quest</td><td>A save sitting at <code>asked</code> from the Boss: the next talk to HaNoodles runs the duel, exactly as today. A save at <code>lead</code> or later: those steps never involved the Boss, so they carry on. A save at <code>toaster</code>: the finale now runs at HaNoodles. A save at <code>done</code> without the crumb: HaNoodles recovers it. No extra stage and no migration needed.</td></tr>
+<tr><td>Retired</td><td>The clerk <code>pbDuel</code> profile and its 16 move and speech keys, <code>ROTOM_*</code>, <code>BATTLE_RULES</code>, the lent-party <code>final_battle</code>, the Boss-only lines (<code>TOAST_EYAL_*</code>, <code>TOAST_PLUG_JAR_*</code>, <code>TOAST_NOODLE_*</code> for HaNoodles as the culprit) and the debug "test final battle", which becomes "test vault game".</td></tr>
+<tr><td>Fixed ending line</td><td><span class="he">אייל הבוס קיבל טוסט.</span> becomes <span class="he">אייל הנודלס קיבל טוסט.</span> by default. See the question below.</td></tr>
+</table></div>
+
+<!-- ============================================================ -->
+<h2>5. One question only you can answer</h2>
+<div class="card">
+  <b>Q1. The fixed ending line.</b> It was byte-exact <span class="he">אייל הבוס קיבל טוסט.</span>. With the Boss out, I default to <span class="he">אייל הנודלס קיבל טוסט.</span>. The alternative is <span class="he">אייל קיבל טוסט.</span> (just "Eyal", which keeps the "they're both Eyal" joke).
+  <label class="pick"><input type="radio" name="endline" value="Ending line: אייל הנודלס קיבל טוסט." checked><span>אייל הנודלס קיבל טוסט. (default)</span></label>
+  <label class="pick"><input type="radio" name="endline" value="Ending line: אייל קיבל טוסט."><span>אייל קיבל טוסט.</span></label>
+  <textarea data-note="endline" placeholder="Or write your own line"></textarea>
+</div>
+
+</main>
+<div class="bar">
+  <button type="button" id="copyBtn">Copy my choices</button>
+  <span id="copied"></span>
+</div>
+<textarea id="buf" style="position:absolute;left:-9999px" aria-hidden="true"></textarea>
+<script>
+(function () {
+  var groups = [["spine", "Story spine"], ["clerk", "Clerk hearing"], ["vault", "Vault"], ["endline", "Q1"]];
+  function collect() {
+    var out = ["TG17 founder choices:"];
+    groups.forEach(function (g) {
+      var r = document.querySelector('input[name="' + g[0] + '"]:checked');
+      out.push("- " + g[1] + ": " + (r ? r.value : "(none)"));
+      var n = document.querySelector('textarea[data-note="' + g[0] + '"]');
+      if (n && n.value.trim()) out.push("  note: " + n.value.trim());
+    });
+    return out.join("\n");
+  }
+  function done(msg) { document.getElementById("copied").textContent = msg; }
+  document.getElementById("copyBtn").addEventListener("click", function () {
+    var text = collect();
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { done("Copied. Paste it into chat."); },
+        function () { fallback(text); });
+    } else { fallback(text); }
+  });
+  function fallback(text) {
+    var b = document.getElementById("buf");
+    b.value = text; b.select();
+    try { document.execCommand("copy"); done("Copied. Paste it into chat."); }
+    catch (e) { done("Copy blocked: select the text below and copy it."); b.style.position = "static"; }
+  }
+})();
+</script>
+</body>
+</html>

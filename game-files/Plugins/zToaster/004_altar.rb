@@ -1,6 +1,6 @@
 #===============================================================================
-# Toaster - the casino altar (Map094 ev9 runs pbToasterAltar), the lent-party
-# Heat Rotom battle and the way out to the Old City.
+# Toaster - the casino altar (Map094 ev9 runs pbToasterAltar), Yunik's Eviction
+# (008_eviction.rb) and the way out to the Old City.
 #===============================================================================
 
 module Toaster
@@ -37,53 +37,54 @@ module Toaster
     end
   end
 
+  VAULT_INTRO = %w[TOAST_ALTAR_POSSESSED_1 TOAST_ALTAR_POSSESSED_2 TOAST_VAULT_YUNIK_1 TOAST_VAULT_YUNIK_2].freeze
+
+  # Beat 3: sparks and the full intro once a session, then the Eviction until a win or "no".
   def self.altar_fight(st)
+    vault_intro
+    loop do
+      result = run_eviction
+      return claim_toaster(st) if result[:won]
+      break unless retry?("TOAST_RETRY_VAULT_ASK")
+    end
+    say("TOAST_ALTAR_LOSE")
+    escort_out
+  end
+
+  # Later visits this session hear only Yunik's notice line.
+  def self.vault_intro
+    if @vault_seen
+      say(VAULT_INTRO.last, :clerk)
+      return
+    end
+    @vault_seen = true
     pbSEPlay("Voltorb Flip explosion")
     $game_screen.start_shake(5, 5, 20) if $game_screen
-    rotom = toaster_rotom
-    rotom.play_cry
-    lines(%w[TOAST_ALTAR_POSSESSED_1 TOAST_ALTAR_POSSESSED_2])
-    outcome = final_battle(rotom)
-    if ToasterRules.battle_won?(outcome) && ToasterRules.claim!(st, $bag)
+    lines(VAULT_INTRO[0, 2])
+    lines(VAULT_INTRO[2, 2], :clerk)
+  end
+
+  def self.claim_toaster(st)
+    if ToasterRules.claim!(st, $bag)
       live = $game_map.events.values.find { |e| e.name == ALTAR_EVENT }
       live.character_name = altar_look if live
-      pbSEPlay("Slots coin")
       lines(%w[TOAST_ALTAR_WIN_1 TOAST_ALTAR_WIN_2])
       announce(ToasterRules::TOASTER)
       say("TOAST_GOT_TOASTER")
-    else
-      say("TOAST_ALTAR_LOSE")
     end
     escort_out
   end
 
-  # "The toaster": Lv70 Heat Rotom with its oven moves, IVs 31, full HP.
-  def self.toaster_rotom
-    pkmn = Pokemon.new(:ROTOM, ToasterRules::ROTOM_LEVEL)
-    pkmn.form_simple = ToasterRules::ROTOM_FORM
-    pkmn.name = _INTL("TOAST_ROTOM_NAME")
-    pkmn.forget_all_moves
-    ToasterRules::ROTOM_MOVES.each { |m| pkmn.learn_move(m) }
-    GameData::Stat.each_main { |s| pkmn.iv[s.id] = 31 }
-    pkmn.calc_stats
-    pkmn.heal
-    pkmn
+  # One eviction at the current easing; record: false for the F9 test run.
+  def self.run_eviction(record: true)
+    DesertTalk.name_key = nil if defined?(DesertTalk)
+    start = ToasterEvictRules.start_h(vault_last_hits)
+    result = EvictScene.new(vault_losses, start, rand(1 << 30)).run
+    record_vault(result[:won], result[:hits]) if record
+    result
   end
 
-  # The circus party on loan for this one fight; the player's own party always comes back.
-  # Returns the raw outcome (1 win; 2 loss, 3 run, 5 draw).
-  def self.final_battle(rotom = toaster_rotom)
-    old_party = $player.party
-    $player.party = pbShadowBasicParty
-    begin
-      ToasterRules::BATTLE_RULES.each { |rule| setBattleRule(rule) }
-      return WildBattle.start_core(rotom)
-    ensure
-      $player.party = old_party
-    end
-  end
-
-  # Win or loss: out to the Old City, the same tile a mummy touch lands on.
+  # Win or "no": out to the Old City, the same tile a mummy touch lands on.
   def self.escort_out
     DesertTalk.name_key = nil if defined?(DesertTalk)
     pbFadeOutIn do

@@ -1,19 +1,17 @@
 #===============================================================================
-# Toaster (TG9) - pure quest rules: state, decisions and the only mutators.
+# Toaster (TG9, TG17) - pure quest rules: state, decisions and the only mutators.
 # No messages, graphics or audio. A bag is anything with quantity/add/remove.
 #===============================================================================
 
 module ToasterRules
   STAGES = %i[none asked lead permit toaster done].freeze
-  PLUGS = [nil, :ac, :jar].freeze
+  # :jar only so finished pre-TG17 saves load; nothing new writes it.
+  PLUGS = [nil, :ac, :jar, :pot].freeze
+  DELIVER_PLUGS = %i[ac pot].freeze
   PERMIT = :TOASTPERMIT
   TOASTER = :TOASTER
   CRUMB = :TOASTCRUMB
   ITEMS = [PERMIT, TOASTER, CRUMB].freeze
-  ROTOM_LEVEL = 70
-  ROTOM_FORM = 1
-  ROTOM_MOVES = %i[OVERHEAT THUNDERBOLT WILLOWISP CONFUSERAY].freeze
-  BATTLE_RULES = %w[canLose disablePokeBalls noExp].freeze
   # Win and loss both leave the casino here (the mummy-death tile).
   OUT_MAP = 80
   OUT_X = 8
@@ -44,23 +42,15 @@ module ToasterRules
   #-----------------------------------------------------------------------------
   # Decisions
   #-----------------------------------------------------------------------------
-  def self.eyal_decide(state, bag)
+  # HaNoodles (map 95) owns the quest from the ask to the crumb.
+  def self.giver_decide(state, bag)
     case state[:stage]
     when :none then :intro
-    when :asked then :remind_noodles
+    when :asked then :duel
     when :lead then :remind_clerk
     when :permit then :remind_vault
     when :toaster then held?(bag, TOASTER) ? :finale : :remind_altar
     else state[:crumb_given] ? :after : :crumb_recover
-    end
-  end
-
-  def self.noodles_decide(state)
-    case state[:stage]
-    when :none then :plain
-    when :asked then :duel
-    when :done then :after
-    else :remind
     end
   end
 
@@ -88,17 +78,13 @@ module ToasterRules
     art_present ? ALTAR_ART : ALTAR_FALLBACK
   end
 
-  def self.battle_won?(outcome)
-    outcome == 1
-  end
-
   def self.oren_after?(state)
     state[:stage] == :done && state[:plug] == :ac
   end
 
   # Plug menu index -> plug; "not yet" (2) and cancel give nil.
   def self.plug_for(pick)
-    { 0 => :ac, 1 => :jar }[pick]
+    { 0 => :ac, 1 => :pot }[pick]
   end
 
   # Yunik's own talk page: Action trigger (0) and his speaker/text commands (355/101).
@@ -157,7 +143,7 @@ module ToasterRules
   end
 
   def self.deliver!(state, bag, plug)
-    return false unless state[:stage] == :toaster && %i[ac jar].include?(plug) && held?(bag, TOASTER)
+    return false unless state[:stage] == :toaster && DELIVER_PLUGS.include?(plug) && held?(bag, TOASTER)
     return false unless bag.remove(TOASTER, bag.quantity(TOASTER))
     state[:plug] = plug
     state[:stage] = :done

@@ -1,4 +1,4 @@
-"""Python mirror of ToasterRules (Plugins/zToaster/000_rules.rb) for machines without Ruby.
+"""Python mirror of ToasterRules, ToasterDeskRules and ToasterEvictRules (Plugins/zToaster/000_*.rb).
 
 Stages, decisions and plugs are plain strings; a bag is a dict of item id -> count.
 """
@@ -6,11 +6,10 @@ Stages, decisions and plugs are plain strings; a bag is a dict of item id -> cou
 from __future__ import annotations
 
 STAGES = ("none", "asked", "lead", "permit", "toaster", "done")
-PLUGS = (None, "ac", "jar")
+PLUGS = (None, "ac", "jar", "pot")
+DELIVER_PLUGS = ("ac", "pot")
 PERMIT, TOASTER, CRUMB = "TOASTPERMIT", "TOASTER", "TOASTCRUMB"
 ITEMS = (PERMIT, TOASTER, CRUMB)
-ROTOM_MOVES = ("OVERHEAT", "THUNDERBOLT", "WILLOWISP", "CONFUSERAY")
-BATTLE_RULES = ("canLose", "disablePokeBalls", "noExp")
 OUT = (80, 8, 15, 2)
 ALTAR_ART, ALTAR_FALLBACK = "toaster_altar", "Object ball"
 JUMP_STAGES = ("asked", "lead", "permit", "toaster")
@@ -39,12 +38,12 @@ def held(bag, item):
     return bag.get(item, 0) > 0
 
 
-def eyal_decide(state, bag):
+def giver_decide(state, bag):
     stage = state["stage"]
     if stage == "none":
         return "intro"
     if stage == "asked":
-        return "remind_noodles"
+        return "duel"
     if stage == "lead":
         return "remind_clerk"
     if stage == "permit":
@@ -52,10 +51,6 @@ def eyal_decide(state, bag):
     if stage == "toaster":
         return "finale" if held(bag, TOASTER) else "remind_altar"
     return "after" if state["crumb_given"] else "crumb_recover"
-
-
-def noodles_decide(state):
-    return {"none": "plain", "asked": "duel", "done": "after"}.get(state["stage"], "remind")
 
 
 def clerk_decide(state, bag):
@@ -84,16 +79,12 @@ def altar_graphic(decision, art_present):
     return ALTAR_ART if art_present else ALTAR_FALLBACK
 
 
-def battle_won(outcome):
-    return outcome == 1
-
-
 def oren_after(state):
     return state["stage"] == "done" and state["plug"] == "ac"
 
 
 def plug_for(pick):
-    return {0: "ac", 1: "jar"}.get(pick)
+    return {0: "ac", 1: "pot"}.get(pick)
 
 
 def _add(bag, item):
@@ -149,7 +140,7 @@ def regive(state, bag):
 
 
 def deliver(state, bag, plug):
-    if state["stage"] != "toaster" or plug not in ("ac", "jar") or not held(bag, TOASTER):
+    if state["stage"] != "toaster" or plug not in DELIVER_PLUGS or not held(bag, TOASTER):
         return False
     _remove_all(bag, TOASTER)
     state["plug"] = plug
@@ -177,3 +168,101 @@ def debug_jump(state, bag, stage):
     state.clear()
     state.update(new_state(), stage=stage)
     return True
+
+
+# --- Stamp Desk (ToasterDeskRules) -------------------------------------------
+DESK_FORMS, DESK_PHASE_LEN = 12, 4
+STRIPES = ("green", "red", "blue", "yellow")
+HEATING = (1, 2, 3, 4)
+DESK_RULES = (1, 2, 3, 4, 5, 6)
+FIRST_RULES = (1, 3, 4)
+
+
+def heats(form):
+    return form["appliance"] in HEATING
+
+
+def desk_approve(rule, form):
+    stripe, copies = form["stripe"], form["copies"]
+    return {
+        1: copies == 3,
+        2: not heats(form),
+        3: stripe == "green",
+        4: stripe != "red",
+        5: stripe != "blue" or copies >= 2,
+        6: not heats(form) or stripe == "yellow",
+    }.get(rule, False)
+
+
+def desk_hearing(rng):
+    """rng: a random.Random. Same structure as the Ruby hearing (the streams differ)."""
+    rules = [rng.choice(FIRST_RULES)]
+    for _ in range(2):
+        rules.append(rng.choice([r for r in DESK_RULES if r != rules[-1]]))
+    forms = []
+    for rule in rules:
+        wants = [True, True, False, False]
+        rng.shuffle(wants)
+        for want in wants:
+            while True:
+                f = {"stripe": rng.choice(STRIPES), "copies": rng.randint(1, 3), "appliance": rng.randint(1, 8)}
+                if desk_approve(rule, f) == want:
+                    f["approve"] = want
+                    forms.append(f)
+                    break
+    return {"rules": rules, "forms": forms}
+
+
+def pass_mark(losses):
+    return max(10 - losses, 7)
+
+
+def desk_window(losses):
+    return min(6.0 + 1.0 * losses, 9.0)
+
+
+def early_fail(wrong, losses):
+    return wrong > DESK_FORMS - pass_mark(losses)
+
+
+def desk_correct(form, pressed):
+    return pressed is not None and pressed == form["approve"]
+
+
+# --- Eviction (ToasterEvictRules) --------------------------------------------
+CELLS, COLS, CENTRE, STAMPS = 9, 3, 4, 5
+EVICT_WINDOWS = (1.60, 1.35, 1.15, 0.95, 0.80)
+FLICKER_MIN_H, FLICKER_CHANCE = 2, 0.25
+
+
+def evict_ease(losses):
+    return min(1.0 + 0.10 * losses, 1.40)
+
+
+def evict_window(h, losses):
+    return EVICT_WINDOWS[max(0, min(h, len(EVICT_WINDOWS) - 1))] * evict_ease(losses)
+
+
+def start_h(last_hits):
+    return min(max(last_hits - 1, 0), 3)
+
+
+def spawn(rng, *excluded):
+    return rng.choice([c for c in range(CELLS) if c not in excluded])
+
+
+def flicker(rng, h):
+    return h >= FLICKER_MIN_H and rng.random() < FLICKER_CHANCE
+
+
+def move(cell, direction):
+    row, col = divmod(cell, COLS)
+    if direction == 2 and row < COLS - 1:
+        row += 1
+    elif direction == 8 and row > 0:
+        row -= 1
+    elif direction == 4 and col > 0:
+        col -= 1
+    elif direction == 6 and col < COLS - 1:
+        col += 1
+    return row * COLS + col

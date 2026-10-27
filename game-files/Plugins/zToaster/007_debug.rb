@@ -3,9 +3,11 @@
 #===============================================================================
 
 module Toaster
-  # Fresh quest, the 3 quest items gone; the altar redresses on the next map load.
+  # Fresh quest, easing and session intros cleared, the 3 quest items gone; the altar redresses on the next map load.
   def self.reset
     $PokemonGlobal.toaster_quest = ToasterRules.new_state if $PokemonGlobal
+    reset_easing
+    @pre_seen = @vault_seen = @after_turn = nil
     return unless $bag
     ToasterRules::ITEMS.each { |i| $bag.remove(i, $bag.quantity(i)) if $bag.quantity(i) > 0 }
   end
@@ -18,10 +20,15 @@ module Toaster
     ToasterRules.debug_jump!(state, $bag, stage)
   end
 
-  # Runs the lent-party Rotom fight only; the quest state is never read or written.
-  def self.debug_battle
-    outcome = final_battle
-    pbMessage("Battle outcome: #{outcome} (#{ToasterRules.battle_won?(outcome) ? 'win' : 'not a win'}).")
+  # The two mini-games at the current easing; quest state and easing stay untouched.
+  def self.debug_desk
+    r = run_desk(record: false)
+    pbMessage("Stamp desk: passed=#{r[:passed]} correct=#{r[:correct]} shown=#{r[:shown]}")
+  end
+
+  def self.debug_eviction
+    r = run_eviction(record: false)
+    pbMessage("Eviction: won=#{r[:won]} hits=#{r[:hits]}")
   end
 
   DEBUG_ENTRIES = [
@@ -29,8 +36,10 @@ module Toaster
      proc { Toaster.reset }],
     [:dt_toaster_jump, "Toaster: jump to stage...", "asked / lead / permit / toaster, holding exactly that stage's item.",
      proc { Toaster.debug_jump }],
-    [:dt_toaster_battle, "Toaster: test final battle (no state change)", "Runs the lent-party Heat Rotom battle and shows the outcome code.",
-     proc { Toaster.debug_battle }]
+    [:dt_toaster_desk, "Toaster: test stamp desk (no state change)", "Runs Yunik's Stamp Desk at the current easing and shows the result.",
+     proc { Toaster.debug_desk }],
+    [:dt_toaster_evict, "Toaster: test eviction (no state change)", "Runs the vault Eviction at the current easing and shows the result.",
+     proc { Toaster.debug_eviction }]
   ].freeze
 end
 

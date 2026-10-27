@@ -1,9 +1,12 @@
-# TG9 toaster quest: loaded from plugin_rules_test.rb (shares check/$failures).
-# ToasterRules is pure; the hooks, duels, altar and finale run against stubs.
+# TG9/TG17 toaster quest: loaded from plugin_rules_test.rb (shares check/$failures).
+# ToasterRules, ToasterDeskRules and ToasterEvictRules are pure; the hooks, altar and finale run against stubs.
 require "json"
 toast_dir = File.join(ROOT, "Plugins/zToaster")
+load File.join(toast_dir, "000_game_rules.rb")
 load File.join(toast_dir, "000_rules.rb")
 TR = ToasterRules
+TDR = ToasterDeskRules
+TER = ToasterEvictRules
 
 class ToastTestBag
   attr_reader :items
@@ -20,41 +23,42 @@ toast_st = ->(stage, extra = {}) { TR.normalize({ stage: stage }.merge(extra)) }
 held = ->(items) { ToastTestBag.new(items) }
 
 #-------------------------------------------------------------------------------
-# 1: every decision, every stage, with and without the item
+# T1: every decision, every stage, with and without the item
 #-------------------------------------------------------------------------------
 want = {
-  none:    [:intro, :intro, :plain, :plain, :plain, :sealed, :sealed],
-  asked:   [:remind_noodles, :remind_noodles, :duel, :plain, :plain, :sealed, :sealed],
-  lead:    [:remind_clerk, :remind_clerk, :remind, :hearing, :hearing, :sealed, :sealed],
-  permit:  [:remind_vault, :remind_vault, :remind, :reissue, :remind, :fight, :fight],
-  toaster: [:remind_altar, :finale, :remind, :closed, :closed, :regive, :empty],
-  done:    [:crumb_recover, :crumb_recover, :after, :closed, :closed, :empty, :empty]
+  none:    [:intro, :intro, :plain, :plain, :sealed, :sealed],
+  asked:   [:duel, :duel, :plain, :plain, :sealed, :sealed],
+  lead:    [:remind_clerk, :remind_clerk, :hearing, :hearing, :sealed, :sealed],
+  permit:  [:remind_vault, :remind_vault, :reissue, :remind, :fight, :fight],
+  toaster: [:remind_altar, :finale, :closed, :closed, :regive, :empty],
+  done:    [:crumb_recover, :crumb_recover, :closed, :closed, :empty, :empty]
 }
-item_for = { permit: :TOASTPERMIT }
 wrong = []
-want.each do |stage, (e0, e1, nd, c0, c1, a0, a1)|
+want.each do |stage, (g0, g1, c0, c1, a0, a1)|
   st = toast_st.call(stage)
-  wrong << [:eyal, stage] unless TR.eyal_decide(st, held.call({})) == e0 && TR.eyal_decide(st, held.call(TOASTER: 1)) == e1
-  wrong << [:noodles, stage] unless TR.noodles_decide(st) == nd
-  form = held.call(item_for.fetch(stage, :TOASTPERMIT) => 1)
-  wrong << [:clerk, stage] unless TR.clerk_decide(st, held.call({})) == c0 && TR.clerk_decide(st, form) == c1
+  wrong << [:giver, stage] unless TR.giver_decide(st, held.call({})) == g0 && TR.giver_decide(st, held.call(TOASTER: 1)) == g1
+  wrong << [:clerk, stage] unless TR.clerk_decide(st, held.call({})) == c0 && TR.clerk_decide(st, held.call(TOASTPERMIT: 1)) == c1
   wrong << [:altar, stage] unless TR.altar_decide(st, held.call({})) == a0 && TR.altar_decide(st, held.call(TOASTER: 1)) == a1
 end
-check(wrong.empty?, "toast 1: every decide x stage x item matches the spec table (wrong: #{wrong.inspect})")
-check(TR.eyal_decide(toast_st.call(:done, crumb_given: true), held.call({})) == :after, "toast 1: done + crumb given -> after")
+check(wrong.empty?, "toast T1: every decide x stage x item matches the R2 table (wrong: #{wrong.inspect})")
+check([{}, { TOASTER: 1 }].all? { |b| TR.giver_decide(toast_st.call(:done, crumb_given: true), held.call(b)) == :after },
+      "toast T1: done + crumb given -> after, toaster held or not")
+check(%i[eyal_decide noodles_decide battle_won?].none? { |m| TR.respond_to?(m) } &&
+      %i[ROTOM_LEVEL ROTOM_FORM ROTOM_MOVES BATTLE_RULES].none? { |c| TR.const_defined?(c, false) },
+      "toast R7: the Boss/HaNoodles deciders and the battle constants are gone")
 check(TR.altar_graphic(:empty, true) == "" && TR.altar_graphic(:sealed, true) == "toaster_altar" &&
       TR.altar_graphic(:fight, false) == "Object ball" && TR.altar_graphic(:regive, true) == "toaster_altar",
-      "toast 1: the altar is empty exactly on :empty, the fallback graphic without the art")
+      "toast: the altar is empty exactly on :empty, the fallback graphic without the art")
 
 #-------------------------------------------------------------------------------
-# 2 + 6: mutators move only from their guard stage; a repeat is a no-op
+# Mutators move only from their guard stage; a repeat is a no-op
 #-------------------------------------------------------------------------------
 movers = {
   ask!:     ->(s, _b) { TR.ask!(s) },
   lead!:    ->(s, _b) { TR.lead!(s) },
   permit!:  ->(s, b) { TR.permit!(s, b) },
   claim!:   ->(s, b) { TR.claim!(s, b) },
-  deliver!: ->(s, b) { TR.deliver!(s, b, :jar) },
+  deliver!: ->(s, b) { TR.deliver!(s, b, :pot) },
   crumb!:   ->(s, b) { TR.crumb!(s, b) }
 }
 guard = { ask!: :none, lead!: :asked, permit!: :lead, claim!: :permit, deliver!: :toaster, crumb!: :done }
@@ -68,53 +72,68 @@ movers.each do |name, fn|
     off << [name, stage] if fn.call(s, b) || [s, b.items] != before
   end
 end
-check(off.empty?, "toast 2: no mutator moves from a stage other than its guard (#{off.inspect})")
+check(off.empty?, "toast: no mutator moves from a stage other than its guard (#{off.inspect})")
 s = toast_st.call(:none)
-check(TR.ask!(s) && s[:stage] == :asked && !TR.ask!(s), "toast 2: ask! once")
-check(TR.lead!(s) && s[:stage] == :lead && !TR.lead!(s), "toast 2: lead! once")
+check(TR.ask!(s) && s[:stage] == :asked && !TR.ask!(s), "toast: ask! once")
+check(TR.lead!(s) && s[:stage] == :lead && !TR.lead!(s), "toast: lead! once")
 b = held.call({})
 check(TR.permit!(s, b) && b.quantity(:TOASTPERMIT) == 1 && s[:stage] == :permit && !TR.permit!(s, b) && b.quantity(:TOASTPERMIT) == 1,
-      "toast 2: permit! adds one form and moves to :permit, once")
-check(!TR.reissue!(s, b) && b.quantity(:TOASTPERMIT) == 1, "toast 6: reissue! never gives a second held form")
+      "toast: permit! adds one form and moves to :permit, once")
+check(!TR.reissue!(s, b) && b.quantity(:TOASTPERMIT) == 1, "toast: reissue! never gives a second held form")
 b.remove(:TOASTPERMIT)
-check(TR.reissue!(s, b) && !TR.reissue!(s, b) && b.quantity(:TOASTPERMIT) == 1, "toast 6: a lost form is reissued exactly once")
+check(TR.reissue!(s, b) && !TR.reissue!(s, b) && b.quantity(:TOASTPERMIT) == 1, "toast: a lost form is reissued exactly once")
 check(TR.claim!(s, b) && b.quantity(:TOASTPERMIT) == 0 && b.quantity(:TOASTER) == 1 && s[:stage] == :toaster && !TR.claim!(s, b),
-      "toast 2: claim! swaps the form for the toaster, once")
-check(!TR.regive!(s, b) && b.quantity(:TOASTER) == 1, "toast 6: regive! never gives a second held toaster")
+      "toast: claim! swaps the form for the toaster, once")
+check(!TR.regive!(s, b) && b.quantity(:TOASTER) == 1, "toast: regive! never gives a second held toaster")
 b.remove(:TOASTER)
-check(TR.regive!(s, b) && !TR.regive!(s, b) && b.quantity(:TOASTER) == 1, "toast 6: a lost toaster comes back exactly once")
+check(TR.regive!(s, b) && !TR.regive!(s, b) && b.quantity(:TOASTER) == 1, "toast: a lost toaster comes back exactly once")
 s2 = toast_st.call(:permit)
 b2 = held.call({})
-check(TR.claim!(s2, b2) && b2.quantity(:TOASTER) == 1, "toast 2: claim! without the form (lost) still gives the toaster")
+check(TR.claim!(s2, b2) && b2.quantity(:TOASTER) == 1, "toast: claim! without the form (lost) still gives the toaster")
 
 #-------------------------------------------------------------------------------
-# 3-5: happy path, plug guards, crumb once, crash recovery
+# T2-T5: normalize, deliver/plug_for, happy path, old saves
 #-------------------------------------------------------------------------------
+check([nil, "x", [1], 3].all? { |g| TR.normalize(g) == TR.new_state }, "toast T2: nil or garbage loads as a fresh state")
+check(TR.normalize({ stage: :party, crumb_given: "yes", plug: :fridge, junk: 1 }) == TR.new_state,
+      "toast T2: unknown stage, bad crumb flag, unknown plug and extra keys are repaired")
+kept = %i[pot jar ac].map { |p| { stage: :done, crumb_given: true, plug: p } }
+check(kept.all? { |k| TR.normalize(k).equal?(k) } && kept.map { |k| k[:plug] } == %i[pot jar ac] &&
+      TR::STAGES.all? { |st| toast_st.call(st)[:stage] == st }, "toast T2: :pot and :jar are kept, stages unchanged")
+ok = %i[ac pot].all? do |p|
+  st = toast_st.call(:toaster)
+  bg = held.call(TOASTER: 1)
+  TR.deliver!(st, bg, p) && st == { stage: :done, crumb_given: false, plug: p } && bg.quantity(:TOASTER) == 0
+end
+bad = [:jar, nil, :notyet, :oven, "ac"].all? do |p|
+  st = toast_st.call(:toaster)
+  bg = held.call(TOASTER: 1)
+  !TR.deliver!(st, bg, p) && st == toast_st.call(:toaster) && bg.quantity(:TOASTER) == 1
+end
+check(ok && bad, "toast T3: deliver! takes :ac and :pot; :jar, nil and junk change nothing")
+check(TR.plug_for(0) == :ac && TR.plug_for(1) == :pot && [2, nil, 7].all? { |i| TR.plug_for(i).nil? }, "toast T3: plug menu 0 AC, 1 pot, else not yet")
+check(!TR.deliver!(toast_st.call(:toaster), held.call({}), :ac), "toast T3: deliver! needs the toaster held")
 s = TR.new_state
 b = held.call({})
-path = TR.ask!(s) && TR.lead!(s) && TR.permit!(s, b) && TR.claim!(s, b)
-[nil, :notyet, :oven, "ac"].each { |p| path &&= !TR.deliver!(s, b, p) && s[:stage] == :toaster && b.quantity(:TOASTER) == 1 }
-check(path, "toast 4: deliver! with not-yet or a bad plug changes nothing")
-path = TR.deliver!(s, b, :ac) && s[:plug] == :ac && s[:stage] == :done && b.quantity(:TOASTER) == 0
-check(path && TR.eyal_decide(s, b) == :crumb_recover, "toast 5: after deliver! and before crumb! Eyal recovers the crumb")
-check(TR.crumb!(s, b) && !TR.crumb!(s, b) && b.quantity(:TOASTCRUMB) == 1 && s[:crumb_given],
-      "toast 4: two crumb! calls give one crumb")
-check(b.items.select { |_, v| v > 0 } == { TOASTCRUMB: 1 } && s == { stage: :done, crumb_given: true, plug: :ac },
-      "toast 3: happy path ends with the crumb only, crumb_given and the plug")
-check(TR.oren_after?(s) && !TR.oren_after?(toast_st.call(:done, plug: :jar)) && !TR.oren_after?(toast_st.call(:toaster, plug: :ac)),
-      "toast: Oren's after-line only after the AC was unplugged")
-check(!TR.deliver!(toast_st.call(:toaster), held.call({}), :ac), "toast 4: deliver! needs the toaster held")
-
-#-------------------------------------------------------------------------------
-# 7, 8: battle outcome, normalize
-#-------------------------------------------------------------------------------
-check(TR.battle_won?(1) && [0, 2, 3, 4, 5, nil].none? { |o| TR.battle_won?(o) }, "toast 7: only outcome 1 is a win")
-check([nil, "x", [1], 3].all? { |g| TR.normalize(g) == TR.new_state }, "toast 8: nil or garbage loads as a fresh state")
-check(TR.normalize({ stage: :party, crumb_given: "yes", plug: :fridge, junk: 1 }) == TR.new_state,
-      "toast 8: unknown stage, bad crumb flag, bad plug and extra keys are repaired")
-kept = { stage: :done, crumb_given: true, plug: :jar }
-check(TR.normalize(kept).equal?(kept) && kept == { stage: :done, crumb_given: true, plug: :jar }, "toast 8: a valid state is kept")
-check(TR.plug_for(0) == :ac && TR.plug_for(1) == :jar && TR.plug_for(2).nil? && TR.plug_for(nil).nil?, "toast: plug menu mapping")
+path = TR.ask!(s) && TR.lead!(s) && TR.permit!(s, b) && TR.claim!(s, b) && TR.deliver!(s, b, :pot)
+check(path && TR.giver_decide(s, b) == :crumb_recover, "toast T4: after deliver! and before crumb! HaNoodles recovers the crumb")
+check(TR.crumb!(s, b) && !TR.crumb!(s, b) && b.items.select { |_, v| v > 0 } == { TOASTCRUMB: 1 } &&
+      s == { stage: :done, crumb_given: true, plug: :pot }, "toast T4: happy path ends with one crumb, no toaster, no form")
+check(TR.oren_after?(toast_st.call(:done, plug: :ac)) && !TR.oren_after?(s) && !TR.oren_after?(toast_st.call(:done, plug: :jar)) &&
+      !TR.oren_after?(toast_st.call(:toaster, plug: :ac)), "toast: Oren's after-line only after the AC was unplugged")
+old = { none: [{}, :intro], asked: [{}, :duel], lead: [{}, :remind_clerk], permit: [{ TOASTPERMIT: 1 }, :remind_vault],
+        toaster: [{ TOASTER: 1 }, :finale] }
+t5 = old.all? do |stage, (items, giver)|
+  bg = held.call(items)
+  before = bg.items.dup
+  TR.giver_decide(TR.normalize({ stage: stage, crumb_given: false, plug: nil }), bg) == giver && bg.items == before
+end
+jar = TR.normalize({ stage: :done, crumb_given: true, plug: :jar })
+check(t5 && TR.clerk_decide(toast_st.call(:lead), held.call({})) == :hearing &&
+      TR.altar_decide(toast_st.call(:permit), held.call(TOASTPERMIT: 1)) == :fight &&
+      TR.giver_decide(toast_st.call(:done, plug: :jar), held.call({})) == :crumb_recover &&
+      jar[:plug] == :jar && TR.giver_decide(jar, held.call({})) == :after,
+      "toast T5: every pre-TG17 stage decides as R3 lists, with no item change on load")
 check(TR.inject_index([355, 101, 0]) == 2 && TR.inject_index([355]) == 1 && TR.inject_index([]).nil?, "toast: inject before the end command")
 s = toast_st.call(:done, crumb_given: true, plug: :ac)
 b = held.call(TOASTCRUMB: 1)
@@ -124,12 +143,67 @@ check(TR.debug_jump!(s, b, :permit) && b.items.select { |_, v| v > 0 } == { TOAS
       "toast debug: jump to permit holds the form; never to done")
 
 #-------------------------------------------------------------------------------
+# T6-T8: Stamp Desk rules
+#-------------------------------------------------------------------------------
+fm = ->(stripe, copies, appliance) { { stripe: stripe, copies: copies, appliance: appliance } }
+t6 = [
+  [1, fm.(:red, 3, 5), true], [1, fm.(:green, 2, 5), false],
+  [2, fm.(:green, 1, 5), true], [2, fm.(:green, 3, 4), false],
+  [3, fm.(:green, 1, 1), true], [3, fm.(:yellow, 3, 6), false],
+  [4, fm.(:blue, 1, 1), true], [4, fm.(:red, 3, 6), false],
+  [5, fm.(:blue, 1, 6), false], [5, fm.(:blue, 2, 6), true], [5, fm.(:red, 1, 2), true],
+  [6, fm.(:red, 1, 8), true], [6, fm.(:yellow, 1, 2), true], [6, fm.(:green, 3, 2), false]
+].reject { |rule, f, w| TDR.approve?(rule, f) == w }
+check(t6.empty?, "toast T6: R1-R6 on hand-built forms incl. 2 vs 3 copies and blue with 1 copy (#{t6.inspect})")
+t7 = []
+200.times do |seed|
+  h = TDR.hearing(seed)
+  r = h[:rules]
+  t7 << [seed, :rules] unless TDR::FIRST_RULES.include?(r[0]) && r[1] != r[0] && r[2] != r[1] && r.all? { |x| TDR::RULES.include?(x) }
+  t7 << [seed, :forms] unless h[:forms].length == 12
+  r.each_with_index do |rule, p|
+    phase = h[:forms][p * 4, 4]
+    t7 << [seed, p] unless phase.count { |f| f[:approve] } == 2 && phase.all? { |f| TDR.approve?(rule, f) == f[:approve] }
+  end
+  t7 << [seed, :same] unless TDR.hearing(seed) == h
+end
+check(t7.empty?, "toast T7: 200 seeds: 2 approve + 2 reject per phase, phase 1 in {R1,R3,R4}, no repeat, same seed same hearing (#{t7.first(3)})")
+check((0..5).map { |n| TDR.pass_mark(n) } == [10, 9, 8, 7, 7, 7] && (0..5).map { |n| TDR.window(n) } == [6, 7, 8, 9, 9, 9],
+      "toast T8: pass mark 10..7 and window 6..9 s clamp")
+check((0..4).all? { |l| (0..12).all? { |w| TDR.early_fail?(w, l) == (w > 12 - TDR.pass_mark(l)) } }, "toast T8: early fail exactly when wrong > 12 - P")
+one = (0...100).all? do |seed|
+  forms = TDR.hearing(seed)[:forms]
+  [true, false].all? { |p| forms.count { |f| TDR.correct?(f, p) } < TDR.pass_mark(0) }
+end
+check(one && !TDR.correct?({ approve: true }, nil), "toast T8: only Red or only Blue never passes at losses 0; a timeout is wrong")
+
+#-------------------------------------------------------------------------------
+# T9: Eviction rules
+#-------------------------------------------------------------------------------
+win_ok = TER::WINDOWS.each_with_index.all? do |w, h|
+  (TER.window(h, 0) - w).abs < 1e-9 && (TER.window(h, 2) - w * 1.2).abs < 1e-9 && (TER.window(h, 9) - w * 1.4).abs < 1e-9
+end
+check(win_ok && TER::WINDOWS == [1.60, 1.35, 1.15, 0.95, 0.80], "toast T9: W(h, losses) matches the table, E capped at 1.40")
+rng = Random.new(11)
+spawn_bad = 1000.times.count do
+  prev, cur = rng.rand(9), rng.rand(9)
+  [prev, cur].include?(TER.spawn(rng, prev, cur))
+end
+check(spawn_bad.zero? && 1000.times.all? { TER.spawn(rng, nil, 4) != 4 }, "toast T9: a spawn is never the previous or the cursor cell (1000 rolls)")
+check([0, 1].none? { |h| 500.times.any? { TER.flicker?(rng, h) } } && 500.times.any? { TER.flicker?(rng, 2) },
+      "toast T9: no flicker below 2 stamps")
+check((0..6).map { |n| TER.start_h(n) } == [0, 0, 1, 2, 3, 3, 3], "toast T9: start_h = min(max(last - 1, 0), 3)")
+check([2, 4, 6, 8].map { |d| TER.move(4, d) } == [7, 3, 5, 1] && [TER.move(0, 8), TER.move(0, 4), TER.move(8, 2), TER.move(8, 6)] == [0, 0, 8, 8],
+      "toast: the cursor moves one cell in screen space, no wrapping")
+
+#-------------------------------------------------------------------------------
 # Engine stubs for the plugin files
 #-------------------------------------------------------------------------------
 $toast_log = []
 $toast_picks = []
 $toast_duels = []
-$toast_outcomes = []
+$toast_desks = []
+$toast_evicts = []
 $toast_frames = 0
 def pbMessage(msg, commands = nil, _cancel = 0)
   $toast_log << [msg, DesertTalk.name_key]
@@ -146,19 +220,9 @@ def pbSEPlay(name, *) = ($toast_log << [:se, name])
 def pbMEPlay(name, *) = ($toast_log << [:me, name])
 def pbFadeOutIn = ($toast_log << :fade; yield)
 def pbResolveBitmap(_path) = $toast_art
-def setBattleRule(rule) = ($toast_rules << rule)
-def pbShadowBasicParty = %i[lent_pikachu lent_charizard lent_snorlax]
 def pbTransferPlayer(map_id, x, y, direction = 2) = ($toast_log << [:transfer, map_id, x, y, direction])
 ToastInterp = Struct.new(:self_event) { def get_self = self_event }
 def pbMapInterpreter = ($toast_interp ||= ToastInterp.new(nil))
-module WildBattle
-  def self.start_core(pkmn)
-    $toast_log << [:battle, pkmn.species, pkmn.form, pkmn.name, pkmn.moves, $player.party.dup, $toast_rules.dup]
-    out = $toast_outcomes.shift
-    raise "toast test: battle crashed" if out == :raise
-    out
-  end
-end
 class Pokemon
   attr_reader :species, :level, :form, :moves, :iv
   attr_accessor :name
@@ -216,6 +280,18 @@ load File.join(ROOT, "Plugins/DesertTalk/duel_moves.rb") unless defined?(DESERT_
 def _INTL(m, *a) = a.empty? ? m : "#{m}|#{a.join(',')}"
 kobel = DESERT_DUEL_PROFILES.keys.dup
 
+# The two modal scenes (006/008 need Graphics): log their inputs, return scripted results.
+module Toaster
+  class DeskScene
+    def initialize(losses, _seed) = ($toast_log << [:desk, losses])
+    def run = ($toast_desks.shift || raise("toast test: no scripted desk result"))
+  end
+
+  class EvictScene
+    def initialize(losses, start_h, _seed) = ($toast_log << [:evict, losses, start_h])
+    def run = ($toast_evicts.shift || raise("toast test: no scripted eviction result"))
+  end
+end
 %w[001_state 002_duels 003_talk_hooks 004_altar 005_finale 007_debug].each { |f| load File.join(toast_dir, "#{f}.rb") }
 saved = [$game_map, $bag, $PokemonGlobal, $player, $game_screen, $game_switches]
 $PokemonGlobal = PokemonGlobalMetadata.new
@@ -237,9 +313,9 @@ talk = lambda do |id, map_id = 95, picks: [], duels: []|
   pbDesertTalk(id)
   $toast_log.dup
 end
-script = lambda do |name, map_id, picks: [], duels: [], outcomes: []|
+script = lambda do |name, map_id, picks: [], duels: [], desks: [], evicts: []|
   $toast_log.clear
-  $toast_picks, $toast_duels, $toast_outcomes, $toast_rules = picks, duels, outcomes, []
+  $toast_picks, $toast_duels, $toast_desks, $toast_evicts = picks, duels, desks, evicts
   $game_map = ToastMap.new(map_id, events)
   $toast_interp = ToastInterp.new(name == :clerk ? events[33] : events[9])
   name == :clerk ? pbToasterClerk : pbToasterAltar
@@ -250,93 +326,98 @@ gots = ->(log) { log.select { |e| e.is_a?(Array) && e[0].is_a?(String) && e[0].s
 st = -> { $PokemonGlobal.toaster_quest }
 
 #-------------------------------------------------------------------------------
-# 11: duel profiles
+# T11: duel profiles
 #-------------------------------------------------------------------------------
 prof = DESERT_DUEL_PROFILES
-check(kobel.all? { |k| prof.key?(k) } && prof[[95, "dt_c081cd67"]] && prof[[80, "dt_326f5ab5"]] &&
-      [[95, "dt_c081cd67"], [80, "dt_326f5ab5"]].all? { |k| prof[k][:moves].length == 4 && prof[k][:name].start_with?("NAME_") },
-      "toast 11: both duel profiles are added (4 moves, a NAME_ key) and Kobel/Dan stay")
-check(Toaster::DUELS.values.all? { |d| d[:speeches].length == 12 && d[:speeches].uniq.length == 12 } &&
-      Toaster::DUELS.values.all? { |d| d[:speeches].each_slice(3).map { |t| t.map { |k| k[/_(BLK|PRC|FRC|SPC)\d\z/, 1] }.uniq } == [["BLK"], ["PRC"], ["FRC"], ["SPC"]] },
-      "toast 11: 12 speeches each, in pbDuel order defend/precise/fierce/special")
+toast_keys = prof.keys - kobel
+check(kobel.all? { |k| prof.key?(k) } && toast_keys == [[95, "dt_c081cd67"]] && !prof.key?([80, "dt_326f5ab5"]) &&
+      prof[[95, "dt_c081cd67"]][:moves].length == 4 && prof[[95, "dt_c081cd67"]][:name] == "NAME_C081CD67",
+      "toast T11: exactly one zToaster profile (HaNoodles, 4 moves); Yunik's is gone; Kobel/Dan stay (#{toast_keys.inspect})")
+check(Toaster::DUELS.keys == [:noodles] && Toaster::DUELS[:noodles][:speeches].uniq.length == 12 &&
+      Toaster::DUELS[:noodles][:speeches].each_slice(3).map { |t| t.map { |k| k[/_(BLK|PRC|FRC|SPC)\d\z/, 1] }.uniq } == [["BLK"], ["PRC"], ["FRC"], ["SPC"]],
+      "toast T11: 12 speeches in pbDuel order defend/precise/fierce/special")
 
 #-------------------------------------------------------------------------------
-# Hooks: Eyal, HaNoodles, Yunik, Oren
+# Hooks: HaNoodles gives the quest, the Boss never hooks, Yunik's desk, Oren
 #-------------------------------------------------------------------------------
-log = talk.call("c081cd67")
-check(msgs.call(log) == ["MSG_C081CD67_LINE"] && st.call[:stage] == :none, "toast hook: HaNoodles before the ask says only his line")
-log = talk.call("0f0fdcf5", 93)
-check(msgs.call(log) == ["MSG_0F0FDCF5_LINE"] && st.call[:stage] == :none, "toast hook: Eyal on Map093 says only his own line")
-log = talk.call("0f0fdcf5")
-check(msgs.call(log) == %w[MSG_0F0FDCF5_LINE TOAST_EYAL_ASK_1 TOAST_EYAL_ASK_2 TOAST_EYAL_ASK_3 TOAST_EYAL_ASK_4] &&
-      log[1..].all? { |_, n| n == "NAME_0F0FDCF5" } && st.call[:stage] == :asked,
-      "toast flow 1: Eyal's own line, then ASK_1..4 with his plate; stage asked")
-check(msgs.call(talk.call("0f0fdcf5"))[1..] == ["TOAST_EYAL_REMIND_NOODLES"], "toast flow 1: back early, Eyal names HaNoodles")
-check(msgs.call(script.call(:clerk, 80)).empty? && st.call[:stage] == :asked, "toast hook: Yunik before the lead adds nothing")
-
+plate = ->(log, key) { (log.find { |e| e[0] == key } || [])[1] }
 log = talk.call("c081cd67", duels: [false])
 duel = log.find { |e| e[0] == :duel }
-check(msgs.call(log) == %w[MSG_C081CD67_LINE TOAST_NOODLE_PRE_1 TOAST_NOODLE_PRE_2 TOAST_NOODLE_PRE_3 TOAST_NOODLE_LOSE] &&
+check(msgs.call(log) == %w[MSG_C081CD67_LINE TOAST_NOODLE_ASK_1 TOAST_NOODLE_ASK_2 TOAST_NOODLE_ASK_3 TOAST_NOODLE_ASK_4
+                           TOAST_NOODLE_PRE_1 TOAST_NOODLE_PRE_2 TOAST_NOODLE_PRE_3 TOAST_NOODLE_LOSE] &&
+      log[1..].select { |e| e[0].is_a?(String) }.all? { |_, n| n == "NAME_C081CD67" } && st.call[:stage] == :asked &&
       duel && duel[1] == :BLACKBELT && duel[2] == "NAME_C081CD67" && duel[3] == "dt_c081cd67" &&
-      duel[4] == Toaster::DUELS[:noodles][:speeches] && duel[5] == Toaster::DUELS[:noodles][:moves] && st.call[:stage] == :asked,
-      "toast duel 1: PRE, a pbDuel with his profile's moves and name, a loss changes nothing")
+      duel[4] == Toaster::DUELS[:noodles][:speeches] && duel[5] == Toaster::DUELS[:noodles][:moves],
+      "toast flow 1: HaNoodles' line, ASK_1..4, PRE_1..3, the unchanged duel; a loss leaves :asked")
+%i[asked lead permit toaster done].each do |stage|
+  saved_q = $PokemonGlobal.toaster_quest.dup
+  $PokemonGlobal.toaster_quest = { stage: stage, crumb_given: false, plug: nil }
+  ok = [95, 93].all? { |m| msgs.call(talk.call("0f0fdcf5", m)) == ["MSG_0F0FDCF5_LINE"] } && st.call[:stage] == stage
+  check(ok, "toast: Eyal the Boss says only his own line on 95 and 93 at #{stage}")
+  $PokemonGlobal.toaster_quest = saved_q
+end
+check(msgs.call(script.call(:clerk, 80)).empty? && st.call[:stage] == :asked, "toast hook: Yunik before the lead adds nothing")
 log = talk.call("c081cd67", duels: [true])
 check(msgs.call(log) == %w[MSG_C081CD67_LINE TOAST_NOODLE_PRE_3 TOAST_NOODLE_WIN_1 TOAST_NOODLE_WIN_2] && st.call[:stage] == :lead,
-      "toast duel 1: a retry repeats only PRE_3; a win reveals the Committee (lead)")
+      "toast flow 1b: at :asked only PRE_3 before the retry; a win is lead!")
 check($desert_duel_moves.nil?, "toast duel: the move labels are cleared after the duel")
-check(msgs.call(talk.call("c081cd67"))[1..] == ["TOAST_NOODLE_REMIND"], "toast: HaNoodles reminds after the lead")
-check(msgs.call(talk.call("0f0fdcf5"))[1..] == ["TOAST_EYAL_REMIND_CLERK"], "toast flow 1: Eyal names the clerk")
+check(msgs.call(talk.call("c081cd67"))[1..] == ["TOAST_NOODLE_REMIND_CLERK"], "toast: HaNoodles sends the player to Yunik")
 
-log = script.call(:clerk, 80, duels: [false])
-check(msgs.call(log) == %w[TOAST_CLERK_PRE_1 TOAST_CLERK_PRE_2 TOAST_CLERK_PRE_3 TOAST_CLERK_LOSE] && st.call[:stage] == :lead &&
-      $bag.quantity(:TOASTPERMIT) == 0 && log.find { |e| e[0] == :duel }[3] == "dt_326f5ab5",
-      "toast duel 2: the hearing is a duel on Yunik's event; a loss is 'appeal denied', nothing changes")
-log = script.call(:clerk, 80, duels: [true])
-check(msgs.call(log) == ["TOAST_CLERK_PRE_3", "TOAST_CLERK_WIN_1", "\\me[Key item get]You obtained \\c[1]{1}\\c[0]!",
+# R4 + R6: the Stamp Desk with the retry prompt and easing.
+fail_desk = { passed: false, correct: 5, shown: 8 }
+pass_desk = { passed: true, correct: 11, shown: 12 }
+log = script.call(:clerk, 80, picks: [1], desks: [fail_desk])
+check(msgs.call(log) == %w[TOAST_CLERK_PRE_1 TOAST_CLERK_PRE_2 TOAST_CLERK_PRE_3 TOAST_CLERK_LOSE TOAST_RETRY_HEARING_ASK] &&
+      log.include?([:desk, 0]) && st.call[:stage] == :lead && $bag.quantity(:TOASTPERMIT) == 0 && Toaster.desk_losses == 1 &&
+      plate.call(log, "TOAST_RETRY_HEARING_ASK") == "NAME_326F5AB5" && log.none? { |e| e[0] == :duel },
+      "toast R6: a failed hearing, then Yunik's 'again?'; No keeps :lead and eases (losses 1)")
+log = script.call(:clerk, 80, picks: [0], desks: [fail_desk, pass_desk])
+check(msgs.call(log) == ["TOAST_CLERK_PRE_3", "TOAST_CLERK_LOSE", "TOAST_RETRY_HEARING_ASK", "TOAST_CLERK_WIN_1",
+                         "\\me[Key item get]You obtained \\c[1]{1}\\c[0]!",
                          "You put the {1} in\\nyour Bag's <icon=bagPocket{2}>\\c[1]{3}\\c[0] pocket.",
                          "TOAST_CLERK_WIN_2", "TOAST_CLERK_WIN_3", "TOAST_CLERK_WIN_4"] &&
-      gots.call(log) == ["TOASTPERMIT"] && $bag.quantity(:TOASTPERMIT) == 1 && st.call[:stage] == :permit,
-      "toast duel 2: a win issues one form (fanfare, no second add), then team, vault and mummy lines")
+      log.select { |e| e[0] == :desk } == [[:desk, 1], [:desk, 2]] && gots.call(log) == ["TOASTPERMIT"] &&
+      $bag.quantity(:TOASTPERMIT) == 1 && st.call[:stage] == :permit && Toaster.desk_losses == 0,
+      "toast R4/R6: Yes reruns the desk at once (no PRE) with more easing; a pass is permit!, one form, easing reset")
 check(msgs.call(script.call(:clerk, 80)) == ["TOAST_CLERK_REMIND"] && $bag.quantity(:TOASTPERMIT) == 1, "toast: Yunik reminds while the form is held")
 $bag.remove(:TOASTPERMIT)
 log = script.call(:clerk, 80)
 check(msgs.call(log).values_at(0, -1) == %w[TOAST_CLERK_REISSUE TOAST_CLERK_REMIND] && $bag.quantity(:TOASTPERMIT) == 1,
-      "toast 6: a lost form is reissued once, then the reminder")
+      "toast: a lost form is reissued once, then the reminder")
 check(msgs.call(script.call(:clerk, 95)).empty?, "toast: pbToasterClerk off Map080 does nothing")
-check(msgs.call(talk.call("0f0fdcf5"))[1..] == ["TOAST_EYAL_REMIND_VAULT"], "toast flow 1: Eyal sends the player to the vault")
+check(msgs.call(talk.call("c081cd67"))[1..] == ["TOAST_NOODLE_REMIND_VAULT"], "toast: HaNoodles sends the player to the vault")
 
 #-------------------------------------------------------------------------------
-# Altar: sealed, losses, win, regive, empty; the party always comes back
+# Altar: sealed, eviction losses with retry, win, regive, empty
 #-------------------------------------------------------------------------------
 $PokemonGlobal.toaster_quest = { stage: :asked, crumb_given: false, plug: nil }
 check(msgs.call(script.call(:altar, 94)) == ["TOAST_ALTAR_SEALED"], "toast altar: sealed without the form")
 $PokemonGlobal.toaster_quest = { stage: :permit, crumb_given: false, plug: nil }
-[2, 3, 5].each do |outcome|
-  log = script.call(:altar, 94, outcomes: [outcome])
-  bt = log.find { |e| e[0] == :battle }
-  check(msgs.call(log) == %w[TOAST_ALTAR_POSSESSED_1 TOAST_ALTAR_POSSESSED_2 TOAST_ALTAR_LOSE] &&
-        log.last == [:transfer, 80, 8, 15, 2] && log.include?(:fade) && st.call[:stage] == :permit &&
-        $bag.quantity(:TOASTPERMIT) == 1 && $player.party == [:own_mon],
-        "toast altar: outcome #{outcome} zaps the player to Old City (8,15) with the form kept and the party back")
-  check(bt && bt[1] == :ROTOM && bt[2] == 1 && bt[3] == "TOAST_ROTOM_NAME" && bt[4] == %i[OVERHEAT THUNDERBOLT WILLOWISP CONFUSERAY] &&
-        bt[5] == pbShadowBasicParty && bt[6] == %w[canLose disablePokeBalls noExp], "toast altar: Heat Rotom 'the toaster' vs the lent party, canLose") if outcome == 2
-end
-log = script.call(:altar, 94, outcomes: [:raise]) rescue nil
-check($player.party == [:own_mon] && st.call[:stage] == :permit, "toast altar: a crashed battle still restores the player's party")
-first = [$toast_log.index { |e| e[0] == :se }, $toast_log.index { |e| e[0] == :shake }, $toast_log.index { |e| e[0] == :cry }]
-check(first.all? && first.max < $toast_log.index { |e| e[0] == "TOAST_ALTAR_POSSESSED_1" }, "toast altar: sparks, shake and the cry come before the lines")
+log = script.call(:altar, 94, picks: [1], evicts: [{ won: false, hits: 3 }])
+check(msgs.call(log) == %w[TOAST_ALTAR_POSSESSED_1 TOAST_ALTAR_POSSESSED_2 TOAST_VAULT_YUNIK_1 TOAST_VAULT_YUNIK_2
+                           TOAST_RETRY_VAULT_ASK TOAST_ALTAR_LOSE] &&
+      plate.call(log, "TOAST_ALTAR_POSSESSED_1").nil? && plate.call(log, "TOAST_VAULT_YUNIK_1") == "NAME_326F5AB5" &&
+      log.include?([:evict, 0, 0]) && log.last == [:transfer, 80, 8, 15, 2] && log.include?(:fade) &&
+      st.call[:stage] == :permit && $bag.quantity(:TOASTPERMIT) == 1 && Toaster.vault_losses == 1 && Toaster.vault_last_hits == 3,
+      "toast R1 beat 3 / R6: sparks intro, a failed eviction, No: escorted to (80, 8,15) with the form kept")
+first = [log.index([:se, "Voltorb Flip explosion"]), log.index { |e| e[0] == :shake }]
+check(first.all? && first.max < log.index { |e| e[0] == "TOAST_ALTAR_POSSESSED_1" }, "toast altar: sparks and shake come before the lines")
 events[9].character_name = "toaster_altar"
-log = script.call(:altar, 94, outcomes: [1])
+log = script.call(:altar, 94, picks: [0], evicts: [{ won: false, hits: 2 }, { won: true, hits: 5 }])
+check(msgs.call(log).first(2) == %w[TOAST_VAULT_YUNIK_2 TOAST_RETRY_VAULT_ASK] && !log.include?([:se, "Voltorb Flip explosion"]) &&
+      log.select { |e| e[0] == :evict } == [[:evict, 1, 2], [:evict, 2, 1]],
+      "toast R5/R6: a later visit skips the sparks; Yes reruns with the head start and more easing")
 check(msgs.call(log).values_at(2, 3, -1) == %w[TOAST_ALTAR_WIN_1 TOAST_ALTAR_WIN_2 TOAST_GOT_TOASTER] && gots.call(log) == ["TOASTER"] &&
       log.last == [:transfer, 80, 8, 15, 2] && st.call[:stage] == :toaster && $bag.quantity(:TOASTER) == 1 &&
-      $bag.quantity(:TOASTPERMIT) == 0 && events[9].character_name == "" && log.include?([:se, "Slots coin"]),
-      "toast altar: a win claims the toaster (form gone), empties the live altar, escorts out")
+      $bag.quantity(:TOASTPERMIT) == 0 && events[9].character_name == "" && !log.include?([:se, "Slots coin"]) &&
+      Toaster.vault_losses == 0 && Toaster.vault_last_hits == 0,
+      "toast altar: a win claims the toaster (form gone), empties the live altar, escorts out, resets the easing")
 check(msgs.call(script.call(:altar, 94)) == ["TOAST_ALTAR_EMPTY"], "toast altar: empty while the toaster is held")
 $bag.remove(:TOASTER)
-check(msgs.call(talk.call("0f0fdcf5"))[1..] == ["TOAST_EYAL_REMIND_ALTAR"], "toast flow 1: without the toaster Eyal sends the player back")
+check(msgs.call(talk.call("c081cd67"))[1..] == ["TOAST_NOODLE_REMIND_ALTAR"], "toast: without the toaster HaNoodles sends the player back")
 log = script.call(:altar, 94)
 check(msgs.call(log)[0] == "TOAST_ALTAR_REGIVE" && $bag.quantity(:TOASTER) == 1 && msgs.call(script.call(:altar, 94)) == ["TOAST_ALTAR_EMPTY"],
-      "toast 6: the altar gives a lost toaster back once")
+      "toast: the altar gives a lost toaster back once")
 
 # Odd saves: an item already held is never added a second time.
 oddbag = ToastTestBag.new(TOASTPERMIT: 1)
@@ -400,52 +481,76 @@ check(saved_altar.graphic.character_name == "toaster_altar" && live_altar.charac
 $PokemonGlobal.toaster_quest = { stage: :toaster, crumb_given: false, plug: nil }
 
 #-------------------------------------------------------------------------------
-# Finale, ceremony, crumb, after-lines, Oren
+# Finale (beat 4), ceremony, crumb, after-lines, Oren
 #-------------------------------------------------------------------------------
-log = talk.call("0f0fdcf5", picks: [2])
-check(msgs.call(log)[1..] == %w[TOAST_EYAL_FINALE_1 TOAST_EYAL_FINALE_2 TOAST_EYAL_FINALE_3 TOAST_PLUG_ASK TOAST_PLUG_NOTYET] &&
-      st.call[:stage] == :toaster && $bag.quantity(:TOASTER) == 1, "toast 4: 'not yet' keeps the toaster and the stage")
+$bag = ToastTestBag.new(TOASTER: 1)
+log = talk.call("c081cd67", picks: [2])
+check(msgs.call(log)[1..] == %w[TOAST_NOODLE_FINALE_1 TOAST_NOODLE_FINALE_2 TOAST_NOODLE_FINALE_3 TOAST_PLUG_ASK TOAST_PLUG_NOTYET] &&
+      log[1..].select { |e| e[0].is_a?(String) }.all? { |_, n| n == "NAME_C081CD67" } &&
+      st.call[:stage] == :toaster && $bag.quantity(:TOASTER) == 1, "toast beat 4: 'not yet' keeps the toaster and the stage")
+check(Toaster::PLUG_CHOICES == %w[TOAST_PLUG_CHOICE_AC TOAST_PLUG_CHOICE_POT TOAST_PLUG_CHOICE_NOTYET], "toast beat 4: AC / pot / not yet")
 frames = $toast_frames
-log = talk.call("0f0fdcf5", picks: [0])
+log = talk.call("c081cd67", picks: [1])
 m = msgs.call(log)
 end_at = m.index("TOAST_END_RECEIVED")
-check(m[5, 2] == %w[TOAST_PLUG_AC_1 TOAST_PLUG_AC_2] && log.find { |e| e[0] == "TOAST_PLUG_AC_2" }[1] == "NAME_266D65C6",
-      "toast finale: AC: Eyal decides, Oren howls with his own plate")
-check(end_at && log.find { |e| e[0] == "TOAST_END_RECEIVED" }[1].nil? && log.index([:se, "Vending machine dispense"]) < log.index { |e| e[0] == "TOAST_END_RECEIVED" } &&
-      log.any? { |e| e[0] == :flash } && $toast_frames > frames, "toast finale: tick, tick, pop and flash (frames run), then the plain narration")
+pot2 = log.index { |e| e[0] == "TOAST_PLUG_POT_2" }
+check(m[5, 2] == %w[TOAST_PLUG_POT_1 TOAST_PLUG_POT_2] && plate.call(log, "TOAST_PLUG_POT_1") == "NAME_C081CD67" &&
+      plate.call(log, "TOAST_PLUG_POT_2") == "NAME_C081CD67" && $toast_frames > frames &&
+      log[log.index { |e| e[0] == "TOAST_PLUG_POT_1" } + 1...pot2].none? { |e| e[0].is_a?(String) },
+      "toast beat 4: the pot: POT_1, a silent wait, POT_2, both HaNoodles")
+check(end_at && plate.call(log, "TOAST_END_RECEIVED").nil? && log.index([:se, "Vending machine dispense"]) < log.index { |e| e[0] == "TOAST_END_RECEIVED" } &&
+      log.any? { |e| e[0] == :flash }, "toast beat 4: tick, tick, pop and flash, then the plain narration")
 check(m[end_at + 1, 4] == %w[TOAST_CEREMONY_1 TOAST_CEREMONY_2 TOAST_CEREMONY_3 TOAST_CEREMONY_4] &&
-      log.index([:me, "Slots big win"]) > log.index { |e| e[0] == "TOAST_END_RECEIVED" } && gots.call(log) == ["TOASTCRUMB"],
-      "toast finale: ME, the 4-step ceremony, then one framed crumb")
-check(st.call == { stage: :done, crumb_given: true, plug: :ac } && $bag.quantity(:TOASTER) == 0 && $bag.quantity(:TOASTCRUMB) == 1 &&
-      $bag.quantity(:TOASTPERMIT) == 0, "toast 3: done, the toaster with Eyal, one crumb, no form")
-afters = 4.times.map { msgs.call(talk.call("0f0fdcf5"))[1..] }
-check(afters == [["TOAST_EYAL_AFTER_1"], ["TOAST_EYAL_AFTER_2"], ["TOAST_EYAL_AFTER_3"], ["TOAST_EYAL_AFTER_1"]] && $bag.quantity(:TOASTCRUMB) == 1,
-      "toast after: Eyal rotates 3 after-lines; no second crumb")
-check(msgs.call(talk.call("c081cd67"))[1..] == ["TOAST_NOODLE_AFTER"] && msgs.call(script.call(:clerk, 80)) == ["TOAST_CLERK_CLOSED"] &&
-      msgs.call(script.call(:altar, 94)) == ["TOAST_ALTAR_EMPTY"], "toast after: HaNoodles, Yunik and the altar remember")
-check(msgs.call(talk.call("266d65c6")) == %w[MSG_266D65C6_LINE TOAST_OREN_AC_AFTER] && msgs.call(talk.call("266d65c6", 93)) == ["MSG_266D65C6_LINE"],
-      "toast after: Oren complains after his line, on Kusomo only")
+      log.index([:me, "Slots big win"]) > log.index { |e| e[0] == "TOAST_END_RECEIVED" } && gots.call(log) == ["TOASTCRUMB"] &&
+      plate.call(log, "TOAST_CEREMONY_1") == "NAME_C081CD67", "toast beat 4: ME, the 4-step ceremony (HaNoodles), then one framed crumb")
+check(st.call == { stage: :done, crumb_given: true, plug: :pot } && $bag.quantity(:TOASTER) == 0 && $bag.quantity(:TOASTCRUMB) == 1 &&
+      $bag.quantity(:TOASTPERMIT) == 0, "toast: done with the pot, one crumb, no form")
+afters = 4.times.map { msgs.call(talk.call("c081cd67"))[1..] }
+check(afters == [["TOAST_NOODLE_AFTER_1"], ["TOAST_NOODLE_AFTER_2"], ["TOAST_NOODLE_AFTER_3"], ["TOAST_NOODLE_AFTER_1"]] &&
+      $bag.quantity(:TOASTCRUMB) == 1, "toast after: HaNoodles rotates 3 after-lines; no second crumb")
+check(msgs.call(script.call(:clerk, 80)) == ["TOAST_CLERK_CLOSED"] && msgs.call(script.call(:altar, 94)) == ["TOAST_ALTAR_EMPTY"] &&
+      msgs.call(talk.call("266d65c6")) == ["MSG_266D65C6_LINE"], "toast after: Yunik closed, altar empty, Oren quiet after the pot")
 $PokemonGlobal.toaster_quest = { stage: :toaster, crumb_given: false, plug: nil }
 $bag = ToastTestBag.new(TOASTER: 1)
-log = talk.call("0f0fdcf5", picks: [1])
-check(msgs.call(log)[5, 2] == %w[TOAST_PLUG_JAR_1 TOAST_PLUG_JAR_2] && st.call[:plug] == :jar &&
-      msgs.call(talk.call("266d65c6")) == ["MSG_266D65C6_LINE"], "toast finale: the jar path; Oren has no complaint")
+log = talk.call("c081cd67", picks: [0])
+check(msgs.call(log)[5, 2] == %w[TOAST_PLUG_AC_1 TOAST_PLUG_AC_2] && plate.call(log, "TOAST_PLUG_AC_1") == "NAME_C081CD67" &&
+      plate.call(log, "TOAST_PLUG_AC_2") == "NAME_266D65C6" && st.call[:plug] == :ac,
+      "toast beat 4: AC: HaNoodles decides, Oren howls with his own plate")
+check(msgs.call(talk.call("266d65c6")) == %w[MSG_266D65C6_LINE TOAST_OREN_AC_AFTER] && msgs.call(talk.call("266d65c6", 93)) == ["MSG_266D65C6_LINE"],
+      "toast after: Oren complains after his line, on Kusomo only")
 $PokemonGlobal.toaster_quest = { stage: :done, crumb_given: false, plug: :jar }
 $bag = ToastTestBag.new
-log = talk.call("0f0fdcf5")
-check(msgs.call(log)[1] == "TOAST_CRUMB_RECOVER" && !msgs.call(log).include?("TOAST_END_RECEIVED") && $bag.quantity(:TOASTCRUMB) == 1 &&
-      msgs.call(talk.call("0f0fdcf5"))[1] == "TOAST_EYAL_AFTER_2", "toast 5: crash recovery: one line and the crumb, no replay")
+log = talk.call("c081cd67")
+check(msgs.call(log)[1] == "TOAST_CRUMB_RECOVER" && plate.call(log, "TOAST_CRUMB_RECOVER") == "NAME_C081CD67" &&
+      !msgs.call(log).include?("TOAST_END_RECEIVED") && $bag.quantity(:TOASTCRUMB) == 1 &&
+      msgs.call(talk.call("266d65c6")) == ["MSG_266D65C6_LINE"], "toast T5: an old :jar save recovers the crumb, no replay, no Oren line")
 $PokemonGlobal.toaster_quest = "garbage"
-check(st.call == TR.new_state, "toast 8: a broken saved value loads as a fresh state")
+check(st.call == TR.new_state, "toast: a broken saved value loads as a fresh state")
+
+#-------------------------------------------------------------------------------
+# R8: debug entries
+#-------------------------------------------------------------------------------
 menu = ($toast_menu || []) + ($bags_menu || []) + ($planet_menu || [])
-check(%i[dt_toaster_reset dt_toaster_jump dt_toaster_battle].all? { |i| menu.include?(i) }, "toast debug: the F9 entries are registered")
+check(%i[dt_toaster_reset dt_toaster_jump dt_toaster_desk dt_toaster_evict].all? { |i| menu.include?(i) } && !menu.include?(:dt_toaster_battle),
+      "toast R8: reset, jump, test desk and test eviction are registered; the test battle is gone")
+Toaster.instance_variable_set(:@desk_losses, 2)
+Toaster.instance_variable_set(:@vault_losses, 1)
+Toaster.instance_variable_set(:@vault_last_hits, 4)
+$toast_log.clear
+$toast_desks = [fail_desk]
+$toast_evicts = [{ won: true, hits: 5 }]
+$PokemonGlobal.toaster_quest = { stage: :lead, crumb_given: false, plug: nil }
+Toaster.debug_desk
+Toaster.debug_eviction
+check($toast_log.include?([:desk, 2]) && $toast_log.include?([:evict, 1, 3]) &&
+      [Toaster.desk_losses, Toaster.vault_losses, Toaster.vault_last_hits] == [2, 1, 4] && st.call[:stage] == :lead &&
+      msgs.call($toast_log).any? { |s| s.include?("passed=false correct=5 shown=8") } && msgs.call($toast_log).any? { |s| s.include?("won=true hits=5") },
+      "toast R8: the test runs use the current easing, show the result and change neither easing nor quest")
 $bag = ToastTestBag.new(TOASTER: 1, TOASTCRUMB: 1, TOASTPERMIT: 2)
 Toaster.reset
-check(st.call == TR.new_state && $bag.items.values.all?(&:zero?), "toast debug: reset clears the state and the 3 items")
-$toast_rules = []
-$toast_outcomes = [3]
-out = Toaster.final_battle
-check(out == 3 && st.call == TR.new_state && $player.party == [:own_mon], "toast debug: the test battle returns the outcome and touches no state")
+check(st.call == TR.new_state && $bag.items.values.all?(&:zero?) && [Toaster.desk_losses, Toaster.vault_losses, Toaster.vault_last_hits] == [0, 0, 0] &&
+      %i[@pre_seen @vault_seen @after_turn].all? { |v| Toaster.instance_variable_get(v).nil? },
+      "toast R8: reset clears the state, the 3 items, the easing and the session intros")
 
 #-------------------------------------------------------------------------------
 # Coexistence: every pbDesertTalk hook still fires for its own character
@@ -460,6 +565,7 @@ hagar = msgs.call(talk.call("b19b1f15"))
 cowboy = talk.call("670f79e3", picks: [1])
 pixel = msgs.call(talk.call("d5383627"))
 eyal = msgs.call(talk.call("0f0fdcf5"))
+noodles = msgs.call(talk.call("c081cd67", duels: [false]))
 check(inbar[0] == "MSG_C414CF08_LINE" && inbar[1] == "BAGS_INBAR_ASK_1" && !inbar.any? { |k| k.start_with?("TOAST_", "PLANET_") },
       "toast chain: Inbar still runs the bags quest, and only it (#{inbar.inspect})")
 check(hagar[1] == "PLANET_HAGAR_GIVE_1" && $bag.quantity(:LITTLERAM) == 1 && !hagar.any? { |k| k.start_with?("TOAST_", "BAGS_") },
@@ -468,8 +574,9 @@ check(msgs.call(cowboy).include?("AW_CHALLENGE") && cowboy.none? { |e| e[0] == :
       "toast chain: cowboy Shirpaz still offers her arm-wrestling challenge (not now: no bag)")
 check(pixel[0] == "MSG_D5383627_LINE" && pixel[1] == "BAGS_PIXEL_OFFER_1" && pixel.last == "BAGS_PIXEL_NOTHING" &&
       pixel.none? { |k| k.start_with?("TOAST_", "PLANET_", "AW_") }, "toast chain: Pixel still offers the bag trade, and only that (#{pixel.inspect})")
-check(eyal[0] == "MSG_0F0FDCF5_LINE" && eyal[1] == "TOAST_EYAL_ASK_1" && eyal.none? { |k| k.start_with?("PLANET_", "BAGS_") },
-      "toast chain: Eyal on Kusomo talks only toast")
+check(eyal == ["MSG_0F0FDCF5_LINE"], "toast chain: Eyal the Boss on Kusomo says only his line (#{eyal.inspect})")
+check(noodles[0] == "MSG_C081CD67_LINE" && noodles[1] == "TOAST_NOODLE_ASK_1" && noodles.none? { |k| k.start_with?("PLANET_", "BAGS_") },
+      "toast chain: HaNoodles on Kusomo talks only toast")
 $game_map = ToastMap.new(33, events)
 $toast_log.clear
 $toast_picks = [1]
@@ -477,16 +584,36 @@ pbPlanetEyal
 check(msgs.call($toast_log).none? { |k| k.start_with?("TOAST_") } && st.call[:stage] == :asked, "toast chain: Deep Playa Eyal (pbPlanetEyal) never runs toast")
 
 #-------------------------------------------------------------------------------
-# Layering and 10: keys
+# Layering, T10 keys, T12 grep
 #-------------------------------------------------------------------------------
 toast_src = Dir.glob(File.join(toast_dir, "*.rb")).to_h { |f| [File.basename(f, ".rb"), File.read(f, encoding: "utf-8")] }
 writers = toast_src.reject { |k, _| k == "000_rules" }.select { |_, src| src.match?(/\b(st|state)\[:\w+\]\s*=[^=]/) }
 check(writers.empty?, "toast: only ToasterRules writes the quest state (#{writers.keys.inspect})")
-check(toast_src["000_rules"].scan(/pbMessage|\$game_|pbSEPlay|_INTL/).empty?, "toast: 000_rules is pure")
+check(toast_src.values_at("000_rules", "000_game_rules").join.scan(/pbMessage|\$game_|pbSEPlay|_INTL|Graphics|Bitmap/).empty?,
+      "toast: 000_rules and 000_game_rules are pure")
 tr_doc = JSON.parse(File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8"))["translations"]
 used = toast_src.values.flat_map { |src| src.scan(/\b(TOAST_[A-Z0-9_]+|NAME_[0-9A-F]{8})\b/).flatten }.uniq
+families = { "TOAST_DESK_AMEND_" => 0..2, "TOAST_DESK_APPL_" => 1..8, "TOAST_DESK_RULE_" => 1..6, "TOAST_VAULT_APPL_" => 1..9 }
+fam_ok = used.select { |k| k.end_with?("_") }.sort == families.keys.sort
+used = used.reject { |k| k.end_with?("_") } + families.flat_map { |pre, r| r.map { |n| "#{pre}#{n}" } }
 bad_keys = used.reject { |k| tr_doc[k].is_a?(Hash) && !tr_doc[k]["en"].to_s.empty? && !tr_doc[k]["he"].to_s.empty? }
-check(used.length > 90 && bad_keys.empty?, "toast 10: every TOAST_/NAME_ key used in zToaster has en and he (#{used.length} used, missing #{bad_keys.inspect})")
-check(tr_doc["TOAST_END_RECEIVED"]["he"].b == "אייל הבוס קיבל טוסט.".b, "toast 10: TOAST_END_RECEIVED is the fixed line byte for byte")
+check(fam_ok && used.length > 120 && bad_keys.empty?, "toast T10: every TOAST_/NAME_ key used in zToaster has en and he (#{used.length} used, missing #{bad_keys.inspect})")
+check(tr_doc["TOAST_END_RECEIVED"]["he"].b == "אייל הנודלס קיבל טוסט.".b, "toast T10: TOAST_END_RECEIVED is the fixed line byte for byte")
+retired = (1..4).map { |i| "TOAST_EYAL_ASK_#{i}" } + %w[NOODLES CLERK VAULT ALTAR].map { |k| "TOAST_EYAL_REMIND_#{k}" } +
+          (1..3).map { |i| "TOAST_EYAL_FINALE_#{i}" } + (1..3).map { |i| "TOAST_EYAL_AFTER_#{i}" } +
+          %w[TOAST_PLUG_CHOICE_JAR TOAST_PLUG_JAR_1 TOAST_PLUG_JAR_2 TOAST_NOODLE_REMIND TOAST_NOODLE_AFTER] +
+          (1..4).map { |i| "TOAST_CLERK_MOVE#{i}" } + %w[BLK PRC FRC SPC].product([1, 2, 3]).map { |k, i| "TOAST_CLERK_#{k}#{i}" } +
+          ["TOAST_ROTOM_NAME"]
+check(retired.length == 36 && retired.none? { |k| tr_doc.key?(k) }, "toast T10: none of the 36 retired keys remains")
+moop = tr_doc.select { |k, v| k.start_with?("TOAST_") && v["he"].to_s.match?(/MOOP|מוּפ|מופ(?!על)/) }.keys
+check(moop.empty?, "toast T10: no TOAST_ he value writes MOOP other than as חשל\"ש (#{moop.inspect})")
+grep = %w[pbShadowBasicParty WildBattle 0f0fdcf5 0F0FDCF5].select { |n| toast_src.values.any? { |src| src.include?(n) } }
+check(grep.empty? && !File.read(File.join(toast_dir, "meta.txt")).include?("ShadowBasicBattle"),
+      "toast T12: zToaster has no lent party, no wild battle and no Boss hook (#{grep.inspect})")
+
+# The two scenes against fake graphics, in their own process.
+smoke = IO.popen([RbConfig.ruby, File.join(__dir__, "toaster_scene_smoke.rb")], err: [:child, :out], &:read)
+smoke_fails = smoke.lines.grep(/FAIL|Error/).map(&:strip)
+check($?.success? && smoke_fails.empty?, "toast: desk and eviction scene smoke run passes (#{smoke_fails.first(3).inspect})")
 $game_map, $bag, $PokemonGlobal, $player, $game_screen, $game_switches = saved
 DesertTalk.clear_speaker if DesertTalk.respond_to?(:clear_speaker)

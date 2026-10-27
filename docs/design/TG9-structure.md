@@ -22,3 +22,12 @@ Deviation from the spec, recorded here (reversible):
 - Altar tile (11,6) kept (Adi's preview places the art there; map is 24x24, all tiles passable).
 
 Reuse checked: zBags 001/003 (state reader, alias + `after_talk`), zPlanetarium 005 (`say`/`choose`), MomDadBattle (`canLose`, outcome 1 = win, fade + transfer), ShadowBasicBattle (`pbShadowBasicParty`, `ensure` restore), TempleStickers 010 (live `character_name =`).
+
+## Amendment 2026-10-27 (TG17/TG19, spec "Revision 2026-10-27", dec:tg-32)
+
+1. UNITS added: `000_game_rules.rb` `ToasterDeskRules` + `ToasterEvictRules` (pure: rule predicates, seeded `hearing(seed)`, pass mark/window/early fail; eviction windows, `spawn`, `flicker?`, `start_h`, `move`). `006_desk.rb` `Toaster::DeskScene` and `008_eviction.rb` `Toaster::EvictScene`: modal scenes (zTempleHoop pattern), each `run` returns a hash (`{passed:, correct:, shown:}` / `{won:, hits:}`) and never touches quest state. Removed: `eyal_decide`, `noodles_decide`, `battle_won?`, the Rotom battle, the clerk duel profile.
+2. STATE: saved hash unchanged (`:pot` added to `PLUGS`, `:jar` kept for old saves). New session-only easing in `Toaster` (001_state): `@desk_losses`, `@vault_losses`, `@vault_last_hits`, written only by `record_desk`/`record_vault`/`reset_easing`. Scenes get the easing as constructor arguments and never read it.
+3. INTERFACE: `giver_decide` (HaNoodles, map 95) replaces the Boss hook; `clerk_talk :hearing` and `altar_fight` loop scene -> retry prompt; only `permit!`/`claim!` change the quest. F9 test entries call `run_desk(record: false)` / `run_eviction(record: false)`.
+4. DEPENDENCIES: 000_game_rules <- 006/008 <- 003/004 (called at runtime only) <- 007. ShadowBasicBattle dropped from `meta.txt`.
+5. FILES: 000_game_rules 145, 006 309, 008 336 lines; tests: toaster_rules_test.rb, toaster_scene_smoke.rb (own process), toaster_rules.py + test_toaster.py.
+6. NAMESPACE: keys `TOAST_DESK_*`, `TOAST_VAULT_*`, `TOAST_RETRY_*`; debug ids `:dt_toaster_desk`, `:dt_toaster_evict`.

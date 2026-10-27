@@ -1,40 +1,42 @@
 #===============================================================================
-# Toaster - hooks after Eyal/HaNoodles/Oren (map 95) and Yunik's injected call (map 80).
+# Toaster - hooks after HaNoodles/Oren (map 95) and Yunik's injected call (map 80).
 #===============================================================================
 
 module Toaster
-  ASK = %w[TOAST_EYAL_ASK_1 TOAST_EYAL_ASK_2 TOAST_EYAL_ASK_3 TOAST_EYAL_ASK_4].freeze
-  EYAL_REMIND = {
-    remind_noodles: "TOAST_EYAL_REMIND_NOODLES", remind_clerk: "TOAST_EYAL_REMIND_CLERK",
-    remind_vault: "TOAST_EYAL_REMIND_VAULT", remind_altar: "TOAST_EYAL_REMIND_ALTAR"
+  ASK = %w[TOAST_NOODLE_ASK_1 TOAST_NOODLE_ASK_2 TOAST_NOODLE_ASK_3 TOAST_NOODLE_ASK_4].freeze
+  GIVER_REMIND = {
+    remind_clerk: "TOAST_NOODLE_REMIND_CLERK", remind_vault: "TOAST_NOODLE_REMIND_VAULT",
+    remind_altar: "TOAST_NOODLE_REMIND_ALTAR"
   }.freeze
-  EYAL_AFTER = %w[TOAST_EYAL_AFTER_1 TOAST_EYAL_AFTER_2 TOAST_EYAL_AFTER_3].freeze
+  GIVER_AFTER = %w[TOAST_NOODLE_AFTER_1 TOAST_NOODLE_AFTER_2 TOAST_NOODLE_AFTER_3].freeze
   NOODLE_PRE = %w[TOAST_NOODLE_PRE_1 TOAST_NOODLE_PRE_2 TOAST_NOODLE_PRE_3].freeze
   CLERK_PRE = %w[TOAST_CLERK_PRE_1 TOAST_CLERK_PRE_2 TOAST_CLERK_PRE_3].freeze
+  RETRY_CHOICES = %w[TOAST_RETRY_YES TOAST_RETRY_NO].freeze
   CLERK_SCRIPT = "pbToasterClerk"
   CLERK_EVENT = "dt_326f5ab5"
 
   def self.after_talk(character_id)
     return unless on_map?(KUSOMO_MAP)
     case character_id
-    when EYAL then eyal_talk
-    when NOODLES then noodles_talk
+    when NOODLES then giver_talk
     when OREN then say("TOAST_OREN_AC_AFTER", :oren) if ToasterRules.oren_after?(state)
     end
   end
 
-  def self.eyal_talk
+  def self.giver_talk
     st = state
-    case (d = ToasterRules.eyal_decide(st, $bag))
+    case (d = ToasterRules.giver_decide(st, $bag))
     when :intro
       ToasterRules.ask!(st)
-      lines(ASK, :eyal)
+      lines(ASK, :noodles)
+      noodle_duel(st)
+    when :duel then noodle_duel(st)
     when :finale then finale(st)
     when :crumb_recover then crumb_recover(st)
     when :after
-      @after_turn = ((@after_turn || -1) + 1) % EYAL_AFTER.length
-      say(EYAL_AFTER[@after_turn], :eyal)
-    else say(EYAL_REMIND[d], :eyal)
+      @after_turn = ((@after_turn || -1) + 1) % GIVER_AFTER.length
+      say(GIVER_AFTER[@after_turn], :noodles)
+    else say(GIVER_REMIND[d], :noodles)
     end
   end
 
@@ -45,29 +47,22 @@ module Toaster
     @pre_seen[which] = true
   end
 
-  def self.noodles_talk
-    st = state
-    case ToasterRules.noodles_decide(st)
-    when :duel
-      pre_duel(:noodles, NOODLE_PRE, :noodles)
-      return say("TOAST_NOODLE_LOSE", :noodles) unless duel(:noodles)
-      ToasterRules.lead!(st)
-      lines(%w[TOAST_NOODLE_WIN_1 TOAST_NOODLE_WIN_2], :noodles)
-    when :remind then say("TOAST_NOODLE_REMIND", :noodles)
-    when :after then say("TOAST_NOODLE_AFTER", :noodles)
-    end
+  def self.noodle_duel(st)
+    pre_duel(:noodles, NOODLE_PRE, :noodles)
+    return say("TOAST_NOODLE_LOSE", :noodles) unless duel(:noodles)
+    ToasterRules.lead!(st)
+    lines(%w[TOAST_NOODLE_WIN_1 TOAST_NOODLE_WIN_2], :noodles)
+  end
+
+  # Yunik asks "again?"; No or Back is false.
+  def self.retry?(ask_key)
+    choose(ask_key, :clerk, RETRY_CHOICES) == 0
   end
 
   def self.clerk_talk
     st = state
     case ToasterRules.clerk_decide(st, $bag)
-    when :hearing
-      pre_duel(:clerk, CLERK_PRE, :clerk)
-      return say("TOAST_CLERK_LOSE", :clerk) unless duel(:clerk)
-      return unless ToasterRules.permit!(st, $bag)
-      say("TOAST_CLERK_WIN_1", :clerk)
-      announce(ToasterRules::PERMIT)
-      lines(%w[TOAST_CLERK_WIN_2 TOAST_CLERK_WIN_3 TOAST_CLERK_WIN_4], :clerk)
+    when :hearing then hearing(st)
     when :reissue
       return unless ToasterRules.reissue!(st, $bag)
       say("TOAST_CLERK_REISSUE", :clerk)
@@ -76,6 +71,29 @@ module Toaster
     when :remind then say("TOAST_CLERK_REMIND", :clerk)
     when :closed then say("TOAST_CLERK_CLOSED", :clerk)
     end
+  end
+
+  # The Stamp Desk, again at once on "yes"; only a pass changes the quest.
+  def self.hearing(st)
+    pre_duel(:clerk, CLERK_PRE, :clerk)
+    loop do
+      if run_desk[:passed]
+        return unless ToasterRules.permit!(st, $bag)
+        say("TOAST_CLERK_WIN_1", :clerk)
+        announce(ToasterRules::PERMIT)
+        return lines(%w[TOAST_CLERK_WIN_2 TOAST_CLERK_WIN_3 TOAST_CLERK_WIN_4], :clerk)
+      end
+      say("TOAST_CLERK_LOSE", :clerk)
+      return unless retry?("TOAST_RETRY_HEARING_ASK")
+    end
+  end
+
+  # One hearing at the current easing; record: false for the F9 test run.
+  def self.run_desk(record: true)
+    DesertTalk.name_key = nil if defined?(DesertTalk)
+    result = DeskScene.new(desk_losses, rand(1 << 30)).run
+    record_desk(result[:passed]) if record
+    result
   end
 
   # Appends `pbToasterClerk` to Yunik's talk (Action) page(s), once; other pages untouched.

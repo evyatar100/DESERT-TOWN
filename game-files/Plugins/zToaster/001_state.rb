@@ -12,7 +12,6 @@ class PokemonGlobalMetadata
 end
 
 module Toaster
-  EYAL = "0f0fdcf5"
   NOODLES = "c081cd67"
   CLERK = "326f5ab5"
   OREN = "266d65c6"
@@ -20,8 +19,29 @@ module Toaster
   CLERK_MAP = 80
   ALTAR_MAP = 94
   NAME_KEYS = {
-    eyal: "NAME_0F0FDCF5", noodles: "NAME_C081CD67", clerk: "NAME_326F5AB5", oren: "NAME_266D65C6"
+    noodles: "NAME_C081CD67", clerk: "NAME_326F5AB5", oren: "NAME_266D65C6"
   }.freeze
+
+  # Retry easing, session only (never saved): a reload resets it.
+  class << self
+    def desk_losses = (@desk_losses ||= 0)
+    def vault_losses = (@vault_losses ||= 0)
+    def vault_last_hits = (@vault_last_hits ||= 0)
+  end
+
+  def self.reset_easing
+    @desk_losses = @vault_losses = @vault_last_hits = 0
+  end
+
+  # A pass clears the desk easing; a fail adds one step.
+  def self.record_desk(passed)
+    @desk_losses = passed ? 0 : desk_losses + 1
+  end
+
+  def self.record_vault(won, hits)
+    @vault_losses = won ? 0 : vault_losses + 1
+    @vault_last_hits = won ? 0 : hits
+  end
 
   def self.state
     return ToasterRules.new_state if !$PokemonGlobal

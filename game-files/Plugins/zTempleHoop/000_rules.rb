@@ -124,29 +124,32 @@ module TempleHoopRules
     x.keep_if { |k, _| new_state.key?(k) }
   end
 
-  # A finished round: counts it, keeps the best; true when Toga is due.
+  # A finished round: counts it, keeps the best; true when the visitor is due.
   def self.finish!(state, made)
     made = made.to_i.clamp(0, SHOTS)
     state[:plays] += 1
     state[:best] = [state[:best], made].max
-    !toga_seen?(state)
+    !visitor_seen?(state)
   end
 
-  # Toga's visit keeps the old :evyatar_seen key, so saves from before the swap count.
-  def self.toga_seen?(state)
+  # The visit keeps the old :evyatar_seen key, so every earlier save counts.
+  def self.visitor_seen?(state)
     state[:evyatar_seen] == true
   end
 
-  def self.mark_toga!(state)
+  def self.mark_visitor!(state)
     state[:evyatar_seen] = true
   end
 
-  def self.reset_toga!(state)
+  def self.reset_visitor!(state)
     state[:evyatar_seen] = false
   end
 
   class << self
-    alias_method :mark_evyatar!, :mark_toga!
-    alias_method :reset_evyatar!, :reset_toga!
+    alias_method :toga_seen?, :visitor_seen?
+    alias_method :mark_toga!, :mark_visitor!
+    alias_method :reset_toga!, :reset_visitor!
+    alias_method :mark_evyatar!, :mark_visitor!
+    alias_method :reset_evyatar!, :reset_visitor!
   end
 end

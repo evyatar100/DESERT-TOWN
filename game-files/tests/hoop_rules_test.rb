@@ -48,12 +48,12 @@ check(HR.normalize(kept).equal?(kept) && kept == { evyatar_seen: true, plays: 4,
 st = HR.new_state
 check(HR.card(st, 2)[:best].nil?, "hoop: no best on the run's first card")
 check(HR.finish!(st, 2) && st[:plays] == 1 && st[:best] == 2, "hoop: the first finish is due and counts")
-check(HR.finish!(st, 1) && st[:best] == 2 && !HR.toga_seen?(st), "hoop: still due until Toga is marked; best keeps the max")
+check(HR.finish!(st, 1) && st[:best] == 2 && !HR.toga_seen?(st), "hoop: still due until the visitor is marked; best keeps the max")
 HR.mark_toga!(st)
 check(HR.toga_seen?(st) && st[:evyatar_seen] == true, "hoop: mark_toga! writes the kept evyatar_seen key")
 check(!HR.finish!(st, 4) && st[:plays] == 3 && st[:best] == 4, "hoop: after mark_toga! no longer due; plays +1, best = max")
 old_save = HR.normalize({ evyatar_seen: true, plays: 1, best: 2 })
-check(HR.toga_seen?(old_save) && !HR.finish!(old_save, 3), "hoop: a save with evyatar_seen = true counts as Toga seen")
+check(HR.toga_seen?(old_save) && !HR.finish!(old_save, 3), "hoop: a save with evyatar_seen = true counts as the visitor seen")
 alias_st = HR.new_state
 HR.mark_evyatar!(alias_st)
 check(HR.toga_seen?(alias_st) && (HR.reset_evyatar!(alias_st); !HR.toga_seen?(alias_st)), "hoop: the old evyatar method names still work")
@@ -97,8 +97,8 @@ check(hoop_keys.length >= 9 && hoop_keys.all? { |k| tr.dig(k, "he").to_s != "" &
 line = tr["HOOP_EVYATAR_LINE"] || {}
 check(line["he"] == HOOP_LINE && line["en"] == HOOP_LINE && !HOOP_LINE.match?(/[\n״"]/),
       "hoop: HOOP_EVYATAR_LINE is the founder's line byte for byte in he and en")
-check(tr.dig("NAME_7A2A022C", "he") == "טוגה" && DesertTalk::CHARACTERS["7a2a022c"][:name_key] == "NAME_7A2A022C",
-      "hoop: Toga's name plate reads טוגה")
+check(tr.dig("NAME_F90D4DE9", "he") == "אביתר" && DesertTalk::CHARACTERS["f90d4de9"][:name_key] == "NAME_F90D4DE9",
+      "hoop: Evyatar's name plate reads אביתר")
 %w[002_art.rb 003_scene.rb 005_debug.rb].each do |f|
   ok = begin
     RubyVM::InstructionSequence.compile(hoop_src[f], f) && true
@@ -109,7 +109,7 @@ check(tr.dig("NAME_7A2A022C", "he") == "טוגה" && DesertTalk::CHARACTERS["7a2
 end
 
 #-------------------------------------------------------------------------------
-# pbTempleHoop + Toga with stubs: a wait runs map frames, each frame steps routes
+# pbTempleHoop + the visitor with stubs: a wait runs map frames, each frame steps routes
 #-------------------------------------------------------------------------------
 module PBMoveRoute
   DOWN = 1; LEFT = 2; RIGHT = 3; UP = 4
@@ -216,7 +216,7 @@ check($hoop_log.include?([:scene, [6, 13, 4]]), "hoop: under the fade the player
 check($hoop_log.index([:followers, 6, 13]) && $hoop_log.index([:followers, 6, 13]) < $hoop_log.index { |e| e.is_a?(Array) && e[0] == :scene },
       "hoop: followers are put on the player after the teleport, before the scene")
 check($PokemonGlobal.temple_hoop == HR.new_state && $hoop_log.none? { |e| e.is_a?(Array) && e[0] == :msg } && saves.empty?,
-      "hoop: a Blue quit counts nothing and brings no Toga")
+      "hoop: a Blue quit counts nothing and brings no Evyatar")
 
 $game_player.moveto(4, 13)
 DesertTalk.name_key = "NAME_STALE" if DesertTalk.respond_to?(:name_key=)
@@ -224,13 +224,13 @@ frames_before = $hoop_frames
 hoop_play.call(true, { finished: true, made: 3 })
 msgs = $hoop_log.select { |e| e.is_a?(Array) && e[0] == :msg }
 check(msgs.length == 1 && msgs[0][1] == "HOOP_EVYATAR_LINE", "hoop: the first finished round shows exactly one box, the line")
-check(msgs[0][2] == "NAME_7A2A022C", "hoop: Toga's line shows his name plate (#{msgs[0][2].inspect})")
-check(msgs[0][3] == [7, 13, 4, "dt_7a2a022c"] && msgs[0][4] == [6, 13, 6],
-      "hoop: Toga stands at (7,13) facing left, the player faces him")
+check(msgs[0][2] == "NAME_F90D4DE9", "hoop: Evyatar's line shows his name plate (#{msgs[0][2].inspect})")
+check(msgs[0][3] == [7, 13, 4, "dt_f90d4de9"] && msgs[0][4] == [6, 13, 6],
+      "hoop: Evyatar stands at (7,13) facing left, the player faces him")
 check(msgs[0][5] == false && $PokemonGlobal.temple_hoop[:evyatar_seen], "hoop: the seen flag is set right after the box")
 route_in = evy.walked.first(9).map { |x, y, _, _| [x, y] }
 check(route_in == [[6, 20], [6, 19]] + (13..19).to_a.reverse.map { |y| [7, y] },
-      "hoop: Toga walks up 2 from the arch, right 1, up 6 to (7,13) (#{route_in.inspect})")
+      "hoop: Evyatar walks up 2 from the arch, right 1, up 6 to (7,13) (#{route_in.inspect})")
 route_out = evy.walked.last(9).map { |x, y, _, _| [x, y] }
 check(route_out == (14..19).map { |y| [7, y] } + [[6, 19], [6, 20], [6, 21]], "hoop: he walks out the same way (#{route_out.inspect})")
 check(evy.walked.length == 18 && evy.walked.all? { |_, _, th, sp| th && sp == 2 } && evy.walked.last[0, 2] == [6, 21],
@@ -247,7 +247,7 @@ check($hoop_log.none? { |e| e.is_a?(Array) && e[0] == :msg } && saves == [:templ
       $PokemonGlobal.temple_hoop == { evyatar_seen: true, plays: 2, best: 5 }, "hoop: the second round is only the game")
 $PokemonGlobal = PokemonGlobalMetadata.new
 hoop_play.call(true, { finished: true, made: 0 })
-check($hoop_log.count { |e| e.is_a?(Array) && e[0] == :msg } == 1, "hoop: a new game brings Toga again, at any score")
+check($hoop_log.count { |e| e.is_a?(Array) && e[0] == :msg } == 1, "hoop: a new game brings Evyatar again, at any score")
 $PokemonGlobal = PokemonGlobalMetadata.new
 $PokemonGlobal.temple_hoop = { evyatar_seen: true, plays: 1, best: 2 }
 hoop_play.call(true, { finished: true, made: 4 })

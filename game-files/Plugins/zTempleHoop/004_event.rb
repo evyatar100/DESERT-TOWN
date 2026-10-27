@@ -1,22 +1,30 @@
 #===============================================================================
 # Temple hoop - Map113 event 12 runs pbTempleHoop(get_self); the first finished
-# round of a run brings Toga (event 13) in for his one line, then it autosaves.
+# round of a run brings Evyatar (event 13) in for his one line, then it autosaves.
 #===============================================================================
 
 module TempleHoop
   STAND = [6, 13].freeze                  # shooting line, facing the hoop at (5,13)
-  TOGA_EVENT = "temple_hoop_toga"
-  TOGA_EVENT_NAMES = [TOGA_EVENT, "temple_hoop_evyatar"].freeze   # Map113 event 13 keeps the old name
-  TOGA_ID = "7a2a022c"                    # Toga, the barrel philosopher
-  TOGA_CHARSET = "dt_7a2a022c"
-  TOGA_HOME = [0, 23].freeze              # unreachable void tile
-  TOGA_ENTRY = [6, 21].freeze             # inside the arch art
-  TOGA_SPEED = 2                          # slower than the player's walk (3)
-  EVYATAR_EVENT = TOGA_EVENT
-  EVYATAR_CHARSET = TOGA_CHARSET
-  EVYATAR_HOME = TOGA_HOME
-  EVYATAR_ENTRY = TOGA_ENTRY
-  EVYATAR_SPEED = TOGA_SPEED
+  VISITOR_EVENT = "temple_hoop_evyatar"
+  VISITOR_EVENT_NAMES = [VISITOR_EVENT, "temple_hoop_toga"].freeze   # Map113 event 13; both names work
+  VISITOR_ID = "f90d4de9"                 # Evyatar (WindJackal700), TG15
+  VISITOR_CHARSET = "dt_f90d4de9"
+  VISITOR_HOME = [0, 23].freeze           # unreachable void tile
+  VISITOR_ENTRY = [6, 21].freeze          # inside the arch art
+  VISITOR_SPEED = 2                       # slower than the player's walk (3)
+  # Old names, kept so nothing that still says Toga or the first Evyatar breaks.
+  TOGA_EVENT = VISITOR_EVENT
+  TOGA_EVENT_NAMES = VISITOR_EVENT_NAMES
+  TOGA_ID = VISITOR_ID
+  TOGA_CHARSET = VISITOR_CHARSET
+  TOGA_HOME = VISITOR_HOME
+  TOGA_ENTRY = VISITOR_ENTRY
+  TOGA_SPEED = VISITOR_SPEED
+  EVYATAR_EVENT = VISITOR_EVENT
+  EVYATAR_CHARSET = VISITOR_CHARSET
+  EVYATAR_HOME = VISITOR_HOME
+  EVYATAR_ENTRY = VISITOR_ENTRY
+  EVYATAR_SPEED = VISITOR_SPEED
 
   # (6,21) -> (6,19) -> (7,19) -> (7,13), facing the player; out is the same path back.
   def self.in_route
@@ -35,40 +43,42 @@ module TempleHoop
     pbUpdateSceneMap
   end
 
-  def self.toga_event
-    $game_map.events.values.find { |e| TOGA_EVENT_NAMES.include?(e.name) }
+  def self.visitor_event
+    $game_map.events.values.find { |e| VISITOR_EVENT_NAMES.include?(e.name) }
   end
 
   # Walk in, the line with his name plate, save (flag set first), walk out.
-  def self.toga_visit(state)
-    ev = toga_event
+  def self.visitor_visit(state)
+    ev = visitor_event
     return false unless ev
     pbWait(0.6)
     pbSEPlay("Door enter")
-    ev.character_name = TOGA_CHARSET
-    ev.moveto(*TOGA_ENTRY)
+    ev.character_name = VISITOR_CHARSET
+    ev.moveto(*VISITOR_ENTRY)
     ev.through = true
-    ev.move_speed = TOGA_SPEED
+    ev.move_speed = VISITOR_SPEED
     ev.turn_up
     TempleStickers.walk(ev, *in_route)
     $game_player.turn_right
     pbWait(0.4)
-    pbDesertSpeaker(TOGA_ID)
+    pbDesertSpeaker(VISITOR_ID)
     pbMessage(_INTL("HOOP_EVYATAR_LINE"))
-    TempleHoopRules.mark_toga!(state)
+    TempleHoopRules.mark_visitor!(state)
     DesertTownAutosave.save_now(:temple_hoop) if defined?(DesertTownAutosave)
     pbWait(0.3)
     TempleStickers.walk(ev, *out_route)
     pbSEPlay("Door exit")
     ev.character_name = ""
-    ev.moveto(*TOGA_HOME)
+    ev.moveto(*VISITOR_HOME)
     ev.through = false
     true
   end
 
   class << self
-    alias_method :evyatar_event, :toga_event
-    alias_method :evyatar_visit, :toga_visit
+    alias_method :toga_event, :visitor_event
+    alias_method :toga_visit, :visitor_visit
+    alias_method :evyatar_event, :visitor_event
+    alias_method :evyatar_visit, :visitor_visit
   end
 end
 
@@ -83,6 +93,6 @@ def pbTempleHoop(event)
     result = TempleHoop::Scene.new(state).run
   end
   return true unless result && result[:finished]
-  TempleHoop.toga_visit(state) if TempleHoopRules.finish!(state, result[:made])
+  TempleHoop.visitor_visit(state) if TempleHoopRules.finish!(state, result[:made])
   true
 end

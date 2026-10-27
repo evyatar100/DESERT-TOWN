@@ -1,6 +1,6 @@
 #===============================================================================
 # Temple hoop - F9 debug entry (Debug > Desert Town... > Temple hoop):
-# warp to the shooting line (6,13), or let Toga come again this run.
+# warp to the shooting line (6,13), or let Evyatar come again this run.
 #===============================================================================
 
 module TempleHoop
@@ -19,17 +19,17 @@ end
 MenuHandlers.add(:debug_menu, :dt_temple_hoop, {
   "name"        => "Temple hoop",
   "parent"      => :desert_town_menu,
-  "description" => "Warp to the hoop on Map113, or reset Toga's visit for this run.",
+  "description" => "Warp to the hoop on Map113, or reset Evyatar's visit for this run.",
   "always_show" => true,
   "effect"      => proc { |sprites, viewport|
     if !$PokemonGlobal || !$scene.is_a?(Scene_Map)
       pbMessage("Load a game on the map first.")
       next false
     end
-    choice = pbShowCommands(nil, ["Warp to the hoop", "Reset Toga", "Cancel"], 3)
+    choice = pbShowCommands(nil, ["Warp to the hoop", "Reset Evyatar", "Cancel"], 3)
     if choice == 1
-      TempleHoopRules.reset_toga!(TempleHoop.state)
-      pbMessage("Toga will come after the next finished round.")
+      TempleHoopRules.reset_visitor!(TempleHoop.state)
+      pbMessage("Evyatar will come after the next finished round.")
     end
     next false unless choice == 0
     pbFadeOutAndHide(sprites)

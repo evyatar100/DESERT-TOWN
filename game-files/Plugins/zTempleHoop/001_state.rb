@@ -1,6 +1,6 @@
 #===============================================================================
 # Temple hoop - saved per-run state ($PokemonGlobal.temple_hoop). A new game makes
-# a new PokemonGlobalMetadata, so Toga comes once per run.
+# a new PokemonGlobalMetadata, so Evyatar comes once per run.
 #===============================================================================
 
 class PokemonGlobalMetadata

@@ -1,4 +1,4 @@
-"""TG11 temple hoop: Map113 wiring, a passable route for Toga, the line, art, and the rules mirror."""
+"""TG11 temple hoop: Map113 wiring, a passable route for the visitor, the line, art, and the rules mirror."""
 
 from __future__ import annotations
 
@@ -25,7 +25,7 @@ HOOP = (5, 13)
 STAND = (6, 13)
 TRIGGER_TILES = ((6, 13), (4, 13), (5, 12), (5, 14))
 TOGA_STOP = (7, 13)
-# Toga from the arch (6,21): up 2, right 1, up 6 to his stop. (6,20) is arch art he walks through.
+# Evyatar from the arch (6,21): up 2, right 1, up 6 to his stop. (6,20) is arch art he walks through.
 ROUTE = ((6, 19),) + tuple((7, y) for y in range(19, 12, -1))
 VISITOR_EVENT_NAMES = ("temple_hoop_toga", "temple_hoop_evyatar")
 RULES_RB = ROOT / "Plugins" / "zTempleHoop" / "000_rules.rb"
@@ -74,7 +74,7 @@ class HoopMapTests(unittest.TestCase):
         hoop = self.temple.events.get(12)
         evy = self.temple.events.get(13)
         self.assertIsNotNone(hoop, "Map113 event 12 temple_hoop is missing")
-        self.assertIsNotNone(evy, "Map113 event 13 (Toga's visit) is missing")
+        self.assertIsNotNone(evy, "Map113 event 13 (the visitor) is missing")
         self.assertEqual((hoop["name"], hoop["x"], hoop["y"]), ("temple_hoop",) + HOOP)
         self.assertIn(evy["name"], VISITOR_EVENT_NAMES)
         self.assertEqual((evy["x"], evy["y"]), (0, 23))
@@ -95,7 +95,7 @@ class HoopMapTests(unittest.TestCase):
 
 
 class HoopTextAndArtTests(unittest.TestCase):
-    def test_toga_line_is_byte_exact(self):
+    def test_visitor_line_is_byte_exact(self):
         data = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
         entry = data["HOOP_EVYATAR_LINE"]
         self.assertEqual(entry["he"].encode("utf-8"), LINE.encode("utf-8"))
@@ -104,18 +104,18 @@ class HoopTextAndArtTests(unittest.TestCase):
                     "HOOP_MISSED", "HOOP_RESULT", "HOOP_BEST"):
             self.assertTrue(data[key]["he"].strip() and data[key]["en"].strip(), key)
 
-    def test_toga_name_plate(self):
+    def test_visitor_name_plate(self):
         data = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
-        self.assertEqual(data["NAME_7A2A022C"]["he"], "טוגה")
+        self.assertEqual(data["NAME_F90D4DE9"]["he"], "אביתר")
         chars = (ROOT / "Plugins" / "DesertTalk" / "characters.rb").read_text(encoding="utf-8")
-        self.assertIn('"7a2a022c" => { name_key: "NAME_7A2A022C"', chars)
+        self.assertIn('"f90d4de9" => { name_key: "NAME_F90D4DE9"', chars)
 
     def test_art_sizes(self):
         sizes = {
             "Graphics/Characters/temple_hoop.png": (192, 448),
             "Graphics/Pictures/TempleHoop/hoop_big.png": (144, 336),
             "Graphics/Pictures/TempleHoop/hoop_front.png": (144, 336),
-            "Graphics/Characters/dt_7a2a022c.png": (128, 192),
+            "Graphics/Characters/dt_f90d4de9.png": (128, 192),
         }
         for rel, size in sizes.items():
             with Image.open(ROOT / rel) as image:

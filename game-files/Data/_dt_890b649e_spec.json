@@ -1,0 +1,10 @@
+{
+  "events": [
+    {
+      "id": 20,
+      "insert_before_end": [
+        { "code": 101, "parameters": ["MSG_890B649E_MOMDAD"] }
+      ]
+    }
+  ]
+}

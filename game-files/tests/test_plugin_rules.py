@@ -186,7 +186,7 @@ def visual_reverse(text):
         parts = []
         for ltr, start, length in reversed(bidi_runs(bidi_ltr_flags([bidi_class(c) for c in chars]))):
             part = chars[start : start + length]
-            parts.append("".join(part if ltr else reversed(part)))
+            parts.append("".join(part if ltr else (mirror_bidi_char(c) for c in reversed(part))))
         out.append("".join(parts))
     return "\n".join(out)
 
@@ -308,6 +308,22 @@ def next_depth(depth):
     return int(depth) + 1
 
 
+MIRROR_PAIRS = {
+    "(": ")",
+    ")": "(",
+    "[": "]",
+    "]": "[",
+    "{": "}",
+    "}": "{",
+    "<": ">",
+    ">": "<",
+}
+
+
+def mirror_bidi_char(char):
+    return MIRROR_PAIRS.get(char, char)
+
+
 class PluginRuleTests(unittest.TestCase):
     def test_plugins_call_the_decision_methods(self):
         seller = (ROOT / "Plugins" / "HebrewSupport" / "ice_seller.rb").read_text(encoding="utf-8")
@@ -317,14 +333,42 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("seconds_remaining", timer)
         self.assertIn("rescue_destination", timer)
         self.assertIn("normalize_starter_quantity", bag)
+        hebrew = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("MIRROR_PAIRS", hebrew)
+        self.assertIn("mirror_bidi_char", hebrew)
         lights = (ROOT / "Plugins" / "PartyLights" / "party_lights.rb").read_text(encoding="utf-8")
         sheep = (ROOT / "Plugins" / "SpacesheepCool" / "spacesheep_cool.rb").read_text(encoding="utf-8")
         self.assertIn("MAP_ID = 93", lights)
+        self.assertIn("SWITCH = 105", lights)
+        self.assertIn("def enter_zone", lights)
+        self.assertIn("def exit_zone", lights)
+        self.assertIn('COOL_BGM = "Alien Party"', lights)
+        self.assertIn('CALM_BGM = "Calm Camps Area"', lights)
         self.assertIn("Tone.new(100, -30, -30, 0)", lights)
         self.assertIn("Tone.new(-30, -30, 100, 0)", lights)
         self.assertIn("Tone.new(-30, 100, -30, 0)", lights)
         self.assertIn("Tone.new(100, -30, -30, 0)", sheep)
-        self.assertNotIn("pbBGMPlay", lights)
+        self.assertIn("pbBGMPlay", lights)
+        # Game loads PartyLights from PluginScripts.rxdata, not the .rb file alone.
+        import zlib
+        from rubymarshal.reader import load as load_marshal
+
+        def _text(value):
+            return value.decode("utf-8") if isinstance(value, bytes) else str(value)
+
+        with open(ROOT / "Data" / "PluginScripts.rxdata", "rb") as handle:
+            plugins = load_marshal(handle)
+        party = next(p for p in plugins if _text(p[0]) == "PartyLights")
+        compiled = {
+            _text(name): zlib.decompress(bytes(code)).decode("utf-8") for name, code in party[2]
+        }
+        self.assertEqual(
+            compiled.get("party_lights.rb"),
+            lights,
+            "PartyLights is not recompiled; run python compile_plugins.py",
+        )
         talk = (ROOT / "Plugins" / "DesertTalk" / "desert_talk.rb").read_text(encoding="utf-8")
         self.assertIn("def pbDesertSpeaker", talk)
         self.assertIn("DesertTalk.start_speaker", talk)
@@ -401,6 +445,34 @@ class PluginRuleTests(unittest.TestCase):
             body = src.split(f"def self.{name}(", 1)[1].split("\n  end\n", 1)[0]
             self.assertIn("bidi_ltr_flags(", body)
         self.assertEqual(src.count("HebrewText.visual_reverse(string)"), 3)
+
+    def test_hebrew_support_plugin_is_recompiled(self):
+        """Bag text loads from PluginScripts.rxdata, not the loose .rb file."""
+        import zlib
+
+        from rubymarshal.reader import load
+
+        source = (ROOT / "Plugins" / "HebrewSupport" / "hebrew_support.rb").read_text(
+            encoding="utf-8"
+        )
+        with open(ROOT / "Data" / "PluginScripts.rxdata", "rb") as handle:
+            plugins = load(handle)
+        compiled = None
+        for plugin in plugins:
+            name = plugin[0].decode("utf-8") if isinstance(plugin[0], bytes) else str(plugin[0])
+            if name != "HebrewSupport":
+                continue
+            for fname, blob in plugin[2]:
+                fname = fname.decode("utf-8") if isinstance(fname, bytes) else str(fname)
+                if fname == "hebrew_support.rb":
+                    compiled = zlib.decompress(bytes(blob)).decode("utf-8")
+        self.assertIsNotNone(compiled, "HebrewSupport missing from PluginScripts.rxdata")
+        self.assertEqual(
+            compiled,
+            source,
+            "hebrew_support.rb is not recompiled; run python compile_plugins.py",
+        )
+        self.assertIn("MIRROR_PAIRS", compiled)
 
     def test_arcade_rules_without_ruby(self):
         self.assertTrue(autosave_due(5000, None))
@@ -678,6 +750,13 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual([91, 41, 35, 2][0:3], [91, 41, 35])
         for amount in (0, 1, 4):
             self.assertEqual(normalize_starter_quantity(amount), 1)
+        bottle = visual_reverse("בקבוק מים (לבן)")
+        self.assertIn("(ןבל)", bottle)
+        self.assertNotIn(")ןבל(", bottle)
+        self.assertEqual(visual_reverse("שלום"), "םולש")
+        self.assertEqual(visual_reverse("בדיקה (OK)"), "(OK) הקידב")
+        self.assertEqual(mirror_bidi_char("("), ")")
+        self.assertEqual(mirror_bidi_char(")"), "(")
 
         speaker = DesertSpeaker()
         speaker.start_speaker("11eaf4fa")

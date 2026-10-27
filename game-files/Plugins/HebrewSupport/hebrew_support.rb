@@ -149,6 +149,15 @@ module HebrewText
   PRIMARY_FILE = "PBS/translations.json"
   FALLBACK_FILE = "Data/translations.json"
 
+  # Paired punctuation must swap glyphs when character order is reversed for RTL,
+  # otherwise bag names like "בקבוק מים (לבן)" show as ")לבן(".
+  MIRROR_PAIRS = {
+    "(" => ")", ")" => "(",
+    "[" => "]", "]" => "[",
+    "{" => "}", "}" => "{",
+    "<" => ">", ">" => "<",
+  }.freeze
+
   @translations = nil
   @language = :he
 
@@ -307,6 +316,12 @@ module HebrewText
     return runs
   end
 
+  # Swaps paired punctuation when an RTL run is reversed, so "(x)" keeps its shape.
+  def self.mirror_bidi_char(char)
+    return char unless char.is_a?(String)
+    MIRROR_PAIRS[char] || char
+  end
+
   # A letter plus its following combining marks (MARK_CLASS) is one unit.
   def self.clusters(line)
     line.scan(CLUSTER_RE)
@@ -323,7 +338,7 @@ module HebrewText
       runs = bidi_runs(bidi_ltr_flags(chars.map { |ch| bidi_class(ch) }))
       runs.reverse.map do |ltr, start, len|
         part = chars[start, len]
-        (ltr ? part : part.reverse).join
+        (ltr ? part : part.reverse.map { |ch| mirror_bidi_char(ch) }).join
       end.join
     end
     return lines.join("\n")
@@ -374,6 +389,7 @@ module HebrewText
           next
         end
         g_width = members.map { |c| c[1] + c[3] }.max - base[1]
+        base[0] = mirror_bidi_char(base[0]) unless base[5]
         base[1] = new_b_min_x + (b_width - (base[1] - b_min_x) - g_width)
         members.drop(1).each { |m| m[1] = base[1] + (base[3] - m[3]) / 2 }
       end

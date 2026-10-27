@@ -6655,5 +6655,13 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = One crumb, framed. Fell on the first Toast Day. Approved by the Appliance Committee, retroactively.
+#-------------------------------
+[EVENTPROGRAM]
+Name = Event Program
+NamePlural = Event Programs
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A printed program of the event.
 
 

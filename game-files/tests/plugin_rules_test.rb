@@ -391,6 +391,7 @@ pocket = QuantityBag.new({ WHITEWATERBOTTLE: 3, USBDISK: 0 })
 BurningManBag.ensure_single_starter_items(pocket)
 check(pocket.quantity(:WHITEWATERBOTTLE) == 1, "three bottles collapse to one")
 check(pocket.quantity(:USBDISK) == 1, "a missing disk is added once")
+check(pocket.quantity(:EVENTPROGRAM) == 1, "a missing event program is added once")
 
 # --- arcade autosave ---
 interval = DesertTownAutosave::INTERVAL
@@ -1016,6 +1017,23 @@ check(MomDadBattleRules.outcome(1) == :win, "battle: outcome 1 is a win")
 check(MomDadBattleRules.outcome(2) == :lose, "battle: a loss is a loss")
 check(MomDadBattleRules.outcome(3) == :lose, "battle: running is a loss")
 check(MomDadBattleRules.follower_name("b25567c8") == "momdad_child_b25567c8", "battle: follower name")
+
+# --- Hebrew RTL parentheses (bag item names) ---
+bottle = "בקבוק מים (לבן)"
+reversed_bottle = HebrewText.visual_reverse(bottle)
+check(reversed_bottle.include?("(ןבל)"),
+      "bag Hebrew name keeps opening '(' on the visual left of the word")
+check(reversed_bottle.include?(")"),
+      "bag Hebrew name keeps closing ')' on the visual right of the word")
+check(!reversed_bottle.include?(")ןבל("),
+      "bag Hebrew name does not show reversed parentheses glyphs")
+check(HebrewText.visual_reverse("שלום") == "םולש", "plain Hebrew still reverses")
+check(HebrewText.visual_reverse("20 Shekel") == "20 Shekel",
+      "English without Hebrew is left alone")
+check(HebrewText.mirror_bidi_char("(") == ")", "mirror open paren")
+check(HebrewText.mirror_bidi_char(")") == "(", "mirror close paren")
+check(HebrewText.visual_reverse("בדיקה (OK)") == "(OK) הקידב",
+      "English parenthetical stays intact inside Hebrew")
 
 if $failures.empty?
   puts "Plugin rule tests passed."

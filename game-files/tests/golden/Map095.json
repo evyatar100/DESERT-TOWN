@@ -471,7 +471,7 @@
     },
     {
       "id": 12,
-      "name": "dt_845a91aa",
+      "name": "dt_cace0cde",
       "pages": [
         {
           "commands": [
@@ -479,14 +479,14 @@
               "code": 355,
               "indent": 0,
               "parameters": [
-                "pbDesertSpeaker(\"845a91aa\")"
+                "pbDesertSpeaker(\"cace0cde\")"
               ]
             },
             {
               "code": 355,
               "indent": 0,
               "parameters": [
-                "pbDesertTalk(\"845a91aa\")"
+                "pbDesertTalk(\"cace0cde\")"
               ]
             },
             {
@@ -508,8 +508,8 @@
           }
         }
       ],
-      "x": 16,
-      "y": 34
+      "x": 15,
+      "y": 35
     },
     {
       "id": 13,
@@ -648,13 +648,6 @@
               "indent": 0,
               "parameters": [
                 "pbDesertSpeaker(\"1a118967\")"
-              ]
-            },
-            {
-              "code": 355,
-              "indent": 0,
-              "parameters": [
-                "pbDesertTalk(\"1a118967\")"
               ]
             },
             {

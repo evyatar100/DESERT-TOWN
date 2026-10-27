@@ -1,1 +1,74 @@
-[]
+[
+  {
+    "id": "4b08e38a",
+    "name": "ג׳וני",
+    "x": 25,
+    "y": 24,
+    "graphic": "dt_4b08e38a",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "648b924a",
+    "name": "לילי",
+    "x": 26,
+    "y": 24,
+    "graphic": "dt_648b924a",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "f9348fd0",
+    "name": "שורטי",
+    "x": 24,
+    "y": 23,
+    "graphic": "dt_f9348fd0",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "d4540277",
+    "name": "גברי",
+    "x": 24,
+    "y": 24,
+    "graphic": "dt_d4540277",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "3cdacb96",
+    "name": "בנג׳ו",
+    "x": 27,
+    "y": 24,
+    "graphic": "dt_3cdacb96",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "266d65c6",
+    "name": "אורן",
+    "x": 20,
+    "y": 25,
+    "graphic": "dt_266d65c6",
+    "notes": "walks into the line when the player joins"
+  },
+  {
+    "id": "92958f4d",
+    "name": "ארי מימון",
+    "x": 28,
+    "y": 24,
+    "graphic": "dt_92958f4d",
+    "notes": "turns toward the line"
+  },
+  {
+    "id": "0211e32a",
+    "name": "איתן",
+    "x": 29,
+    "y": 24,
+    "graphic": "dt_0211e32a",
+    "notes": ""
+  },
+  {
+    "id": "6a9c3d6f",
+    "name": "באבלס",
+    "x": 24,
+    "y": 21,
+    "graphic": "dt_6a9c3d6f",
+    "notes": "sells ice"
+  }
+]

@@ -20,7 +20,7 @@ Ruby is optional. When `ruby` is on `PATH`, `tests/plugin_rules_test.rb` loads t
 | `test_event_snapshot.py` | An event name, position, page condition, or command list differs from `golden/MapNNN.json`. |
 | `test_event_contracts.py` | A translation key, transfer, item, species, choice branch, or page switch no longer lines up with the rest of the game. |
 | `test_plugin_rules.py` | The ice seller, ice-factory timer, or starter-item quantity rule changed. |
-| `test_starter_items.py` | The bottle or USB disk is missing from PBS, `items.dat`, icons, or the toss guard. |
+| `test_starter_items.py` | The bottle, USB disk, or event program is missing from PBS, `items.dat`, icons, or the toss guard. |
 | `test_compiled_plugins.py` | `Data/PluginScripts.rxdata` no longer matches `Plugins/*/*.rb`. Run `python compile_plugins.py` from `game-files`. |
 | `test_translations.py` | `PBS/translations.json` is missing `en` or `he` text, or has no Hebrew. |
 
@@ -49,7 +49,7 @@ Keep the decisions separate from messages and screen effects:
 
 - `IceSellerRules.decide(choice, bill_count)` in `Plugins/HebrewSupport/ice_seller.rb`. Five `TWENTYSHECKELBILL` is a purchase and gives `ICEBAG`. Fewer bills is `:not_enough`. Choices 4 and 5 leave the bag unchanged.
 - `IceInTimer.seconds_remaining` and `IceInTimer.rescue_destination` in `Plugins/HebrewSupport/ice_in_timer.rb`. The timer expires at 420 seconds on map 88. Rescue transfers once to map 91 at (41, 35) and must not start a second rescue while one is running.
-- `BurningManBag.normalize_starter_quantity` in `Plugins/BurningManBag/burning_man_bag.rb`. Zero, one, or many of `WHITEWATERBOTTLE` and `USBDISK` each end at one.
+- `BurningManBag.normalize_starter_quantity` in `Plugins/BurningManBag/burning_man_bag.rb`. Zero, one, or many of `WHITEWATERBOTTLE`, `USBDISK`, and `EVENTPROGRAM` each end at one.
 - `DesertTalk.start_speaker` / `pbDesertSpeaker` in `Plugins/DesertTalk/desert_talk.rb`. The speaker survives every message in the event, including `pbDesertTalk`, and clears on the first frame after the map interpreter stops. `pbDesertTalk` only shows the default line and does not set or clear the speaker. Unknown ids raise.
 - `DesertTownControls` in `Plugins/DesertTownArcade/000_controls.rb`. Color keys are H, J, K, F, G and none of them is a key the stock input system already uses. Red mirrors Use (C). Blue mirrors Back (X). Nothing mirrors the menu (Z). Orange toggles the Bag. B is still the old Bag key. A slide closes for Use, Back, Action, the arrows, A/S/D, and the color keys, and stays up with no button. The slide methods do not call audio or BGM. The help PNG is 512×384 with the red circle on the right.
 - `MomDadBattleRules` in `Plugins/MomDadBattle/000_rules.rb`. The circus battle pays 0 and takes 0. A win is outcome 1. A loss and a run (outcome 3) are both a loss, and the loss tile is map 89 at (25, 3). The intro order is music, camera pan, effect, fight. One of the four children on that map is the prize.

@@ -1,5 +1,5 @@
 window.MAP_STATUS = {
-  "generated_at": "2026-10-26T07:46:15Z",
+  "generated_at": "2026-10-26T20:54:15Z",
   "repo_maps_path": "maps",
   "min_tiles": {
     "w": 20,
@@ -1612,8 +1612,12 @@ window.MAP_STATUS = {
         "ice Elevator"
       ],
       "event_count": 9,
-      "char_count": 0,
-      "chars": [],
+      "char_count": 3,
+      "chars": [
+        "\u05d0\u05d9\u05d9\u05dc \u05d4\u05d1\u05d5\u05e1",
+        "\u05d0\u05d1\u05d9\u05d1 \u05d4\u05e0\u05e1\u05d9\u05da",
+        "\u05de\u05d5\u05e8"
+      ],
       "has_artifacts": false
     },
     {
@@ -1680,8 +1684,18 @@ window.MAP_STATUS = {
         "ice Elevator"
       ],
       "event_count": 11,
-      "char_count": 0,
-      "chars": [],
+      "char_count": 9,
+      "chars": [
+        "\u05d2\u05f3\u05d5\u05e0\u05d9",
+        "\u05dc\u05d9\u05dc\u05d9",
+        "\u05e9\u05d5\u05e8\u05d8\u05d9",
+        "\u05d2\u05d1\u05e8\u05d9",
+        "\u05d1\u05e0\u05d2\u05f3\u05d5",
+        "\u05d0\u05d5\u05e8\u05df",
+        "\u05d0\u05e8\u05d9 \u05de\u05d9\u05de\u05d5\u05df",
+        "\u05d0\u05d9\u05ea\u05df",
+        "\u05d1\u05d0\u05d1\u05dc\u05e1"
+      ],
       "has_artifacts": false
     },
     {
@@ -2103,7 +2117,7 @@ window.MAP_STATUS = {
       "event_connections": [
         "mom-dad-out"
       ],
-      "event_count": 17,
+      "event_count": 16,
       "char_count": 13,
       "chars": [
         "\u05d0\u05d1\u05d9\u05d1 \u05d4\u05e0\u05e1\u05d9\u05da",
@@ -2267,7 +2281,7 @@ window.MAP_STATUS = {
       "map_id": 93,
       "tileset_name": "PARTY_ts",
       "is_outside": true,
-      "bgm": "Alien Party",
+      "bgm": "Calm Camps Area",
       "status": "in_progress",
       "deprecated": false,
       "notes": "",
@@ -2322,7 +2336,7 @@ window.MAP_STATUS = {
         "west": null
       },
       "event_connections": [],
-      "event_count": 51,
+      "event_count": 74,
       "char_count": 51,
       "chars": [
         "\u05d6\u05d9\u05d2-\u05d6\u05d0\u05d3",

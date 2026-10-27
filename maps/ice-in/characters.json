@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "id": "0f0fdcf5",
+    "name": "אייל הבוס",
+    "x": 29,
+    "y": 4,
+    "graphic": "dt_0f0fdcf5",
+    "notes": "says MSG_0F0FDCF5_ICE; slides along the ice path"
+  },
+  {
+    "id": "ff8eab6b",
+    "name": "אביב הנסיך",
+    "x": 44,
+    "y": 4,
+    "graphic": "dt_ff8eab6b",
+    "notes": "slides along the ice path"
+  },
+  {
+    "id": "a715ed37",
+    "name": "מור",
+    "x": 45,
+    "y": 23,
+    "graphic": "dt_a715ed37",
+    "notes": ""
+  }
+]

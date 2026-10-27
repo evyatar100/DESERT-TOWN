@@ -167,7 +167,7 @@
               "code": 101,
               "indent": 0,
               "parameters": [
-                "Which floor do you want?"
+                "MSG_ICE_ELEVATOR_FLOOR"
               ]
             },
             {
@@ -175,9 +175,9 @@
               "indent": 0,
               "parameters": [
                 [
-                  "0 F",
-                  "-1 F",
-                  "Cancel"
+                  "CHOICE_ICE_ELEVATOR_0",
+                  "CHOICE_ICE_ELEVATOR_MINUS1",
+                  "CHOICE_ICE_ELEVATOR_CANCEL"
                 ],
                 3
               ]
@@ -187,7 +187,7 @@
               "indent": 0,
               "parameters": [
                 0,
-                "0 F"
+                "CHOICE_ICE_ELEVATOR_0"
               ]
             },
             {
@@ -211,7 +211,7 @@
               "indent": 0,
               "parameters": [
                 1,
-                "-1 F"
+                "CHOICE_ICE_ELEVATOR_MINUS1"
               ]
             },
             {
@@ -235,7 +235,7 @@
               "indent": 0,
               "parameters": [
                 2,
-                "Cancel"
+                "CHOICE_ICE_ELEVATOR_CANCEL"
               ]
             },
             {
@@ -1971,6 +1971,46 @@
       ],
       "x": 3,
       "y": 2
+    },
+    {
+      "id": 6,
+      "name": "Enter hint",
+      "pages": [
+        {
+          "commands": [
+            {
+              "code": 101,
+              "indent": 0,
+              "parameters": [
+                "MSG_ICE_ELEVATOR_HINT"
+              ]
+            },
+            {
+              "code": 116,
+              "indent": 0,
+              "parameters": []
+            },
+            {
+              "code": 0,
+              "indent": 0,
+              "parameters": []
+            }
+          ],
+          "condition": {
+            "self_switch": "A",
+            "self_switch_valid": false,
+            "switch1_id": 1,
+            "switch1_valid": false,
+            "switch2_id": 1,
+            "switch2_valid": false,
+            "variable_id": 1,
+            "variable_valid": false,
+            "variable_value": 0
+          }
+        }
+      ],
+      "x": 0,
+      "y": 0
     }
   ],
   "map_id": 92

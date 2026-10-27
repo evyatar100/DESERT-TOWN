@@ -465,8 +465,8 @@
       "he": "האינטרנט נפל וכל אלו רוצים לשלם בביט, וכרגע אנחנו מקבלים רק מזומן. לא בטוח שהמתנה תעזור להם כי שום דבר כאן לא מחובר לאינטרנט, המשחק הזה הוא סינגל פלייר."
     },
     "POPCORN_RESPONSE_NO_MONEY": {
-      "en": "Ummm, no one gets a bag from me for free. I have an offer but it's a bit dangerous, the ice delivery guy told me some bills fell across the ice factory... It's pretty slippery and cold inside and several people have already gotten stuck there, worth a try.",
-      "he": "אמממ, אף אחד לא מקבל ממני שקית בחינם. יש לי הצעה אבל היא קצת מסוכנת, מוביל הקרח אמר לי שנפלו כמה שטרות ברחבי מפעל הקרח... די מחליק וקר בפנים וכבר כמה אנשים נתקעו שם, שווה ניסיון. הכניסה כאן מעלי."
+      "en": "Ummm, no one gets a bag from me for free. I have an offer but it's a bit dangerous, the ice delivery guy told me some bills fell across the ice factory... It's pretty slippery and cold inside and several people have already gotten stuck there, worth a try. The entrance is right up here. In the elevator, press minus 1.",
+      "he": "אמממ, אף אחד לא מקבל ממני שקית בחינם. יש לי הצעה אבל היא קצת מסוכנת, מוביל הקרח אמר לי שנפלו כמה שטרות ברחבי מפעל הקרח... די מחליק וקר בפנים וכבר כמה אנשים נתקעו שם, שווה ניסיון. הכניסה כאן מעלי. במעלית לחץ על מינוס 1."
     },
     "POPCORN_RESPONSE_DESERTTOWN": {
       "en": "Bills are scattered on the floor here and you are complaining?",
@@ -519,6 +519,46 @@
     "תודה רבה": {
       "en": "Thank you very much",
       "he": "תודה רבה."
+    },
+    "MSG_ICE_ELEVATOR_HINT": {
+      "en": "You need to press the button for the right floor.",
+      "he": "צריך ללחוץ על הכפתור של הקומה המתאימה"
+    },
+    "MSG_ICE_ELEVATOR_FLOOR": {
+      "en": "Which floor do you want?",
+      "he": "לאיזו קומה?"
+    },
+    "CHOICE_ICE_ELEVATOR_0": {
+      "en": "0 F",
+      "he": "קומה 0"
+    },
+    "CHOICE_ICE_ELEVATOR_MINUS1": {
+      "en": "-1 F",
+      "he": "מינוס 1"
+    },
+    "CHOICE_ICE_ELEVATOR_CANCEL": {
+      "en": "Cancel",
+      "he": "ביטול"
+    },
+    "MSG_0F0FDCF5_ICE": {
+      "en": "לא נראה שאתה לבוש בהתאם. כמה דקות והלך עליך.",
+      "he": "לא נראה שאתה לבוש בהתאם. כמה דקות והלך עליך."
+    },
+    "NAME_4C4E039D": {
+      "en": "עלא",
+      "he": "עלא"
+    },
+    "MSG_4C4E039D_LINE": {
+      "en": "יש פה דמוקרטיה מלאה. אני פשוט הדמוקרט היחיד",
+      "he": "יש פה דמוקרטיה מלאה. אני פשוט הדמוקרט היחיד"
+    },
+    "NAME_50D0EEB7": {
+      "en": "שירה ו",
+      "he": "שירה ו"
+    },
+    "MSG_50D0EEB7_LINE": {
+      "en": "וואלה דווקא כן",
+      "he": "וואלה דווקא כן"
     },
     "MSG_ICE_IN_TIMEOUT": {
       "en": "Too much time in the ice factory, hypothermia brought you to a critical state. The factory crew rescued you outside.",
@@ -583,6 +623,38 @@
     "למקרה הצורך.": {
       "en": "Just in case.",
       "he": "למקרה הצורך."
+    },
+    "EVENTPROGRAM": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "Event Program": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "Event Programs": {
+      "en": "Event Programs",
+      "he": "תוכניות"
+    },
+    "EVENTPROGRAM_DESC": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "A printed program of the event.": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "תוכניה": {
+      "en": "Event Program",
+      "he": "תוכניה"
+    },
+    "תוכניה מודפסת של האירוע.": {
+      "en": "A printed program of the event.",
+      "he": "תוכניה מודפסת של האירוע."
+    },
+    "תוכניות": {
+      "en": "Event Programs",
+      "he": "תוכניות"
     },
     "Cancel": {
       "en": "Cancel",
@@ -1148,6 +1220,10 @@
       "en": "לא באנו להנות",
       "he": "לא באנו להנות"
     },
+    "MSG_890B649E_MOMDAD": {
+      "en": "הם מגרשים מדזרטאון את מי שהפסיד בקרב. אם אתה רוצה לברוח, שמעתי שיש כאן מעבר סודי, אני לא מצאתי, אבל גם לא חיפשתי",
+      "he": "הם מגרשים מדזרטאון את מי שהפסיד בקרב. אם אתה רוצה לברוח, שמעתי שיש כאן מעבר סודי, אני לא מצאתי, אבל גם לא חיפשתי"
+    },
     "NAME_F9348FD0": {
       "en": "Shorty",
       "he": "שורטי"
@@ -1349,8 +1425,8 @@
       "he": "יעלי-בלי"
     },
     "MSG_D6AD577A_LINE": {
-      "en": "הם השתלטו על תא המעצר של מיטה. מי שמפסיד בקרב נעצר עד סוף האירוע. זה נורא\nאני לא יודעת מי עומד מאחורי זה. תמצא אותי ביציעה המזרחי.",
-      "he": "הם השתלטו על תא המעצר של מיטה. מי שמפסיד בקרב נעצר עד סוף האירוע. זה נורא\nאני לא יודעת מי עומד מאחורי זה. תמצא אותי ביציעה המזרחי."
+      "en": "הם השתלטו על תא המעצר של מיטה. מי שמפסיד בקרב נעצר עד סוף האירוע. זה נורא\nאני לא יודעת מי עומד מאחורי זה. תמצא אותי ביציע המזרחי באוהל של אמאלה ואבאלה.",
+      "he": "הם השתלטו על תא המעצר של מיטה. מי שמפסיד בקרב נעצר עד סוף האירוע. זה נורא\nאני לא יודעת מי עומד מאחורי זה. תמצא אותי ביציע המזרחי באוהל של אמאלה ואבאלה."
     },
     "NAME_BB70B1DD": {
       "en": "Mario",

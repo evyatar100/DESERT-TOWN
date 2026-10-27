@@ -2,10 +2,24 @@
   "events": [
     {
       "id": 1,
-      "name": "ice-block-2",
+      "name": "dt_0f0fdcf5",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"0f0fdcf5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"0f0fdcf5\", \"MSG_0F0FDCF5_ICE\")"
+              ]
+            },
             {
               "code": 209,
               "indent": 0,
@@ -234,6 +248,20 @@
         },
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"0f0fdcf5\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"0f0fdcf5\", \"MSG_0F0FDCF5_ICE\")"
+              ]
+            },
             {
               "code": 209,
               "indent": 0,
@@ -466,7 +494,7 @@
     },
     {
       "id": 2,
-      "name": "ince-block-1",
+      "name": "dt_ff8eab6b",
       "pages": [
         {
           "commands": [
@@ -868,10 +896,24 @@
     },
     {
       "id": 3,
-      "name": "EV003",
+      "name": "dt_a715ed37",
       "pages": [
         {
           "commands": [
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertSpeaker(\"a715ed37\")"
+              ]
+            },
+            {
+              "code": 355,
+              "indent": 0,
+              "parameters": [
+                "pbDesertTalk(\"a715ed37\")"
+              ]
+            },
             {
               "code": 0,
               "indent": 0,

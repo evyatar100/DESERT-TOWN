@@ -344,11 +344,13 @@ plate = ->(log, key) { (log.find { |e| e[0] == key } || [])[1] }
 log = talk.call("c081cd67", duels: [false])
 duel = log.find { |e| e[0] == :duel }
 check(msgs.call(log) == %w[MSG_C081CD67_LINE TOAST_NOODLE_ASK_1 TOAST_NOODLE_ASK_2 TOAST_NOODLE_ASK_3 TOAST_NOODLE_ASK_4
-                           TOAST_NOODLE_PRE_1 TOAST_NOODLE_PRE_2 TOAST_NOODLE_PRE_3 TOAST_NOODLE_LOSE] &&
-      log[1..].select { |e| e[0].is_a?(String) }.all? { |_, n| n == "NAME_C081CD67" } && st.call[:stage] == :asked &&
+                           TOAST_NOODLE_PRE_1 TOAST_NOODLE_PRE_2 TOAST_NOODLE_PRE_3 TOAST_NOODLE_LOSE TOAST_NOODLE_WIN_2] &&
+      log[1..].select { |e| e[0].is_a?(String) }.all? { |_, n| n == "NAME_C081CD67" } && st.call[:stage] == :lead &&
       duel && duel[1] == :BLACKBELT && duel[2] == "NAME_C081CD67" && duel[3] == "dt_c081cd67" &&
       duel[4] == Toaster::DUELS[:noodles][:speeches] && duel[5] == Toaster::DUELS[:noodles][:moves],
-      "toast flow 1: HaNoodles' line, ASK_1..4, PRE_1..3, the unchanged duel; a loss leaves :asked")
+      "toast flow 1: HaNoodles' line, ASK_1..4, PRE_1..3, the unchanged duel; a loss still leads to Yunik")
+# A save from before this change can still sit at :asked.
+$PokemonGlobal.toaster_quest[:stage] = :asked
 %i[asked lead permit toaster done].each do |stage|
   saved_q = $PokemonGlobal.toaster_quest.dup
   $PokemonGlobal.toaster_quest = { stage: stage, crumb_given: false, plug: nil }
@@ -580,8 +582,9 @@ check(noodles[0] == "MSG_C081CD67_LINE" && noodles[1] == "TOAST_NOODLE_ASK_1" &&
 $game_map = ToastMap.new(33, events)
 $toast_log.clear
 $toast_picks = [1]
+before = st.call[:stage]
 pbPlanetEyal
-check(msgs.call($toast_log).none? { |k| k.start_with?("TOAST_") } && st.call[:stage] == :asked, "toast chain: Deep Playa Eyal (pbPlanetEyal) never runs toast")
+check(msgs.call($toast_log).none? { |k| k.start_with?("TOAST_") } && st.call[:stage] == before, "toast chain: Deep Playa Eyal (pbPlanetEyal) never runs toast")
 
 #-------------------------------------------------------------------------------
 # Layering, T10 keys, T12 grep

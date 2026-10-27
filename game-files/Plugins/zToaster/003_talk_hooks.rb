@@ -49,9 +49,10 @@ module Toaster
 
   def self.noodle_duel(st)
     pre_duel(:noodles, NOODLE_PRE, :noodles)
-    return say("TOAST_NOODLE_LOSE", :noodles) unless duel(:noodles)
+    # Win or lose, the quest goes on to Yunik.
+    won = duel(:noodles)
     ToasterRules.lead!(st)
-    lines(%w[TOAST_NOODLE_WIN_1 TOAST_NOODLE_WIN_2], :noodles)
+    lines(won ? %w[TOAST_NOODLE_WIN_1 TOAST_NOODLE_WIN_2] : %w[TOAST_NOODLE_LOSE TOAST_NOODLE_WIN_2], :noodles)
   end
 
   # Yunik asks "again?"; No or Back is false.

@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-26 | TG7 שקיות (bags): Inbar's birthday, the song "שקיות הפתעה", bag foundations, Toga's bag of bags
 
+Rev note (TG14, 2026-10-27): Cowboy Shirpaz's bag source is now the arm-wrestling bout (docs/specs/arm-wrestling.md, dec:tg-29).
+
 ## Goal
 
 - **What:** Three new bag key items, plus Inbar's birthday quest. Two surprise bags summon Shirpaz & Esther as unicorns, and an in-game music video of "שקיות הפתעה" follows with synced, pointed Hebrew lyrics and falling stickers. Toga gets a "what is a bag" branch that gives the Bag of Bags. Pixel sells a cat in a sack.

@@ -73,13 +73,10 @@ module Bags
     pbReceiveItem(:SURPRISEBAG) if BagsRules.payoff!(state)
   end
 
-  # Name clash after the party, then a Surprise Bag on every talk (dec:tg-17).
+  # Name clash after the party, then the arm-wrestling challenge (zArmWrestle, dec:tg-29).
   def self.cowboy_talk
     say("BAGS_SHIRPAZ_COWBOY_CLASH", :cowboy) if state[:inbar] == :done
-    item, @cowboy_turn = BagsRules.cowboy_gift(@cowboy_turn)
-    say("BAGS_SHIRPAZ_COWBOY_GIFT_#{@cowboy_turn}", :cowboy)
-    DesertTalk.name_key = nil if defined?(DesertTalk)
-    pbReceiveItem(item)
+    ArmWrestle.offer(busy: Song.active?) if defined?(ArmWrestle)
   end
 
   def self.pixel_talk

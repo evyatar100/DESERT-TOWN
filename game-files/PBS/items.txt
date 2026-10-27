@@ -6608,6 +6608,14 @@ Price = 0
 Flags = KeyItem
 Description = A bag full of sand and desert.
 #-------------------------------
+[LITTLERAM]
+Name = Little Ram
+NamePlural = Little Rams
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A soft little plush ram. A ram, not Eyal. Don't mix them up.
+#-------------------------------
 [WHITEWATERBOTTLE]
 Name = White Water Bottle
 NamePlural = White Water Bottles
@@ -6623,5 +6631,29 @@ Pocket = 8
 Price = 0
 Flags = KeyItem
 Description = A USB flash drive. Just in case.
+#-------------------------------
+[TOASTPERMIT]
+Name = Appliance Release Form
+NamePlural = Appliance Release Forms
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = An Appliance Committee form. Authorises release of one appliance from the vault. Signed, stamped, and valid until decided otherwise.
+#-------------------------------
+[TOASTER]
+Name = Toaster
+NamePlural = Toasters
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = Eyal the Boss's toaster. Two slots. Still hums a little when nobody's looking.
+#-------------------------------
+[TOASTCRUMB]
+Name = Framed Toast Crumb
+NamePlural = Framed Toast Crumbs
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = One crumb, framed. Fell on the first Toast Day. Approved by the Appliance Committee, retroactively.
 
 

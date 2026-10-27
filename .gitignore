@@ -52,3 +52,6 @@ temple_staff.cfg
 temple_staff.cfg.tmp
 temple_wall*.dat
 temple_wall*.dat.*
+
+# Share page build output (share-page/build_share_page.py)
+share-page/out/

@@ -990,6 +990,14 @@ check(missing.empty?, "temple: every TEMPLE_ key is in translations.json (missin
 
 # TG7 bags rules and hooks live in their own file (same check/$failures).
 load File.join(__dir__, "bags_rules_test.rb")
+# TG11 temple hoop rules and event flow, same pattern.
+load File.join(__dir__, "hoop_rules_test.rb")
+# TG10 planetarium rules, talk hooks and the show smoke run, same pattern.
+load File.join(__dir__, "planet_rules_test.rb")
+# TG9 toaster rules, hooks (with the bags/planet aliases loaded), altar and finale, same pattern.
+load File.join(__dir__, "toaster_rules_test.rb")
+# TG14 arm wrestling rules, bots, the cowboy flow and the scene smoke run, same pattern.
+load File.join(__dir__, "arm_rules_test.rb")
 check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
 check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
       "battle: loss tile is (25, 3) facing down")

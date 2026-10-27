@@ -103,14 +103,6 @@ module BagsRules
     :filled
   end
 
-  COWBOY_GIFT_LINES = 3
-
-  # Cowboy Shirpaz (dec:tg-17): one Surprise Bag on every talk, unlimited; reads and writes no quest state.
-  # [item to give, gift line 1..3 after the previous turn].
-  def self.cowboy_gift(turn)
-    [:SURPRISEBAG, (turn.to_i % COWBOY_GIFT_LINES) + 1]
-  end
-
   def self.roll(rng)
     n = rng.rand(100)
     OUTCOMES.each do |outcome, weight|

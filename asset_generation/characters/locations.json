@@ -2670,6 +2670,15 @@
         "hops along custom move route",
         "jumps in place"
       ]
+    },
+    {
+      "character_id": "0f0fdcf5",
+      "map_id": 33,
+      "event_id": 2,
+      "x": 22,
+      "y": 8,
+      "line_key": null,
+      "actions": []
     }
   ]
 }

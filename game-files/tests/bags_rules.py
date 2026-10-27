@@ -177,13 +177,6 @@ def bag_of_bags_use(bag):
     return "filled"
 
 
-COWBOY_GIFT_LINES = 3
-
-
-def cowboy_gift(turn):
-    return "SURPRISEBAG", (int(turn or 0) % COWBOY_GIFT_LINES) + 1
-
-
 def roll(n):
     """n is the 0..99 draw (Ruby: rng.rand(100))."""
     for outcome, weight in OUTCOMES:

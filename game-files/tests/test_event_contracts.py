@@ -46,6 +46,10 @@ PLUGIN_DIRS = (
     ROOT / "Plugins" / "TempleStickers",
     ROOT / "Plugins" / "zFlamingoBand",
     ROOT / "Plugins" / "zBags",
+    ROOT / "Plugins" / "zTempleHoop",
+    ROOT / "Plugins" / "zPlanetarium",
+    ROOT / "Plugins" / "zToaster",
+    ROOT / "Plugins" / "zArmWrestle",
     ROOT / "Plugins" / "MomDadBattle",
 )
 
@@ -186,6 +190,17 @@ class EventContractTests(unittest.TestCase):
         cls.translations = translation_entries()
         cls.items = pbs_sections("items.txt")
         cls.species = pbs_sections("pokemon.txt")
+
+    def test_planetarium_eyal_contract(self):
+        """TG10: Map033 ev2 is Eyal's sprite and runs pbPlanetEyal, never pbDesertTalk (TG9's hook)."""
+        event = next(e for e in self.by_id[33]["events"] if e["id"] == 2)
+        scripts = [c["parameters"][0] for c in event["pages"][0]["commands"] if c["code"] == 355]
+        self.assertEqual(scripts, ['pbDesertSpeaker("0f0fdcf5")', "pbPlanetEyal"])
+        from tests.rx_loader import load_rxdata
+
+        raw = load_rxdata(ROOT / "Data" / "Map033.rxdata").attributes["@events"][2]
+        graphic = raw.attributes["@pages"][0].attributes["@graphic"].attributes["@character_name"]
+        self.assertEqual(graphic if isinstance(graphic, str) else graphic.decode(), "dt_0f0fdcf5")
 
     def test_translation_keys_exist(self):
         missing = []

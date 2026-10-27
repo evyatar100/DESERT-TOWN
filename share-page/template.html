@@ -1,0 +1,545 @@
+<title>אנשי דזרט טאון</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Handjet:wght@400;600;800&family=Assistant:wght@400;600;700&display=swap">
+<style>
+/* Desert night: the world map is the hero, places are picture cards, people are walking sprites. */
+:root {
+  --night: #17132b;
+  --dust: #231d40;
+  --card: #2c2550;
+  --ink: #f3eefc;
+  --muted: #b3a9d4;
+  --line: #4a3f7e;
+  --ember: #ffb547;
+  --uni: #ff6fae;
+  --display: "Handjet", "Courier New", monospace;
+  --body: "Assistant", "Segoe UI", "Arial Hebrew", Arial, sans-serif;
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { overflow-x: hidden; }
+body {
+  margin: 0; direction: rtl; background: var(--night); color: var(--ink);
+  font-family: var(--body); font-size: 16px; line-height: 1.5; overflow-x: hidden;
+  background-image: radial-gradient(120% 60% at 50% -10%, #3a2a6a 0%, transparent 60%),
+                    radial-gradient(1px 1px at 20% 30%, #ffffff55 50%, transparent 51%),
+                    radial-gradient(1px 1px at 70% 12%, #ffffff44 50%, transparent 51%),
+                    radial-gradient(1px 1px at 85% 40%, #ffffff33 50%, transparent 51%);
+  background-attachment: fixed;
+}
+button { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 28px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Hero: title, the one-line welcome, then the world picture as large as the page allows. */
+.hero { display: grid; gap: 10px; margin-bottom: 18px; }
+h1 { font-family: var(--display); font-weight: 800; font-size: clamp(44px, 8vw, 84px); line-height: .9; margin: 0;
+  letter-spacing: .02em; text-wrap: balance; color: var(--ink); text-shadow: 3px 3px 0 var(--uni), 6px 6px 0 #00000055; }
+.welcome { margin: 0; font-size: clamp(17px, 2.2vw, 21px); font-weight: 600; max-width: 46ch; text-wrap: pretty; }
+.welcome::before { content: ""; display: inline-block; width: .55em; height: .55em; margin-inline-end: .45em;
+  border-radius: 50%; background: var(--ember); box-shadow: 0 0 0 4px #ffb54733; vertical-align: .08em; }
+.world { margin-bottom: 44px; }
+.world-map { position: relative; direction: ltr; container-type: inline-size; border: 2px solid var(--line);
+  border-radius: 18px; overflow: hidden; box-shadow: 0 18px 50px -20px #ff6fae55, 0 0 0 6px #ffffff06; }
+.world-map { background: radial-gradient(1.5px 1.5px at 6% 12%, #fffc 50%, transparent 51%), radial-gradient(1px 1px at 14% 30%, #fff9 50%, transparent 51%),
+  radial-gradient(1px 1px at 24% 8%, #fff8 50%, transparent 51%), radial-gradient(1.5px 1.5px at 33% 22%, #fffa 50%, transparent 51%),
+  radial-gradient(1px 1px at 41% 40%, #fff7 50%, transparent 51%), radial-gradient(1px 1px at 9% 44%, #fff6 50%, transparent 51%),
+  radial-gradient(1.5px 1.5px at 52% 6%, #fff9 50%, transparent 51%), radial-gradient(1px 1px at 28% 50%, #fff5 50%, transparent 51%),
+  radial-gradient(60% 50% at 20% 10%, #3a2a6a, transparent 70%), #0b0818; }
+@media (max-width: 520px) { .world-map { margin-inline: -14px; border-radius: 12px; } }
+.world-map img { display: block; width: 100%; height: auto; image-rendering: auto; }
+.area { position: absolute; padding: 0; margin: 0; border: 0; background: transparent; cursor: pointer; }
+.area svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.area polygon { fill: transparent; stroke: #f3eefc66; stroke-width: 2; vector-effect: non-scaling-stroke;
+  transition: fill .18s ease, stroke .18s ease; }
+.area:focus-visible { outline: none; }
+.area:focus-visible polygon { fill: #ffb54740; stroke: var(--ember); stroke-width: 5; }
+.lbl { position: absolute; transform: translate(calc(-50% + var(--dx, 0px)), -50%); direction: rtl; pointer-events: none; z-index: 2;
+  font: 700 clamp(9px, 1.35cqi, 15px)/1.15 var(--body); color: var(--ink); text-align: center;
+  background: #17132be0; border: 1px solid #ffffff2e; border-radius: 999px; padding: .25em .7em;
+  white-space: nowrap; box-shadow: 0 2px 8px #0008; transition: transform .2s var(--ease-out), background-color .18s, color .18s; }
+.lbl b { font-weight: 700; color: var(--ember); margin-inline-start: .35em; font-variant-numeric: tabular-nums; }
+.area:focus-visible + .lbl { background: var(--ember); color: var(--night); transform: translate(calc(-50% + var(--dx, 0px)), -50%) scale(1.1); }
+.area:focus-visible + .lbl b { color: var(--night); }
+@media (hover: hover) {
+  .area:hover polygon { fill: #ffb54733; stroke: var(--ember); stroke-width: 4; }
+  .area:hover + .lbl { background: var(--ember); color: var(--night); transform: translate(calc(-50% + var(--dx, 0px)), -50%) scale(1.1); }
+  .area:hover + .lbl b { color: var(--night); }
+}
+@container (max-width: 620px) {
+  .lbl { white-space: normal; width: max-content; max-width: calc(var(--bw) * 1cqi + 6px); padding: .15em .3em; border-radius: 6px;
+    font-size: 2.55cqi; line-height: 1.05; }
+  .lbl b { display: none; }
+}
+.lbl { animation: pin .45s var(--ease-out) backwards; animation-delay: calc(var(--i) * 35ms + 150ms); }
+@keyframes pin { from { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), -30%) scale(.8); } }
+
+/* Section headings */
+.sec { display: flex; align-items: baseline; gap: 12px; margin: 0 0 14px; font: 800 clamp(34px, 5vw, 48px)/1 var(--display);
+  letter-spacing: .02em; }
+.sec::after { content: ""; flex: 1; height: 2px; background: linear-gradient(to left, var(--line), transparent); align-self: center; }
+.places { margin-bottom: 52px; }
+
+/* Place cards: picture, name, count, the sprites of who is there. */
+.agrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 228px), 1fr)); gap: 16px; }
+@media (max-width: 520px) { .agrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+.acard { display: grid; grid-template-rows: auto 1fr; padding: 0; text-align: start; cursor: pointer; min-width: 0;
+  background: var(--card); border: 2px solid var(--line); border-radius: 16px; overflow: hidden;
+  transition: transform .22s var(--ease-out), border-color .18s, box-shadow .22s; }
+.athumb { position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #0b0818; }
+.athumb img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .45s var(--ease-out); }
+.nopic { display: grid; place-items: center; width: 100%; height: 100%; color: #ffb547aa; font: 800 40px var(--display);
+  background: radial-gradient(1.5px 1.5px at 22% 30%, #fff9 50%, transparent 51%), radial-gradient(1px 1px at 70% 22%, #fff7 50%, transparent 51%),
+              radial-gradient(1px 1px at 40% 75%, #fff6 50%, transparent 51%), radial-gradient(1.5px 1.5px at 85% 65%, #fff8 50%, transparent 51%),
+              radial-gradient(80% 70% at 50% 110%, #3a2a6a, #0b0818); }
+.kicker { position: absolute; top: 8px; inset-inline-start: 8px; font: 700 12px/1 var(--body); color: var(--night);
+  background: #f3eefcde; border-radius: 999px; padding: 4px 8px; max-width: calc(100% - 16px);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ainfo { display: grid; gap: 6px; align-content: start; padding: 10px 12px 12px; min-width: 0; }
+.aname { font: 600 26px/1 var(--display); overflow-wrap: anywhere; }
+.acount { font-size: 14px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.acount.zero { font-style: italic; }
+.strip { display: flex; align-items: flex-end; gap: 0; min-height: 42px; padding-top: 2px; }
+.mini { --fw: 28px; width: 28px; height: 42px; flex: none; margin-inline-end: -6px; background-repeat: no-repeat;
+  background-size: 112px 168px; image-rendering: pixelated; filter: drop-shadow(0 2px 0 #0006); }
+@media (max-width: 520px) { .mini { --fw: 24px; width: 24px; height: 36px; background-size: 96px 144px; margin-inline-end: -5px; } .strip { min-height: 36px; } }
+.more { flex: none; align-self: center; margin-inline-start: 14px; font: 700 12px/1 var(--body); color: var(--ember);
+  font-variant-numeric: tabular-nums; background: #ffb5471f; border: 1px solid #ffb54755; border-radius: 999px; padding: 4px 6px; }
+.acard:focus-visible { outline: 3px solid var(--ember); outline-offset: 2px; }
+.acard:active { transform: scale(.98); }
+@media (hover: hover) {
+  .acard:hover { transform: translateY(-4px); border-color: var(--uni); box-shadow: 0 14px 28px -14px #ff6fae88; }
+  .acard:hover .athumb img { transform: scale(1.06); }
+  .acard:hover .mini { animation: walk .7s steps(4) infinite; }
+}
+.acard:focus-visible .mini { animation: walk .7s steps(4) infinite; }
+@keyframes walk { from { background-position-x: 0; } to { background-position-x: calc(var(--fw) * -4); } }
+
+/* People: search, camp filter, sprite cards (unchanged layout, softer motion). */
+.sub { color: var(--muted); max-width: 60ch; margin: 0 0 6px; }
+.sub b { color: var(--ember); font-weight: 700; font-variant-numeric: tabular-nums; }
+.tools { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: grid; gap: 10px;
+  padding-block: 12px; margin-bottom: 20px; background: linear-gradient(var(--night) 80%, transparent); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--night); }
+#q { width: 100%; font: inherit; color: var(--ink); background: var(--dust); border: 2px solid var(--line);
+  border-radius: 12px; padding: 10px 14px; min-height: 46px; }
+#q:focus-visible { outline: 3px solid var(--ember); outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 600 14px var(--body); color: var(--muted); background: transparent; border: 2px solid var(--line);
+  border-radius: 999px; padding: 4px 12px; min-height: 36px; cursor: pointer; transition: background-color .15s, color .15s; }
+.chip[aria-pressed="true"] { color: var(--night); background: var(--ember); border-color: var(--ember); }
+.chip:focus-visible { outline: 3px solid var(--uni); outline-offset: 1px; }
+.chip span { font-variant-numeric: tabular-nums; opacity: .75; margin-inline-start: 4px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(168px, 1fr)); gap: 14px; }
+@media (max-width: 400px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
+.card { display: grid; grid-template-rows: 1fr auto; background: var(--card); border: 2px solid var(--line);
+  border-radius: 14px; overflow: hidden; min-width: 0; transition: transform .22s var(--ease-out), border-color .18s; }
+.card:has(.open:focus-visible) { border-color: var(--uni); }
+.open { display: grid; grid-template-rows: auto 1fr; text-align: start; padding: 0; background: none; border: 0; cursor: pointer; min-width: 0; }
+.open:focus-visible { outline: none; }
+.stage { display: grid; place-items: center; height: 168px;
+  background: linear-gradient(transparent 62%, #c9a77a22 62%, #c9a77a10 100%), radial-gradient(60% 40% at 50% 70%, #ff6fae18, transparent); }
+.sprite { --fw: 96px; width: 96px; height: 144px; background-repeat: no-repeat; background-size: 384px 576px;
+  image-rendering: pixelated; background-position: 0 0; }
+@media (hover: hover) {
+  .card:hover { border-color: var(--uni); transform: translateY(-3px); }
+  .card:hover .sprite { animation: walk .7s steps(4) infinite; }
+}
+.open:focus-visible .sprite { animation: walk .7s steps(4) infinite; }
+.meta { display: grid; gap: 4px; padding: 10px 12px 14px; align-content: start; min-width: 0; }
+.name { font-family: var(--display); font-weight: 600; font-size: 24px; line-height: 1.05; overflow-wrap: anywhere; }
+.en { font-size: 13px; color: var(--muted); direction: ltr; text-align: end; overflow-wrap: anywhere; }
+.camp { justify-self: start; font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--ember);
+  border: 1px solid #ffb54766; border-radius: 6px; padding: 0 6px; }
+.npc { color: var(--uni); border-color: #ff6fae66; }
+.quote { font-size: 14px; color: var(--ink); opacity: .9; overflow-wrap: anywhere;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.empty { display: grid; justify-items: center; gap: 12px; color: var(--muted); padding: 40px 0; text-align: center; }
+.empty p { margin: 0; }
+.ghost { font: 600 15px var(--body); color: var(--ink); background: var(--card); border: 2px solid var(--line);
+  border-radius: 999px; padding: 0 18px; min-height: 44px; cursor: pointer; }
+.ghost:focus-visible { outline: 3px solid var(--ember); }
+
+/* Where to meet: chips with a tiny picture of the place. */
+.meet { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; padding: 0 12px 12px; min-width: 0; }
+.meet small, .meetrow small { color: var(--muted); font-size: 12px; width: 100%; }
+.mchip { position: relative; display: inline-flex; align-items: center; gap: 6px; max-width: 100%; min-height: 32px;
+  font: 600 12px/1.2 var(--body); color: var(--ember); background: #ffb5470d; border: 1px solid #ffb54766;
+  border-radius: 999px; padding: 3px 10px 3px 3px; cursor: pointer; text-align: start; transition: background-color .15s, transform .15s; }
+.mchip::after { content: ""; position: absolute; inset: -6px 0; }
+.mchip img, .mchip .dot { flex: none; width: 24px; height: 24px; border-radius: 50%; object-fit: cover; background: var(--dust);
+  border: 1px solid #ffb54766; }
+.mchip .dot { background: radial-gradient(1px 1px at 40% 40%, #fff, transparent), #0b0818; }
+.mchip span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mchip:focus-visible { outline: 3px solid var(--uni); outline-offset: 1px; }
+.mchip:active { transform: scale(.96); }
+@media (hover: hover) { .mchip:hover { background: #ffb54726; } }
+.nomap { color: var(--muted); font-size: 12px; font-style: italic; }
+.meetrow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.meetrow .mchip { font-size: 15px; min-height: 44px; padding: 4px 14px 4px 4px; }
+.meetrow .mchip img, .meetrow .mchip .dot { width: 34px; height: 34px; }
+
+/* Dialogs */
+dialog { width: min(760px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); padding: 0; border: 2px solid var(--uni);
+  border-radius: 18px; background: var(--dust); color: var(--ink); direction: rtl; overflow: auto; overscroll-behavior: contain; }
+dialog[open] { animation: rise .24s var(--ease-out); }
+dialog::backdrop { background: #0b0818cc; }
+@keyframes rise { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+.topbar { position: sticky; top: 0; z-index: 3; display: flex; justify-content: space-between; gap: 8px; padding: 10px;
+  background: linear-gradient(var(--dust) 75%, transparent); }
+.topbar .close { margin-inline-start: auto; }
+.close, .back, .dirs button { font: 700 16px var(--body); color: var(--ink); background: var(--card); border: 2px solid var(--line);
+  border-radius: 10px; min-width: 44px; height: 44px; cursor: pointer; }
+.back { font-size: 15px; padding: 0 14px; }
+.close:focus-visible, .back:focus-visible, .dirs button:focus-visible { outline: 3px solid var(--ember); }
+@media (hover: hover) { .close:hover, .back:hover, .dirs button:hover { border-color: var(--uni); } }
+.sheet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 20px; padding: 4px 24px 24px; }
+@media (max-width: 600px) { .sheet { grid-template-columns: 1fr; padding: 4px 16px 20px; } }
+.big { display: grid; justify-items: center; gap: 12px; }
+.big .stage { width: 100%; height: 220px; border-radius: 14px; }
+.big .sprite { --fw: 128px; width: 128px; height: 192px; background-size: 512px 768px; animation: walk .8s steps(4) infinite; }
+.dirs { display: flex; gap: 6px; }
+.dirs button[aria-pressed="true"] { border-color: var(--ember); color: var(--ember); }
+.info { display: grid; gap: 10px; align-content: start; min-width: 0; }
+.info .name { font-size: 40px; }
+.info blockquote { margin: 0; padding-inline-start: 12px; border-inline-start: 3px solid var(--uni); font-size: 18px; }
+.info p { margin: 0; color: var(--muted); }
+.full { display: grid; gap: 6px; }
+.full img { width: 256px; max-width: 100%; image-rendering: pixelated; background: repeating-conic-gradient(#ffffff10 0 25%, transparent 0 50%) 0 0 / 16px 16px; border-radius: 6px; }
+.full small { color: var(--muted); }
+
+/* Area window: big picture, name, text, the inside places as picture tiles, the people walking. */
+.asheet { display: grid; gap: 12px; padding: 0 24px 24px; }
+@media (max-width: 600px) { .asheet { padding: 0 14px 18px; } }
+.apicbox { margin: 0; border-radius: 14px; overflow: hidden; background: #0b0818; border: 1px solid var(--line); }
+.apic { display: block; width: 100%; max-height: 52dvh; object-fit: contain; }
+.apicbox .nopic { height: 180px; font-size: 64px; }
+.asheet h2 { font-family: var(--display); font-weight: 800; font-size: clamp(36px, 7vw, 48px); line-height: 1; margin: 4px 0 0; }
+.asheet h3 { font: 700 15px var(--body); color: var(--ember); margin: 10px 0 0; }
+.asheet p { margin: 0; color: var(--ink); font-size: 17px; text-wrap: pretty; }
+.kids { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+.kid { display: grid; padding: 0; text-align: start; cursor: pointer; background: var(--card); border: 2px solid var(--line);
+  border-radius: 14px; overflow: hidden; transition: transform .2s var(--ease-out), border-color .15s; }
+.kid .athumb { aspect-ratio: 16 / 10; }
+.kid .ainfo { gap: 2px; padding: 8px 10px 10px; }
+.kid .aname { font-size: 22px; }
+.kid:focus-visible { outline: 3px solid var(--ember); outline-offset: 2px; }
+.kid:active { transform: scale(.98); }
+@media (hover: hover) { .kid:hover { border-color: var(--uni); transform: translateY(-3px); } .kid:hover .athumb img { transform: scale(1.06); } }
+.walkers { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.walker { display: grid; justify-items: center; gap: 4px; padding: 10px 6px 8px; cursor: pointer; text-align: center; min-width: 0;
+  background: radial-gradient(70% 30% at 50% 78%, #c9a77a22, transparent), var(--card); border: 2px solid transparent; border-radius: 14px;
+  transition: transform .2s var(--ease-out), border-color .15s; }
+.walker .sprite { --fw: 64px; width: 64px; height: 96px; background-size: 256px 384px; animation: walk .75s steps(4) infinite; }
+.walker .name { font-size: 18px; }
+.walker:focus-visible { outline: 3px solid var(--ember); outline-offset: 1px; }
+.walker:active { transform: scale(.96); }
+@media (hover: hover) { .walker:hover { border-color: var(--uni); transform: translateY(-3px); } }
+.walkers:has(.quiet) { display: block; }
+.quiet { display: grid; justify-items: center; gap: 6px; padding: 24px; border: 2px dashed var(--line); border-radius: 14px;
+  color: var(--muted); text-align: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>אנשי דזרט טאון</h1>
+    <p class="welcome" id="mapIntro">__MAP_INTRO__</p>
+  </header>
+  <section class="world" aria-labelledby="mapIntro">
+    <div class="world-map" id="world"><img id="worldImg" alt=""></div>
+  </section>
+
+  <section class="places" aria-labelledby="placesH">
+    <h2 class="sec" id="placesH">המקומות</h2>
+    <div class="agrid" id="areaGrid"></div>
+  </section>
+
+  <section aria-labelledby="peopleH">
+    <h2 class="sec" id="peopleH">האנשים</h2>
+    <p class="sub">כל הדמויות של המשחק: <b>__COUNT__</b> אנשים מ־<b>__CAMPS__</b> קאמפים, מהפלאיה ועד הספייסשיפ. מעבר עם העכבר מניע אותם, לחיצה פותחת את הכרטיס המלא עם גיליון הספרייט.</p>
+    <div class="tools">
+      <label for="q" hidden>חיפוש</label>
+      <input id="q" type="search" placeholder="חיפוש לפי שם, קאמפ או משפט…" autocomplete="off">
+      <div class="chips" id="chips" role="group" aria-label="סינון לפי קאמפ"></div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="empty" id="empty" hidden>
+      <p>אף דמות לא מתאימה לחיפוש.</p>
+      <button type="button" class="ghost" id="clearQ">ניקוי החיפוש</button>
+    </div>
+  </section>
+</div>
+
+<dialog id="dlg" aria-labelledby="dName">
+  <div class="topbar"><button type="button" class="close" aria-label="סגירה">✕</button></div>
+  <div class="sheet">
+    <div class="big">
+      <div class="stage"><div class="sprite" id="dSprite" role="img"></div></div>
+      <div class="dirs" id="dirs" role="group" aria-label="כיוון">
+        <button type="button" data-row="0" aria-label="למטה">↓</button>
+        <button type="button" data-row="1" aria-label="שמאלה">←</button>
+        <button type="button" data-row="2" aria-label="ימינה">→</button>
+        <button type="button" data-row="3" aria-label="למעלה">↑</button>
+      </div>
+    </div>
+    <div class="info">
+      <div class="name" id="dName"></div>
+      <div class="en" id="dEn"></div>
+      <span class="camp" id="dCamp"></span>
+      <blockquote id="dLine"></blockquote>
+      <p id="dDesc"></p>
+      <div class="meetrow" id="dMeet"></div>
+      <div class="full">
+        <img id="dSheet" alt="">
+        <small>גיליון הספרייט המלא: 4 כיוונים × 4 צעדים, 32×48 פיקסלים לפריים (פורמט RPG Maker XP). לחיצה ימנית על התמונה ← שמירה.</small>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="adlg" aria-labelledby="aName">
+  <div class="topbar"><button type="button" class="back" id="aBack" hidden></button><button type="button" class="close" aria-label="סגירה">✕</button></div>
+  <div class="asheet">
+    <figure class="apicbox"><img class="apic" id="aPic" alt=""><div class="nopic" id="aNoPic" aria-hidden="true">✦</div></figure>
+    <h2 id="aName"></h2>
+    <p id="aDesc"></p>
+    <div id="aKidsWrap"><h3>נכנסים מכאן</h3><div class="kids" id="aKids"></div></div>
+    <h3 id="aWho"></h3>
+    <div class="walkers" id="aPeople"></div>
+  </div>
+</dialog>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById("data").textContent);
+  var chars = D.chars, areas = D.areas, ui = D.ui;
+  var NPC = "דמויות מדבר", STRIP = 5;
+  var grid = document.getElementById("grid"), q = document.getElementById("q"), chipsEl = document.getElementById("chips");
+  var empty = document.getElementById("empty"), dlg = document.getElementById("dlg"), adlg = document.getElementById("adlg");
+  var active = "";
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
+  function btn(cls, text) { var b = el("button", cls, text); b.type = "button"; return b; }
+  function img(src, cls) { var i = el("img", cls); i.src = src; i.alt = ""; i.decoding = "async"; return i; }
+  chars.forEach(function (c) { c.url = "data:image/png;base64," + c.img; c.group = c.camp || NPC; });
+  areas.forEach(function (a) {
+    a.url = a.img ? "data:image/webp;base64," + a.img : "";
+    a.thumb = a.th ? "data:image/webp;base64," + a.th : "";
+  });
+  function areaLabel(i) { var a = areas[i]; return a.parent >= 0 ? areas[a.parent].n + " › " + a.n : a.n; }
+  function peopleCount(a) { return a.people.length === 1 ? "דמות אחת" : a.people.length + " דמויות"; }
+  function countLine(a) { return a.people.length ? peopleCount(a) : "אין פה אף אחד כרגע."; }
+  function sprite(cls, c, delay) {
+    var s = el("div", cls); s.style.backgroundImage = "url(" + c.url + ")";
+    if (delay) s.style.animationDelay = delay;
+    return s;
+  }
+  function thumbBox(a) {
+    var box = el("span", "athumb");
+    box.appendChild(a.thumb ? img(a.thumb) : el("span", "nopic", "✦"));
+    return box;
+  }
+
+  // One dialog open at a time; focus returns to whatever opened the first one.
+  var current = null, opener = null, swapping = false;
+  function show(d) {
+    if (!current) opener = document.activeElement;
+    if (current && current !== d) { swapping = true; current.close(); swapping = false; }
+    current = d;
+    if (!d.open) { if (d.showModal) d.showModal(); else d.setAttribute("open", ""); }
+    d.scrollTop = 0;
+  }
+  [dlg, adlg].forEach(function (d) {
+    d.addEventListener("close", function () {
+      if (swapping) return;
+      current = null;
+      if (opener && opener.focus) opener.focus();
+    });
+    d.addEventListener("click", function (e) { if (e.target === d) d.close(); });
+    d.querySelector(".close").addEventListener("click", function () { d.close(); });
+  });
+
+  function meetRow(c, box) {
+    box.appendChild(el("small", "", ui.where_to_meet));
+    if (!c.at.length) { box.appendChild(el("span", "nomap", ui.not_on_map)); return; }
+    c.at.forEach(function (i) {
+      var a = areas[i], b = btn("mchip");
+      b.appendChild(a.thumb ? img(a.thumb) : el("span", "dot"));
+      b.appendChild(el("span", "", areaLabel(i)));
+      b.addEventListener("click", function () { openArea(i); });
+      box.appendChild(b);
+    });
+  }
+  function makeCard(c) {
+    var card = el("div", "card"), b = btn("open"), stage = el("div", "stage"), sp = sprite("sprite", c);
+    sp.setAttribute("role", "img"); sp.setAttribute("aria-label", c.he);
+    stage.appendChild(sp); b.appendChild(stage);
+    var m = el("div", "meta");
+    m.appendChild(el("div", "name", c.he));
+    if (c.en) m.appendChild(el("div", "en", c.en));
+    m.appendChild(el("span", c.camp ? "camp" : "camp npc", c.group));
+    if (c.line) m.appendChild(el("div", "quote", "״" + c.line + "״"));
+    b.appendChild(m);
+    b.addEventListener("click", function () { openChar(c); });
+    card.appendChild(b);
+    var row = el("div", "meet"); meetRow(c, row); card.appendChild(row);
+    return card;
+  }
+
+  // World map: the picture, one clipped button per outdoor area, a friendly label pinned at its middle.
+  var world = document.getElementById("world"), wimg = document.getElementById("worldImg");
+  wimg.src = "data:image/webp;base64," + D.world.img; wimg.width = D.world.w; wimg.height = D.world.h;
+  var SVG = "http://www.w3.org/2000/svg", pinNo = 0;
+  areas.forEach(function (a, i) {
+    if (!a.box) return;
+    var b = btn("area");
+    b.style.left = a.box[0] + "%"; b.style.top = a.box[1] + "%"; b.style.width = a.box[2] + "%"; b.style.height = a.box[3] + "%";
+    b.style.clipPath = "polygon(" + a.poly.split(" ").map(function (p) {
+      var xy = p.split(","); return xy[0] + "% " + xy[1] + "%";
+    }).join(", ") + ")";
+    var svg = document.createElementNS(SVG, "svg"), poly = document.createElementNS(SVG, "polygon");
+    svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("aria-hidden", "true");
+    poly.setAttribute("points", a.poly); svg.appendChild(poly); b.appendChild(svg);
+    b.setAttribute("aria-label", a.n + ", " + countLine(a));
+    b.addEventListener("click", function () { openArea(i); });
+    var lbl = el("span", "lbl", a.n);
+    if (a.people.length) lbl.appendChild(el("b", "", String(a.people.length)));
+    lbl.setAttribute("aria-hidden", "true");
+    lbl.style.left = (a.box[0] + a.box[2] / 2) + "%"; lbl.style.top = (a.box[1] + a.box[3] / 2) + "%";
+    lbl.style.setProperty("--i", pinNo++); lbl.style.setProperty("--bw", a.box[2]);
+    world.appendChild(b); world.appendChild(lbl);
+  });
+  // Keep each label inside the map frame (edge areas on a phone would otherwise clip their label).
+  var lbls = world.querySelectorAll(".lbl");
+  function fitLabels() {
+    var W = world.getBoundingClientRect();
+    Array.prototype.forEach.call(lbls, function (l) {
+      l.style.setProperty("--dx", "0px");
+      var r = l.getBoundingClientRect(), dx = 0;
+      if (r.left < W.left + 3) dx = W.left + 3 - r.left;
+      else if (r.right > W.right - 3) dx = W.right - 3 - r.right;
+      l.style.setProperty("--dx", Math.round(dx) + "px");
+    });
+  }
+  window.addEventListener("resize", fitLabels);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
+  setTimeout(fitLabels, 700);
+
+  // Place cards: every area, inside places right after their parent.
+  function placeCard(a, i, cls) {
+    var b = btn(cls), box = thumbBox(a);
+    if (cls === "acard" && a.parent >= 0) box.appendChild(el("span", "kicker", "בתוך " + areas[a.parent].n));
+    b.appendChild(box);
+    var info = el("span", "ainfo");
+    info.appendChild(el("span", "aname", a.n));
+    info.appendChild(el("span", a.people.length ? "acount" : "acount zero", countLine(a)));
+    if (cls === "acard") {
+      var strip = el("span", "strip");
+      strip.setAttribute("aria-hidden", "true");
+      a.people.slice(0, STRIP).forEach(function (ci, k) { strip.appendChild(sprite("mini", chars[ci], (-k * 0.17) + "s")); });
+      if (a.people.length > STRIP) { var more = el("span", "more", "+" + (a.people.length - STRIP)); more.dir = "ltr"; strip.appendChild(more); }
+      info.appendChild(strip);
+    }
+    b.appendChild(info);
+    b.setAttribute("aria-label", areaLabel(i) + ", " + countLine(a));
+    b.addEventListener("click", function () { openArea(i); });
+    return b;
+  }
+  var areaGrid = document.getElementById("areaGrid");
+  areas.forEach(function (a, i) { areaGrid.appendChild(placeCard(a, i, "acard")); });
+
+  var aPic = document.getElementById("aPic"), aNoPic = document.getElementById("aNoPic");
+  var aKids = document.getElementById("aKids"), aPeople = document.getElementById("aPeople");
+  var aBack = document.getElementById("aBack"), backTo = -1;
+  aBack.addEventListener("click", function () { if (backTo >= 0) openArea(backTo); });
+  function openArea(i) {
+    var a = areas[i];
+    aPic.hidden = !a.url; aNoPic.hidden = !!a.url;
+    if (a.url) { aPic.src = a.url; aPic.alt = a.n; } else aPic.removeAttribute("src");
+    document.getElementById("aName").textContent = a.n;
+    document.getElementById("aDesc").textContent = a.d;
+    backTo = a.parent; aBack.hidden = a.parent < 0;
+    if (a.parent >= 0) aBack.textContent = "→ חזרה אל " + areas[a.parent].n;
+    aKids.textContent = "";
+    document.getElementById("aKidsWrap").hidden = !a.kids.length;
+    a.kids.forEach(function (k) { aKids.appendChild(placeCard(areas[k], k, "kid")); });
+    document.getElementById("aWho").textContent = a.people.length ? "מי פה · " + peopleCount(a) : "";
+    document.getElementById("aWho").hidden = !a.people.length;
+    aPeople.textContent = "";
+    if (!a.people.length) {
+      aPeople.appendChild(el("div", "quiet", countLine(a)));
+    }
+    a.people.forEach(function (ci, k) {
+      var c = chars[ci], w = btn("walker");
+      w.appendChild(sprite("sprite", c, (-(k % 7) * 0.11) + "s"));
+      w.appendChild(el("span", "name", c.he));
+      w.addEventListener("click", function () { openChar(c); });
+      aPeople.appendChild(w);
+    });
+    show(adlg);
+    (a.parent >= 0 ? aBack : adlg.querySelector(".close")).focus();
+  }
+
+  var counts = {};
+  chars.forEach(function (c) { counts[c.group] = (counts[c.group] || 0) + 1; });
+  var groups = Object.keys(counts).filter(function (g) { return counts[g] >= 3 && g !== NPC; })
+    .sort(function (a, b) { return counts[b] - counts[a]; });
+  groups.push(NPC);
+  function chip(label, value, n) {
+    var b = btn("chip", label); b.dataset.value = value;
+    b.setAttribute("aria-pressed", value === active ? "true" : "false");
+    if (n) b.appendChild(el("span", "", String(n)));
+    b.addEventListener("click", function () { active = value; render(); });
+    chipsEl.appendChild(b);
+  }
+  chip("כולם", "", chars.length);
+  groups.forEach(function (g) { chip(g, g, counts[g]); });
+
+  var cards = chars.map(function (c) {
+    var card = makeCard(c);
+    c.hay = [c.he, c.en, c.camp, c.line, c.desc].join(" ").toLowerCase();
+    grid.appendChild(card);
+    return card;
+  });
+  function render() {
+    var term = q.value.trim().toLowerCase(), shown = 0;
+    chars.forEach(function (c, i) {
+      var ok = (!active || c.group === active) && (!term || c.hay.indexOf(term) !== -1);
+      cards[i].hidden = !ok; if (ok) shown++;
+    });
+    empty.hidden = shown > 0;
+    Array.prototype.forEach.call(chipsEl.children, function (b) { b.setAttribute("aria-pressed", b.dataset.value === active ? "true" : "false"); });
+  }
+  q.addEventListener("input", render);
+  document.getElementById("clearQ").addEventListener("click", function () { q.value = ""; active = ""; render(); q.focus(); });
+
+  var dSprite = document.getElementById("dSprite"), dirs = document.getElementById("dirs");
+  function face(row) {
+    dSprite.style.backgroundPositionY = (-192 * row) + "px";
+    Array.prototype.forEach.call(dirs.children, function (b) { b.setAttribute("aria-pressed", b.dataset.row == row ? "true" : "false"); });
+  }
+  dirs.addEventListener("click", function (e) { var r = e.target.closest("button"); if (r) face(+r.dataset.row); });
+  function openChar(c) {
+    dSprite.style.backgroundImage = "url(" + c.url + ")"; dSprite.setAttribute("aria-label", c.he); face(0);
+    document.getElementById("dName").textContent = c.he;
+    document.getElementById("dEn").textContent = c.en || "";
+    var camp = document.getElementById("dCamp"); camp.textContent = c.group; camp.className = c.camp ? "camp" : "camp npc";
+    var line = document.getElementById("dLine"); line.textContent = c.line ? "״" + c.line + "״" : ""; line.hidden = !c.line;
+    var desc = document.getElementById("dDesc"); desc.textContent = c.desc || c.abilities || ""; desc.hidden = !(c.desc || c.abilities);
+    var meet = document.getElementById("dMeet"); meet.textContent = ""; meetRow(c, meet);
+    var sheet = document.getElementById("dSheet"); sheet.src = c.url; sheet.alt = "גיליון ספרייט של " + c.he;
+    show(dlg);
+    dlg.querySelector(".close").focus();
+  }
+  render();
+})();
+</script>

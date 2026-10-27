@@ -2357,16 +2357,16 @@
       "draft": "Yotam"
     },
     "BAGS_SHIRPAZ_COWBOY_GIFT_1": {
-      "en": "A surprise bag for you. On the playa we don't trade, we gift. It's a principle. Number two of ten.",
-      "he": "שקית הפתעה בשבילך. בפלאיה לא סוחרים, מעניקים. זה עיקרון. השני מתוך עשרה."
+      "en": "You earned it. The bag's yours. What's inside is between you and the bag.",
+      "he": "מגיע לך. השקית שלך. מה שיש בפנים, זה כבר בינך לבין השקית."
     },
     "BAGS_SHIRPAZ_COWBOY_GIFT_2": {
       "en": "Another one? There's always another one. I brought one box to the burn and it still hasn't run out. I haven't checked why. I won't.",
       "he": "עוד אחת? תמיד יש עוד אחת. הבאתי לאירוע ארגז אחד, והוא עדיין לא נגמר. לא בדקתי למה. ולא אבדוק."
     },
     "BAGS_SHIRPAZ_COWBOY_GIFT_3": {
-      "en": "They say there's another Shirpaz here, a unicorn, who charges two bags up front. Here it's free. That's how you tell us apart.",
-      "he": "אומרים שיש פה עוד שירפז, חד קרן, שגובה שתי שקיות מראש. פה זה בחינם. ככה יודעים להבדיל בינינו."
+      "en": "They say the unicorn Shirpaz charges up front. Me, you pay by hand. Big difference.",
+      "he": "אומרים שיש פה עוד שירפז, חד קרן, שגובה מראש. אצלי משלמים ביד. ככה יודעים להבדיל בינינו."
     },
     "BAGS_PIXEL_OFFER_1": {
       "en": "Want a cat in a sack? You pay first, you look later. That's the whole point.",
@@ -3609,6 +3609,807 @@
     "{1} stays awake!": {
       "en": "{1} stays awake!",
       "he": "{1} נשאר ער!"
+    },
+    "HOOP_APPROACH": {
+      "en": "A hoop among the statues. Shoot?",
+      "he": "חישוק כדורסל, בין הפסלים. לזרוק?"
+    },
+    "HOOP_HINT": {
+      "en": "Red: shoot / Blue: leave",
+      "he": "אדום: זריקה / כחול: יציאה"
+    },
+    "HOOP_SHOT": {
+      "en": "{1}/{2}",
+      "he": "{1}/{2}"
+    },
+    "HOOP_MADE": {
+      "en": "In.",
+      "he": "סל."
+    },
+    "HOOP_SWISH": {
+      "en": "Swish.",
+      "he": "רק רשת."
+    },
+    "HOOP_MISSED": {
+      "en": "Miss.",
+      "he": "החטאה."
+    },
+    "HOOP_RESULT": {
+      "en": "{1} out of {2}",
+      "he": "{1} מתוך {2}"
+    },
+    "HOOP_BEST": {
+      "en": "Best so far: {1}",
+      "he": "השיא עד כה: {1}"
+    },
+    "HOOP_EVYATAR_LINE": {
+      "en": "איך אמר יותם פעם? תעשה חיים בחיים. כי בחיים לא תצא בחיים.",
+      "he": "איך אמר יותם פעם? תעשה חיים בחיים. כי בחיים לא תצא בחיים."
+    },
+    "PLANET_EYAL_ASK_1": {
+      "en": "Welcome to the Kusomo Planetarium. Deep Playa branch.",
+      "he": "ברוכים הבאים לפלנטריום של קוסומו. סניף מדבר עמוק.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_ASK_2": {
+      "en": "Just one problem: there is no planetarium without a little ram.",
+      "he": "רק בעיה אחת: אין פלנטריום בלי איל קטן.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_ASK_3": {
+      "en": "A ram. Not me. There is one at Kusomo, with Hagar.",
+      "he": "איל. עם יו״ד אחת. לא אני. יש אחד בקוסומו, אצל הגר.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_REMIND": {
+      "en": "A little ram. Kusomo. Hagar has it. Without it the stars won't switch on.",
+      "he": "איל קטן. קוסומו. אצל הגר. בלי זה הכוכבים לא נדלקים.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_THANKS": {
+      "en": "There it is! A little ram. Almost like me, just with horns.",
+      "he": "הנה הוא! איל קטן. כמעט כמוני, רק עם קרניים.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_TAKEN": {
+      "en": "The little ram went to Eyal. It is already his pillow.",
+      "he": "האיל הקטן עבר לאייל. הוא כבר משמש לו כרית.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_WARN": {
+      "en": "Before we start: the planetarium experience lasts about ten minutes. Find a comfortable spot and lie down on the ground before we begin.",
+      "he": "רגע לפני שמתחילים: חוויית הפלנטריום נמשכת בערך עשר דקות. כדאי למצוא מקום נוח ולשכב על הקרקע לפני שמתחילים.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_START_ASK": {
+      "en": "Shall we start?",
+      "he": "מתחילים?",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_NOW": {
+      "en": "Now",
+      "he": "עכשיו",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_LATER": {
+      "en": "Later",
+      "he": "אחר כך",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_LATER": {
+      "en": "No rush. The stars are here all night. The little ram is waiting.",
+      "he": "אין לחץ. הכוכבים פה כל הלילה. האיל הקטן מחכה.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_AFTER_DONE": {
+      "en": "We survived the end of the world. Again.",
+      "he": "שרדנו את סוף העולם. שוב.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_AFTER_LEFT": {
+      "en": "You left before the end of the world. Shame, it's the best part.",
+      "he": "יצאתם לפני סוף העולם. חבל, זה החלק הכי טוב.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_REPLAY_ASK": {
+      "en": "Another round?",
+      "he": "עוד סיבוב?",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_REPLAY": {
+      "en": "Once more",
+      "he": "עוד פעם",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_NOTNOW": {
+      "en": "Not now",
+      "he": "לא עכשיו",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_REPLAY_NO": {
+      "en": "The little ram and I will keep looking up.",
+      "he": "האיל הקטן ואני נמשיך להסתכל למעלה.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_EYAL_BROKEN": {
+      "en": "The projector won't turn on. The moon probably doesn't exist again. Try later.",
+      "he": "המקרן לא נדלק. כנראה הירח שוב לא קיים. נסו אחר כך.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_HAGAR_GIVE_1": {
+      "en": "A little ram? For Eyal? Wow, you're unbearable.",
+      "he": "איל קטן? בשביל אייל? וואי, בלתי נסבלים.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_HAGAR_GIVE_2": {
+      "en": "Take it. It's his, not mine.",
+      "he": "קחו. זה שלו, לא שלי.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_HAGAR_HAS": {
+      "en": "I already gave you a ram. One. Eyal is waiting in the Deep Playa.",
+      "he": "כבר נתתי לכם איל. אחד. אייל מחכה במדבר העמוק.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_HAGAR_SENT": {
+      "en": "So, did you make it to Eyal's planetarium?",
+      "he": "נו, הגעתם לפלנטריום של אייל?",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_HAGAR_AFTER": {
+      "en": "I heard the world ended. Again.",
+      "he": "שמעתי שהעולם נגמר. שוב.",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_SKIP_ASK": {
+      "en": "Leave the planetarium?",
+      "he": "לצאת מהפלנטריום?",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_YES": {
+      "en": "Yes",
+      "he": "כן",
+      "draft": "Noam spec TG10"
+    },
+    "PLANET_CHOICE_NO": {
+      "en": "No",
+      "he": "לא",
+      "draft": "Noam spec TG10"
+    },
+    "LITTLERAM": {
+      "en": "Little Ram",
+      "he": "איל קטן",
+      "draft": "Noam spec TG10"
+    },
+    "LITTLERAM_DESC": {
+      "en": "A soft little plush ram. A ram, not Eyal. Don't mix them up.",
+      "he": "בובת איל קטנה ורכה. איל, עם י׳ אחת. לא לבלבל עם אייל.",
+      "draft": "Noam spec TG10"
+    },
+    "TOAST_EYAL_ASK_1": {
+      "en": "Toast emergency. Every morning the brain in the jar gets one toast. It's not a treat, it's order. This morning there's no toaster.",
+      "he": "חירום טוסט. כל בוקר המוח בצנצנת מקבל טוסט אחד. זה לא פינוק, זה סדר. הבוקר אין טוסטר.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_ASK_2": {
+      "en": "In its place they left a note: \"Confiscated by the Appliance Committee. The appliance leaves crumbs, i.e. traces.\"",
+      "he": "במקומו השאירו פתק: \"הוחרם בידי ועדת המכשירים. המכשיר משאיר פירורים, כלומר עקבות.\"",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_ASK_3": {
+      "en": "It has been decided: as of today you have a role. VP of Toast. No salary. There is honour, and there is responsibility.",
+      "he": "הוחלט: מהיום יש לך תפקיד. סמנכ\"ל טוסט. אין שכר. יש כבוד, ויש אחריות.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_ASK_4": {
+      "en": "Prime suspect: Eyal HaNoodles, south-west of camp. He's been acting weird around my toast. Start with him.",
+      "he": "חשוד ראשון: אייל הנודלס, בדרום-מערב הקאמפ. הוא מתנהג מוזר סביב הטוסט שלי. להתחיל ממנו.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_REMIND_NOODLES": {
+      "en": "The toaster still isn't here. Eyal HaNoodles, south-west of camp. Start with him.",
+      "he": "הטוסטר עדיין לא פה. אייל הנודלס, דרום-מערב הקאמפ. להתחיל ממנו.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_REMIND_CLERK": {
+      "en": "So it's the Appliance Committee. The Old City, a clerk named Yunik. I'm waiting. The jar is waiting.",
+      "he": "אז זאת ועדת המכשירים. העיר העתיקה, פקיד בשם יוניק. אני מחכה. הצנצנת מחכה.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_REMIND_VAULT": {
+      "en": "You have a form. A form is not a toaster. The casino under the Old City. Carry on.",
+      "he": "יש לך טופס. טופס זה לא טוסטר. הקזינו מתחת לעיר העתיקה. להמשיך.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_REMIND_ALTAR": {
+      "en": "According to reports, you have the toaster. According to the bag, no. Back to the altar in the casino.",
+      "he": "לפי הדיווחים, הטוסטר אצלך. לפי התיק, לא. לחזור למזבח בקזינו.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRE_1": {
+      "en": "Yes, little buddy. I reported the toaster. Every morning it trips the generator, mid-pot.",
+      "he": "כן, חבוב קטן. אני דיווחתי על הטוסטר. כל בוקר הוא מפיל את הגנרטור, באמצע הסיר.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRE_2": {
+      "en": "Eleven people stand there with bowls and get lukewarm water. For one slice.",
+      "he": "אחד-עשר אנשים עומדים עם קערות ומקבלים מים פושרים. בשביל פרוסה אחת.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRE_3": {
+      "en": "Toast is for one, steam is for everyone. Want to know where it went? First we see which is stronger, sweetheart.",
+      "he": "טוסט זה בשביל אחד, אדים בשביל כולם. רוצה לדעת לאן הוא הלך? קודם נראה מה חזק יותר, נשמה.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_MOVE1": {
+      "en": "Lid On",
+      "he": "מכסה סגור",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_MOVE2": {
+      "en": "Chopstick Pinch",
+      "he": "צביטת צ'ופסטיקס",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_MOVE3": {
+      "en": "Boil-Over",
+      "he": "רותח וגולש",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_MOVE4": {
+      "en": "Endless Noodle",
+      "he": "נודל בלי סוף",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_BLK1": {
+      "en": "I'm closing the lid. Nothing gets in.",
+      "he": "אני סוגר את המכסה. שום דבר לא נכנס.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_BLK2": {
+      "en": "Lid. Closed. What's inside stays inside.",
+      "he": "מכסה. סגור. מה שבפנים נשאר בפנים.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_BLK3": {
+      "en": "Hold on. I'm under the lid.",
+      "he": "רגע. אני מתחת למכסה.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRC1": {
+      "en": "Chopsticks. One bite. Exactly in the middle.",
+      "he": "צ'ופסטיקס. ביס אחד. בדיוק באמצע.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRC2": {
+      "en": "Three minutes exactly, then chopsticks.",
+      "he": "שלוש דקות בדיוק, ואז צ'ופסטיקס.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_PRC3": {
+      "en": "One pinch, exactly on the spot. Chopsticks always hit.",
+      "he": "צביטה אחת, בדיוק במקום. צ'ופסטיקס תמיד פוגעים.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_FRC1": {
+      "en": "Boiling! Boiling! Boiling over!",
+      "he": "רותח! רותח! גולש!",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_FRC2": {
+      "en": "Overflowing on every side! Boiling to the floor!",
+      "he": "גולש מכל הצדדים! רותח עד הרצפה!",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_FRC3": {
+      "en": "High flame! Full boil!",
+      "he": "אש גבוהה! רתיחה מלאה!",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_SPC1": {
+      "en": "Endless Noodle!",
+      "he": "נודל בלי סוף!",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_SPC2": {
+      "en": "It starts in my bowl and never ends. Endless Noodle!",
+      "he": "זה מתחיל אצלי בקערה ולא נגמר אף פעם. נודל בלי סוף!",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_SPC3": {
+      "en": "Here it comes: Endless Noodle.",
+      "he": "הנה זה בא: נודל בלי סוף.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_WIN_1": {
+      "en": "Fine, buddy. You won. Toast is stronger than I thought. It's still a phase.",
+      "he": "בסדר, חבוב. ניצחת. הטוסט חזק ממה שחשבתי. הוא עדיין שלב.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_WIN_2": {
+      "en": "I reported it to the Appliance Committee, in the Old City. There's a clerk there, Yunik. What goes to him goes into a file.",
+      "he": "דיווחתי לוועדת המכשירים, בעיר העתיקה. יש שם פקיד, יוניק. מה שנכנס אליו נכנס לתיק.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_LOSE": {
+      "en": "Noodles win. Nothing personal, buddy. You can try again. The pot isn't going anywhere.",
+      "he": "ניצחו הנודלס. זה לא אישי, חבוב. אפשר לנסות שוב. הסיר לא הולך לשום מקום.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_REMIND": {
+      "en": "Old City, Appliance Committee, Yunik. And I'm here with the pot. Someone has to stay with the pot.",
+      "he": "העיר העתיקה, ועדת המכשירים, יוניק. ואני פה, עם הסיר. מישהו צריך להישאר עם הסיר.",
+      "draft": "Yotam"
+    },
+    "TOAST_NOODLE_AFTER": {
+      "en": "I heard the click all the way over here. I'm not saying it was good. I'm saying it smelled good.",
+      "he": "שמעתי את הקליק עד לפה. אני לא אומר שזה היה טוב. אני אומר שהריח היה טוב.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRE_1": {
+      "en": "Appliance Committee, appeals desk. On duty: acting deputy temporary clerk. Case: toaster. Status: confiscated.",
+      "he": "ועדת המכשירים, דלפק ערעורים. בתפקיד: ממלא מקום סגן פקיד זמני. התיק: טוסטר. סטטוס: מוחרם.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRE_2": {
+      "en": "An appeal may be filed. Under Regulation 404, an appeal is decided by hearing.",
+      "he": "ניתן לערער. לפי תקנה 404, ערעור מוכרע בשימוע.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRE_3": {
+      "en": "A hearing is conducted as a duel. The hearing is open.",
+      "he": "שימוע מתנהל כדו-קרב. השימוע נפתח.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_MOVE1": {
+      "en": "Come Back Tomorrow",
+      "he": "תחזור מחר",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_MOVE2": {
+      "en": "Stamp",
+      "he": "חותמת",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_MOVE3": {
+      "en": "Form in Triplicate",
+      "he": "טופס בשלושה עותקים",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_MOVE4": {
+      "en": "Regulation 404",
+      "he": "תקנה 404",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_BLK1": {
+      "en": "Come back tomorrow.",
+      "he": "תחזור מחר.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_BLK2": {
+      "en": "The desk is closed. Please come back tomorrow.",
+      "he": "הדלפק סגור. נא לחזור מחר.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_BLK3": {
+      "en": "The request is under review. An answer will be given tomorrow.",
+      "he": "הבקשה בבדיקה. תשובה תינתן מחר.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRC1": {
+      "en": "Stamp. One. Exactly in place.",
+      "he": "חותמת. אחת. בדיוק במקום.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRC2": {
+      "en": "Stamp on the dotted line. Exactly on it.",
+      "he": "חותמת על הקו המקווקו. בדיוק עליו.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_PRC3": {
+      "en": "Stamp, exactly in the right-hand corner.",
+      "he": "חותמת בדיוק בפינה הימנית.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_FRC1": {
+      "en": "Form! Form! Form!",
+      "he": "טופס! טופס! טופס!",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_FRC2": {
+      "en": "Form! In triplicate! Now!",
+      "he": "טופס! בשלושה עותקים! עכשיו!",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_FRC3": {
+      "en": "Forms! From every direction! Form!",
+      "he": "טפסים! מכל הכיוונים! טופס!",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_SPC1": {
+      "en": "Regulation 404 is in effect!",
+      "he": "תקנה 404 מופעלת!",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_SPC2": {
+      "en": "Under Regulation 404, the proceedings are over.",
+      "he": "לפי תקנה 404, הדיון הסתיים.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_SPC3": {
+      "en": "Regulation 404. Clause: all the clauses.",
+      "he": "תקנה 404. סעיף: כל הסעיפים.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_WIN_1": {
+      "en": "The appeal is found justified. An Appliance Release Form is issued. Please do not fold.",
+      "he": "נמצא כי הערעור מוצדק. מונפק טופס שחרור מכשיר. נא לא לקפל.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_WIN_2": {
+      "en": "The appellant is appointed a temporary Committee member, and is assigned the confiscation team: Pikachu, Charizard, Snorlax. On loan.",
+      "he": "המערער ממונה לחבר ועדה זמני. מוקצה לו צוות ההחרמה: פיקאצ'ו, צ'ריזארד, סנורלקס. בהשאלה.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_WIN_3": {
+      "en": "Confiscated appliances are stored in the vault: the casino under the Old City. Entry through the cave.",
+      "he": "המכשירים המוחרמים מאוחסנים בכספת: הקזינו מתחת לעיר העתיקה. הכניסה דרך המערה.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_WIN_4": {
+      "en": "The archive staff work in the vault. They are wrapped in bandages. Do not permit contact. Contact results in removal from the building.",
+      "he": "בכספת עובד צוות הארכיון. הם עטופים בתחבושות. אין לאפשר מגע. מגע מוביל להוצאה מהבניין.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_LOSE": {
+      "en": "Appeal denied. Subject to Regulation 404, a new appeal may be filed.",
+      "he": "ערעור נדחה. בכפוף לתקנה 404, ניתן לערער שוב.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_REMIND": {
+      "en": "The form has been issued. The vault is in the casino, under the Old City. The archive staff are not supposed to touch.",
+      "he": "הטופס הונפק. הכספת בקזינו, מתחת לעיר העתיקה. צוות הארכיון לא אמור לגעת.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_REISSUE": {
+      "en": "No form found on the appellant. A copy is issued. The third copy, as usual, is with someone else.",
+      "he": "לא נמצא טופס אצל המערער. מונפק עותק. העותק השלישי, כרגיל, אצל מישהו אחר.",
+      "draft": "Yotam"
+    },
+    "TOAST_CLERK_CLOSED": {
+      "en": "The case is closed.",
+      "he": "התיק סגור.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_SEALED": {
+      "en": "On the gold altar, a toaster. On it, an Appliance Committee stamp. Without a form, there's nothing to do here.",
+      "he": "על מזבח הזהב, טוסטר. עליו חותמת של ועדת המכשירים. בלי טופס, אין מה לעשות כאן.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_POSSESSED_1": {
+      "en": "The form touches the altar. The toaster hums. Its slots light up orange.",
+      "he": "הטופס נוגע במזבח. הטוסטר מזמזם. החריצים נדלקים בכתום.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_POSSESSED_2": {
+      "en": "It sat in the casino a long time. Something moved in. And the something is sure it's an oven.",
+      "he": "הוא ישב בקזינו הרבה זמן. משהו עבר לגור בו. והמשהו בטוח שהוא תנור.",
+      "draft": "Yotam"
+    },
+    "TOAST_ROTOM_NAME": {
+      "en": "The Toaster",
+      "he": "הטוסטר",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_WIN_1": {
+      "en": "Something leaps out of the slots and vanishes into the slot machines. One of them rings.",
+      "he": "משהו קופץ מתוך החריצים ונבלע במכונות המזל. אחת מהן מצלצלת.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_WIN_2": {
+      "en": "A stamp lands on the form: \"Done\". The form stays in the vault. That's forms for you.",
+      "he": "על הטופס נוחתת חותמת: \"בוצע\". הטופס נשאר בכספת. ככה זה עם טפסים.",
+      "draft": "Yotam"
+    },
+    "TOAST_GOT_TOASTER": {
+      "en": "The toaster is in the bag. Still warm. The archive staff escort you out, no contact.",
+      "he": "הטוסטר בתיק. הוא עוד חם. צוות הארכיון מלווה אותך החוצה, בלי מגע.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_LOSE": {
+      "en": "The toaster fires a spark. When your eyes open, it's the Old City. You still have the form.",
+      "he": "הטוסטר יורה ניצוץ. כשהעיניים נפתחות, זו כבר העיר העתיקה. הטופס עדיין אצלך.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_REGIVE": {
+      "en": "A toaster is still waiting on the altar. Per the form, it's yours. It goes back in the bag.",
+      "he": "על המזבח עוד מחכה טוסטר. לפי הטופס, הוא שלך. הוא חוזר לתיק.",
+      "draft": "Yotam"
+    },
+    "TOAST_ALTAR_EMPTY": {
+      "en": "An empty gold altar. Just a few crumbs. The Appliance Committee won't like that.",
+      "he": "מזבח זהב ריק. רק כמה פירורים. ועדת המכשירים לא תאהב את זה.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_FINALE_1": {
+      "en": "The toaster. I don't hug electrical appliances. Except now.",
+      "he": "הטוסטר. אני לא מחבק מכשירי חשמל. חוץ מעכשיו.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_FINALE_2": {
+      "en": "One slice. From the drawer under the jar, where there's been bread since build week. It's ready.",
+      "he": "פרוסה אחת. מהמגירה מתחת לצנצנת, שבה יש לחם מאז שבוע הבנייה. היא מוכנה.",
+      "draft": "Michal"
+    },
+    "TOAST_EYAL_FINALE_3": {
+      "en": "One problem left. Kusomo's generator can't carry a toaster on top of everything else. Something has to be unplugged.",
+      "he": "נשארה בעיה אחת. הגנרטור של קוסומו לא סוחב טוסטר ועוד את כל השאר. משהו צריך להתנתק.",
+      "draft": "Michal"
+    },
+    "TOAST_PLUG_ASK": {
+      "en": "What do we unplug?",
+      "he": "מה מנתקים?",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_CHOICE_AC": {
+      "en": "Oren's air conditioner",
+      "he": "המזגן של אורן",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_CHOICE_JAR": {
+      "en": "The jar",
+      "he": "הצנצנת",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_CHOICE_NOTYET": {
+      "en": "Not yet",
+      "he": "עוד לא",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_NOTYET": {
+      "en": "Understood. Since build week, every morning with toast. This morning too. Just a little late.",
+      "he": "מובן. מאז שבוע הבנייה, כל בוקר עם טוסט. גם הבוקר. רק קצת מאוחר.",
+      "draft": "Michal"
+    },
+    "TOAST_PLUG_AC_1": {
+      "en": "Oren's AC. Decided. He'll find another way to connect with himself.",
+      "he": "המזגן של אורן. הוחלט. הוא ימצא דרך אחרת להתחבר לעצמו.",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_AC_2": {
+      "en": "Wait. Why is it quiet? Why is it hot? I came to connect with myself! I stayed for the AC!",
+      "he": "רגע. למה שקט? למה חם? באתי להתחבר לעצמי! נשארתי בשביל המזגן!",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_JAR_1": {
+      "en": "The jar. Just for a few seconds. It won't feel a thing. I will.",
+      "he": "הצנצנת. רק לכמה שניות. היא לא תרגיש. אני כן.",
+      "draft": "Yotam"
+    },
+    "TOAST_PLUG_JAR_2": {
+      "en": "I want toast with chocolate! With lots of chocolate! ...Where was I. Right. Toast. No chocolate.",
+      "he": "אני רוצה טוסט עם שוקולד! עם הרבה שוקולד! ...איפה הייתי. כן. טוסט. בלי שוקולד.",
+      "draft": "Yotam"
+    },
+    "TOAST_END_RECEIVED": {
+      "en": "Eyal the Boss got a toast.",
+      "he": "אייל הבוס קיבל טוסט.",
+      "draft": "Claudet fixed"
+    },
+    "TOAST_CEREMONY_1": {
+      "en": "From this moment, a promotion: VP of Toast for Life. Your office is next to the jar.",
+      "he": "מהרגע הזה, קידום: סמנכ\"ל טוסט לנצח. הלשכה שלך ליד הצנצנת.",
+      "draft": "Yotam"
+    },
+    "TOAST_CEREMONY_2": {
+      "en": "Today is a permanent Kusomo holiday. Toast Day. Every year, same morning, same hour, one slice.",
+      "he": "היום הוא חג קבוע בקוסומו. יום הטוסט. כל שנה, באותו בוקר, באותה שעה, פרוסה אחת.",
+      "draft": "Yotam"
+    },
+    "TOAST_CEREMONY_3": {
+      "en": "First Amendment to the camp constitution: \"Kusomo has a toaster.\" That's the whole amendment. It passed unanimously. I was the one mouth.",
+      "he": "תיקון ראשון לחוקת הקאמפ: \"בקוסומו יש טוסטר.\" זה כל התיקון. הוא עבר פה אחד. אני הייתי הפה.",
+      "draft": "Yotam"
+    },
+    "TOAST_CEREMONY_4": {
+      "en": "And one crumb fell. I framed it. It's the only MOOP the Appliance Committee ever approved. It's yours.",
+      "he": "ופירור אחד נפל. מסגרתי אותו. זה ה-MOOP היחיד שוועדת המכשירים אי פעם אישרה. הוא שלך.",
+      "draft": "Yotam"
+    },
+    "TOAST_CRUMB_RECOVER": {
+      "en": "Wait. The framed crumb. A ceremony doesn't end halfway. It's yours.",
+      "he": "רגע. הפירור הממוסגר. טקס לא נגמר באמצע. הוא שלך.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_AFTER_1": {
+      "en": "The brain in the jar ate this morning. Didn't say thanks. It never does. That's how you know all is well.",
+      "he": "המוח בצנצנת אכל הבוקר. לא אמר תודה. הוא אף פעם לא אומר. ככה יודעים שהכול בסדר.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_AFTER_2": {
+      "en": "Good morning, VP of Toast. Nothing new. That's the whole point.",
+      "he": "בוקר טוב, סמנכ\"ל טוסט. אין חדש. זה כל העניין.",
+      "draft": "Yotam"
+    },
+    "TOAST_EYAL_AFTER_3": {
+      "en": "Someone asked whether the jar gets coffee now too. The answer: no. Order is order.",
+      "he": "שאלו אם עכשיו הצנצנת מקבלת גם קפה. התשובה: לא. סדר זה סדר.",
+      "draft": "Yotam"
+    },
+    "TOAST_OREN_AC_AFTER": {
+      "en": "Now I'm only connecting with myself. It's not as good as they say.",
+      "he": "עכשיו אני רק מתחבר לעצמי. זה פחות טוב ממה שאומרים.",
+      "draft": "Yotam"
+    },
+    "TOASTER": {
+      "en": "Toaster",
+      "he": "טוסטר",
+      "draft": "Yotam"
+    },
+    "Toaster": {
+      "en": "Toaster",
+      "he": "טוסטר",
+      "draft": "Yotam"
+    },
+    "Toasters": {
+      "en": "Toasters",
+      "he": "טוסטרים",
+      "draft": "Yotam"
+    },
+    "TOASTER_DESC": {
+      "en": "Eyal the Boss's toaster. Two slots. Still hums a little when nobody's looking.",
+      "he": "הטוסטר של אייל הבוס. שני חריצים. עדיין מזמזם קצת כשאף אחד לא מסתכל.",
+      "draft": "Yotam"
+    },
+    "TOASTPERMIT": {
+      "en": "Appliance Release Form",
+      "he": "טופס שחרור מכשיר",
+      "draft": "Yotam"
+    },
+    "Appliance Release Form": {
+      "en": "Appliance Release Form",
+      "he": "טופס שחרור מכשיר",
+      "draft": "Yotam"
+    },
+    "Appliance Release Forms": {
+      "en": "Appliance Release Forms",
+      "he": "טופסי שחרור מכשיר",
+      "draft": "Yotam"
+    },
+    "TOASTPERMIT_DESC": {
+      "en": "An Appliance Committee form. Authorises release of one appliance from the vault. Signed, stamped, and valid until decided otherwise.",
+      "he": "טופס של ועדת המכשירים. מאשר שחרור של מכשיר אחד מהכספת. חתום, מוחתם, ובתוקף עד שיוחלט אחרת.",
+      "draft": "Yotam"
+    },
+    "TOASTCRUMB": {
+      "en": "Framed Toast Crumb",
+      "he": "פירור טוסט ממוסגר",
+      "draft": "Yotam"
+    },
+    "Framed Toast Crumb": {
+      "en": "Framed Toast Crumb",
+      "he": "פירור טוסט ממוסגר",
+      "draft": "Yotam"
+    },
+    "Framed Toast Crumbs": {
+      "en": "Framed Toast Crumbs",
+      "he": "פירורי טוסט ממוסגרים",
+      "draft": "Yotam"
+    },
+    "TOASTCRUMB_DESC": {
+      "en": "One crumb, framed. Fell on the first Toast Day. Approved by the Appliance Committee, retroactively.",
+      "he": "פירור אחד במסגרת. נפל ביום הטוסט הראשון. באישור ועדת המכשירים, בדיעבד.",
+      "draft": "Yotam"
+    },
+    "AW_CHALLENGE": {
+      "en": "Arm wrestling. Pin my hand, and the surprise bag changes hands. Under the table.",
+      "he": "הורדת ידיים. מורידים לי את היד, ושקית ההפתעה עוברת ידיים. מתחת לשולחן.",
+      "draft": "Yotam"
+    },
+    "AW_CHOICE_PLAY": {
+      "en": "Bring it",
+      "he": "בואי נראה",
+      "draft": "Yotam"
+    },
+    "AW_CHOICE_LATER": {
+      "en": "Not now",
+      "he": "לא עכשיו",
+      "draft": "Yotam"
+    },
+    "AW_LATER": {
+      "en": "The table's staying put. So are the bags.",
+      "he": "השולחן לא בורח. גם השקיות לא.",
+      "draft": "Yotam"
+    },
+    "AW_BUSY": {
+      "en": "Not mid-song. No beating a singing unicorn.",
+      "he": "לא באמצע השיר. מול חד קרן שרה אין לי סיכוי.",
+      "draft": "Yotam"
+    },
+    "AW_HOWTO_1": {
+      "en": "Red on the beat: push",
+      "he": "אדום על הקצב: דוחפים",
+      "draft": "Yotam"
+    },
+    "AW_HOWTO_2": {
+      "en": "Blue when she tenses: brace",
+      "he": "כחול כשהיא נדרכת: מחזיקים",
+      "draft": "Yotam"
+    },
+    "AW_HOWTO_START": {
+      "en": "Red: start · Blue: back",
+      "he": "אדום: מתחילים · כחול: חזרה",
+      "draft": "Yotam"
+    },
+    "AW_GO": {
+      "en": "GO!",
+      "he": "יאללה!",
+      "draft": "Yotam"
+    },
+    "AW_PERFECT": {
+      "en": "PERFECT!",
+      "he": "מושלם!",
+      "draft": "Yotam"
+    },
+    "AW_GOOD": {
+      "en": "GOOD",
+      "he": "יפה",
+      "draft": "Yotam"
+    },
+    "AW_SLIP": {
+      "en": "SLIP",
+      "he": "החלקה",
+      "draft": "Yotam"
+    },
+    "AW_BLOCK": {
+      "en": "BLOCKED!",
+      "he": "חסימה!",
+      "draft": "Yotam"
+    },
+    "AW_HIT": {
+      "en": "OOF",
+      "he": "אאוץ'",
+      "draft": "Yotam"
+    },
+    "AW_TAUNT": {
+      "en": "Short rodeo, huh?",
+      "he": "רודיאו קצר, אה?",
+      "draft": "Yotam"
+    },
+    "AW_STRAIN": {
+      "en": "Somebody hold my hat!",
+      "he": "תחזיקו לי את הכובע!",
+      "draft": "Yotam"
+    },
+    "AW_WIN_CARD": {
+      "en": "Conquered!",
+      "he": "כבושה!",
+      "draft": "Yotam"
+    },
+    "AW_LOSE_CARD": {
+      "en": "Bucked off",
+      "he": "נזרקת מהאוכף",
+      "draft": "Yotam"
+    },
+    "AW_TIMEUP": {
+      "en": "Time's up",
+      "he": "נגמר הזמן",
+      "draft": "Yotam"
+    },
+    "AW_LOSE_1": {
+      "en": "Fall off the horse, get back on.",
+      "he": "נופלים מהסוס, עולים בחזרה.",
+      "draft": "Yotam"
+    },
+    "AW_LOSE_2": {
+      "en": "The bag stays with me. It's not complaining.",
+      "he": "השקית נשארת אצלי. היא לא מתלוננת.",
+      "draft": "Yotam"
+    },
+    "AW_LOSE_3": {
+      "en": "I came to conquer. Sometimes it even works.",
+      "he": "באתי לכבוש. לפעמים זה אפילו עובד.",
+      "draft": "Yotam"
     }
   }
 }

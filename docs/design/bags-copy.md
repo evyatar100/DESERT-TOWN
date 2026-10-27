@@ -81,6 +81,7 @@ Then the song starts:
 
 | key | speaker | he | en |
 |---|---|---|---|
+| *(TG14 pointer)* | שירפז | The bag is now won by arm-wrestling her (dec:tg-29). GIFT_1 and GIFT_3 are reworded as win lines, and the AW_* copy lives in `docs/design/arm-wrestling-copy.md`. That file supersedes this table. | |
 | BAGS_SHIRPAZ_COWBOY_GIFT_1 | שירפז | שקית הפתעה בשבילך. בפלאיה לא סוחרים, מעניקים. זה עיקרון. השני מתוך עשרה. | A surprise bag for you. On the playa we don't trade, we gift. It's a principle. Number two of ten. |
 | BAGS_SHIRPAZ_COWBOY_GIFT_2 | שירפז | עוד אחת? תמיד יש עוד אחת. הבאתי לאירוע ארגז אחד, והוא עדיין לא נגמר. לא בדקתי למה. ולא אבדוק. | Another one? There's always another one. I brought one box to the burn and it still hasn't run out. I haven't checked why. I won't. |
 | BAGS_SHIRPAZ_COWBOY_GIFT_3 | שירפז | אומרים שיש פה עוד שירפז, חד קרן, שגובה שתי שקיות מראש. פה זה בחינם. ככה יודעים להבדיל בינינו. | They say there's another Shirpaz here, a unicorn, who charges two bags up front. Here it's free. That's how you tell us apart. |

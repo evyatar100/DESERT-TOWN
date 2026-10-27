@@ -425,6 +425,7 @@ module Bags
   module Song
     def self.start(duo:) = ($bags_log << [:song, duo, Bags.state[:payoff_given], Bags.state[:duo]]; true)
     def self.stop = false
+    def self.active? = false
   end
 end
 module MenuHandlers
@@ -500,15 +501,17 @@ plate = $bags_log.find { |m, _| m == "BAGS_UNICORN_ARRIVE_2" }
 check(plate && plate[1] == "BAGS_NAME_SHIRPAZ" && $bags_log.find { |m, _| m == "BAGS_UNICORN_GIVEN" }[1].nil?,
       "bags Inbar: unicorn lines carry their name plate; narration has none")
 check(talk.("c414cf08") == %w[MSG_C414CF08_LINE BAGS_INBAR_PARTY_1 BAGS_INBAR_PARTY_2], "bags Inbar: party lines afterwards")
+# dec:tg-29: the cowboy's bag comes only from an arm-wrestling win (zArmWrestle; full flow in arm_rules_test.rb).
+cowboy_talk_before = talk.("670f79e3")
+check(cowboy_talk_before == %w[MSG_670F79E3_LINE BAGS_SHIRPAZ_COWBOY_CLASH], "bags cowboy: without zArmWrestle, his line and the clash only")
+%w[000_rules 001_state 004_offer].each { |f| require File.join(ROOT, "Plugins/zArmWrestle/#{f}.rb") }
 cowboy_before = Marshal.load(Marshal.dump(Bags.state))
 cowboy_bags = $bag.quantity(:SURPRISEBAG)
-cowboy_talks = 4.times.map { talk.("670f79e3") }
-check(cowboy_talks.all? { |t| t[0, 2] == %w[MSG_670F79E3_LINE BAGS_SHIRPAZ_COWBOY_CLASH] && t.last == [:got, :SURPRISEBAG] && t.length == 4 },
-      "bags cowboy: his line, the name clash after the party, a gift line, then one Surprise Bag")
-check(cowboy_talks.map { |t| t[2] } == %w[1 2 3 1].map { |n| "BAGS_SHIRPAZ_COWBOY_GIFT_#{n}" }, "bags cowboy: the gift lines rotate 1, 2, 3")
-check($bag.quantity(:SURPRISEBAG) == cowboy_bags + 4 && Bags.state == cowboy_before,
-      "bags cowboy: one bag per talk, unlimited, and the quest state is untouched")
-$bag.remove(:SURPRISEBAG, 4)
+cowboy_talks = 3.times.map { talk.("670f79e3", [1]) }
+check(cowboy_talks.all? { |t| t == %w[MSG_670F79E3_LINE BAGS_SHIRPAZ_COWBOY_CLASH AW_CHALLENGE AW_LATER] },
+      "bags cowboy: his line, the name clash after the party, then the challenge; not now ends it (#{cowboy_talks[0].inspect})")
+check($bag.quantity(:SURPRISEBAG) == cowboy_bags && Bags.state == cowboy_before && $PokemonGlobal.arm_wrestle == ArmWrestleRules.new_state,
+      "bags cowboy: no bag without a win, and neither quest state changes")
 $bags_log = []
 $bags_picks = [0]
 pbBagsUnicorn(:esther)
@@ -583,11 +586,9 @@ check($bags_handlers[[:bag, :SURPRISEBAG]].call(:SURPRISEBAG) == 1 && keys.call.
       "bags item: opening shows an outcome line")
 $PokemonGlobal = nil
 
-pre_party = talk.("670f79e3")
-check(pre_party.length == 3 && pre_party[0] == "MSG_670F79E3_LINE" && pre_party[1].start_with?("BAGS_SHIRPAZ_COWBOY_GIFT_") &&
-      pre_party[2] == [:got, :SURPRISEBAG], "bags cowboy: before the party there is no name clash, the gift still comes")
-check(BR.cowboy_gift(nil) == [:SURPRISEBAG, 1] && BR.cowboy_gift(3) == [:SURPRISEBAG, 1] && BR.cowboy_gift(1) == [:SURPRISEBAG, 2],
-      "bags cowboy: cowboy_gift gives one Surprise Bag and the next line")
+pre_party = talk.("670f79e3", [1])
+check(pre_party == %w[MSG_670F79E3_LINE AW_CHALLENGE AW_LATER], "bags cowboy: before the party no name clash, straight to the challenge (#{pre_party.inspect})")
+check(!BR.respond_to?(:cowboy_gift) && !defined?(BR::COWBOY_GIFT_LINES), "bags cowboy: the free gift (dec:tg-17) is gone")
 state_write_re = /\[:(?:#{BR.new_state.keys.join("|")})\]\s*(?:\+|-|\|\||&&)?=(?!=)/
 check("st[:inbar] = :done".match?(state_write_re) && "x[:bills_from_bags] += 1".match?(state_write_re) && !"st[:inbar] == :done".match?(state_write_re),
       "bags: the quest-state write scan catches assignments and skips comparisons")

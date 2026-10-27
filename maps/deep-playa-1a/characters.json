@@ -6,5 +6,13 @@
     "y": 15,
     "graphic": "dt_d6ad577a",
     "notes": "pbDesertSpeaker + pbDesertTalk"
+  },
+  {
+    "id": "0f0fdcf5",
+    "name": "אייל הבוס",
+    "x": 22,
+    "y": 8,
+    "graphic": "dt_0f0fdcf5",
+    "notes": "pbDesertSpeaker + pbPlanetEyal (TG10 planetarium)"
   }
 ]

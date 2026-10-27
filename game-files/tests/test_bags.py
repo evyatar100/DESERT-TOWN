@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import math
 import random
+import re
 import sys
 import unittest
 from pathlib import Path
@@ -249,18 +250,17 @@ class BagRulesMirrorTests(unittest.TestCase):
         self.assertEqual(br.preview_plan(488, lambda s: ([300] * 3, 10)), (12, 1))
         self.assertEqual(br.cluster_reverse("בית־ספר"), "רפס־תיב")
 
-    def test_cowboy_gift(self):
-        state = br.new_state()
-        before = dict(state)
-        bag = br.Bag()
-        turn, lines = None, []
-        for _ in range(4):
-            item, turn = br.cowboy_gift(turn)
-            bag.add(item, 1)
-            lines.append(turn)
-        self.assertEqual(bag.quantity("SURPRISEBAG"), 4)
-        self.assertEqual(lines, [1, 2, 3, 1])
-        self.assertEqual(state, before)
+    def test_cowboy_has_no_free_bag(self):
+        # dec:tg-29: the cowboy's bag comes only from an arm-wrestling win (zArmWrestle).
+        self.assertFalse(hasattr(br, "cowboy_gift"))
+        hooks = (ROOT / "Plugins" / "zBags" / "003_talk_hooks.rb").read_text(encoding="utf-8")
+        body = re.search(r"def self\.cowboy_talk\n(.*?)\n  end\n", hooks, re.S).group(1)
+        self.assertEqual([l.strip() for l in body.strip().splitlines()], [
+            'say("BAGS_SHIRPAZ_COWBOY_CLASH", :cowboy) if state[:inbar] == :done',
+            "ArmWrestle.offer(busy: Song.active?) if defined?(ArmWrestle)",
+        ])
+        rules = (ROOT / "Plugins" / "zBags" / "000_rules.rb").read_text(encoding="utf-8")
+        self.assertNotIn("cowboy_gift", rules + hooks)
 
     def test_rain_stays_in_the_gutters_above_the_panel(self):
         rng = random.Random(5)

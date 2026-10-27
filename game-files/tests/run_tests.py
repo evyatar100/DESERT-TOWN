@@ -64,6 +64,7 @@ def main(argv=None):
         "tests.test_event_snapshot",
         "tests.test_bags",
         "tests.test_hoop",
+        "tests.test_kusomo_tv",
         "tests.test_planetarium",
         "tests.test_toaster",
         "tests.test_arm_wrestle",

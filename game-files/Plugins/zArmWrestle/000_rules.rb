@@ -7,7 +7,7 @@ module ArmWrestleRules
   CAP = 45.0                 # seconds after GO
   COUNTDOWN = 2.4            # 3, 2, 1 (0.6 s each), then GO for 0.6 s
   EPS = 1e-9
-  SLIP = 3                   # Red outside a window, or a second press in one
+  SLIP = 6                   # a press that misses its nearest beat or finds it taken (was 3, dec:tg-31)
   FLINCH = 4                 # Blue outside a brace window
   EDGE_IN = -65              # on the edge at or below this...
   EDGE_OUT = -40             # ...until above this
@@ -113,7 +113,7 @@ module ArmWrestleRules
     ev
   end
 
-  # Only the first press in a beat's window is judged; anything else is a slip.
+  # A press is judged against its nearest beat and consumes it, hit or slip (dec:tg-31).
   def self.judge_red(bout, ev)
     c = bout[:cfg]
     k = (bout[:t] / c[:period]).round
@@ -129,6 +129,7 @@ module ArmWrestleRules
         ev << :good
       end
     else
+      bout[:judged] = k if k > bout[:judged]
       bout[:b] -= SLIP
       ev << :slip
     end
@@ -139,6 +140,13 @@ module ArmWrestleRules
     !s.nil? && bout[:t] >= s - bout[:cfg][:brace] - EPS && bout[:t] <= s + BRACE_AFTER + EPS
   end
 
+  # After the tell, before the brace window opens.
+  def self.lead_in?(bout)
+    s = bout[:surge]
+    !s.nil? && bout[:t] < s - bout[:cfg][:brace] - EPS
+  end
+
+  # Blue in the tell lead-in (surge set, window not open yet) is ignored (dec:tg-31).
   def self.judge_blue(bout, ev)
     if brace_open?(bout)
       bout[:surge] = nil
@@ -146,7 +154,7 @@ module ArmWrestleRules
       bout[:strain_until] = bout[:t] + STRAIN_TIME
       bout[:next_surge] = interval(bout)
       ev << :block
-    else
+    elsif !lead_in?(bout)
       bout[:b] -= FLINCH
       ev << :flinch
     end

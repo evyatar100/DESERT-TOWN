@@ -18,6 +18,23 @@ module ArmWrestle
     pbMessage(_INTL(key), choice_keys.map { |k| _INTL(k) }, choice_keys.length)
   end
 
+  # A scene that raises is logged, disposed and counts as :back (no bag, nothing recorded).
+  def self.run_scene(tier)
+    scene = nil
+    begin
+      scene = Scene.new(tier)
+      scene.run
+    rescue StandardError => e
+      echoln("ArmWrestle: scene failed: #{e.class}: #{e.message}") if defined?(echoln)
+      begin
+        scene.dispose if scene.respond_to?(:dispose)
+      rescue StandardError => e2
+        echoln("ArmWrestle: dispose failed: #{e2.message}") if defined?(echoln)
+      end
+      { outcome: :back }
+    end
+  end
+
   # busy: the unicorns' song runs (its overlay must not get a modal on top).
   # Returns :busy, :later, :back, :win or :loss.
   def self.offer(busy: false)
@@ -31,7 +48,7 @@ module ArmWrestle
     end
     st = state
     result = nil
-    pbFadeOutIn { result = Scene.new(ArmWrestleRules.tier(st)).run }
+    pbFadeOutIn { result = run_scene(ArmWrestleRules.tier(st)) }
     outcome = result.is_a?(Hash) ? result[:outcome] : nil
     case outcome
     when :win

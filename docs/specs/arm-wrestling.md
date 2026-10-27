@@ -1,9 +1,11 @@
 Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 
+Decisions: dec:tg-29 (founder: wins give bags), dec:tg-30 (design), dec:tg-31 (QA fix round: early Red consumes its beat, Blue in the tell lead-in is ignored).
+
 ## Goal
 
 - **What:** Talking to cowboy Shirpaz (Map095 ev2, `670f79e3`) offers an arm-wrestling bout. It is a close-up modal scene: two locked forearms over a spool table, Shirpaz's face behind them, and the hands tilting with the balance. Red pushes on a beat, and Blue braces when she telegraphs a surge. Each win gives exactly one Surprise Bag. A loss changes nothing, and the player can retry without limit.
-- **Why:** The founder wants the bag to be earned in a nice mini game instead of handed out on every talk (dec:tg-29, which supersedes dec:tg-17).
+- **Why:** The founder wants the bag to be earned in a nice mini game instead of handed out on every talk (dec:tg-29 (founder: wins give bags), which supersedes dec:tg-17; dec:tg-30 (design)).
 - **Done when:** On the cabinet, using only the joystick and colour buttons, the founder talks to Shirpaz, accepts, plays a 20–40 s bout that reads as arm wrestling, and on a win gets one Surprise Bag. On a loss he gets nothing and can talk again to retry. Inbar's quest (2 bags) can always be finished this way.
 
 ---
@@ -57,7 +59,7 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 - **Push (Red, the rhythm):** a gold ring shrinks onto a fixed target ring around the gripped hands once per beat. Pressing Red while it lands judges the press:
   - Within the PERFECT window: a push, SE `Mining ping`, and the pop word AW_PERFECT.
   - Within the GOOD window: a smaller push, SE `Tile Game cursor`, and AW_GOOD.
-  - Outside any open window, or a second press in the same window: a **slip**, -3, SE `GUI sel buzzer`, and AW_SLIP. Only the first press in a beat window is judged. This makes mashing lose: pressing about 10 times a second earns at most one push per beat and about 9 slips.
+  - Outside any open window, or a second press in the same window: a **slip**, -6, SE `GUI sel buzzer`, and AW_SLIP. Every press is judged against its nearest beat (within half a period) and **consumes** that beat, hit or slip (dec:tg-31): an early slip uses up the beat, so a second try on the beat slips too and double-tapping cannot fish for the window. This makes mashing and slow steady tapping lose: pressing about 10 times a second earns at most one push per beat and about 9 slips.
   - A missed beat (no press) costs nothing beyond her steady pull.
 - **Her steady pull:** b drains continuously, so the player has to keep the rhythm.
 - **Her surge (Blue, the read):** at random intervals (seeded rng passed into the rules) she **telegraphs** a surge:
@@ -65,7 +67,8 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
   - Then the surge lands at the end of the tell.
   - Blue pressed inside the brace window (the last part of the tell up to 0.15 s after the surge lands) is a **BLOCK**: the surge fizzles, b gets the counter bonus, SE `Mining iron`, AW_BLOCK, and her face shows `:strain` for 0.6 s.
   - No block is a **HIT**: b drops by the surge amount over 0.4 s, the screen shakes 3 px for 0.3 s, SE `Strength push`, and the pop word AW_HIT.
-  - Blue pressed outside a brace window is a **flinch**: -4, SE `GUI sel buzzer`. Holding Blue down does nothing, because only the trigger counts.
+  - Blue pressed during the tell's lead-in (after the "!" appears, before the brace window opens) is **ignored**: no flinch, no penalty, and the player can press again inside the window (dec:tg-31). Reacting to the "!" is never punished.
+  - Blue pressed with no tell running, or after the brace window closed, is a **flinch**: -4, SE `GUI sel buzzer`. Holding Blue down does nothing, because only the trigger counts.
 - **Comeback ("the edge"):** while b ≤ -65 the player is on the edge until b > -40:
   - Beat windows widen ×1.5, PERFECT gives +14, her pull halves, and no new surge starts.
   - On screen: a red vignette pulses, the hands tremble, her face shows `:taunt`, and her bubble AW_TAUNT shows once per edge entry.
@@ -97,6 +100,9 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
   3. A **steady** bot (Red 0.10 s off each beat centre, blocking every other surge) wins before the cap at every tier.
   4. A **sloppy** bot (GOOD on 75% of beats, no blocks) wins at T0 and T1 (by pin or at the cap).
   5. A **perfect** bot wins at T1 in ≤ 15 s and at T3 in ≤ 30 s.
+  6. A **fixed-rate presser** (Red every n frames for n in 4..40, never Blue, 20 evenly spaced phases) loses every bout at T1, T2 and T3, except a rate within one frame of the tier's beat (that is playing the rhythm). At T0 no rate wins 30% or more.
+  7. A **jittery human** bot (Red off the beat by N(0, 0.06 s) clipped to ±0.12 s, 15% of beats missed; Blue 0.3 s after the "!", then again 0.1 s after the brace window opens unless the first press blocked; it reads only events and the tier table) wins T0 ≥ 95%, T1 ≥ 90%, T2 ≥ 70% of 100 seeds. Two losses at T3 drop the next bout to T2.
+- **Tuning note (dec:tg-31, 2026-10-27):** the slip went from -3 to -6. With -3, a fixed presser at 2 to 2.5 presses a second (e.g. every 33-38 frames) still won T0 on every phase once early slips consumed their beat; at -6 the best T0 rate is 25% and the human bot still wins 100% at every tier.
 - Property 4 plus the loss-streak drop is why the quest is **always winnable**: a player who keeps losing reaches T0 within 4 losses.
 
 ### Talk flow and reward (exactly once per win, save-safe)
@@ -104,7 +110,7 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 - `ArmWrestle.offer`:
   1. If `Bags::Song.active?`: say AW_BUSY (:cowboy) and stop. A modal scene must not stack over the song overlay.
   2. `Bags.choose("AW_CHALLENGE", :cowboy, %w[AW_CHOICE_PLAY AW_CHOICE_LATER])`. LATER (or Back) → AW_LATER and stop.
-  3. `pbFadeOutIn { result = ArmWrestle::Scene.new(tier).run }` returns `{ outcome: :win | :loss | :back }`. `:back` (from the how-to card) → AW_LATER and stop, recording nothing.
+  3. `pbFadeOutIn { result = ArmWrestle::Scene.new(tier).run }` returns `{ outcome: :win | :loss | :back }`. `:back` (from the how-to card) → AW_LATER and stop, recording nothing. A scene that raises is logged with `echoln`, disposed, and treated as `:back`.
   4. `:win`: `ArmWrestleRules.record!(state, :win)` (wins +1, loss_streak 0). Then the win line `BAGS_SHIRPAZ_COWBOY_GIFT_#{(wins-1) % 3 + 1}` (:cowboy), then the name plate is cleared and `pbReceiveItem(:SURPRISEBAG)` runs, then `DesertTownAutosave.save_now(:arm_wrestle)`.
   5. `:loss`: `record!(state, :loss)` (losses +1, loss_streak +1). Then `AW_LOSE_#{(losses-1) % 3 + 1}` (:cowboy). No item, no save.
 - **Exactly once:** the bag is given only in step 4, once per scene result, inside the same event interpreter. There is no "pending" flag, so no state exists that could grant twice. Autosave cannot fire between the record and the grant, and step 4 ends with a save. A power cut before that save rolls back both the win and the bag together, so the player simply wins again.
@@ -228,16 +234,17 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 ### Tests
 - [ ] Ruby `tests/arm_rules_test.rb` (loaded from `plugin_rules_test.rb`) + Python mirror `tests/arm_rules.py` + `tests/test_arm_wrestle.py` (registered in `run_tests.py`), with the same cases on both sides:
   1. `tier`: fresh = 1, wins 1 → 2, wins 5 → 3, loss_streak 2 → base -1, loss_streak 4 → base -2, floor 0.
-  2. Beat judging at every window edge (PERFECT/GOOD/slip), one judged press per beat, and a second press is a slip.
-  3. Surge: Blue at the brace-window edges → block / flinch. No Blue → hit amount. No surge starts on the edge.
+  2. Beat judging at every window edge (PERFECT/GOOD/slip), one judged press per beat, a second press is a slip, and an early slip consumes its beat.
+  3. Surge: Blue at the brace-window edges → block; in the tell lead-in → ignored (then a press in the window blocks); with no tell or late → flinch. No Blue → hit amount. No surge starts on the edge.
   4. Edge enters at ≤ -65 and leaves at > -40, with the widened windows applied.
   5. End: ±100 pins, the cap with b ≥ 0 is a win and b < 0 is a loss.
-  6. The 5 winnability bot properties above, at 60 fps with a seeded rng, over 20 seeds each.
+  6. The 7 winnability bot properties above, at 60 fps with a seeded rng, over 20 seeds each (100 for the human bot).
   7. `record!`: a win increments wins and resets the streak; a loss increments losses and the streak; `:back` changes nothing. `normalize` of nil/garbage gives fresh.
   8. `angle(±100) = ∓72°`, and the frame index is within 0..48.
 - [ ] Ruby flow test with frame-firing stubs (the `hoop_rules_test.rb` pattern), stubbing `ArmWrestle::Scene#run`:
   - A win gives exactly 1 SURPRISEBAG plus 1 `save_now`.
   - A loss gives 0 bags and no save.
+  - A scene that raises is logged, disposed and counts as Back: no bag, nothing recorded, no save.
   - LATER and `:back` give 0 bags and no state change.
   - `Song.active?` gives AW_BUSY and no scene.
   - CLASH comes before AW_CHALLENGE only after the party.
@@ -258,7 +265,7 @@ Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 ### QA (office:qa-reviewer + Inbar in game, on the laptop, cabinet keys only)
 - [ ] Before the party: talking to Shirpaz gives her line, then the challenge. After the party: her line, CLASH, then the challenge. "Not now" changes nothing (bag count is the same).
 - [ ] The scene is readable: whose side is winning is clear at a glance, with tilt and meter agreeing. Rotation frames have no shimmer or gaps, and her face changes match the action.
-- [ ] Rhythm: the ring, tick and judgment line up. Mashing Red visibly loses. Blue on the "!" blocks, and Blue spam flinches.
+- [ ] Rhythm: the ring, tick and judgment line up. Mashing Red visibly loses. Blue on the "!" never flinches, Blue in the window blocks, and Blue spam with no "!" flinches.
 - [ ] The edge comeback triggers and feels like a comeback. The bout lasts 20–40 s for normal play, never more than 45 s after GO.
 - [ ] A win gives exactly one Surprise Bag (check the count before and after). Save, reload: still one, and there is no second grant. A loss gives no bag.
 - [ ] A first-timer wins within 3 tries. After 2 losses the next bout is noticeably easier.

@@ -186,7 +186,7 @@ module TempleHoop
       bmp
     end
 
-    def text(bmp, x, y, w, h, str, size, base = TEXT, align = 2)
+    def text(bmp, x, y, w, h, str, size, base = TEXT, align = 1)  # RGSS align: 1 = centre, 2 = right
       bmp.font.size = size
       pbDrawShadowText(bmp, x, y, w, h, str, col(base), col(SHADOW), align)
     end

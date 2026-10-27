@@ -351,7 +351,7 @@ module ArmWrestle
       A.color(rgb, alpha)
     end
 
-    def text(bmp, x, y, w, h, str, size, base = TEXT, align = 2)
+    def text(bmp, x, y, w, h, str, size, base = TEXT, align = 1)  # RGSS align: 1 = centre, 2 = right
       bmp.font.size = size
       pbDrawShadowText(bmp, x, y, w, h, str, col(base), col(INK), align)
     end
@@ -427,9 +427,9 @@ module ArmWrestle
       [["AW_HOWTO_1", RED], ["AW_HOWTO_2", BLUE]].each_with_index do |(key, rgb), i|
         y = 120 + i * 48
         bmp.blt(370, y + 2, @btn[i], @btn[i].rect) if @btn
-        text(bmp, 104, y, 260, 36, _INTL(key), 26)
+        text(bmp, 104, y, 260, 36, _INTL(key), 26, TEXT, 2)
       end
-      text(bmp, 104, 228, 304, 36, _INTL("AW_HOWTO_START"), 24, GOLD)
+      text(bmp, 104, 228, 304, 36, _INTL("AW_HOWTO_START"), 24, GOLD, 2)
     end
   end
 end

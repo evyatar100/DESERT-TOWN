@@ -73,7 +73,7 @@ module Bags
     pbReceiveItem(:SURPRISEBAG) if BagsRules.payoff!(state)
   end
 
-  # Name clash after the party, then the arm-wrestling challenge (zArmWrestle, dec:tg-29).
+  # Name clash after the party, then the arm-wrestling challenge (zArmWrestle; dec:tg-29 (founder: wins give bags), dec:tg-30 (design)).
   def self.cowboy_talk
     say("BAGS_SHIRPAZ_COWBOY_CLASH", :cowboy) if state[:inbar] == :done
     ArmWrestle.offer(busy: Song.active?) if defined?(ArmWrestle)

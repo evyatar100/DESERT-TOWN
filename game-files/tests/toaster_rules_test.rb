@@ -458,6 +458,7 @@ check(chain.length == 3, "toast chain: the zBags, zPlanetarium and zToaster alia
 inbar = msgs.call(talk.call("c414cf08"))
 hagar = msgs.call(talk.call("b19b1f15"))
 cowboy = talk.call("670f79e3", picks: [1])
+pixel = msgs.call(talk.call("d5383627"))
 eyal = msgs.call(talk.call("0f0fdcf5"))
 check(inbar[0] == "MSG_C414CF08_LINE" && inbar[1] == "BAGS_INBAR_ASK_1" && !inbar.any? { |k| k.start_with?("TOAST_", "PLANET_") },
       "toast chain: Inbar still runs the bags quest, and only it (#{inbar.inspect})")
@@ -465,6 +466,8 @@ check(hagar[1] == "PLANET_HAGAR_GIVE_1" && $bag.quantity(:LITTLERAM) == 1 && !ha
       "toast chain: Hagar still gives the little ram, and only that (#{hagar.inspect})")
 check(msgs.call(cowboy).include?("AW_CHALLENGE") && cowboy.none? { |e| e[0] == :received } && msgs.call(cowboy).none? { |k| k.start_with?("TOAST_") },
       "toast chain: cowboy Shirpaz still offers her arm-wrestling challenge (not now: no bag)")
+check(pixel[0] == "MSG_D5383627_LINE" && pixel[1] == "BAGS_PIXEL_OFFER_1" && pixel.last == "BAGS_PIXEL_NOTHING" &&
+      pixel.none? { |k| k.start_with?("TOAST_", "PLANET_", "AW_") }, "toast chain: Pixel still offers the bag trade, and only that (#{pixel.inspect})")
 check(eyal[0] == "MSG_0F0FDCF5_LINE" && eyal[1] == "TOAST_EYAL_ASK_1" && eyal.none? { |k| k.start_with?("PLANET_", "BAGS_") },
       "toast chain: Eyal on Kusomo talks only toast")
 $game_map = ToastMap.new(33, events)

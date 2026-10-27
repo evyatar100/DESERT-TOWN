@@ -3,6 +3,10 @@
 require "json"
 arm_dir = File.join(ROOT, "Plugins/zArmWrestle")
 %w[000_rules 001_state 004_offer].each { |f| require File.join(arm_dir, "#{f}.rb") }
+
+# Rules cases live in one module so their helpers and constants stay out of Object.
+module ArmTest
+extend self
 AR = ArmWrestleRules
 AW_DT = 1.0 / 60
 
@@ -35,8 +39,8 @@ edge_ok = AR::TIERS.each_index.all? do |ti|
   c = AR::TIERS[ti]
   p, g, per = c[:perfect], c[:good], c[:period]
   [[per, [:perfect], 10], [per + p, [:perfect], 10], [per - p, [:perfect], 10], [per + p + 1e-6, [:good], 6],
-   [per + g, [:good], 6], [per - g, [:good], 6], [per + g + 1e-6, [:slip], -3], [per - g - 1e-6, [:slip], -3],
-   [0.05, [:slip], -3]].all? { |t, evs, db| aw_press(aw_at(ti, t), red: true) == [evs, db] }
+   [per + g, [:good], 6], [per - g, [:good], 6], [per + g + 1e-6, [:slip], -AR::SLIP], [per - g - 1e-6, [:slip], -AR::SLIP],
+   [0.05, [:slip], -AR::SLIP]].all? { |t, evs, db| aw_press(aw_at(ti, t), red: true) == [evs, db] }
 end
 check(edge_ok, "arm beat: PERFECT, GOOD and slip at every window edge, all tiers")
 b2 = aw_at(1, 0.75)
@@ -44,8 +48,16 @@ first = aw_press(b2, red: true)
 second = aw_press(b2, red: true)
 b2[:t] = 1.5 - 1e-12
 third = aw_press(b2, red: true)
-check(first == [[:perfect], 10] && second == [[:slip], -3] && third == [[:perfect], 10],
+check(first == [[:perfect], 10] && second == [[:slip], -AR::SLIP] && third == [[:perfect], 10],
       "arm beat: one judged press per beat; a second press in the window slips, the next beat judges again")
+early = aw_at(1, 0.75 - 0.25)
+fished = [aw_press(early, red: true)]
+early[:t] = 0.75 - 1e-12
+fished << aw_press(early, red: true)
+early[:t] = 1.5 - 1e-12
+fished << aw_press(early, red: true)
+check(fished == [[[:slip], -AR::SLIP], [[:slip], -AR::SLIP], [[:perfect], 10]] && early[:judged] == 2,
+      "arm beat: an early slip consumes its beat, so a second try on the beat slips too (#{fished.inspect})")
 missed = aw_at(1, 0.75)
 check(AR.step(missed, 0.5).none? { |e| %i[perfect good slip].include?(e) }, "arm beat: a missed beat costs only the pull")
 masher = AR.new_bout(1, AR::Lcg.new(4))
@@ -57,7 +69,7 @@ surge_ok = AR::TIERS.each_index.all? do |ti|
   c = AR::TIERS[ti]
   land = 20.0
   res = [[land - c[:brace], [:block], 12], [land + AR::BRACE_AFTER, [:block], 12],
-         [land - c[:brace] - 1e-6, [:flinch], -4]].map do |t, evs, db|
+         [land - c[:brace] - 1e-6, [], 0], [land - c[:tell], [], 0]].map do |t, evs, db|
     bo = aw_at(ti, t)
     bo[:surge] = land
     aw_press(bo, blue: true) == [evs, db]
@@ -72,7 +84,15 @@ surge_ok = AR::TIERS.each_index.all? do |ti|
   pull = c[:pull] * 30 * AW_DT
   res.all? && hit_ev == [:flinch, :hit] && ev == [] && ((before - late[:b]) - pull - c[:hit]).abs < 1e-6
 end
-check(surge_ok, "arm surge: Blue at the brace-window edges blocks, earlier flinches, no Blue hits for the tier's amount over 0.4 s")
+check(surge_ok, "arm surge: Blue at the brace-window edges blocks, in the tell lead-in is ignored, late flinches, no Blue hits for the tier's amount over 0.4 s")
+lead = aw_at(1, 10.0)
+lead[:surge] = 11.2
+lead_ev = aw_press(lead, blue: true)
+lead[:t] = 11.2 - 0.5 + 0.1 - 1e-12
+retry_ev = aw_press(lead, blue: true)
+spam = aw_at(1, 10.0)
+check(lead_ev == [[], 0] && retry_ev == [[:block], 12] && aw_press(spam, blue: true) == [[:flinch], -4],
+      "arm surge: Blue right after the '!' is ignored and a second press in the window blocks; Blue with no tell flinches")
 bl = aw_at(1, 20.0)
 bl[:surge] = 20.0
 aw_press(bl, blue: true)
@@ -181,6 +201,62 @@ end
 check(drop_ok, "arm bots: after 2 losses the tier drops and the sloppy player wins (T3, T3, T2)")
 check(AR.tier(st.(loss_streak: 2)) == 0 && runs.(:sloppy, 0).all? { |b| AR.outcome(b) == :win },
       "arm bots: a first-timer who lost twice plays T0, which sloppy play wins")
+
+# Fixed-rate presser: Red every n frames, never Blue, 20 evenly spaced phases. Only a rate within
+# a frame of the tier's beat is real rhythm play; every other rate loses at T1-T3.
+def aw_fixed(tier, seed, n)
+  bout = AR.new_bout(tier, AR::Lcg.new(seed * 7919 + 13))
+  f = (seed - 1) * n / SEEDS.length
+  until AR.over?(bout)
+    AR.step(bout, AW_DT, red: (f % n).zero?)
+    f += 1
+  end
+  bout
+end
+sweep = (0..3).to_h do |ti|
+  rates = (4..40).reject { |n| (n - AR::TIERS[ti][:period] * 60).abs <= 1 }
+  [ti, rates.to_h { |n| [n, SEEDS.count { |s| AR.outcome(aw_fixed(ti, s, n)) == :win }] }]
+end
+fished = (1..3).flat_map { |ti| sweep[ti].select { |_, w| w > 0 }.map { |n, w| "T#{ti} n=#{n}: #{w}/20" } }
+check(fished.empty?, "arm bots: Red every n frames (n 4..40, off the beat) loses at T1, T2, T3 on every phase (#{fished.inspect})")
+t0_best = sweep[0].max_by { |_, w| w }
+check(t0_best[1] * 100 < 30 * SEEDS.length, "arm bots: no fixed Red rate wins T0 30% of the time (best n=#{t0_best[0]}: #{t0_best[1]}/20)")
+
+# Human-like bot: Red off by N(0, 0.06 s) clipped to +-0.12, 15% of beats missed; Blue 0.3 s after the "!"
+# and again 0.1 s after the window opens unless the first blocked. Reads only events and the tier table.
+def aw_gauss(rng) = Math.sqrt(-2.0 * Math.log(1.0 - rng.rand)) * Math.cos(2.0 * Math::PI * rng.rand)
+
+def aw_human(tier, seed)
+  rng = AR::Lcg.new(seed * 104_729 + 7)
+  bout = AR.new_bout(tier, AR::Lcg.new(seed * 7919 + 13))
+  c = bout[:cfg]
+  plan = ->(k) { miss = rng.rand < 0.15; off = (0.06 * aw_gauss(rng)).clamp(-0.12, 0.12); miss ? nil : k * c[:period] + off }
+  beat = 1
+  press = plan.(beat)
+  blues = []
+  until AR.over?(bout)
+    t = bout[:t] + AW_DT
+    red = false
+    while !red && (press.nil? || t >= press)
+      red = !press.nil?
+      beat += 1
+      press = plan.(beat)
+    end
+    blue = !blues.empty? && t >= blues[0]
+    blues.shift if blue
+    ev = AR.step(bout, AW_DT, red: red, blue: blue)
+    blues = [bout[:t] + 0.3, bout[:t] + c[:tell] - c[:brace] + 0.1] if ev.include?(:tell)
+    blues = [] if ev.include?(:block)
+  end
+  bout
+end
+HUMAN_SEEDS = (1..100).to_a
+human = (0..3).map { |ti| HUMAN_SEEDS.count { |s| AR.outcome(aw_human(ti, s)) == :win } }
+check(human[0] >= 95 && human[1] >= 90 && human[2] >= 70, "arm bots: a jittery human wins T0 >= 95%, T1 >= 90%, T2 >= 70% of 100 seeds (#{human.inspect})")
+hs = st.(wins: 2)
+h_tiers = [AR.tier(hs)]
+2.times { AR.record!(hs, :loss); h_tiers << AR.tier(hs) }
+check(h_tiers == [3, 3, 2] && human[2] >= 70, "arm bots: a human who loses twice at T3 drops to T2, which they win (#{h_tiers.inspect})")
 la = AR::Lcg.new(42)
 check([la.rand, la.rand].map { |x| x.round(12) } == [0.568230326644, 0.225463428948], "arm rng: the seeded LCG matches the Python mirror")
 
@@ -209,6 +285,7 @@ check(AR.frame(100) == 0 && AR.frame(-100) == 48 && AR.frame(0) == 24 && (-120..
 fb = aw_at(1, 1.0)
 faces = [[0, :steady], [40, :steady], [41, :strain], [-30, :steady], [-31, :taunt]].map { |bal, _| fb[:b] = bal.to_f; AR.face(fb) }
 check(faces == %i[steady steady strain steady taunt], "arm face: follows the balance (#{faces.inspect})")
+end
 
 #-------------------------------------------------------------------------------
 # Static: state writers, music, keys, no zBags names, parses
@@ -271,9 +348,16 @@ def pbFadeOutIn = (3.times { arm_frame }; $arm_log << :fade; r = yield; 3.times 
 module ArmWrestle
   class Scene
     @results = []
-    class << self; attr_accessor :results, :tiers; end
+    class << self; attr_accessor :results, :tiers, :disposed; end
     def initialize(tier) = ((self.class.tiers ||= []) << tier)
-    def run = ($arm_log << :scene; self.class.results.shift)
+    def dispose = (self.class.disposed = (self.class.disposed || 0) + 1)
+
+    def run
+      $arm_log << :scene
+      r = self.class.results.shift
+      raise r if r.is_a?(Exception)
+      r
+    end
   end
 end
 saves = []
@@ -303,12 +387,12 @@ end
 bags_state = -> { $PokemonGlobal.bags_quest }
 
 pre = arm_talk.call([1])
-check(pre == %w[MSG_670F79E3_LINE AW_CHALLENGE AW_LATER] && $bag.quantity(:SURPRISEBAG) == 0 && $PokemonGlobal.arm_wrestle == AR.new_state,
+check(pre == %w[MSG_670F79E3_LINE AW_CHALLENGE AW_LATER] && $bag.quantity(:SURPRISEBAG) == 0 && $PokemonGlobal.arm_wrestle == ArmWrestleRules.new_state,
       "arm flow: before the party her line, the challenge; not now changes nothing (#{pre.inspect})")
 check($arm_log[1][1] == "NAME_670F79E3" && $arm_log[2][1] == "NAME_670F79E3", "arm flow: the challenge and the reply carry her name plate")
 back = arm_talk.call([0], [{ outcome: :back }])
 check(back == ["MSG_670F79E3_LINE", "AW_CHALLENGE", :fade, :scene, "AW_LATER"] && $bag.quantity(:SURPRISEBAG) == 0 &&
-      $PokemonGlobal.arm_wrestle == AR.new_state && saves.empty?, "arm flow: Blue on the how-to card records nothing, gives nothing")
+      $PokemonGlobal.arm_wrestle == ArmWrestleRules.new_state && saves.empty?, "arm flow: Blue on the how-to card records nothing, gives nothing")
 bags_state.call[:inbar] = :done
 before_bags = Marshal.load(Marshal.dump(bags_state.call))
 frames0 = $arm_frames
@@ -327,6 +411,17 @@ win_lines = [win] + 2.times.map { arm_talk.call([0], [{ outcome: :win }]) }
 win_lines = win_lines.map { |t| t.grep(/\ABAGS_SHIRPAZ_COWBOY_GIFT_/) }
 check($bag.quantity(:SURPRISEBAG) == 3 && saves.length == 3 && $PokemonGlobal.arm_wrestle[:wins] == 3, "arm flow: three wins give 3 bags and 3 saves")
 check(win_lines == [1, 2, 3].map { |n| ["BAGS_SHIRPAZ_COWBOY_GIFT_#{n}"] }, "arm flow: the three wins show win lines 1, 2, 3 (#{win_lines.inspect})")
+# A scene that raises: logged, disposed, treated as Back (no bag, nothing recorded, no save).
+def echoln(*a) = ($arm_echo&.concat(a))
+$arm_echo = []
+before_crash = Marshal.load(Marshal.dump($PokemonGlobal.arm_wrestle))
+bags_before = $bag.quantity(:SURPRISEBAG)
+saves_before = saves.length
+crash = arm_talk.call([0], [RuntimeError.new("boom")])
+check(crash.last(3) == [:fade, :scene, "AW_LATER"] && $PokemonGlobal.arm_wrestle == before_crash && $bag.quantity(:SURPRISEBAG) == bags_before &&
+      saves.length == saves_before && ArmWrestle::Scene.disposed == 1 && $arm_echo.any? { |m| m.to_s.include?("boom") },
+      "arm flow: a scene that raises is logged, disposed and counts as Back (#{crash.inspect}, #{$arm_echo.inspect})")
+$arm_echo = nil
 song_on = true
 busy = arm_talk.call([], [{ outcome: :win }])
 check(busy == %w[MSG_670F79E3_LINE BAGS_SHIRPAZ_COWBOY_CLASH AW_BUSY] && ArmWrestle::Scene.results == [{ outcome: :win }] &&
@@ -346,9 +441,9 @@ ArmWrestle.debug_play(2)
 check($bag.quantity(:SURPRISEBAG) == 3 && $PokemonGlobal.arm_wrestle == before_dbg && ArmWrestle::Scene.tiers.last == 2,
       "arm debug: a debug bout at the picked tier gives nothing and records nothing")
 ArmWrestle.debug_reset
-check($PokemonGlobal.arm_wrestle == AR.new_state, "arm debug: reset loads a fresh run state")
+check($PokemonGlobal.arm_wrestle == ArmWrestleRules.new_state, "arm debug: reset loads a fresh run state")
 $PokemonGlobal.arm_wrestle = { wins: "x" }
-check($PokemonGlobal.arm_wrestle == AR.new_state, "arm state: a broken saved value loads fresh through the accessor")
+check($PokemonGlobal.arm_wrestle == ArmWrestleRules.new_state, "arm state: a broken saved value loads fresh through the accessor")
 
 Bags::Song.singleton_class.send(:alias_method, :active?, :arm_active_was)
 DesertTownAutosave.define_singleton_method(:save_now, autosave_was)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import struct
 import sys
@@ -75,6 +76,52 @@ def bot(t_tier, seed, kind):
     return bout
 
 
+def fixed(t_tier, seed, n):
+    """Red every n frames, never Blue; the phase spreads evenly over the seeds."""
+    bout = ar.new_bout(t_tier, ar.Lcg(seed * 7919 + 13))
+    f = (seed - 1) * n // len(SEEDS)
+    while not ar.over(bout):
+        ar.step(bout, DT, red=f % n == 0)
+        f += 1
+    return bout
+
+
+def gauss(rng):
+    return math.sqrt(-2.0 * math.log(1.0 - rng.rand())) * math.cos(2.0 * math.pi * rng.rand())
+
+
+def human(t_tier, seed):
+    """Jittery Red (N(0, 0.06) clipped +-0.12, 15% missed), Blue 0.3 s after the '!' and 0.1 s into the window."""
+    rng = ar.Lcg(seed * 104729 + 7)
+    bout = ar.new_bout(t_tier, ar.Lcg(seed * 7919 + 13))
+    c = bout["cfg"]
+
+    def plan(k):
+        miss = rng.rand() < 0.15
+        off = ar.clamp(0.06 * gauss(rng), -0.12, 0.12)
+        return None if miss else k * c["period"] + off
+
+    beat = 1
+    press = plan(beat)
+    blues = []
+    while not ar.over(bout):
+        t = bout["t"] + DT
+        red = False
+        while not red and (press is None or t >= press):
+            red = press is not None
+            beat += 1
+            press = plan(beat)
+        blue = bool(blues) and t >= blues[0]
+        if blue:
+            blues.pop(0)
+        ev = ar.step(bout, DT, red=red, blue=blue)
+        if "tell" in ev:
+            blues = [bout["t"] + 0.3, bout["t"] + c["tell"] - c["brace"] + 0.1]
+        if "block" in ev:
+            blues = []
+    return bout
+
+
 class ArmMirrorTests(unittest.TestCase):
     def test_constants_match_the_ruby_rules(self):
         src = RULES_RB.read_text(encoding="utf-8")
@@ -107,22 +154,32 @@ class ArmRulesTests(unittest.TestCase):
             p, g, per = c["perfect"], c["good"], c["period"]
             cases = [(per, ["perfect"], 10), (per + p, ["perfect"], 10), (per - p, ["perfect"], 10),
                      (per + p + 1e-6, ["good"], 6), (per + g, ["good"], 6), (per - g, ["good"], 6),
-                     (per + g + 1e-6, ["slip"], -3), (per - g - 1e-6, ["slip"], -3), (0.05, ["slip"], -3)]
+                     (per + g + 1e-6, ["slip"], -ar.SLIP), (per - g - 1e-6, ["slip"], -ar.SLIP), (0.05, ["slip"], -ar.SLIP)]
             for t, evs, db in cases:
                 self.assertEqual(press(at(ti, t), red=True), (evs, db), (ti, t))
 
     def test_one_judged_press_per_beat(self):
         b = at(1, 0.75)
         self.assertEqual(press(b, red=True), (["perfect"], 10))
-        self.assertEqual(press(b, red=True), (["slip"], -3))
+        self.assertEqual(press(b, red=True), (["slip"], -ar.SLIP))
         b["t"] = 1.5 - 1e-12
         self.assertEqual(press(b, red=True), (["perfect"], 10))
+
+    def test_early_slip_consumes_its_beat(self):
+        b = at(1, 0.75 - 0.25)
+        got = [press(b, red=True)]
+        b["t"] = 0.75 - 1e-12
+        got.append(press(b, red=True))
+        b["t"] = 1.5 - 1e-12
+        got.append(press(b, red=True))
+        self.assertEqual(got, [(["slip"], -ar.SLIP), (["slip"], -ar.SLIP), (["perfect"], 10)])
+        self.assertEqual(b["judged"], 2)
 
     def test_brace_window_edges_and_hit(self):
         for ti, c in enumerate(ar.TIERS):
             land = 20.0
             for t, evs, db in ((land - c["brace"], ["block"], 12), (land + ar.BRACE_AFTER, ["block"], 12),
-                               (land - c["brace"] - 1e-6, ["flinch"], -4)):
+                               (land - c["brace"] - 1e-6, [], 0), (land - c["tell"], [], 0)):
                 b = at(ti, t)
                 b["surge"] = land
                 self.assertEqual(press(b, blue=True), (evs, db), (ti, t))
@@ -133,6 +190,14 @@ class ArmRulesTests(unittest.TestCase):
             for _ in range(30):
                 ar.step(late, DT)
             self.assertAlmostEqual(before - late["b"], c["pull"] * 30 * DT + c["hit"], places=6)
+
+    def test_blue_in_the_tell_lead_in_is_ignored(self):
+        b = at(1, 10.0)
+        b["surge"] = 11.2
+        self.assertEqual(press(b, blue=True), ([], 0))
+        b["t"] = 11.2 - 0.5 + 0.1 - 1e-12
+        self.assertEqual(press(b, blue=True), (["block"], 12))
+        self.assertEqual(press(at(1, 10.0), blue=True), (["flinch"], -4))
 
     def test_no_surge_starts_on_the_edge(self):
         b = at(1, 10.0, edge=True)
@@ -179,6 +244,25 @@ class ArmRulesTests(unittest.TestCase):
             self.assertTrue(all(ar.outcome(b) == "win" for b in runs("sloppy", ti)), "sloppy T%d" % ti)
         self.assertTrue(all(ar.outcome(b) == "win" and b["t"] <= 15 for b in runs("perfect", 1)))
         self.assertTrue(all(ar.outcome(b) == "win" and b["t"] <= 30 for b in runs("perfect", 3)))
+
+    def test_fixed_rate_presser(self):
+        sweep = {}
+        for ti, c in enumerate(ar.TIERS):
+            rates = [n for n in range(4, 41) if abs(n - c["period"] * 60) > 1]
+            sweep[ti] = {n: sum(ar.outcome(fixed(ti, s, n)) == "win" for s in SEEDS) for n in rates}
+        fished = ["T%d n=%d: %d/20" % (ti, n, w) for ti in (1, 2, 3) for n, w in sweep[ti].items() if w > 0]
+        self.assertEqual(fished, [])
+        self.assertLess(max(sweep[0].values()) * 100, 30 * len(SEEDS))
+
+    def test_jittery_human(self):
+        wins = [sum(ar.outcome(human(ti, s)) == "win" for s in range(1, 101)) for ti in range(3)]
+        self.assertTrue(wins[0] >= 95 and wins[1] >= 90 and wins[2] >= 70, wins)
+        state = ar.normalize(dict(ar.new_state(), wins=2))
+        tiers = [ar.tier(state)]
+        for _ in range(2):
+            ar.record(state, "loss")
+            tiers.append(ar.tier(state))
+        self.assertEqual(tiers, [3, 3, 2])
 
     def test_tier_drop_keeps_it_winnable(self):
         for s in SEEDS:

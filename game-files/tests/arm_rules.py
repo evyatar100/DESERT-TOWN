@@ -11,7 +11,7 @@ import math
 CAP = 45.0
 COUNTDOWN = 2.4
 EPS = 1e-9
-SLIP = 3
+SLIP = 6
 FLINCH = 4
 EDGE_IN = -65
 EDGE_OUT = -40
@@ -135,6 +135,8 @@ def judge_red(bout, ev):
             bout["b"] += c["push_good"]
             ev.append("good")
     else:
+        if k > bout["judged"]:
+            bout["judged"] = k
         bout["b"] -= SLIP
         ev.append("slip")
 
@@ -144,6 +146,11 @@ def brace_open(bout):
     return s is not None and s - bout["cfg"]["brace"] - EPS <= bout["t"] <= s + BRACE_AFTER + EPS
 
 
+def lead_in(bout):
+    s = bout["surge"]
+    return s is not None and bout["t"] < s - bout["cfg"]["brace"] - EPS
+
+
 def judge_blue(bout, ev):
     if brace_open(bout):
         bout["surge"] = None
@@ -151,7 +158,7 @@ def judge_blue(bout, ev):
         bout["strain_until"] = bout["t"] + STRAIN_TIME
         bout["next_surge"] = interval(bout)
         ev.append("block")
-    else:
+    elif not lead_in(bout):
         bout["b"] -= FLINCH
         ev.append("flinch")
 

@@ -217,3 +217,17 @@ To run Pokémon Essentials v21 natively on the Pi inside RetroPie:
 - `timeout 40 ./mkxp-z` over SSH (ES running): GL init on V3D 4.2 / GL 2.1 Mesa 19.3.2, alive at 40 s, `errorlog.txt` unchanged.
 - Launched from EmulationStation Ports: after about 1.5 min the process held `Audio/BGM/Title.ogg`, then `Audio/BGM/Area.ogg`, and wrote `~/.local/share/Pokemon Essentials v21.1/Game.rxdata`. `errorlog.txt` was still the old 20:08 entry from the 2.5 engine.
 - `[ALSOFT] (EE) Could not query RTKit` in `game.log` is harmless (no realtime-priority daemon).
+
+#### Follow-up: game drawn as a small box in the bottom-left of the TV
+- **Symptom (founder, first TV run)**: the game showed as a small picture in the bottom-left corner; the rest of the 1920x1080 screen was black.
+- **Cause**:
+  - At boot, `Game.set_up_system` calls `pbSetResizeFactor($PokemonSystem.screensize)`. The default size is "M" (`SCREEN_SCALE = 1.0`), so it runs `Graphics.fullscreen = false` and `Graphics.scale = 1.0`. This overrides `"fullscreen": true` in mkxp.json; on the laptop it is simply a 512x384 window.
+  - The SDL 2.0.12 KMSDRM driver always creates its GBM scanout surface at the display mode size (`SDL_kmsdrmvideo.c:390`), and `KMSDRM_SetWindowSize` does nothing to it. Leaving fullscreen makes generic SDL restore the stored 512x384 windowed size and send a RESIZED event.
+  - mkxp-z then sets its GL viewport to 512x384 inside the 1920x1080 buffer. GL's origin is bottom-left, hence the box.
+- **Fix (config only; no rebuild, no game code)**: the Pi-only preload script `/home/pi/pi-engine/kmsdrm_fullscreen.rb`, listed in the Pi's `~/pokemon-game/mkxp.json` as `"preloadScript": ["/home/pi/pi-engine/kmsdrm_fullscreen.rb"]`. mkxp-z runs it before the game scripts. It redefines `Graphics.fullscreen=` to always pass `true`, and makes `Graphics.scale=`, `resize_window` and `center` no-ops. mkxp-z's default `fixedAspectRatio` then fills the TV height at 4:3 with black side bars. The in-game "Screen size" option has no effect on the Pi.
+- Every intercepted call appends a line to `/home/pi/pi-engine/kmsdrm_fullscreen.log`, so the result of a TV run can be read over SSH.
+- Stub test (Ruby 3.1.3 on the Pi): `~/tg54/tests/test_kmsdrm.rb` passes.
+- mkxp.json backup: `/home/pi/pi-engine/mkxp.json.before-tg54-fullscreen`. Rollback: copy it back over `~/pokemon-game/mkxp.json`.
+- **Note**: re-copying the laptop's `mkxp.json` to the Pi drops the `preloadScript` line and brings the box back. Do not add the line to the laptop copy: it would force fullscreen on Windows too.
+- **If the box remains** (the log shows `fullscreen=false -> true` but the picture is still small): patch SDL 2.0.12 `KMSDRM_SetWindowSize` and the leave-fullscreen path to keep the window at the display size, then rebuild SDL and relink. That would be a source deviation from the laptop's SDL, to be recorded in the version table.
+- Versions are unchanged by this fix.

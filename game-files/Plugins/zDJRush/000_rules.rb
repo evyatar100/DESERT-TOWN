@@ -42,6 +42,12 @@ module DJRushRules
   # D3: fixed menu order, the right phrase second.
   SAY_KEYS = %w[DJRUSH_SAY_WRONG_1 DJRUSH_SAY_PHRASE DJRUSH_SAY_WRONG_2 DJRUSH_SAY_NOTHING].freeze
   PHRASE_INDEX = 1
+  # TG53: She Se takes the stage at :freed, Ido goes to the floor; before that the crowd complains.
+  IDO = "cace0cde"
+  STAGE_TILE = [33, 12].freeze
+  IDO_FLOOR = [[35, 19], [36, 19]].freeze
+  COMPLAIN_IDS = (CROWD_POOL - %w[207a26e8]).freeze   # 207a26e8 opens a duel (quest NPC)
+  COMPLAIN_KEYS = (1..6).map { |i| "DJRUSH_COMPLAIN_#{i}" }.freeze
 
   #-----------------------------------------------------------------------------
   # Board
@@ -235,6 +241,20 @@ module DJRushRules
   def self.rank(stage) = STAGES.index(stage)
   def self.held?(bag) = !!(bag && bag.quantity(ITEM) > 0)
   def self.freed?(state) = rank(state[:stage]) >= rank(:freed)
+
+  # A random complaint, never the one shown last.
+  def self.complaint_key(last_key, roll)
+    pool = COMPLAIN_KEYS - [last_key]
+    pool[(roll * 1000).floor % pool.length]
+  end
+
+  def self.complain?(state, map_id, id)
+    map_id == PARTY_MAP && !freed?(state) && COMPLAIN_IDS.include?(id)
+  end
+
+  def self.ido_floor?(state, map_id, id)
+    map_id == PARTY_MAP && freed?(state) && id == IDO
+  end
 
   def self.car_decide(state, bag)
     case state[:stage]

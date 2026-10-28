@@ -141,6 +141,7 @@ class PartyMapTests(unittest.TestCase):
         ids = {e["name"][3:] for e in self.party.events.values() if e["name"].startswith("dt_")}
         pool = re.search(r"CROWD_POOL = %w\[(.*?)\]", (PLUGIN / "000_rules.rb").read_text(encoding="utf-8"), re.S).group(1).split()
         self.assertEqual(sorted(pool), sorted(ids - {"cace0cde", "845a91aa", "4b08e38a", "fc898478"}))
+        self.assertEqual(sorted(dr.CROWD_POOL), sorted(pool))
         for cid in pool:
             with Image.open(ROOT / "Graphics" / "Characters" / ("dt_%s.png" % cid)) as im:
                 self.assertEqual(im.size, (128, 192), cid)
@@ -150,6 +151,97 @@ class PartyMapTests(unittest.TestCase):
         ev = {e["id"]: e for e in extract_map(raw, 98)["events"]}[9]
         self.assertEqual((ev["name"], ev["x"], ev["y"]), ("dt_4b08e38a", 36, 24))
         self.assertNotIn((36, 25), {(e["x"], e["y"]) for e in extract_map(raw, 98)["events"]})
+
+
+class StageSwapTests(unittest.TestCase):
+    """TG53: the crowd complains until She Se takes the stage; Ido goes to the floor."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.party = Party()
+        cls.src = (PLUGIN / "000_rules.rb").read_text(encoding="utf-8")
+
+    def talk_ids(self):
+        out = set()
+        for e in self.party.events.values():
+            if e["name"].startswith("dt_") and any(c["code"] == 355 and "pbDesertTalk" in str(c["parameters"])
+                                                   for pg in e["pages"] for c in pg["commands"]):
+                out.add(e["name"][3:])
+        return out
+
+    def test_constants_match_ruby(self):
+        pool = re.search(r"CROWD_POOL = %w\[(.*?)\]", self.src, re.S).group(1).split()
+        self.assertEqual(list(dr.CROWD_POOL), pool)
+        self.assertIn("STAGE_TILE = [33, 12]", self.src)
+        self.assertIn("IDO_FLOOR = [[35, 19], [36, 19]]", self.src)
+        self.assertEqual((dr.STAGE_TILE, dr.IDO_FLOOR), ((33, 12), ((35, 19), (36, 19))))
+        self.assertEqual(len(dr.COMPLAIN_IDS), 47)
+
+    def test_complain_ids_are_the_talking_partygoers(self):
+        want = self.talk_ids() - {"cace0cde", "4b08e38a", "207a26e8"}
+        self.assertEqual(set(dr.COMPLAIN_IDS) - {"b3178e6b"}, want)
+        self.assertNotIn("b3178e6b", self.talk_ids())  # ev49 has a speaker only
+        self.assertTrue(set(dr.COMPLAIN_IDS) <= {e["name"][3:] for e in self.party.events.values()})
+
+    def test_gates(self):
+        for stage in dr.STAGES:
+            st = dr.normalize({"stage": stage})
+            early = stage in ("none", "intro")
+            for ident in dr.COMPLAIN_IDS:
+                self.assertEqual(dr.complain(st, 93, ident), early, (stage, ident))
+                self.assertFalse(dr.complain(st, 98, ident))
+            for ident in ("cace0cde", "4b08e38a", "207a26e8", "845a91aa", "fc898478"):
+                self.assertFalse(dr.complain(st, 93, ident), ident)
+            self.assertEqual(dr.ido_floor(st, 93, "cace0cde"), not early)
+            self.assertFalse(dr.ido_floor(st, 98, "cace0cde"))
+            self.assertFalse(dr.ido_floor(st, 93, "11eaf4fa"))
+
+    def test_complaint_key_never_repeats(self):
+        for last in (None,) + dr.COMPLAIN_KEYS:
+            for n in range(1000):
+                self.assertNotEqual(dr.complaint_key(last, n / 1000), last)
+
+    def test_stage_tiles(self):
+        """(33,14) and both floor tiles are open and event-free; (33,13) is a counter; blocking the floor tile keeps the party whole."""
+        p = self.party
+        occupied = {(e["x"], e["y"]) for e in p.events.values()}
+        for x, y in ((33, 14),) + dr.IDO_FLOOR:
+            self.assertTrue(p.passable(x, y), (x, y))
+            self.assertFalse(p.overhead(x, y), (x, y))
+            self.assertNotIn((x, y), occupied, (x, y))
+        tile = p.data[33 + 13 * p.width]
+        top = [p.data[33 + 13 * p.width + z * p.width * p.height] for z in (0, 1, 2)]
+        self.assertTrue(any(t and p.passages[t] & 0x80 for t in top), top)  # counter flag
+        self.assertIn("STAND_TILE = [33, 14]", (PLUGIN / "007_stage_swap.rb").read_text(encoding="utf-8"))
+        self.assertTrue(p.passable(*dr.STAGE_TILE))
+        self.assertTrue(p.overhead(*dr.STAGE_TILE))
+        base = self._reach(p, (33, 14), set())
+        self.assertGreater(len(base), 300)
+        for block in dr.IDO_FLOOR:
+            self.assertEqual(self._reach(p, (33, 14), {block}) | {block}, base, block)
+
+    @staticmethod
+    def _reach(p, start, blocked):
+        seen, todo = {start}, [start]
+        while todo:
+            x, y = todo.pop()
+            for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if (nx, ny) in seen or (nx, ny) in blocked or not (0 <= nx < p.width and 0 <= ny < p.height):
+                    continue
+                if p.passable(nx, ny):
+                    seen.add((nx, ny))
+                    todo.append((nx, ny))
+        return seen
+
+    def test_founder_lines_are_byte_exact(self):
+        t = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
+        self.assertEqual(t["DJRUSH_COMPLAIN_1"]["he"].encode(), "איזה מוזיקה נוראית. עדו מוכשר והכל אבל תקליטן הוא לא".encode())
+        self.assertEqual(t["DJRUSH_IDO_SPOTIFY"]["he"].encode(), "זה רק לחוץ פליי בספוטיפיי".encode())
+        for key in dr.COMPLAIN_KEYS + ("DJRUSH_IDO_SPOTIFY", "DJRUSH_DJ_TO_STAGE"):
+            self.assertTrue(t[key]["en"].strip() and t[key]["he"].strip(), key)
+
+    def test_debug_warp_is_below_the_booth(self):
+        self.assertIn("STAGE_WARP = [PARTY_MAP, 33, 14, 8]", (PLUGIN / "006_debug.rb").read_text(encoding="utf-8"))
 
 
 class SolverTests(unittest.TestCase):

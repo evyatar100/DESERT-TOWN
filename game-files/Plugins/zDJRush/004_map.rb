@@ -15,9 +15,15 @@ module DJRush
   # Row 1 stuck before :freed, row 0 DJing from :freed on.
   def self.car_row(st = state) = DJRushRules.freed?(st) ? 0 : 1
 
-  # The RPG map before its events are built: car look, and the crowd gone once freed.
+  # The RPG map before its events are built: the car stuck, or from :freed on She Se on the
+  # stage, Ido on the floor, all dancing, and the crowd gone (007_stage_swap.rb).
   def self.dress_map(map)
     st = state
+    if DJRushRules.freed?(st)
+      stage_dress_rpg(map)
+      map.events.delete_if { |_, ev| CROWD_EVENTS.include?(ev.name) }
+      return true
+    end
     map.events.each_value do |ev|
       next unless ev.name == CAR_EVENT
       ev.pages.each do |pg|
@@ -27,7 +33,6 @@ module DJRush
         pg.graphic.character_name = Art.map_graphic
       end
     end
-    map.events.delete_if { |_, ev| CROWD_EVENTS.include?(ev.name) } if DJRushRules.freed?(st)
     true
   end
 
@@ -36,27 +41,31 @@ module DJRush
     $game_map.events.values.select { |e| names.include?(e.name) }
   end
 
-  def self.set_row(ev, row)
-    ev.character_name = Art.map_graphic
+  def self.set_row(ev, row, graphic = Art.map_graphic)
+    ev.character_name = graphic
     ev.instance_variable_set(:@direction_fix, true)
     ev.instance_variable_set(:@step_anime, true)
-    ev.instance_variable_set(:@direction, ROW_DIR[row])
+    ev.direction = ROW_DIR[row]
   end
 
   # The live map: right after the win, and for a map restored from a save.
   def self.dress_live
     st = state
-    live_events([CAR_EVENT]).each { |ev| set_row(ev, car_row(st)) }
+    stage_dress_live(st)
     live_events(CROWD_EVENTS).each(&:erase) if DJRushRules.freed?(st)
     true
   end
 
-  # Row 2 (the DJ faces the player and nods) while he talks, then the stage row.
+  # Before :freed: row 2 (the DJ faces the player and nods) while he talks, then the stuck row.
+  # From :freed She Se is a normal charset that already faces the player.
   def self.talking
-    live_events([CAR_EVENT]).each { |ev| set_row(ev, TALK_ROW) }
-    yield
-  ensure
-    live_events([CAR_EVENT]).each { |ev| set_row(ev, car_row) }
+    return yield if DJRushRules.freed?(state)
+    begin
+      live_events([CAR_EVENT]).each { |ev| set_row(ev, TALK_ROW) }
+      yield
+    ensure
+      live_events([CAR_EVENT]).each { |ev| set_row(ev, car_row) }
+    end
   end
 
   def self.mirror?
@@ -105,7 +114,7 @@ module DJRush
       result = Scene.new(st, DJRushRules.levels_left(st)).run
       dress_live if result[:result] == :freed
     end
-    meet(st) if result && result[:result] == :freed
+    say("DJRUSH_DJ_TO_STAGE", :dj) if result && result[:result] == :freed
     result
   end
 

@@ -5,6 +5,7 @@
 
 module DJRush
   CAR_WARP = [PARTY_MAP, 12, 25, 8].freeze               # below the car, facing up
+  STAGE_WARP = [PARTY_MAP, 33, 14, 8].freeze            # below the booth, facing up
   JOHNNY_WARP = [DJRushRules::PLAYA_MAP, 36, 25, 8].freeze # below Johnny, facing up
 
   def self.debug_warp(spot)
@@ -66,6 +67,19 @@ MenuHandlers.add(:debug_menu, :dt_djrush_warp_car, {
     next false unless DJRush.debug_on_map?
     DJRush.close_debug_menu(sprites, viewport)
     DJRush.debug_warp(DJRush::CAR_WARP)
+    next true
+  }
+})
+
+MenuHandlers.add(:debug_menu, :dt_djrush_warp_stage, {
+  "name"        => "DJ Rush: warp to the booth",
+  "parent"      => :desert_town_menu,
+  "description" => "Warps to Map093 (33,14), facing up at the stage booth.",
+  "always_show" => true,
+  "effect"      => proc { |sprites, viewport|
+    next false unless DJRush.debug_on_map?
+    DJRush.close_debug_menu(sprites, viewport)
+    DJRush.debug_warp(DJRush::STAGE_WARP)
     next true
   }
 })

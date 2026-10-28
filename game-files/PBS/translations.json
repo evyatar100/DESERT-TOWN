@@ -5217,6 +5217,38 @@
       "en": "Too loud for passwords here. Find me on the Playa.",
       "he": "רועש פה מדי בשביל סיסמאות. תמצאו אותי על הפלאיה."
     },
+    "DJRUSH_COMPLAIN_1": {
+      "en": "What awful music. Ido's talented and all, but a DJ he is not.",
+      "he": "איזה מוזיקה נוראית. עדו מוכשר והכל אבל תקליטן הוא לא"
+    },
+    "DJRUSH_COMPLAIN_2": {
+      "en": "Three sets and the same song. It's no longer clear it's a song.",
+      "he": "שלושה סטים ואותו שיר. כבר לא ברור שזה שיר."
+    },
+    "DJRUSH_COMPLAIN_3": {
+      "en": "I heard the real DJ is stuck on the road with his sheep.",
+      "he": "שמעתי שהדיג'יי האמיתי תקוע עם השה שלו בכביש."
+    },
+    "DJRUSH_COMPLAIN_4": {
+      "en": "Everyone here is dancing out of politeness.",
+      "he": "כולם פה רוקדים מנימוס."
+    },
+    "DJRUSH_COMPLAIN_5": {
+      "en": "The bass here is afraid to drop.",
+      "he": "הבס פה מפחד לרדת."
+    },
+    "DJRUSH_COMPLAIN_6": {
+      "en": "I came to the desert for the music. I'm staying for the dust.",
+      "he": "באתי למדבר בשביל המוזיקה. נשארתי בשביל האבק."
+    },
+    "DJRUSH_IDO_SPOTIFY": {
+      "en": "It's just pressing play on Spotify.",
+      "he": "זה רק לחוץ פליי בספוטיפיי"
+    },
+    "DJRUSH_DJ_TO_STAGE": {
+      "en": "Finally! I'm taking the stage. Come find me at the booth, I've got something for you.",
+      "he": "סוף סוף! אני עולה לבמה. תבואו אליי לעמדה, יש לי משהו בשבילכם."
+    },
     "MUSICBAG": {
       "en": "Music Bag",
       "he": "שקית מוזיקה"

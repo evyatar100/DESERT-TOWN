@@ -19,6 +19,20 @@ LEVELS = (
 MIN_MOVES = (3, 8, 15)
 STAGES = ("none", "intro", "freed", "bag", "done")
 ITEM = "MUSICBAG"
+PARTY_MAP = 93
+IDO = "cace0cde"
+STAGE_TILE = (33, 12)
+IDO_FLOOR = ((35, 19), (36, 19))
+CROWD_POOL = (
+    "013feab1", "0211e32a", "0552d83f", "0f0fdcf5", "110ffafa", "11eaf4fa", "1988218f", "2054a176",
+    "207a26e8", "2082afb4", "266d65c6", "2f88eb7f", "305385c5", "30c62b46", "326f5ab5", "3cdacb96",
+    "4c6540a3", "5cb9ff14", "648b924a", "6a9c3d6f", "788b2614", "7c875377", "82451b58", "834aef17",
+    "85acb2b8", "8dafb982", "8f6972ef", "92958f4d", "937a4a9a", "963c65ea", "9b3660d1", "a003ee69",
+    "a01046dc", "a7ba5185", "abd7f899", "b19b1f15", "b3178e6b", "b5fa3a91", "c11768dc", "c626f0d6",
+    "d4540277", "d472e0a3", "d6ad577a", "e19726f0", "e9da20da", "fc5dfab1", "fcba2ff5", "ff8eab6b",
+)
+COMPLAIN_IDS = tuple(i for i in CROWD_POOL if i != "207a26e8")
+COMPLAIN_KEYS = tuple("DJRUSH_COMPLAIN_%d" % i for i in range(1, 7))
 DIRS = {"left": (-1, 0), "right": (1, 0), "up": (0, -1), "down": (0, 1)}
 
 
@@ -218,6 +232,19 @@ def car_decide(st, held):
     if s == "bag":
         return "remind" if held else "reissue"
     return "after"
+
+
+def complaint_key(last_key, roll):
+    pool = [k for k in COMPLAIN_KEYS if k != last_key]
+    return pool[int(roll * 1000) % len(pool)]
+
+
+def complain(st, map_id, ident):
+    return map_id == PARTY_MAP and rank(st) < rank({"stage": "freed"}) and ident in COMPLAIN_IDS
+
+
+def ido_floor(st, map_id, ident):
+    return map_id == PARTY_MAP and rank(st) >= rank({"stage": "freed"}) and ident == IDO
 
 
 def start_quest(st):

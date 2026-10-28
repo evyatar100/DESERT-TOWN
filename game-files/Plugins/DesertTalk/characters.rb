@@ -103,6 +103,7 @@ module DesertTalk
     "f9348fd0" => { name_key: "NAME_F9348FD0", line_key: "MSG_F9348FD0_LINE" },
     "f9a7cff7" => { name_key: "NAME_F9A7CFF7", line_key: "MSG_F9A7CFF7_LINE" },
     "fc5dfab1" => { name_key: "NAME_FC5DFAB1", line_key: "MSG_FC5DFAB1_LINE" },
+    "fc898478" => { name_key: "NAME_FC898478", line_key: "MSG_FC898478_LINE" },
     "fcba2ff5" => { name_key: "NAME_FCBA2FF5", line_key: "MSG_FCBA2FF5_LINE" },
     "ff8eab6b" => { name_key: "NAME_FF8EAB6B", line_key: "MSG_FF8EAB6B_LINE" },
   }

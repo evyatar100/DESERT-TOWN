@@ -30,6 +30,7 @@ module DesertCharSelect
     { id: "ab97c65d", charset: "dt_ab97c65d", name_key: "NAME_AB97C65D" },
     { id: "82451b58", charset: "dt_82451b58", name_key: "NAME_82451B58" },
     { id: "2082afb4", charset: "dt_2082afb4", name_key: "NAME_2082AFB4" },
+    { id: "fc898478", charset: "dt_fc898478", name_key: "NAME_FC898478" },
     { id: "abd7f899", charset: "dt_abd7f899", name_key: "NAME_ABD7F899" },
     { id: "305385c5", charset: "dt_305385c5", name_key: "NAME_305385C5" },
     { id: "b19b1f15", charset: "dt_b19b1f15", name_key: "NAME_B19B1F15" },

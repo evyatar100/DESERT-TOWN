@@ -4816,6 +4816,14 @@
     "ALLAHOTDOG_DESC": {
       "en": "Decree on the wrapper: this hot dog may not be eaten. It is a state hot dog. Signed: the People (Alla).",
       "he": "צו על העטיפה: אסור לאכול את הנקניקייה הזו. היא ממלכתית. החתום: העם (עלא)."
+    },
+    "NAME_FC898478": {
+      "en": "DJ She Se",
+      "he": "די-ג׳יי שה סה"
+    },
+    "MSG_FC898478_LINE": {
+      "en": "HOUSE LISTEN IN YOUR HOUSE",
+      "he": "HOUSE LISTEN IN YOUR HOUSE"
     }
   }
 }

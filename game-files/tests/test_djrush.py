@@ -125,17 +125,21 @@ class PartyMapTests(unittest.TestCase):
                 self.assertNotIn((x, y), occupied, (x, y))
 
     def test_old_events_untouched(self):
-        """T19: against the committed golden, ids 1-81 are identical and only 82-85 are new."""
+        """T19 (TG56): against the pre-DJ-Rush golden only the teammate's party rework (ev50 She Se, new 58/60) and 82-85 differ."""
         try:
-            head = subprocess.run(["git", "show", "HEAD:game-files/tests/golden/Map093.json"], cwd=REPO,
+            head = subprocess.run(["git", "show", "09adb72^:game-files/tests/golden/Map093.json"], cwd=REPO,
                                   capture_output=True, check=True).stdout.decode("utf-8")
         except (OSError, subprocess.CalledProcessError):
-            self.skipTest("git not available")
-        old = {e["id"]: e for e in json.loads(head)["events"] if e["id"] <= 81}
+            self.skipTest("git history not available")
+        old = {e["id"]: e for e in json.loads(head)["events"]}
         now = self.party.events
-        self.assertEqual(sorted(set(now) - set(old)), [82, 83, 84, 85])
+        self.assertEqual(sorted(set(now) - set(old)), [58, 60, 82, 83, 84, 85])
+        self.assertEqual(sorted(set(old) - set(now)), [])
         for eid, ev in old.items():
-            self.assertEqual(now[eid], ev, eid)
+            if eid != 50:
+                self.assertEqual(now[eid], ev, eid)
+        self.assertEqual((now[50]["name"], now[50]["x"], now[50]["y"]), ("dt_fc898478", 34, 12))  # She Se, hidden by the plugin
+        self.assertEqual((now[60]["name"], now[60]["x"], now[60]["y"]), ("dt_cace0cde", 32, 12))  # Ido, moved to the DJ tile by the plugin
 
     def test_crowd_pool_is_the_party(self):
         ids = {e["name"][3:] for e in self.party.events.values() if e["name"].startswith("dt_")}
@@ -175,12 +179,16 @@ class StageSwapTests(unittest.TestCase):
         self.assertIn("STAGE_TILE = [33, 12]", self.src)
         self.assertIn("IDO_FLOOR = [[35, 19], [36, 19]]", self.src)
         self.assertEqual((dr.STAGE_TILE, dr.IDO_FLOOR), ((33, 12), ((35, 19), (36, 19))))
-        self.assertEqual(len(dr.COMPLAIN_IDS), 47)
+        self.assertEqual(len(dr.COMPLAIN_IDS), 48)
+        self.assertIn("50d0eeb7", dr.COMPLAIN_IDS)
 
     def test_complain_ids_are_the_talking_partygoers(self):
-        want = self.talk_ids() - {"cace0cde", "4b08e38a", "207a26e8"}
+        want = self.talk_ids() - {"cace0cde", "4b08e38a", "207a26e8", "fc898478"}
         self.assertEqual(set(dr.COMPLAIN_IDS) - {"b3178e6b"}, want)
         self.assertNotIn("b3178e6b", self.talk_ids())  # ev49 has a speaker only
+        self.assertIn("50d0eeb7", want)
+        self.assertNotIn("fc898478", dr.COMPLAIN_IDS)
+        self.assertNotIn("cace0cde", dr.COMPLAIN_IDS)
         self.assertTrue(set(dr.COMPLAIN_IDS) <= {e["name"][3:] for e in self.party.events.values()})
 
     def test_gates(self):
@@ -219,6 +227,17 @@ class StageSwapTests(unittest.TestCase):
         self.assertGreater(len(base), 300)
         for block in dr.IDO_FLOOR:
             self.assertEqual(self._reach(p, (33, 14), {block}) | {block}, base, block)
+
+    def test_dj_tile_is_talkable(self):
+        """TG56: (34,12) cannot be talked to (counter (34,13), partygoer on (34,14)); the DJ tile (33,12) can, from (33,14)."""
+        p = self.party
+        occupied = {(e["x"], e["y"]): e["name"] for e in p.events.values()}
+        self.assertEqual(occupied[(34, 14)], "dt_92958f4d")
+        self.assertFalse(p.passable(34, 13))
+        self.assertFalse(p.passable(33, 13))
+        self.assertNotIn((33, 12), occupied)
+        self.assertNotIn((33, 14), occupied)
+        self.assertEqual(self.src.count("STAGE_TILE = [33, 12]"), 1)
 
     @staticmethod
     def _reach(p, start, blocked):

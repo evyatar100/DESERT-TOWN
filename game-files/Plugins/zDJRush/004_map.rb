@@ -16,15 +16,17 @@ module DJRush
   def self.car_row(st = state) = DJRushRules.freed?(st) ? 0 : 1
 
   # The RPG map before its events are built: the car stuck, or from :freed on She Se on the
-  # stage, Ido on the floor, all dancing, and the crowd gone (007_stage_swap.rb).
+  # stage (dt_fc898478 itself is always removed), Ido on the floor, all dancing, and the crowd gone (007_stage_swap.rb).
   def self.dress_map(map)
     st = state
+    hide_she_se_rpg(map)
     if DJRushRules.freed?(st)
       stage_dress_rpg(map)
       map.events.delete_if { |_, ev| CROWD_EVENTS.include?(ev.name) }
       return true
     end
     map.events.each_value do |ev|
+      ev.x, ev.y = IDO_HOME if ev.name == IDO_EVENT
       next unless ev.name == CAR_EVENT
       ev.pages.each do |pg|
         pg.direction_fix = true

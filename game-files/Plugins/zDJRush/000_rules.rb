@@ -17,10 +17,10 @@ module DJRushRules
   KINDS = { [2, true] => :couple, [2, false] => :sleeper, [3, true] => :conga, [3, false] => :queue }.freeze
   FACES = { car: 0, couple: 2, sleeper: 1, conga: 3, queue: 3 }.freeze
   DIRS = { left: [-1, 0], right: [1, 0], up: [0, -1], down: [0, 1] }.freeze
-  # Party crowd pool (D6): the dt_ ids on Map093 minus Ido, Evyatar, Johnny (DJ She Se is not placed).
+  # Party crowd pool (D6): the dt_ ids on Map093 minus Ido, Evyatar, Johnny, She Se (fc898478).
   CROWD_POOL = %w[
     013feab1 0211e32a 0552d83f 0f0fdcf5 110ffafa 11eaf4fa 1988218f 2054a176 207a26e8 2082afb4
-    266d65c6 2f88eb7f 305385c5 30c62b46 326f5ab5 3cdacb96 4c6540a3 5cb9ff14 648b924a 6a9c3d6f
+    266d65c6 2f88eb7f 305385c5 30c62b46 326f5ab5 3cdacb96 4c6540a3 50d0eeb7 5cb9ff14 648b924a 6a9c3d6f
     788b2614 7c875377 82451b58 834aef17 85acb2b8 8dafb982 8f6972ef 92958f4d 937a4a9a 963c65ea
     9b3660d1 a003ee69 a01046dc a7ba5185 abd7f899 b19b1f15 b3178e6b b5fa3a91 c11768dc c626f0d6
     d4540277 d472e0a3 d6ad577a e19726f0 e9da20da fc5dfab1 fcba2ff5 ff8eab6b
@@ -42,7 +42,7 @@ module DJRushRules
   # D3: fixed menu order, the right phrase second.
   SAY_KEYS = %w[DJRUSH_SAY_WRONG_1 DJRUSH_SAY_PHRASE DJRUSH_SAY_WRONG_2 DJRUSH_SAY_NOTHING].freeze
   PHRASE_INDEX = 1
-  # TG53: She Se takes the stage at :freed, Ido goes to the floor; before that the crowd complains.
+  # TG53/TG56: Ido DJs the stage tile until :freed, then She Se, Ido goes to the floor; before that the crowd complains.
   IDO = "cace0cde"
   STAGE_TILE = [33, 12].freeze
   IDO_FLOOR = [[35, 19], [36, 19]].freeze
@@ -203,13 +203,13 @@ module DJRushRules
 
   def self.min_moves(level) = bfs_path(new_board(level)).length
 
-  # Charset ids per piece letter; deterministic and never repeated inside a level (7 is coprime to 48).
+  # Charset ids per piece letter; deterministic, never repeated inside a level (stride 8 is coprime to 49).
   def self.crowd_ids(level)
     slot = 0
     parse(LEVELS[level]).to_h do |id, p|
       ids = Array.new(FACES[p[:kind]]) do
         slot += 1
-        CROWD_POOL[(level * 16 + (slot - 1) * 7) % CROWD_POOL.length]
+        CROWD_POOL[(level * 16 + (slot - 1) * 8) % CROWD_POOL.length]
       end
       [id, ids]
     end

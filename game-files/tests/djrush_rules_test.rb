@@ -135,8 +135,8 @@ ids_ok = (0..2).all? do |i|
   all = DR.crowd_ids(i).values.flatten
   all.uniq.length == all.length && (all - DR::CROWD_POOL).empty? && DR.crowd_ids(i) == DR.crowd_ids(i)
 end
-check(DR::CROWD_POOL.length == 48 && DR::CROWD_POOL.uniq.length == 48 && ids_ok &&
-      (DR::CROWD_POOL & %w[cace0cde 845a91aa 4b08e38a fc898478]).empty?, "djrush D6: 48-id crowd pool, deterministic faces, no repeat inside a level")
+check(DR::CROWD_POOL.length == 49 && DR::CROWD_POOL.uniq.length == 49 && ids_ok &&
+      (DR::CROWD_POOL & %w[cace0cde 845a91aa 4b08e38a fc898478]).empty?, "djrush D6: 49-id crowd pool, deterministic faces, no repeat inside a level")
 reacts = Array.new(200) { |n| DR.reaction_key(:couple, false, "DJRUSH_R_COUPLE_1", n / 200.0) }
 check(DR.reaction_key(:conga, true, nil, 0.99) && reacts.compact.none?("DJRUSH_R_COUPLE_1") && reacts.count(nil).between?(80, 120),
       "djrush D7: first move of a kind always reacts, later ~50%, never the same key twice in a row")
@@ -144,10 +144,10 @@ check(DR.reaction_key(:conga, true, nil, 0.99) && reacts.compact.none?("DJRUSH_R
 # TG53: complaints before the swap, Ido's line after it.
 excluded = %w[cace0cde 4b08e38a 845a91aa fc898478 207a26e8]
 gate = ->(fn, stage, map, id) { DR.public_send(fn, dj_st.(stage), map, id) }
-check(DR::COMPLAIN_IDS.length == 47 && DR::COMPLAIN_IDS == DR::CROWD_POOL - %w[207a26e8] &&
+check(DR::COMPLAIN_IDS.length == 48 && DR::COMPLAIN_IDS.include?("50d0eeb7") && DR::COMPLAIN_IDS == DR::CROWD_POOL - %w[207a26e8] &&
       DR::COMPLAIN_IDS.all? { |i| %i[none intro].all? { |stg| gate.(:complain?, stg, 93, i) } } &&
       excluded.none? { |i| %i[none intro].any? { |stg| gate.(:complain?, stg, 93, i) } },
-      "djrush TG53 D9: every one of the 47 ids complains at :none/:intro on Map093; Ido, Johnny, Evyatar, She Se and the duel NPC never do")
+      "djrush TG53 D9: every one of the 48 ids complains at :none/:intro on Map093; Ido, Johnny, Evyatar, She Se and the duel NPC never do")
 check(DR::COMPLAIN_IDS.none? { |i| gate.(:complain?, :intro, 98, i) || gate.(:complain?, :none, 91, i) } &&
       DR::COMPLAIN_IDS.none? { |i| %i[freed bag done].any? { |stg| gate.(:complain?, stg, 93, i) } },
       "djrush TG53 D8: no complaint on other maps, and none from :freed on")
@@ -307,7 +307,8 @@ $bag = DJTestBag.new
 $game_player = DJPlayer.new("trchar000", 12, 25)
 live = { 82 => DJLiveEv.new("djrush_car", "djrush_car", 12, 23) }
 (1..3).each { |i| live[82 + i] = DJLiveEv.new("djrush_crowd_#{i}", "alien") }
-live[50] = DJLiveEv.new("dt_cace0cde", "dt_cace0cde", 34, 12)
+live[50] = DJLiveEv.new("dt_fc898478", "dt_fc898478", 34, 12)
+live[60] = DJLiveEv.new("dt_cace0cde", "dt_cace0cde", 32, 12)
 live[1] = DJLiveEv.new("dt_11eaf4fa", "dt_11eaf4fa", 5, 5)
 $game_map = DJMap.new(93, live)
 msgs = ->(log) { log.select { |e| e.is_a?(Array) && e[0].is_a?(String) }.map { |e| e[0].split("|")[0] } }
@@ -338,8 +339,8 @@ check(log.include?([:scene, [1, 2], false]) && st.()[:stage] == :freed && $bag.q
       log.find { |m, _| m == "DJRUSH_DJ_TO_STAGE" }[1] == "NAME_FC898478",
       "djrush TG53 D6: the win ends with the to-stage line only (stage stays :freed, no bag yet) (#{order.inspect})")
 check(live.values_at(83, 84, 85).all?(&:erased) && [live[82].x, live[82].y] == [33, 12] && live[82].character_name == "dt_fc898478" &&
-      live[82].dir == 2 && live[82].fixed? && [live[50].x, live[50].y] == [35, 19] && live[50].anime? && live[1].anime?,
-      "djrush TG53 D2-D4: after the win the crowd is erased, She Se is at (33,12), Ido on (35,19), everyone steps in place")
+      live[82].dir == 2 && live[82].fixed? && [live[60].x, live[60].y] == [35, 19] && live[50].erased && live[60].anime? && live[1].anime?,
+      "djrush TG53 D2-D4: after the win the crowd is erased, She Se (82) is at (33,12), map She Se hidden, Ido on (35,19), everyone steps in place")
 log = car.(confirm: [false])
 order = msgs.(log)
 got_line = order.index { |k| k.start_with?('\me[Key item get]') }
@@ -408,7 +409,8 @@ RpgEv = Struct.new(:name, :pages, :x, :y)
 RpgMap = Struct.new(:events)
 rpg = lambda do
   RpgMap.new({ 1 => RpgEv.new("dt_11eaf4fa", [RpgPage.new(RpgGraphic.new(2, "dt_11eaf4fa", 1), false, false)], 5, 5),
-               50 => RpgEv.new("dt_cace0cde", [RpgPage.new(RpgGraphic.new(8, "dt_cace0cde", 0), false, false)], 34, 12),
+               50 => RpgEv.new("dt_fc898478", [RpgPage.new(RpgGraphic.new(2, "dt_fc898478", 0), false, false)], 34, 12),
+               60 => RpgEv.new("dt_cace0cde", [RpgPage.new(RpgGraphic.new(8, "dt_cace0cde", 0), false, false)], 32, 12),
                82 => RpgEv.new("djrush_car", [RpgPage.new(RpgGraphic.new(2, "djrush_car", 0), false, false)], 12, 23),
                83 => RpgEv.new("djrush_crowd_1", []), 84 => RpgEv.new("djrush_crowd_2", []), 85 => RpgEv.new("djrush_crowd_3", []) })
 end
@@ -426,14 +428,14 @@ looks = %i[intro bag].map do |stage|
   $PokemonGlobal.dj_rush = dj_st.(stage)
   m = rpg.()
   $event_handlers[:djrush_party].call(93, m, nil)
-  [m.events[82], m.events[50], m.events[1]].map { |e| [e.x, e.y, e.pages[0].graphic.character_name, e.pages[0].step_anime, e.pages[0].graphic.direction, e.pages[0].graphic.pattern] }
+  ([m.events[82], m.events[60], m.events[1]].map { |e| [e.x, e.y, e.pages[0].graphic.character_name, e.pages[0].step_anime, e.pages[0].graphic.direction, e.pages[0].graphic.pattern] } + [m.events.key?(50)])
 end
-check(looks[0] == [[12, 23, "dt_fc898478", true, 4, 0], [34, 12, "dt_cace0cde", false, 8, 0], [5, 5, "dt_11eaf4fa", false, 2, 1]] &&
-      looks[1] == [[33, 12, "dt_fc898478", true, 2, 0], [35, 19, "dt_cace0cde", true, 2, 0], [5, 5, "dt_11eaf4fa", true, 2, 1]],
-      "djrush TG53: map setup at :intro leaves 82 and 50 as authored; at :bag She Se is on (33,12), Ido on (35,19), every dt_ page steps in place (#{looks.inspect})")
+check(looks[0] == [[12, 23, "dt_fc898478", true, 4, 0], [33, 12, "dt_cace0cde", false, 8, 0], [5, 5, "dt_11eaf4fa", false, 2, 1], false] &&
+      looks[1] == [[33, 12, "dt_fc898478", true, 2, 0], [35, 19, "dt_cace0cde", true, 2, 0], [5, 5, "dt_11eaf4fa", true, 2, 1], false],
+      "djrush TG56: map setup drops the map She Se (ev50) at every stage; at :intro Ido is on the DJ tile (33,12) and 82 is the stuck car; at :bag She Se is on (33,12), Ido on (35,19), every dt_ page steps in place (#{looks.inspect})")
 m = rpg.()
 $event_handlers[:djrush_party].call(96, m, nil)
-check(m.events[82].pages[0].graphic.direction == 2 && m.events.length == 6, "djrush: map setup on another map changes nothing")
+check(m.events[82].pages[0].graphic.direction == 2 && m.events.length == 7, "djrush: map setup on another map changes nothing")
 fresh = { 82 => DJLiveEv.new("djrush_car", "x"), 83 => DJLiveEv.new("djrush_crowd_1", "a") }
 $game_map = DJMap.new(93, fresh)
 $PokemonGlobal.dj_rush = dj_st.(:intro)
@@ -445,10 +447,11 @@ check(fresh[83].erased && [fresh[82].x, fresh[82].y] == [33, 12] && fresh[82].ch
       "djrush: a restored save after :freed erases the crowd, She Se on the stage")
 
 # TG53 D3/D12/D13: live dressing is idempotent, dodges the player, and rolls back with F9.
-ido = DJLiveEv.new("dt_cace0cde", "dt_cace0cde", 34, 12)
+ido = DJLiveEv.new("dt_cace0cde", "dt_cace0cde", 32, 12)
+mapshese = DJLiveEv.new("dt_fc898478", "dt_fc898478", 34, 12)
 guest = DJLiveEv.new("dt_11eaf4fa", "dt_11eaf4fa", 5, 5)
 car82 = DJLiveEv.new("djrush_car", "djrush_car", 12, 23)
-$game_map = DJMap.new(93, { 82 => car82, 50 => ido, 1 => guest })
+$game_map = DJMap.new(93, { 82 => car82, 50 => mapshese, 60 => ido, 1 => guest })
 $game_player = DJPlayer.new("trchar000", 35, 19)
 $bag = DJTestBag.new
 $PokemonGlobal.dj_rush = dj_st.(:bag)
@@ -466,8 +469,8 @@ DJRush.dress_live
 check([$game_player.x, $game_player.y] == [33, 14] && [car82.x, car82.y] == [33, 12],
       "djrush TG53: a player standing on She Se's tile is moved to (33,14) before she lands there")
 DJRush.debug_set(:intro)
-check([ido.x, ido.y] == [34, 12] && [car82.x, car82.y] == [12, 23] && car82.row == 1 && !guest.anime?,
-      "djrush TG53 D5: F9 debug_set(:intro) puts 82 and 50 back and stops the dancing")
+check([ido.x, ido.y] == [33, 12] && mapshese.erased && [car82.x, car82.y] == [12, 23] && car82.row == 1 && !guest.anime?,
+      "djrush TG56 D5: F9 debug_set(:intro) puts Ido on his DJ tile (33,12) and the car back, map She Se still hidden and stops the dancing")
 DJRush.debug_set(:done)
 check([ido.x, ido.y] == [35, 19] && [car82.x, car82.y] == [33, 12] && guest.anime?, "djrush TG53: debug_set(:done) swaps again")
 

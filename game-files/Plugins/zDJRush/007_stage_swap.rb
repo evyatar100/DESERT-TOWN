@@ -1,15 +1,20 @@
 #===============================================================================
-# DJ Rush Hour (TG53) - from :freed on She Se plays the stage, Ido is on the floor, all dance.
+# DJ Rush Hour (TG53/TG56) - Ido DJs the stage tile until :freed; then car event 82 is She Se
+# there (map event dt_fc898478 is always hidden), Ido is on the floor, all dance.
+# (34,12) is unreachable (counter (34,13), partygoer 92958f4d on (34,14)), so the DJ tile is (33,12).
 #===============================================================================
 
 module DJRush
   CAR_HOME = [12, 23].freeze
   IDO_EVENT = "dt_cace0cde"
-  IDO_HOME = [34, 12].freeze
+  IDO_HOME = DJRushRules::STAGE_TILE
   CROWD_PREFIX = "dt_"
   STAND_TILE = [33, 14].freeze   # below the booth; the player is moved here off She Se's tile
   CROWD_NAMES = Object.new
   def CROWD_NAMES.include?(name) = name.to_s.start_with?(CROWD_PREFIX)
+
+  # Map event dt_fc898478 stays out of the party: she is stuck in the art car, then car event 82 plays her.
+  def self.hide_she_se_rpg(map) = map.events.delete_if { |_, ev| ev.name == PLAYER_DJ }
 
   # The RPG map before its events are built (freed only; the map itself is never saved).
   def self.stage_dress_rpg(map)
@@ -60,6 +65,7 @@ module DJRush
     if freed && $game_player.respond_to?(:x) && [$game_player.x, $game_player.y] == DJRushRules::STAGE_TILE
       $game_player.moveto(*STAND_TILE)
     end
+    live_events([PLAYER_DJ]).each(&:erase)
     live_events([CAR_EVENT]).each do |ev|
       place(ev, freed ? DJRushRules::STAGE_TILE : CAR_HOME)
       freed ? stage_look(ev) : set_row(ev, car_row(st))

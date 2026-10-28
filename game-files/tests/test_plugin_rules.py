@@ -518,6 +518,7 @@ class PluginRuleTests(unittest.TestCase):
                     if abs(r - 192) > 24 or abs(g - 128) > 24 or abs(b - 48) > 24:
                         mascot += 1
             self.assertGreater(mascot, 400, "help slide paints the character on the left")
+        self.assert_world_map_uses_generated_master()
         slide_txt = (ROOT / "Plugins" / "DesertTownArcade" / "help_slide.txt").read_text(encoding="utf-8")
         self.assertIn("ברוכים הבאים לדזרטאון", slide_txt)
         self.assertIn("מכונת הארקייד של דזרטאון.", slide_txt)
@@ -539,6 +540,37 @@ class PluginRuleTests(unittest.TestCase):
         self.assertTrue((ROOT / "Graphics" / "Pictures" / "atzlan.png").is_file())
         self.assertIn('return "rtl" if rtl else "ltr"', slide_py)
         self.assert_logical_hebrew_starts_on_the_right()
+
+    def assert_world_map_uses_generated_master(self):
+        from PIL import Image, ImageChops
+
+        sys.path.insert(0, str(ROOT / "Plugins" / "DesertTownArcade"))
+        import render_world_map_slide as rw
+
+        self.assertTrue(rw.MASTER.is_file(), "generated master is in the repo")
+        self.assertEqual(rw.MASTER.name, "worldmap_call04_patch_composite_master_2048x1536.png")
+        render_src = (ROOT / "Plugins" / "DesertTownArcade" / "render_world_map_slide.py").read_text(encoding="utf-8")
+        main_body = render_src.split("def main()")[1]
+        self.assertIn("--legacy-mosaic", main_body)
+        self.assertIn("render_legacy_mosaic() if \"--legacy-mosaic\" in sys.argv else render()", main_body)
+        art = rw.map_art().convert("RGB")
+        with Image.open(rw.MASTER) as master:
+            expect = master.convert("RGB").resize((512, 384), Image.Resampling.BOX)
+        diff = ImageChops.difference(art, expect)
+        self.assertLess(sum(diff.convert("L").histogram()[40:]) / (512 * 384), 0.02)
+        shipped = Image.open(ROOT / "Graphics" / "Pictures" / "DesertTownWorldMap.png").convert("RGB")
+        self.assertEqual(shipped.size, (512, 384))
+        # Compare a label-free strip of the map window; the old mosaic would differ everywhere.
+        box = (30, 50, 200, 120)
+        strip = ImageChops.difference(shipped.crop(box), art.crop(box)).convert("L")
+        self.assertEqual(max(strip.getdata()), 0, "shipped slide shows the generated art")
+        boxes = [b for _n, b in rw.label_boxes()]
+        for i, a in enumerate(boxes):
+            self.assertTrue(rw.WINDOW[0] <= a[0] and a[2] <= rw.WINDOW[2] and rw.WINDOW[1] <= a[1] and a[3] <= rw.WINDOW[3])
+            for b in boxes[i + 1:]:
+                pad = rw.PLATE_PAD
+                apart = a[2] + pad <= b[0] - pad or b[2] + pad <= a[0] - pad or a[3] + pad <= b[1] - pad or b[3] + pad <= a[1] - pad
+                self.assertTrue(apart, f"world map labels collide: {a} {b}")
 
     def assert_help_slide_draws_the_panel(self, help_image):
         """The sketch band shows all six caps, left to right in panel order, and no red button."""

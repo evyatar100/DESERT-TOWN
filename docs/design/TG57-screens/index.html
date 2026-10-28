@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>TG57: screens still from Pokémon</title>
+<style>
+  body { background:#2B2128; color:#FFF8EC; font-family: system-ui, sans-serif; margin:0; padding:24px 32px 64px; }
+  h1 { color:#E8B860; margin:0 0 4px; }
+  h2 { color:#E8B860; border-bottom:2px solid #5C3010; padding-bottom:4px; margin-top:40px; }
+  h3 { color:#F1C575; margin:24px 0 6px; }
+  .sub { color:#D6B087; margin-bottom:20px; }
+  .card { background:#3a2c2a; border:2px solid #5C3010; border-radius:8px; padding:14px 16px; margin:14px 0; }
+  .row { display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start; }
+  figure { margin:0; background:#ff00ff22; border:1px solid #654939; padding:6px; border-radius:4px; }
+  figure img { display:block; image-rendering:pixelated; max-width:512px; }
+  figure img.z2 { transform-origin:top left; width:auto; }
+  figcaption { font-size:12px; color:#D6B087; margin-top:4px; max-width:512px; }
+  table { border-collapse:collapse; width:100%; font-size:14px; margin-top:8px; }
+  th, td { border:1px solid #654939; padding:5px 8px; text-align:left; vertical-align:top; }
+  th { background:#5C3010; color:#FFF8EC; }
+  .tag { display:inline-block; padding:1px 7px; border-radius:10px; font-size:12px; font-weight:600; }
+  .stock { background:#CC2C2F; } .part { background:#C08030; } .done { background:#4f7a3a; } .gone { background:#636491; }
+  .act { background:#996694; }
+  .sw { display:inline-block; width:92px; margin:3px; font-size:11px; text-align:center; color:#FFF8EC; }
+  .sw i { display:block; height:34px; border:1px solid #000; border-radius:3px; }
+  code { color:#F1CB8A; }
+  .he { direction:rtl; unicode-bidi:plaintext; }
+</style>
+</head>
+<body>
+<h1>TG57: Pokémon screens a Desert Town player can still reach</h1>
+<div class="sub">Noam Peretz, 2026-10-29. Reachability was traced from the code: the new game starts on Map001's quick-start event, which runs the character select and then sends the player to demo-tent (Map081). From there 35 maps are reachable. The stock Pokémon maps 2-75 are not. Images below are copies of the files the game loads today. Spec: <code>docs/specs/tg57-desert-screens.md</code>.</div>
+
+<div class="card">
+  <b>Legend:</b>
+  <span class="tag stock">stock Pokémon</span>
+  <span class="tag part">partly themed</span>
+  <span class="tag done">already Desert Town</span>
+  <span class="tag gone">not reachable, leave</span>
+  &nbsp; Plan: <span class="tag act">PIL</span> = recolour/redraw locally, free. <span class="tag act">GEN</span> = new art through desert-town (needs your count). <span class="tag act">CODE</span> = plugin or text change only.
+</div>
+
+<h2>The Desert Town look (taken from the game's own art)</h2>
+<div class="card">
+  The help slide (White button) and the world map slide (Green button) already set the UI style. Every themed screen copies it: an amber panel with a dark-brown frame and a light-gold inner line, cream text with a 1 px ink outline, a tent-red accent, and the Handjet font the game already uses. The palette is the 32-colour lock measured in <code>docs/design/world-map-regen/brief.md</code>.
+  <div style="margin-top:10px">
+    <span class="sw"><i style="background:#C08030"></i>frame amber #C08030</span>
+    <span class="sw"><i style="background:#5C3010"></i>frame dark #5C3010</span>
+    <span class="sw"><i style="background:#E8B860"></i>frame light #E8B860</span>
+    <span class="sw"><i style="background:#F1CB8A"></i>sand pale #F1CB8A</span>
+    <span class="sw"><i style="background:#E0AD70"></i>sand #E0AD70</span>
+    <span class="sw"><i style="background:#966D54"></i>wood #966D54</span>
+    <span class="sw"><i style="background:#CC2C2F"></i>tent red #CC2C2F</span>
+    <span class="sw"><i style="background:#9E2A34"></i>deep red #9E2A34</span>
+    <span class="sw"><i style="background:#DB2964"></i>magenta #DB2964</span>
+    <span class="sw"><i style="background:#FFF8EC"></i>cream text #FFF8EC</span>
+    <span class="sw"><i style="background:#2A1608"></i>ink #2A1608</span>
+    <span class="sw"><i style="background:#36304E"></i>night #36304E</span>
+  </div>
+  <div class="row" style="margin-top:12px">
+    <figure><img src="img/ref_help_slide.png" width="384"><figcaption>Style ref: help slide (already Desert Town)</figcaption></figure>
+    <figure><img src="img/ref_world_map.png" width="384"><figcaption>Style ref: world map slide (frame, labels)</figcaption></figure>
+    <figure><img src="img/bag_bag_8.png"><figcaption>Style ref: the Bag's backpack icon (already replaced)</figcaption></figure>
+    <figure><img src="img/ref_temple_board.png" width="384"><figcaption>Style ref: temple board (parchment panel)</figcaption></figure>
+  </div>
+</div>
+
+<h2>Priority 1: seen by every player</h2>
+
+<h3>1. Boot: splash screens, title, Continue screen <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> every time the game starts (not in debug mode): splash1, then splash2, then the title, then the Continue / New Game / Options / Quit Game list.<br>
+  <b>Pokémon text:</b> "Pokémon Essentials" splash, the POKéMON ESSENTIALS logo with Pikachu, "VERSION 21.1", "PRESS ENTER", the Poké Ball background, "Badges:" and "Pokédex:" on the Continue panel. The Continue list (Continue / New Game / Options / Quit Game) has no Hebrew. The map name on the panel is the internal English name (e.g. "deep-playa 1b").<br>
+  <b>Music now:</b> <code>Audio/BGM/Title.ogg</code>, the stock Essentials title theme (76 s). It keeps playing on the Continue screen.<br>
+  <b>Plan:</b> <span class="tag act">GEN</span> one title illustration (no text in the image) + <span class="tag act">PIL</span> a code-drawn logo "דזרטאון / DESERT TOWN" and a Hebrew "press a button" line. Splash 1 becomes a Desert Town card. Splash 2 keeps the Essentials and mkxp-z credit, redrawn in the palette. <span class="tag act">PIL</span> recolours the Continue panels purple to brown and replaces the Poké Ball background. <span class="tag act">CODE</span> hides Badges and Pokédex and adds Hebrew labels and map names. <b>Music:</b> <code>Deep Playa Psychedelic 2</code>. It's a Desert Town track that no map uses yet.
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/title_splash1.png" width="256"><figcaption>Titles/splash1.png</figcaption></figure>
+    <figure><img src="img/title_splash2.png" width="256"><figcaption>Titles/splash2.png</figcaption></figure>
+    <figure><img src="img/title_title.png" width="256"><figcaption>Titles/title.png</figcaption></figure>
+    <figure><img src="img/title_start.png" width="512"><figcaption>Titles/start.png (flashing "PRESS ENTER" strip)</figcaption></figure>
+    <figure><img src="img/load_bg.png" width="256"><figcaption>UI/Load/bg.png</figcaption></figure>
+    <figure><img src="img/load_panels.png" width="204"><figcaption>UI/Load/panels.png</figcaption></figure>
+  </div>
+</div>
+
+<h3>2. Message box and menu frame <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> every line of dialogue (the speech frame) and every Yes/No, choice list and pause menu (the menu frame). These are the two most-seen pieces of UI in the game.<br>
+  <b>Files:</b> <code>Windowskins/speech hgss 1.png</code> (speech frame 0) and <code>Windowskins/choice 1.png</code> (menu frame 0), both from HeartGold/SoulSilver. Also <code>UI/pause_arrow.png</code> and <code>UI/sel_arrow.png</code> (the grey arrows).<br>
+  <b>Music:</b> none (SE only: stock "GUI sel cursor/decision", which are neutral clicks. Keep them.)<br>
+  <b>Plan:</b> <span class="tag act">PIL</span> redraw both 9-slice skins in place, under the same file names: a sand-pale fill, a dark-brown frame and a gold inner line. Old saves keep working with no code change. The fill stays light, so the current dark text keeps its contrast.
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/skin_speech_hgss_1.png" width="288"><figcaption>speech hgss 1.png (96x48, shown 3x)</figcaption></figure>
+    <figure><img src="img/skin_choice_1.png" width="144"><figcaption>choice 1.png (48x48, shown 3x)</figcaption></figure>
+    <figure><img src="img/ui_pause_arrow.png" width="240"><figcaption>UI/pause_arrow.png (3x)</figcaption></figure>
+    <figure><img src="img/ui_sel_arrow.png" width="36"><figcaption>UI/sel_arrow.png (3x)</figcaption></figure>
+  </div>
+</div>
+
+<h3>3. Pause menu (Pink button) <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> Pink (Z). It's the stock Essentials menu. The entries the player sees are: Bag, the player's name (Trainer Card), Save, Options and Quit Game. Pokédex, Pokégear and Town Map stay hidden because the player never gets them. "Pokémon" stays hidden because the party is empty outside the circus fight. Debug shows only in debug mode.<br>
+  <b>Text:</b> "Bag" is already Hebrew (תיק). "Save", "Options" and "Quit Game" are English.<br>
+  <b>Plan:</b> <span class="tag act">CODE</span> Hebrew labels. The frame is fixed by item 2.<br>
+  <b>Finding (not theming):</b> "Quit Game" lets a cabinet player close the game. This is flagged, not changed. See the spec's open questions.
+</div>
+
+<h3>4. Bag (Orange button) <span class="tag part">partly themed</span></h3>
+<div class="card">
+  <b>How it's reached:</b> Orange (K) or B, and the pause menu. BurningManBag locks it to the Key Items pocket.<br>
+  <b>Already done:</b> the bag picture (backpack) and Hebrew item names.<br>
+  <b>Still stock:</b> <code>UI/Bag/bg_8.png</code> (the orange/white Gen-4 layout), <code>icon_pocket.png</code> (Poké Ball pocket icons; only the key-items one shows), <code>cursor.png</code> (red bar) and <code>icon_slider.png</code>.<br>
+  <b>Plan:</b> <span class="tag act">PIL</span> recolour bg_8 to the parchment and amber frame, redraw the key-items pocket icon and the cursor in tent red on wood.
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/bag_bg_8.png" width="384"><figcaption>UI/Bag/bg_8.png</figcaption></figure>
+    <figure><img src="img/bag_icon_pocket.png" width="448"><figcaption>UI/Bag/icon_pocket.png (2x)</figcaption></figure>
+    <figure><img src="img/bag_cursor.png"><figcaption>UI/Bag/cursor.png</figcaption></figure>
+    <figure><img src="img/bag_icon_slider.png" width="72"><figcaption>UI/Bag/icon_slider.png</figcaption></figure>
+  </div>
+</div>
+
+<h3>5. Item-get jingle <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> every reward. All Desert Town items are key items, so each one plays <code>Audio/ME/Key item get.ogg</code> (the 2.4 s Pokémon fanfare). Map events also play <code>Item get</code> and <code>Key item get</code> directly.<br>
+  <b>Plan:</b> <span class="tag act">PIL-equivalent, free</span> cut a 2.5 s sting with a fade-out from a Desert Town track. The default source is the opening bar of <code>Calm Camps Area</code>. Python <code>soundfile</code> can read and write ogg on this laptop, so no new music is needed. The sting is saved under the same ME file names, so no event changes.
+</div>
+
+<h2>Priority 2: one step into the pause menu</h2>
+
+<h3>6. Save screen <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> pause menu, then Save. (Autosave is silent and has no screen.)<br>
+  <b>Text:</b> the English map name, "Player", "Time", "Badges 0", "Pokédex" (only if owned), "Would you like to save the game?", "{1} saved the game." The save plays the ME <code>GUI save game</code> (Pokémon jingle, 1.3 s).<br>
+  <b>Plan:</b> <span class="tag act">CODE</span> Hebrew labels, the Hebrew area name, no Badges line. <span class="tag act">free</span> reuse the new sting for the save ME. Frames come from item 2.
+</div>
+
+<h3>7. Options <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>How it's reached:</b> pause menu, then Options, and the Continue screen, then Options.<br>
+  <b>Text:</b> all English. Four rows are Pokémon-only: Battle Effects, Battle Style, Send to Boxes, Give Nicknames. Speech Frame and Menu Frame let a player switch the shared cabinet back to the HGSS frames.<br>
+  <b>Plan:</b> <span class="tag act">CODE</span> keep Music Volume, SE Volume, Text Speed and Default Movement in Hebrew, and hide the other six rows.
+</div>
+
+<h3>8. Trainer Card (the player's name in the pause menu) <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  <b>Text:</b> "TRAINER CARD" baked into the art, plus Poké Ball emblems, Name, ID No., Money $, Pokédex, Time, Started, and 8 badge slots. The trainer picture is blank (DESERTTOWNER.png is empty).<br>
+  <b>Plan:</b> <span class="tag act">PIL</span> recolour the card to amber, erase the emblems and the badge row, and draw the header "כרטיס דזרטאון". <span class="tag act">CODE</span> rows become Name, Play time, Started, and Game depth (the Inception counter that's already saved).
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/card_card.png" width="384"><figcaption>UI/Trainer Card/card.png</figcaption></figure>
+    <figure><img src="img/card_icon_badges.png"><figcaption>UI/Trainer Card/icon_badges.png</figcaption></figure>
+  </div>
+</div>
+
+<h2>Priority 3: one place in the world</h2>
+
+<h3>9. The circus fight (mom-dad-in, Map089): a full Pokémon battle <span class="tag part">partly themed</span></h3>
+<div class="card">
+  <b>How it's reached:</b> the referee on mom-dad-in. <code>pbMomDadBattleStart</code> lends Pikachu, Charizard and Snorlax and starts a trainer battle against the Team Rocket Grunt party (Blastoise, Venusaur…).<br>
+  <b>Already done:</b> the trainer sprites are hidden, the names are Hebrew ("מאמן הקרקס"), the money is 0, a loss sends the player home, and the battle messages are mostly Hebrew.<br>
+  <b>Still stock:</b> the <b>Team Rocket "R" transition</b> (it fires for any TEAMROCKET_M battle), the battleback (no BattleBack on Map089, so it falls back to <code>indoor1</code>), the battle message, command and fight boxes, the databoxes, and the Party and Summary screens if the player opens "Pokémon". The command menu shows "Pokémon" (פוקימון).<br>
+  <b>Music now:</b> <code>Battle trainer.ogg</code> and then <code>Battle victory trainer.ogg</code> (both stock).<br>
+  <b>Plan:</b> <span class="tag act">CODE</span> while the circus fight runs, swap the R transition for a plain non-Poké Ball one, play <code>War</code> (the track the duels already use), and play <code>Victory</code> on a win. That's the Desert Town ME added 2026-10-20 that nothing plays yet. <span class="tag act">PIL</span> recolour the battle boxes and databoxes, and draw a red/white tent-stripe battleback (or <span class="tag act">GEN</span> one in the nicer count). <span class="tag act">PIL</span> recolour Party and Summary to sand.
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/trans_rocket_bg_1.png" width="256"><figcaption>Transitions/rocket_bg_1.png</figcaption></figure>
+    <figure><img src="img/trans_rocket_logo.png"><figcaption>Transitions/rocket_logo.png</figcaption></figure>
+    <figure><img src="img/battle_indoor1_bg.png" width="256"><figcaption>Battlebacks/indoor1_bg.png</figcaption></figure>
+    <figure><img src="img/battle_indoor1_base0.png" width="256"><figcaption>indoor1_base0.png</figcaption></figure>
+    <figure><img src="img/battle_overlay_message.png" width="384"><figcaption>UI/Battle/overlay_message.png</figcaption></figure>
+    <figure><img src="img/battle_overlay_command.png" width="384"><figcaption>UI/Battle/overlay_command.png</figcaption></figure>
+    <figure><img src="img/battle_overlay_fight.png" width="384"><figcaption>UI/Battle/overlay_fight.png</figcaption></figure>
+    <figure><img src="img/battle_cursor_command.png" width="130"><figcaption>cursor_command.png (Fight/Bag/Pokémon/Run buttons)</figcaption></figure>
+    <figure><img src="img/battle_databox_normal.png"><figcaption>databox_normal.png</figcaption></figure>
+    <figure><img src="img/battle_databox_normal_foe.png"><figcaption>databox_normal_foe.png</figcaption></figure>
+    <figure><img src="img/party_bg.png" width="256"><figcaption>UI/Party/bg.png</figcaption></figure>
+    <figure><img src="img/party_panel_round.png"><figcaption>UI/Party/panel_round.png</figcaption></figure>
+    <figure><img src="img/summary_bg_1.png" width="256"><figcaption>UI/Summary/bg_1.png (Poké Ball tabs)</figcaption></figure>
+    <figure><img src="img/summary_bg_4.png" width="256"><figcaption>UI/Summary/bg_4.png</figcaption></figure>
+  </div>
+</div>
+
+<h3>10. Duels (Dan on Piramid Map022 and the party Map093) <span class="tag part">partly themed</span></h3>
+<div class="card">
+  The stock Duel minigame uses only message windows, which inherit the new frames from item 2. The music is already <code>War</code>, and DesertTalk swaps in Desert Town moves and names. Still English: the event's end lines "You won, good job." and "You lost, too bad.", and the core lines "Choose a command.", "HP: {1}", "DEFEND" and so on, where the Desert Town move list doesn't cover them. <span class="tag act">CODE</span> add Hebrew translations.
+</div>
+
+<h3>11. Leftover stock NPC: "Ruin Maniac" on deep-playa 6 (Map105, event 1 at 24,0) <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">
+  A visible trainer_GENTLEMAN sprite on the map's top edge. Talking to him shows English Essentials text, including the developer note "When using this mining minigame, it is recommended that you limit how often…". He opens the stock Mining minigame (<code>UI/Mining/*</code>), which gives Pokémon items (stones and fossils) the key-item-only Bag never shows. Whether a player can stand next to him wasn't checked (passability). <b>Default: remove the event</b> rather than theme it.
+  <div class="row" style="margin-top:10px">
+    <figure><img src="img/mining_bg.png" width="256"><figcaption>UI/Mining/bg.png</figcaption></figure>
+    <figure><img src="img/mining_tools.png"><figcaption>UI/Mining/tools.png</figcaption></figure>
+  </div>
+</div>
+
+<h3>12. Window title <span class="tag stock">stock Pokémon</span></h3>
+<div class="card">"Pokémon Essentials v21.1" in <code>mkxp.json</code> (windowTitle) and <code>Game.ini</code> (Title). It shows on the laptop taskbar and window bar, not on the fullscreen cabinet. <span class="tag act">CODE</span> change it to "Desert Town".</div>
+
+<h2>Already Desert Town (no work)</h2>
+<div class="card">
+  <span class="tag done">done</span> Character select carousel (DesertCharSelect; dark fill and the map's Calm Camps Area). <span class="tag done">done</span> Help slide (White) and world map slide (Green). <span class="tag done">done</span> All the minigame scenes (temple boards, hoop, Tuta maze, arm wrestling, DJ Rush, wedding seating, stamp desk, eviction, Alla stand, planetarium, Kusomo TV, bags song). <span class="tag done">done</span> All map music (Calm Camps Area, Deep Playa 3, Ice In, War, Time-Warp, Alien Party/Aliens, Flamingo Band stages).
+</div>
+
+<h2>Not reachable: leave as is</h2>
+<div class="card">
+  <span class="tag gone">not reachable</span> Pokédex, Pokégear, Town Map: never given (no <code>has_pokedex</code>, no <code>has_pokegear</code>, no TOWNMAP item).
+  Professor Oak intro, Controls help (ButtonEventScene) and the naming screen: Map001's Oak event is an action-button event at (0,0) that never runs, and the character select passes a name to <code>pbTrainerName</code>, so the keyboard never opens.
+  Poké Center, Mart, PC Storage, Game Corner, Hall of Fame, Credits, Battle Frontier, Safari: they live only on stock maps 2-75, which have no path from demo-tent.
+  Evolution and egg hatching: no eggs, and none of the lent Pokémon evolve by level.
+  Ready Menu: only the keyboard D key opens it, and no cabinet button does.
+  Mystery Gift: hidden unless unlocked.
+  Wild-battle music, surf and bicycle music: never triggered.
+</div>
+
+<h2>Image generation count</h2>
+<div class="card">
+  <table>
+    <tr><th>Image</th><th>Minimal</th><th>Nicer</th></tr>
+    <tr><td>Title illustration, 512x384, no text (the logo is code-drawn)</td><td>1 + 1 retry</td><td>1 + 1 retry</td></tr>
+    <tr><td>Desert Town emblem for splash 1 and the Continue background</td><td>0 (code-drawn wordmark)</td><td>1 + 1 retry</td></tr>
+    <tr><td>Circus-tent battleback for Map089</td><td>0 (PIL stripes)</td><td>1 + 1 retry</td></tr>
+    <tr><th>Total, retries included</th><th>2</th><th>6</th></tr>
+  </table>
+  Everything else is PIL recolouring or code. No new music: every screen gets an existing Desert Town track or a sting cut from one.
+</div>
+</body>
+</html>

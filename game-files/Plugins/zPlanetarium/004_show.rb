@@ -154,7 +154,7 @@ module Planet
         return :done if R.clock_done?(@clock, @duration)
         @sky.update(t)
         @crawl&.update(t)
-        return :left if Input.trigger?(Input::BACK) && leave?
+        return :left if Input.trigger?(Input::BACK) && !R.leave_locked?(t, @segs) && leave?
       end
     end
 

@@ -5540,6 +5540,326 @@
     "WEDDINGBAG_DESC": {
       "en": "A lilac paper bag with a tiny gold heart. Smells like a wedding reception. Inside: a magnet of the couple and a candy.",
       "he": "שקית נייר בצבע לילך עם לב זהב קטן. מריחה כמו קבלת פנים. בפנים: מגנט של הזוג וסוכרייה."
+    },
+    "Continue": {
+      "en": "Continue",
+      "he": "המשך",
+      "draft": "Yotam"
+    },
+    "New Game": {
+      "en": "New Game",
+      "he": "משחק חדש",
+      "draft": "Yotam"
+    },
+    "Options": {
+      "en": "Options",
+      "he": "אפשרויות",
+      "draft": "Yotam"
+    },
+    "Quit Game": {
+      "en": "Quit Game",
+      "he": "יציאה מהמשחק",
+      "draft": "Yotam"
+    },
+    "Badges:": {
+      "en": "Badges:",
+      "he": "תגים:",
+      "draft": "Yotam"
+    },
+    "Pokédex:": {
+      "en": "Pokédex:",
+      "he": "פוקדקס:",
+      "draft": "Yotam"
+    },
+    "Time:": {
+      "en": "Time:",
+      "he": "זמן משחק:",
+      "draft": "Yotam"
+    },
+    "{1}h {2}m": {
+      "en": "{1}h {2}m",
+      "he": "{1} ש' {2} ד'",
+      "draft": "Yotam"
+    },
+    "{1}m": {
+      "en": "{1}m",
+      "he": "{1} ד'",
+      "draft": "Yotam"
+    },
+    "Save": {
+      "en": "Save",
+      "he": "שמירה",
+      "draft": "Yotam"
+    },
+    "Player": {
+      "en": "Player",
+      "he": "שחקן",
+      "draft": "Yotam"
+    },
+    "Time": {
+      "en": "Time",
+      "he": "זמן משחק",
+      "draft": "Yotam"
+    },
+    "Badges": {
+      "en": "Badges",
+      "he": "תגים",
+      "draft": "Yotam"
+    },
+    "Pokédex": {
+      "en": "Pokédex",
+      "he": "פוקדקס",
+      "draft": "Yotam"
+    },
+    "Would you like to save the game?": {
+      "en": "Would you like to save the game?",
+      "he": "לשמור את המשחק?",
+      "draft": "Yotam"
+    },
+    "{1} saved the game.": {
+      "en": "{1} saved the game.",
+      "he": "המשחק של {1} נשמר.",
+      "draft": "Yotam"
+    },
+    "The game was saved.": {
+      "en": "The game was saved.",
+      "he": "המשחק נשמר.",
+      "draft": "Yotam"
+    },
+    "The previous save file has been backed up.": {
+      "en": "The previous save file has been backed up.",
+      "he": "השמירה הקודמת גובתה.",
+      "draft": "Yotam"
+    },
+    "Save failed.": {
+      "en": "Save failed.",
+      "he": "השמירה נכשלה.",
+      "draft": "Yotam"
+    },
+    "WARNING!": {
+      "en": "WARNING!",
+      "he": "שימו לב!",
+      "draft": "Yotam"
+    },
+    "There is a different game file that is already saved.": {
+      "en": "There is a different game file that is already saved.",
+      "he": "כבר קיימת שמירה אחרת של משחק.",
+      "draft": "Yotam"
+    },
+    "If you save now, the other file's adventure, including items and Pokémon, will be entirely lost.": {
+      "en": "If you save now, the other file's adventure, including items and Pokémon, will be entirely lost.",
+      "he": "אם תשמרו עכשיו, כל מה שיש בשמירה האחרת, כולל חפצים, יימחק לגמרי.",
+      "draft": "Yotam"
+    },
+    "Are you sure you want to save now and overwrite the other save file?": {
+      "en": "Are you sure you want to save now and overwrite the other save file?",
+      "he": "בטוחים שרוצים לשמור עכשיו ולדרוס את השמירה האחרת?",
+      "draft": "Yotam"
+    },
+    "Are you sure you want to quit the game?": {
+      "en": "Are you sure you want to quit the game?",
+      "he": "בטוחים שרוצים לצאת מהמשחק?",
+      "draft": "Yotam"
+    },
+    "Music Volume": {
+      "en": "Music Volume",
+      "he": "עוצמת מוזיקה",
+      "draft": "Yotam"
+    },
+    "Adjust the volume of the background music.": {
+      "en": "Adjust the volume of the background music.",
+      "he": "קובעים את עוצמת מוזיקת הרקע.",
+      "draft": "Yotam"
+    },
+    "SE Volume": {
+      "en": "SE Volume",
+      "he": "עוצמת אפקטים",
+      "draft": "Yotam"
+    },
+    "Adjust the volume of sound effects.": {
+      "en": "Adjust the volume of sound effects.",
+      "he": "קובעים את עוצמת האפקטים.",
+      "draft": "Yotam"
+    },
+    "Text Speed": {
+      "en": "Text Speed",
+      "he": "מהירות טקסט",
+      "draft": "Yotam"
+    },
+    "Choose the speed at which text appears.": {
+      "en": "Choose the speed at which text appears.",
+      "he": "בוחרים באיזו מהירות הטקסט מופיע.",
+      "draft": "Yotam"
+    },
+    "Slow": {
+      "en": "Slow",
+      "he": "איטי",
+      "draft": "Yotam"
+    },
+    "Mid": {
+      "en": "Mid",
+      "he": "בינוני",
+      "draft": "Yotam"
+    },
+    "Fast": {
+      "en": "Fast",
+      "he": "מהיר",
+      "draft": "Yotam"
+    },
+    "Inst": {
+      "en": "Inst",
+      "he": "מיידי",
+      "draft": "Yotam"
+    },
+    "Battle Effects": {
+      "en": "Battle Effects",
+      "he": "אפקטי קרב",
+      "draft": "Yotam"
+    },
+    "Choose whether you wish to see move animations in battle.": {
+      "en": "Choose whether you wish to see move animations in battle.",
+      "he": "בוחרים אם להציג אנימציות של מהלכים בקרב.",
+      "draft": "Yotam"
+    },
+    "Battle Style": {
+      "en": "Battle Style",
+      "he": "סגנון קרב",
+      "draft": "Yotam"
+    },
+    "Choose whether you can switch Pokémon when an opponent's Pokémon faints.": {
+      "en": "Choose whether you can switch Pokémon when an opponent's Pokémon faints.",
+      "he": "בוחרים אם אפשר להחליף פוקימון כשהיריב מפיל פוקימון.",
+      "draft": "Yotam"
+    },
+    "Switch": {
+      "en": "Switch",
+      "he": "החלפה",
+      "draft": "Yotam"
+    },
+    "Set": {
+      "en": "Set",
+      "he": "קבוע",
+      "draft": "Yotam"
+    },
+    "Default Movement": {
+      "en": "Default Movement",
+      "he": "תנועה רגילה",
+      "draft": "Yotam"
+    },
+    "Choose your movement speed. Hold Back while moving to move at the other speed.": {
+      "en": "Choose your movement speed. Hold Back while moving to move at the other speed.",
+      "he": "בוחרים את מהירות התנועה. מחזיקים אחורה תוך כדי תנועה כדי לנוע במהירות השנייה.",
+      "draft": "Yotam"
+    },
+    "Walking": {
+      "en": "Walking",
+      "he": "הליכה",
+      "draft": "Yotam"
+    },
+    "Running": {
+      "en": "Running",
+      "he": "ריצה",
+      "draft": "Yotam"
+    },
+    "Send to Boxes": {
+      "en": "Send to Boxes",
+      "he": "שליחה לקופסאות",
+      "draft": "Yotam"
+    },
+    "Choose whether caught Pokémon are sent to your Boxes when your party is full.": {
+      "en": "Choose whether caught Pokémon are sent to your Boxes when your party is full.",
+      "he": "בוחרים אם פוקימון שנתפסו נשלחים לקופסאות כשהצוות מלא.",
+      "draft": "Yotam"
+    },
+    "Manual": {
+      "en": "Manual",
+      "he": "ידני",
+      "draft": "Yotam"
+    },
+    "Automatic": {
+      "en": "Automatic",
+      "he": "אוטומטי",
+      "draft": "Yotam"
+    },
+    "Give Nicknames": {
+      "en": "Give Nicknames",
+      "he": "מתן כינויים",
+      "draft": "Yotam"
+    },
+    "Choose whether you can give a nickname to a Pokémon when you obtain it.": {
+      "en": "Choose whether you can give a nickname to a Pokémon when you obtain it.",
+      "he": "בוחרים אם אפשר לתת כינוי לפוקימון כשמקבלים אותו.",
+      "draft": "Yotam"
+    },
+    "Don't give": {
+      "en": "Don't give",
+      "he": "לא לתת",
+      "draft": "Yotam"
+    },
+    "Speech Frame": {
+      "en": "Speech Frame",
+      "he": "מסגרת דיבור",
+      "draft": "Yotam"
+    },
+    "Choose the appearance of dialogue boxes.": {
+      "en": "Choose the appearance of dialogue boxes.",
+      "he": "בוחרים את מראה תיבות הדיבור.",
+      "draft": "Yotam"
+    },
+    "Menu Frame": {
+      "en": "Menu Frame",
+      "he": "מסגרת תפריט",
+      "draft": "Yotam"
+    },
+    "Choose the appearance of menu boxes.": {
+      "en": "Choose the appearance of menu boxes.",
+      "he": "בוחרים את מראה תיבות התפריט.",
+      "draft": "Yotam"
+    },
+    "Text Entry": {
+      "en": "Text Entry",
+      "he": "הזנת טקסט",
+      "draft": "Yotam"
+    },
+    "Choose how you want to enter text.": {
+      "en": "Choose how you want to enter text.",
+      "he": "בוחרים איך להזין טקסט.",
+      "draft": "Yotam"
+    },
+    "Cursor": {
+      "en": "Cursor",
+      "he": "סמן",
+      "draft": "Yotam"
+    },
+    "Keyboard": {
+      "en": "Keyboard",
+      "he": "מקלדת",
+      "draft": "Yotam"
+    },
+    "Screen Size": {
+      "en": "Screen Size",
+      "he": "גודל מסך",
+      "draft": "Yotam"
+    },
+    "Choose the size of the game window.": {
+      "en": "Choose the size of the game window.",
+      "he": "בוחרים את גודל חלון המשחק.",
+      "draft": "Yotam"
+    },
+    "Full": {
+      "en": "Full",
+      "he": "מלא",
+      "draft": "Yotam"
+    },
+    "Close": {
+      "en": "Close",
+      "he": "סגירה",
+      "draft": "Yotam"
+    },
+    "Close the screen.": {
+      "en": "Close the screen.",
+      "he": "סוגרים את המסך.",
+      "draft": "Yotam"
     }
   }
 }

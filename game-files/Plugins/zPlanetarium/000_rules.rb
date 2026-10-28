@@ -483,6 +483,11 @@ module PlanetRules
     t - segs[i][0]
   end
 
+  # Back can't leave during the long silence before P13 (players thought the show was over).
+  def self.leave_locked?(t, segs)
+    scene_at(t, segs) == GAP_SCENE
+  end
+
   # The silent gap's end (the next passage's start) when it is long enough for the countdown.
   def self.countdown_end(segs)
     seg = segs.find { |s| s[2] == COUNTDOWN_SCENE }

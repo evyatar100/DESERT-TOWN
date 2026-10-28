@@ -72,3 +72,7 @@ re:[אמה]{3,}
 הנקנקיה
 # TG48 founder's final line (SHIRA_FINAL), kept exactly as written
 אתהןם
+# TG57 labels: Pokedex transliteration and valid forms the dictionary misses
+פוקדקס
+מיידי
+אפקטי

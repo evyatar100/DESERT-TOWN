@@ -236,6 +236,10 @@ check(info[:scene] == :moon && (info[:layers][:moon] - 0.5).abs < 1e-6 && (info[
 check(PR.scene_info(1.0, segs)[:stars] < 0.1 && PR.scene_info(start_of["P02"] + 2, segs)[:stars] == 1.0,
       "planet: stars fade in over P01")
 stop = start_of["P13"]
+check(PR.leave_locked?(end_of["P12"] + 0.01, segs) && PR.leave_locked?(stop - 0.01, segs) &&
+      !PR.leave_locked?(end_of["P12"] - 0.5, segs) && !PR.leave_locked?(stop + 0.01, segs) &&
+      !PR.leave_locked?(end_of["P01"] + 1, segs),
+      "planet: Back is locked only in the silence between P12 and P13")
 check(PR.countdown_at(stop - 10.01, segs).nil? && PR.countdown_at(stop - 10, segs)[0] == 10 &&
       PR.countdown_at(stop - 0.01, segs)[0] == 1 && PR.countdown_at(stop, segs).nil?,
       "planet: the countdown is 10..1 in the last 10 s, ending exactly at P13's start")

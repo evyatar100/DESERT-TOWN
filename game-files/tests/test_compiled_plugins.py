@@ -24,7 +24,7 @@ def _text(value):
 def source_plugins():
     """[(folder, [(script name, code)])] in compile order (folders sorted, scripts sorted)."""
     out = []
-    for folder in sorted(p for p in PLUGINS.iterdir() if p.is_dir()):
+    for folder in sorted((p for p in PLUGINS.iterdir() if p.is_dir()), key=lambda p: p.name):  # same str order as compile_plugins.py
         if not (folder / "meta.txt").exists():
             continue
         scripts = []

@@ -149,3 +149,71 @@ To run Pokémon Essentials v21 natively on the Pi inside RetroPie:
   gpu_mem=256
   ```
   Result: Memory bandwidth demand reduced by 75%, refresh rate locked at smooth 60 FPS, eliminating all screen tearing and blackouts.
+
+---
+
+### Stage 8: Rebuild mkxp-z on Ruby 3.1 to match the laptop build (TG54, 2026-10-28)
+- **Status**: BUILT AND DEPLOYED. Process evidence from a Ports launch shows title BGM, then map BGM and a save written, with no errorlog entry. The founder's on-TV confirmation is pending.
+- **Problem**: The new 64 GB card (fresh RetroPie) ran the Stage 4 engine (Ruby 2.5). The game's scripts now use Ruby 3 syntax (endless `def x = ...`, 68+ places), so loading stopped with a SyntaxError in TempleStickers `007a_board_view.rb:44`.
+- **Decision (founder)**: Rebuild the engine to match the laptop, not just Ruby but every engine library, and do not change game code.
+- **What the laptop runs** (read from `game-files/Game.exe`, `x64-msvcrt-ruby310.dll`, `zlib1.dll`): the mkxp-z GitHub CI build of `2.4.2/c9378cf`, whose dependencies were built on 2023-07-07 (libjpeg-turbo carries `build 20230707`). Essentials' gate is an exact match: `System::VERSION != Essentials::MKXPZ_VERSION ("2.4.2/c9378cf")`.
+- **Approach**: Same commit (c9378cf already defaults to `mri_version=3.1`), built with that commit's own `linux/Makefile` (same forks and branches as `windows/Makefile`). Every dependency repo is pinned to its last commit before 2023-07-08, so it matches what the laptop's CI cache built. Everything goes in `/home/pi/tg54` with **no sudo**: RetroPie-Setup had already installed gcc 8.3, cmake 3.16, meson 0.56.1, autotools, libdrm/gbm/EGL/GL (Mesa 19.3.2), ALSA and X11 dev packages.
+
+#### Version table
+| component | laptop version | Pi version | match? |
+| :--- | :--- | :--- | :--- |
+| mkxp-z | 2.4.2/c9378cf | 2.4.2/c9378cf (git_hash pinned, see patch 1) | yes |
+| Ruby (mkxp-z/ruby `mkxp-z-3.1.3`) | 3.1.3p185 rev c2ac5ccbc2 | 3.1.3p185 rev c2ac5ccbc2 | yes |
+| zlib | 1.2.13 | 1.2.13 (built static; Buster has 1.2.11) | yes |
+| bzip2 | 1.0.8 | 1.0.8 (built static; Buster has 1.0.6) | yes |
+| OpenSSL | 1.1.1i | 1.1.1i | yes |
+| OpenAL Soft (mkxp-z fork) | 1.22.2 | 1.22.2 (Buster: 1.19.1) | yes |
+| FluidSynth (sans-glib fork) | 2.1.5 | 2.1.5 (synth identical; OS audio drivers off, see patch 6) | yes (core) |
+| pixman | 0.40.1 | 0.40.1 | yes |
+| libpng | 1.6.38.git | 1.6.38.git | yes |
+| libjpeg-turbo | 2.0.6 (build 20230707) | 2.0.6 | yes |
+| SDL2 (mkxp-z fork, `mkxp-z` branch) | not embedded; same branch, revision placeholder `hg-0:aaaaaaaaaaah` in both | 2.0.12 (Buster: 2.0.10+rpi) | same source, not byte-proven |
+| SDL2_image (SDL_image_old `mkxp-z`) | not embedded | 2.0.6 | same source, not byte-proven |
+| SDL2_ttf (`mkxp-z`) | not embedded | 2.0.15 | same source, not byte-proven |
+| SDL_sound (`git` branch) | not embedded | 2.0.1 | same source, not byte-proven |
+| PhysFS (`release-3.2.0`) | not embedded | 3.2.0 | same source, not byte-proven |
+| FreeType (mkxp-z fork) | not embedded | 2.13.0+git (4d8db130e) | same source, not byte-proven |
+| ogg / vorbis / theora | not embedded | 1.3.4+git / 1.3.7 / 1.2.0alpha1+git | same source, not byte-proven |
+| uchardet / libiconv | not embedded | 0.0.6 / 1.16 | same source, not byte-proven |
+| OpenGL driver | Windows GPU vendor driver | Mesa 19.3.2 V3D 4.2, GL 2.1 | no: platform driver, cannot match |
+| Video/audio backends | Win32 / WASAPI-DSound | SDL KMSDRM, OpenAL ALSA (+ system libsndio 7.0) | no: platform, cannot match |
+
+#### Build steps (scripts on the Pi: `~/tg54/pin_deps.sh`, `~/tg54/build_deps.sh`, `~/tg54/build_mkxp.sh`)
+1. `git clone https://github.com/mkxp-z/mkxp-z ~/tg54/mkxp-z && git checkout c9378cf`.
+2. Host Ruby (needed as BASERUBY to build Ruby from git): official `ruby-3.1.3.tar.gz` (sha256 `5ea498a3...6ab9e`) built into `~/tg54/baseruby`.
+3. `pin_deps.sh`: clone each repo from `linux/Makefile` into `linux/downloads/armv7l/<name>` and check out `git rev-list -1 --before=2023-07-08 HEAD` (OpenSSL tag `OpenSSL_1_1_1i`, Ruby branch `mkxp-z-3.1.3` resolves to c2ac5ccbc2). Make then skips its own clones.
+4. `build_deps.sh` (`make everything` in `linux/`, with `build-armv7l/bin` first on PATH):
+   ```bash
+   make everything OPENSSL_FLAGS=linux-armv4 \
+     RUBY_FLAGS=--with-baseruby=/home/pi/tg54/baseruby/bin/ruby \
+     PKG_CONFIG_LIBDIR=$P/lib/pkgconfig:/usr/lib/arm-linux-gnueabihf/pkgconfig:/usr/share/pkgconfig:/usr/lib/pkgconfig \
+     SDL_FLAGS="--disable-video-rpi --enable-video-kmsdrm --disable-fcitx --disable-ibus"
+   ```
+5. zlib 1.2.13 (`./configure --static`, `-fPIC`) and bzip2 1.0.8 (`make libbz2.a`, `-fPIC`) installed into `build-armv7l` before Ruby's `ext/zlib` is configured.
+6. `build_mkxp.sh`: `meson setup build --buildtype=release -Dmri_version=3.1 --prefix=/home/pi/tg54/install && ninja -C build && meson install -C build` with the same PATH/PKG_CONFIG_LIBDIR and `CFLAGS/LDFLAGS` pointing at `build-armv7l`.
+   Result: `mkxp-z.armv7l` (12.6 MB). Everything is static except `libruby.so.3.1`, which loads from `$ORIGIN/lib32`.
+
+#### Patches and deviations from the upstream recipe
+1. `meson.build:11` `git_hash = 'c9378cf'`: a full clone abbreviates to `c9378cfa` (8 chars), which fails the Essentials gate. CI used a shallow clone (7 chars).
+2. `OPENSSL_FLAGS=linux-armv4`: the Makefile's `linux-armv7l` is not an OpenSSL target.
+3. SDL: `PKG_CONFIG_LIBDIR` must include the system dirs or configure cannot see `libdrm.pc`/`gbm.pc`, and SDL builds with no KMSDRM (no display without X). `--disable-video-rpi` keeps it off the legacy dispmanx/Broadcom GL path. `--disable-fcitx --disable-ibus` works around SDL 2.0.12 enabling fcitx without dbus headers.
+4. Ruby git checkout: `tool/config.sub` and `tool/config.guess` copied from the 3.1.3 tarball (same release). They are fetched at release time and are not in git.
+5. SDL_image: `libtoolize --force --copy && autoreconf -fi` (shipped ltmain 2.2.6 vs Buster's libtool 2.4.6). FreeType: run `./autogen.sh`, then `./configure --prefix=$P --enable-static --disable-shared` by hand (its tracked top-level `configure`/`Makefile` make the Makefile skip both, and it then tries to install to `/usr/local`).
+6. FluidSynth rebuilt with `-Denable-alsa=off -Denable-dbus=off -Denable-pulseaudio=off -Denable-jack=off -Denable-oss=off -Denable-libsndfile=off ...`. mkxp-z uses it only as an in-memory synth into OpenAL, and the static ALSA/RTKit drivers broke the link. SF3 (compressed) soundfonts are unsupported; the game ships `soundfont.sf2`.
+7. The Stage 4 `rb_ary_clear(lpaths)` patch is **not** applied: zlib and the other exts are linked into libruby (`--with-static-linked-ext`), which matches the Windows behaviour.
+
+#### Deploy (no sudo; game files untouched)
+- `~/pokemon-game/mkxp-z` and `~/stage/mkxp-z` are the new binary. The Ruby 2.5 binary is kept as `mkxp-z.ruby25` in both.
+- `~/pokemon-game/lib32/` and `~/stage/lib32/` hold `libruby.so.3.1` (+ `libcrypt.so.1`, `libbsd.so.0` copied by upstream `install.sh`).
+- The launcher `~/RetroPie/roms/ports/Pokemon Essentials.sh` is unchanged (the rpath finds `lib32`).
+- Rollback: `cd ~/pokemon-game && mv mkxp-z mkxp-z.ruby31 && mv mkxp-z.ruby25 mkxp-z`.
+
+#### Verification
+- `timeout 40 ./mkxp-z` over SSH (ES running): GL init on V3D 4.2 / GL 2.1 Mesa 19.3.2, alive at 40 s, `errorlog.txt` unchanged.
+- Launched from EmulationStation Ports: after about 1.5 min the process held `Audio/BGM/Title.ogg`, then `Audio/BGM/Area.ogg`, and wrote `~/.local/share/Pokemon Essentials v21.1/Game.rxdata`. `errorlog.txt` was still the old 20:08 entry from the 2.5 engine.
+- `[ALSOFT] (EE) Could not query RTKit` in `game.log` is harmless (no realtime-priority daemon).

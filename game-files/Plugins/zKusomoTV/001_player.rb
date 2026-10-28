@@ -1,27 +1,38 @@
 # Kusomo TV toilets on deep-playa 1b: a title line, then the video; BGM is paused and restored.
 module KusomoTV
-  def self.movie_path(id)
-    base = KusomoTVRules.file_for(id)
-    return nil if !base
-    return FileTest.exist?(base + ".ogv") ? base + ".ogv" : nil
+  # The .ogv paths of a video, in play order; nil if the id is unknown or any part is missing.
+  def self.movie_paths(id)
+    paths = KusomoTVRules.parts_for(id).map { |base| base + ".ogv" }
+    return nil if paths.empty? || !paths.all? { |p| FileTest.exist?(p) }
+    return paths
+  end
+
+  # mkxp-z ends a skippable movie on a fresh Use/Back press and leaves that trigger set.
+  def self.movie_skipped?
+    return Input.trigger?(Input::USE) || Input.trigger?(Input::BACK)
   end
 
   # Plays the video (skippable), then the poster for 10 s. Returns true if the video played.
+  # A split video plays its parts back to back; skipping one skips the rest.
   # movie:/poster: false are for the F9 isolation entries only.
   def self.play(id, movie: true, poster: true)
     trace("play #{id} movie=#{movie} poster=#{poster}")
-    path = movie_path(id)
-    trace("play: path=#{path.inspect}")
-    return false if !path
+    paths = movie_paths(id)
+    trace("play: paths=#{paths.inspect}")
+    return false if !paths
     bgm = $game_system.playing_bgm
     pos = (Audio.bgm_pos rescue 0)
     $game_system.bgm_stop
     ok = true
     begin
       if movie
-        trace("play: before play_movie")
-        Graphics.play_movie(path, 100, true)
-        trace("play: after play_movie")
+        paths.each do |path|
+          trace("play: before play_movie #{path}")
+          Graphics.play_movie(path, 100, true)
+          skipped = movie_skipped?
+          trace("play: after play_movie #{path} skipped=#{skipped}")
+          break if skipped
+        end
       end
     rescue StandardError, NotImplementedError => e
       trace("play: play_movie raised #{e.class}: #{e.message}")

@@ -37,7 +37,7 @@ module Graphics
   def self.width = 512
   def self.height = 384
   def self.update = ($clock += 1 / 60.0; $frames += 1; $frame_hook&.call)
-  def self.play_movie(*) = ($movie_calls += 1; raise "boom" if $movie_fails)
+  def self.play_movie(path, *) = ($movie_calls += 1; $movie_paths << path; raise "boom" if $movie_fails)
 end
 module System
   def self.uptime = $clock
@@ -65,6 +65,8 @@ def echoln(*); end
 $pictures = true
 def pbResolveBitmap(p) = $pictures ? p : nil
 $movie_calls = 0
+$movie_paths = []
+$skip_after = nil   # skip on the Nth play_movie call
 $movie_fails = false
 $input_updates = 0
 $events = []
@@ -96,7 +98,8 @@ def run_play
   $queue = [:use, :back]
   KusomoTV.play(:mohel)
 end
-module FileTest; def self.exist?(_p) = true; end
+module FileTest; def self.exist?(p) = !$missing&.include?(p); end
+module KusomoTV; def self.movie_skipped? = ($skip_after == $movie_calls); end
 
 # Poster time and countdown, with button mashing on every frame.
 $frame_hook = -> { $queue.push(:use) }
@@ -183,4 +186,29 @@ $interp_running = false
 job.call
 check($movie_calls == 1 && $frames == 0 && $trace.any? { |l| l.include?("play grandma movie=true poster=false") },
       "f9: movie only plays the picked video with no poster")
+
+# Split video: mushrooms plays both parts back to back, then one poster.
+def run_split(skip_after)
+  $movie_calls = 0
+  $movie_paths = []
+  $skip_after = skip_after
+  $frames = 0
+  r = KusomoTV.play(:mushrooms)
+  $skip_after = nil
+  r
+end
+ok = run_split(nil)
+check(ok && $movie_paths == ["Movies/kusomo_mushrooms_1.ogv", "Movies/kusomo_mushrooms_2.ogv"] && ($frames - 600).abs <= 1,
+      "split: mushrooms plays part 1 then part 2, then the 10 s poster (#{$movie_paths.inspect})")
+ok = run_split(1)
+check(ok && $movie_paths == ["Movies/kusomo_mushrooms_1.ogv"] && ($frames - 600).abs <= 1,
+      "split: skipping part 1 skips part 2 and still shows the poster")
+ok = run_split(2)
+check(ok && $movie_calls == 2, "split: skipping part 2 ends the video")
+$missing = ["Movies/kusomo_mushrooms_2.ogv"]
+ok = run_split(nil)
+check(!ok && $movie_calls == 0, "split: a missing part plays nothing (static screen line)")
+$missing = nil
+check(KusomoTVRules.parts_for(:grandma) == ["Movies/kusomo_grandma"] && KusomoTVRules.parts_for(:nope) == [],
+      "rules: a single file is one part, an unknown id has none")
 exit($fails.empty? ? 0 : 1)

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import re
+import struct
 import shutil
 import subprocess
 import sys
@@ -24,19 +25,59 @@ RULES = ROOT / "Plugins" / "zKusomoTV" / "000_rules.rb"
 
 
 def video_table():
+    """id -> list of base paths; a split video (TG49) is a Ruby array of parts."""
     text = RULES.read_text(encoding="utf-8")
-    return dict(re.findall(r':(\w+)\s*=>\s*"([^"]+)"', text))
+    table = {}
+    for vid, value in re.findall(r':(\w+)\s*=>\s*(\[[^\]]*\]|"[^"]+")', text):
+        table[vid] = re.findall(r'"([^"]+)"', value)
+    return table
+
+
+def ogg_stream_ends(path):
+    """{'video': s, 'audio': s}: when each stream's last granule ends."""
+    data = path.read_bytes()
+    heads, last, pos = {}, {}, 0
+    while (pos := data.find(b"OggS", pos)) >= 0:
+        gran, serial = struct.unpack("<qI", data[pos + 6:pos + 18])
+        nseg = data[pos + 26]
+        heads.setdefault(serial, data[pos + 27 + nseg:pos + 27 + nseg + 42])
+        if gran >= 0:
+            last[serial] = gran
+        pos += 4
+    ends = {}
+    for serial, head in heads.items():
+        if head.startswith(b"\x80theora"):
+            frn, frd = struct.unpack(">II", head[22:30])
+            shift = ((head[40] & 0x03) << 3) | (head[41] >> 5)
+            gran = last[serial]
+            ends["video"] = ((gran >> shift) + (gran & ((1 << shift) - 1))) * frd / frn
+        elif head.startswith(b"\x01vorbis"):
+            ends["audio"] = last[serial] / struct.unpack("<I", head[12:16])[0]
+    return ends
 
 
 class KusomoTVTest(unittest.TestCase):
     def test_four_videos_and_files_exist(self):
         videos = video_table()
         self.assertEqual(sorted(videos), ["grandma", "midburn", "mohel", "mushrooms"])
-        for vid, base in videos.items():
-            path = ROOT / (base + ".ogv")
-            self.assertTrue(path.exists(), vid)
-            self.assertGreater(path.stat().st_size, 100_000, vid)
-            self.assertEqual(path.read_bytes()[:4], b"OggS", vid)
+        self.assertEqual(videos["mushrooms"], ["Movies/kusomo_mushrooms_1", "Movies/kusomo_mushrooms_2"])
+        for vid, bases in videos.items():
+            for base in bases:
+                path = ROOT / (base + ".ogv")
+                self.assertTrue(path.exists(), base)
+                self.assertGreater(path.stat().st_size, 100_000, base)
+                self.assertEqual(path.read_bytes()[:4], b"OggS", base)
+
+    def test_audio_never_ends_before_video(self):
+        # TG49: mkxp-z segfaulted at the end of the old mushrooms, whose audio stopped before its video.
+        for bases in video_table().values():
+            for base in bases:
+                ends = ogg_stream_ends(ROOT / (base + ".ogv"))
+                self.assertIn("video", ends, base)
+                self.assertIn("audio", ends, base)
+                self.assertGreaterEqual(ends["audio"], ends["video"], f"{base}: {ends}")
+        old = ogg_stream_ends(ROOT / "Movies" / "kusomo_mushrooms.ogv")
+        self.assertLess(old["audio"], old["video"], "the checker must flag the old single-file mushrooms")
 
     def test_events_map_to_videos(self):
         videos = video_table()

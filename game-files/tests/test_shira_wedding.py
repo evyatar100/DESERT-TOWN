@@ -33,6 +33,7 @@ PREFIX = "SHIRA_"
 PLAYA = 98
 FINAL = "ואם אתהןם רואים אותי בפלאיה שם בחוץ - תגידו לי ולאביתר מזל טוב מעדו!"
 ITEM_HE = "שקית חתונה"
+PRE_SHIRA_EVENTS_SHA256 = "ce4127995d5c0238405a45a150b08feadbd70cf34edfded0aa66fc30f30d5bc6"   # Map098 events 1-15, golden at 6a0e3a0~1
 FINAL_ART_SHA256 = {   # founder-accepted art (TG50), assets-factory/shira_art/
     "shira_poses": "1b4764c6e6e21101d20893f8cfdd18f710e91a521e3148b9da7031c3c26199fa",
     "venue_props": "648fe0fb428768543a61653231707b39ce078124c552a0564ed4252596620688",
@@ -245,17 +246,12 @@ class PlayaTests(unittest.TestCase):
         self.assertGreaterEqual(hit / total, 0.85, "coverage %d/%d" % (hit, total))
 
     def test_old_events_untouched(self):
-        """T18: against the committed golden, ids 1-15 are identical and only 16-17 are new."""
-        try:
-            head = subprocess.run(["git", "show", "HEAD:game-files/tests/golden/Map098.json"], cwd=REPO,
-                                  capture_output=True, check=True).stdout.decode("utf-8")
-        except (OSError, subprocess.CalledProcessError):
-            self.skipTest("git not available")
-        old = {e["id"]: e for e in json.loads(head)["events"]}
+        """T18: events 1-15 equal the pre-Shira Map098 golden (6a0e3a0~1), pinned by hash; only 16-17 are new."""
         now = self.playa.events
-        self.assertEqual(sorted(set(now) - set(old)), [16, 17])
-        for eid, ev in old.items():
-            self.assertEqual(now[eid], ev, eid)
+        self.assertEqual(sorted(now), list(range(1, 18)))
+        old = sorted((ev for eid, ev in now.items() if eid <= 15), key=lambda e: e["id"])
+        digest = hashlib.sha256(json.dumps(old, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
+        self.assertEqual(digest, PRE_SHIRA_EVENTS_SHA256)
 
 
 class ItemArtCopyTests(unittest.TestCase):

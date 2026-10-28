@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-26 | TG5 Temple sticker boards (dt-game)
 
+> Buttons: Red became Yellow on the final panel (TG27, `docs/specs/cabinet-buttons-final.md`).
+
 ## Goal
 
 - **What:** Fact signs (in Temple Inside and on the road to it) each give the player one sticker. The player sticks it on its own honoree's board (founder decision 2026-10-26) and can leave a first name and one sentence. Later players flip through those pages, and a player who has placed at least one sticker on each of the 4 boards this run (confirmed by founder 2026-10-26) gets a visit from Ido outside the temple.

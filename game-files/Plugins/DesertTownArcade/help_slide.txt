@@ -9,9 +9,11 @@ invite = צאו לשוטט. דברו עם הדמויות.
 places = גלו את העיר.
 footer = לחצו על כל כפתור כדי לחזור למשחק
 
-joystick = הליכה לכל הכיוונים
-red = דיבור ופעולה
-blue = ריצה
+joystick = הליכה
+white = עזרה
+green = מפה
+pink = תפריט
+yellow = דיבור / אישור
+blue = ריצה / ביטול
 orange = תיק
-green = מפת העולם
-white = עזרה (המסך הזה)
+sketch_caption = לוח הכפתורים

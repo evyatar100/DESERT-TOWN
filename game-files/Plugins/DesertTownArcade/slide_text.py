@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+import re
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, features
 
 SCREEN = (512, 384)
 # Graphics/UI/Controls help/bg.png is this flat amber.
@@ -15,11 +16,12 @@ FRAME = (92, 48, 16, 255)
 FRAME_HI = (232, 184, 96, 255)
 
 CIRCLE_COLORS = {
-    "red": (214, 40, 40, 255),
+    "yellow": (232, 196, 64, 255),
     "blue": (30, 90, 210, 255),
     "orange": (242, 122, 16, 255),
     "green": (24, 150, 64, 255),
     "white": (255, 252, 245, 255),
+    "pink": (214, 112, 196, 255),
 }
 
 HERE = Path(__file__).resolve().parent
@@ -36,7 +38,7 @@ def load_slide_text(path: Path | None = None) -> dict[str, str]:
             continue
         key, value = line.split("=", 1)
         fields[key.strip()] = value.strip()
-    required = ("title", "intro", "footer", "joystick", "red", "blue", "orange", "green", "white")
+    required = ("title", "intro", "footer", "joystick", "white", "green", "pink", "yellow", "blue", "orange")
     missing = [key for key in required if not fields.get(key)]
     if missing:
         raise SystemExit(f"{path} is missing: {', '.join(missing)}")
@@ -54,8 +56,27 @@ def text_direction(rtl: bool) -> str:
     return "rtl" if rtl else "ltr"
 
 
+HAVE_RAQM = features.check("raqm")
+_MIRROR = str.maketrans("()[]<>{}", ")(][><}{")
+_LATIN_RUN = re.compile(r"[A-Za-z0-9](?:[A-Za-z0-9 ./'-]*[A-Za-z0-9])?")
+
+
+def visual_rtl(text: str) -> str:
+    """Fallback for a Pillow without libraqm: reverse the line, keep Latin and digit runs LTR."""
+    flipped = text[::-1].translate(_MIRROR)
+    return _LATIN_RUN.sub(lambda m: m.group(0)[::-1], flipped)
+
+
+def layout(text: str, rtl: bool) -> tuple[str, dict]:
+    """Text and Pillow kwargs. With libraqm, pass logical text and a direction."""
+    if HAVE_RAQM:
+        return text, {"direction": text_direction(rtl)}
+    return (visual_rtl(text) if rtl else text), {}
+
+
 def text_width(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont, rtl: bool) -> float:
-    return draw.textlength(text, font=face, direction=text_direction(rtl))
+    text, kwargs = layout(text, rtl)
+    return draw.textlength(text, font=face, **kwargs)
 
 
 def wrap_rtl(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont, max_width: int) -> list[str]:
@@ -76,11 +97,11 @@ def wrap_rtl(draw: ImageDraw.ImageDraw, text: str, face: ImageFont.FreeTypeFont,
 
 
 def draw_text(draw, text, xy, face, fill, rtl, anchor, shadow=SHADOW):
-    direction = text_direction(rtl)
+    text, kwargs = layout(text, rtl)
     x, y = xy
     if shadow is not None:
-        draw.text((x + 1, y + 1), text, font=face, fill=shadow, anchor=anchor, direction=direction)
-    draw.text((x, y), text, font=face, fill=fill, anchor=anchor, direction=direction)
+        draw.text((x + 1, y + 1), text, font=face, fill=shadow, anchor=anchor, **kwargs)
+    draw.text((x, y), text, font=face, fill=fill, anchor=anchor, **kwargs)
 
 
 def new_canvas() -> tuple[Image.Image, ImageDraw.ImageDraw]:

@@ -36,8 +36,8 @@ module TempleStickers
     BAND = [12, 9, 10].freeze
     DIM = [150, 140, 122].freeze
     LABEL = [248, 216, 104].freeze
-    BUTTONS = { red: [181, 72, 63], blue: [79, 114, 184], orange: [216, 138, 59],
-                white: [242, 236, 220], green: [95, 154, 108] }.freeze
+    BUTTONS = { yellow: [232, 196, 64], blue: [79, 114, 184], orange: [216, 138, 59],
+                white: [242, 236, 220], green: [95, 154, 108], pink: [214, 112, 196] }.freeze
     @bg = nil
     @bg_checked = false
 
@@ -224,7 +224,7 @@ module TempleStickers
       end
     end
 
-    # entries: [[:red, "label"], ...]. Hebrew runs right to left from the right edge.
+    # entries: [[:yellow, "label"], ...]. Hebrew runs right to left from the right edge.
     def self.draw_legend(bmp, entries)
       sized(bmp, SMALL) do
         rtl = entries.any? { |_, label| TempleStickers.hebrew?(label) }

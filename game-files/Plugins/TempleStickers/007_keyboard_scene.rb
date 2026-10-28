@@ -1,6 +1,6 @@
 #===============================================================================
 # TempleStickers - on-screen keyboard (own scene; stock PokemonEntryScene2 is
-# not edited). Joystick moves; Red types, Blue deletes (cancels when empty),
+# not edited). Joystick moves; Yellow types, Blue deletes (cancels when empty),
 # Orange next tab, White space, Green done. Every action also has a grid cell.
 #===============================================================================
 

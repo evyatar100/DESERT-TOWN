@@ -1,5 +1,5 @@
 #===============================================================================
-# Toaster - Yunik's Stamp Desk (the hearing): 12 forms, Red approve / Blue reject
+# Toaster - Yunik's Stamp Desk (the hearing): 12 forms, Yellow approve / Blue reject
 # by a rule amended twice. Modal like zTempleHoop; the BGM is never touched.
 #===============================================================================
 

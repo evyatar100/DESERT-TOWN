@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-27 | TG9 חירום טוסט (Toast Emergency): Eyal the Boss, the Appliance Committee and the possessed toaster
 
+> Buttons: Red became Yellow on the final panel (TG27, `docs/specs/cabinet-buttons-final.md`).
+
 > **Superseded in part by "Revision 2026-10-27 (founder, TG17)" at the end of this file.** Where the two conflict, the revision wins: Eyal HaNoodles is now the quest giver and the one who gets the toast, Eyal the Boss is out of the quest, and the Yunik duel and the Rotom battle are replaced by two form mini-games. Everything the revision does not mention stays as written below.
 
 ## Goal

@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-27 | TG21 "הנקנקיה של עלא" (Alla's hot-dog stand): Alla, the Happy Hour campers and the giant hot dog on the Playa
 
+> Buttons: Red became Yellow on the final panel (TG27, `docs/specs/cabinet-buttons-final.md`).
+
 > **Status: closed (founder, 2026-10-27): Q1 the referendum, Q2 the Hot-Dog Rush only, Q3 Playa at the giant hot dog.** Every number is a reversible default.
 
 ## Goal

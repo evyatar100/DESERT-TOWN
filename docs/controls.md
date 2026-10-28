@@ -1,21 +1,36 @@
 # Desert Town controls
 
 The game is played two ways. On a dev machine the keys below are the keyboard.
-On the arcade cabinet, each physical button will later be mapped to one of
-these keys. GPIO wiring is not part of this game code. The color-to-key table
-lives in `game-files/Plugins/DesertTownArcade/000_controls.rb` (`DesertTownControls::COLORS`).
+On the arcade cabinet, each physical button is wired to one of these keys (the
+board acts like a keyboard). GPIO wiring is not part of this game code. The
+color-to-key table lives in `game-files/Plugins/DesertTownArcade/000_controls.rb`
+(`DesertTownControls::COLORS`).
+
+## The panel
+
+![The cabinet panel: White, joystick, Green, Pink, Yellow, Blue, Orange](controls/panel-sketch.png)
+
+```
+ (White F)  [joy=arrows]  (Green G)(Pink N)     (Yellow H)          (Orange K)
+                                                          (Blue J)
+```
+
+The panel has 6 buttons and a joystick. There is no Red button; the panel
+surface itself is red. The empty hole at the lower right is not a button.
+Regenerate the picture with `render_help_slide.py` (see Slides).
 
 ## Color buttons
 
 | Color | Key | What it does |
 | --- | --- | --- |
-| Red | H | Talk, confirm, and every other place C works. Same input as C (`Input::USE`). |
+| Yellow | H | Talk, confirm, and every other place C works. Same input as C (`Input::USE`). In mini-games: serve, approve, shoot, push, stamp, type. |
 | Blue | J | Run while walking, and cancel, the same way X does. Same input as X (`Input::BACK`). Hold to run. Running shoes and the run style option still apply. |
 | Orange | K | Opens the Bag. Press again while the Bag is open to close it. |
-| White | F | Help slide. Any button closes it. Music keeps playing. |
+| White | F | Help slide, which draws this panel. Any button closes it. Music keeps playing. |
 | Green | G | World map slide. Any button closes it. Music keeps playing. |
+| Pink | N | Opens the pause menu (party, Pokedex, save, options). Same input as Z (`Input::ACTION`). |
 
-Red and Blue are extra keys on the existing inputs. They do not replace C or X.
+Yellow, Blue and Pink are extra keys on the existing inputs. They do not replace C, X or Z.
 
 ## Unchanged keys
 
@@ -33,7 +48,7 @@ Red and Blue are extra keys on the existing inputs. They do not replace C or X.
 
 ## Why not A, S, D, F, G as first proposed
 
-The first proposal was Red A, Blue S, Orange D, White F, Green G.
+The first proposal (before the final panel, when Red was still a button) was Red A, Blue S, Orange D, White F, Green G.
 
 F and G are not used by the input system, so White and Green kept them.
 
@@ -45,7 +60,7 @@ A, S, and D are the default RGSS1 bindings (mkxp `keybindings.cpp`, confirmed ag
 | S | Jump Down: page down in lists, and the map-connection editor |
 | D | Special: opens the Ready menu |
 
-Those three colors moved to the next free letters, H, J, and K. Also left alone: C, X, Z, Q, W, B, and the animation-editor keys E, L, R, and P.
+Those three colors moved to the next free letters, H, J, and K. Pink took N, which is also free. Also left alone: C, X, Z, Q, W, B, and the animation-editor keys E, L, R, and P.
 
 ## Slides
 
@@ -65,19 +80,28 @@ python3 game-files/Plugins/DesertTownArcade/render_world_map_slide.py
 
 That writes `game-files/Graphics/Pictures/DesertTownWorldMap.png`. The stock Town Map graphics (`mapRegion0.png`, `mapRegion1.png`) are the Essentials regions Essen and Tiall, not Desert Town. PR #10's `mapRegion2.png` is not on main.
 
-While either slide is up, any keyboard button closes it (arrows, C, X, Z, A, S, D, the color keys, Enter, Esc, Space). The slide code does not call `Audio`, `pbBGMPlay`, `pbBGMStop`, or `pbBGMFade`.
+While either slide is up, any keyboard button closes it (arrows, C, X, Z, A, S, D, the color keys including N, Enter, Esc, Space). The slide code does not call `Audio`, `pbBGMPlay`, `pbBGMStop`, or `pbBGMFade`.
 
 ## Cabinet wiring later
 
-Map each button to one key:
+The panel has 6 buttons and a 4-way joystick: 10 inputs. Map each one to one key:
 
 | Button | Send this key |
 | --- | --- |
-| Red | H |
+| Yellow | H |
 | Blue | J |
 | Orange | K |
 | White | F |
 | Green | G |
-| (existing) action | C |
-| (existing) run | X |
-| (existing) menu | Z |
+| Pink | N |
+
+| Joystick | Send this key |
+| --- | --- |
+| Up | Up arrow |
+| Down | Down arrow |
+| Left | Left arrow |
+| Right | Right arrow |
+
+The old extra C, X and Z cabinet buttons are dropped: Yellow, Blue and Pink replace them.
+The wiring board must act as a keyboard (a USB encoder in keyboard mode or a GPIO keyboard driver).
+A board that shows up as a gamepad cannot send the raw F, G, K and N keys.

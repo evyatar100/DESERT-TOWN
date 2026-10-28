@@ -442,14 +442,18 @@ check($game_system.save_disabled == false, "restart bridge re-enables saving")
 check($game_system.menu_disabled == false, "restart bridge re-enables the menu")
 
 # --- color buttons ---
-check(DesertTownControls.color_keys == [:H, :J, :K, :F, :G], "color keys are H J K F G")
+check(DesertTownControls.color_keys == [:H, :J, :K, :F, :G, :N], "color keys are H J K F G N")
+check(!DesertTownControls::COLORS.key?(:red), "there is no red button")
+check(DesertTownControls::COLORS.keys.sort == %i[blue green orange pink white yellow],
+      "the panel has exactly yellow, blue, orange, white, green, pink")
 taken = DesertTownControls::TAKEN_KEYS.keys
 DesertTownControls.color_keys.each do |key|
   check(!taken.include?(key), "color key #{key} is free")
 end
-check(DesertTownControls::MIRROR_INPUT[:red] == :USE, "red mirrors Use, the C input")
+check(DesertTownControls::MIRROR_INPUT[:yellow] == :USE, "yellow mirrors Use, the C input")
 check(DesertTownControls::MIRROR_INPUT[:blue] == :BACK, "blue mirrors Back, the X input")
-check(!DesertTownControls::MIRROR_INPUT.value?(:ACTION), "no color key mirrors the Z menu")
+check(DesertTownControls::MIRROR_INPUT.select { |_color, input| input == :ACTION }.keys == [:pink],
+      "only pink mirrors the Z menu")
 check(DesertTownArcade::BAG_KEY == :B, "B is still the existing bag key")
 
 check(DesertTownControls.bag_toggle(false, false) == :none, "no orange press leaves the bag alone")
@@ -460,7 +464,7 @@ check(DesertTownControls.bag_toggle(true, false) == :none, "an open bag stays op
 %i[USE BACK ACTION UP DOWN LEFT RIGHT JUMPUP JUMPDOWN SPECIAL AUX1 AUX2].each do |input|
   check(DesertTownControls.slide_should_close?([input], []), "#{input} closes a slide")
 end
-%i[A S D C X Z F G H J K SPACE RETURN ESCAPE].each do |key|
+%i[A S D C X Z F G H J K N SPACE RETURN ESCAPE].each do |key|
   check(DesertTownControls.slide_should_close?([], [key]), "#{key} closes a slide")
 end
 check(!DesertTownControls.slide_should_close?([], []), "a slide stays up until a button")
@@ -472,9 +476,9 @@ check(!Input.trigger?(Input::ACTION), "C does not open the menu")
 
 $dt_trigger = nil
 $dt_raw_trigger = :H
-check(Input.trigger?(Input::USE), "red confirms like C")
-check(!Input.trigger?(Input::BACK), "red does not cancel")
-check(!Input.trigger?(Input::ACTION), "red does not open the menu")
+check(Input.trigger?(Input::USE), "yellow confirms like C")
+check(!Input.trigger?(Input::BACK), "yellow does not cancel")
+check(!Input.trigger?(Input::ACTION), "yellow does not open the menu")
 
 $dt_trigger = Input::ACTION
 $dt_raw_trigger = nil
@@ -493,6 +497,15 @@ check(Input.press?(Input::BACK), "holding blue runs like X")
 check(!Input.press?(Input::USE), "holding blue does not confirm")
 check(!Input.press?(Input::ACTION), "holding blue does not open the menu")
 
+$dt_press = nil
+$dt_raw_press = nil
+$dt_trigger = nil
+$dt_raw_trigger = :N
+check(Input.trigger?(Input::ACTION), "pink opens the menu like Z")
+check(!Input.trigger?(Input::USE), "pink does not confirm")
+check(!Input.trigger?(Input::BACK), "pink does not cancel")
+check(!DesertTownArcade.bag_key_pressed?, "pink does not request the bag")
+
 $dt_trigger = nil
 $dt_press = nil
 $dt_raw_trigger = nil
@@ -502,7 +515,7 @@ check(DesertTownArcade.bag_key_pressed?, "B still requests the bag")
 $dt_raw_trigger = :K
 check(DesertTownArcade.bag_key_pressed?, "orange requests the bag")
 $dt_raw_trigger = :H
-check(!DesertTownArcade.bag_key_pressed?, "red does not request the bag")
+check(!DesertTownArcade.bag_key_pressed?, "yellow does not request the bag")
 
 DesertTownControls.begin_bag_screen
 $dt_raw_trigger = :K

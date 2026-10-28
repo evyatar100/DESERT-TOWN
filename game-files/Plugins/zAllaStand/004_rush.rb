@@ -1,6 +1,6 @@
 #===============================================================================
 # AllaStand - the Hot-Dog Rush: 9 orders, Alla's decree changes twice. Direction =
-# topping on/off, Red serves, Blue empties the bun. Modal like zToaster's desk; BGM untouched.
+# topping on/off, Yellow serves, Blue empties the bun. Modal like zToaster's desk; BGM untouched.
 #===============================================================================
 
 module AllaStand

@@ -5,7 +5,7 @@
 #   strip: left/right flips tabs, down enters the page
 #   page:  left/right step over stickers; where stickers overlap, up/down pick one
 #          from the list (newest first) and the bottom box shows its name + sentence
-#   place: Orange picks a hand sticker, Red jumps to your tab, Red sticks it.
+#   place: Orange picks a hand sticker, Yellow jumps to your tab, Yellow sticks it.
 #          The tray shows only stickers whose home is this board.
 #   White + Green together: staff code keyboard (works with an empty hand)
 #===============================================================================
@@ -373,10 +373,10 @@ module TempleStickers
       name.empty? ? _INTL(BOARDS[TempleStickers.home_board(item["s"])][:name_key]) : name
     end
 
-    # Red/Orange/Blue only; the White + Green staff combo is never listed.
+    # Yellow/Orange/Blue only; the White + Green staff combo is never listed.
     def legend
       list = [[:joy, _INTL(@mode == :place ? "TEMPLE_LEG_SPOT" : "TEMPLE_LEG_LOOK")]]
-      list << [:red, _INTL("TEMPLE_LEG_STICK")] unless fits.empty?
+      list << [:yellow, _INTL("TEMPLE_LEG_STICK")] unless fits.empty?
       list << [:orange, _INTL("TEMPLE_LEG_NEXT")] if fits.length > 1
       list << [:blue, _INTL(@mode == :place ? "TEMPLE_LEG_BACK" : "TEMPLE_LEG_LEAVE")]
       list << [:white, _INTL("TEMPLE_LEG_STAFF")] if Staff.active?

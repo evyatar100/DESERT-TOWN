@@ -16,9 +16,9 @@ TG14 · 2026-10-27 · Yotam Carmeli. Spec: `docs/specs/arm-wrestling.md`, sectio
 
 | key | he | en | limit check |
 |---|---|---|---|
-| AW_HOWTO_1 | אדום על הקצב: דוחפים | Red on the beat: push | ≤ 36: he 20, en 21 |
+| AW_HOWTO_1 | צהוב על הקצב: דוחפים | Yellow on the beat: push | ≤ 36: he 20, en 24 |
 | AW_HOWTO_2 | כחול כשהיא נדרכת: מחזיקים | Blue when she tenses: brace | ≤ 36: he 25, en 27 |
-| AW_HOWTO_START | אדום: מתחילים · כחול: חזרה | Red: start · Blue: back | ≤ 36: he 26, en 23 |
+| AW_HOWTO_START | צהוב: מתחילים · כחול: חזרה | Yellow: start · Blue: back | ≤ 36: he 26, en 26 |
 
 ## In the bout
 

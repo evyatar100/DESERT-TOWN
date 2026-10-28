@@ -1,5 +1,5 @@
 #===============================================================================
-# Temple hoop - the free-throw screen: Red shoots, Blue quits (no count).
+# Temple hoop - the free-throw screen: Yellow shoots, Blue quits (no count).
 # 5 shots, then the end card; the BGM is never touched.
 #===============================================================================
 

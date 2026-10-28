@@ -281,7 +281,7 @@ def bag_button_allowed(interpreter_running, message_showing, player_moving, menu
     return not (interpreter_running or message_showing or player_moving or menu_disabled or forced_movement)
 
 
-COLOR_KEYS = {"red": "H", "blue": "J", "orange": "K", "white": "F", "green": "G"}
+COLOR_KEYS = {"yellow": "H", "blue": "J", "orange": "K", "white": "F", "green": "G", "pink": "N"}
 TAKEN_COLOR_LETTERS = set("ASDCXZQWBELRP")
 SLIDE_INPUTS = {
     "UP", "DOWN", "LEFT", "RIGHT", "USE", "BACK", "ACTION",
@@ -500,7 +500,7 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual(bag_toggle(True, False), "none")
         for name in ("USE", "BACK", "ACTION", "UP", "DOWN", "LEFT", "RIGHT", "JUMPUP", "JUMPDOWN", "SPECIAL"):
             self.assertTrue(slide_should_close([name], []))
-        for key in ("A", "S", "D", "C", "X", "Z", "F", "G", "H", "J", "K"):
+        for key in ("A", "S", "D", "C", "X", "Z", "F", "G", "H", "J", "K", "N"):
             self.assertTrue(slide_should_close([], [key]))
         self.assertFalse(slide_should_close([], []))
         from PIL import Image
@@ -510,14 +510,7 @@ class PluginRuleTests(unittest.TestCase):
         with Image.open(help_slide) as help_image, Image.open(world_slide) as world_image:
             self.assertEqual(help_image.size, (512, 384))
             self.assertEqual(world_image.size, (512, 384))
-            reds = []
-            for y in range(help_image.height):
-                for x in range(help_image.width - 70, help_image.width):
-                    r, g, b, _a = help_image.getpixel((x, y))
-                    if r > 180 and g < 80 and b < 80:
-                        reds.append(x)
-            self.assertTrue(reds, "help slide draws the red action circle on the right")
-            self.assertGreater(min(reds), 430)
+            self.assert_help_slide_draws_the_panel(help_image)
             mascot = 0
             for y in range(90, 320):
                 for x in range(24, 170):
@@ -530,6 +523,9 @@ class PluginRuleTests(unittest.TestCase):
         self.assertIn("מכונת הארקייד של דזרטאון.", slide_txt)
         self.assertIn("גלו את העיר.", slide_txt)
         self.assertIn("orange = תיק", slide_txt)
+        self.assertIn("pink = ", slide_txt)
+        self.assertIn("yellow = ", slide_txt)
+        self.assertNotIn("\nred = ", slide_txt)
         self.assertNotIn("מדבר טאון", slide_txt)
         for banned in ("פלאיה", "מידברן"):
             self.assertNotIn(banned, slide_txt)
@@ -543,6 +539,70 @@ class PluginRuleTests(unittest.TestCase):
         self.assertTrue((ROOT / "Graphics" / "Pictures" / "atzlan.png").is_file())
         self.assertIn('return "rtl" if rtl else "ltr"', slide_py)
         self.assert_logical_hebrew_starts_on_the_right()
+
+    def assert_help_slide_draws_the_panel(self, help_image):
+        """The sketch band shows all six caps, left to right in panel order, and no red button."""
+        sys.path.insert(0, str(ROOT / "Plugins" / "DesertTownArcade"))
+        from slide_text import CIRCLE_COLORS
+
+        self.assertNotIn("red", CIRCLE_COLORS)
+        rgba = help_image.convert("RGBA")
+        mean_x = {}
+        for name, color in CIRCLE_COLORS.items():
+            xs = [
+                x
+                for y in range(196, 352)
+                for x in range(rgba.width)
+                if rgba.getpixel((x, y)) == color
+            ]
+            self.assertTrue(xs, f"help slide draws a {name} cap in the sketch band")
+            mean_x[name] = sum(xs) / len(xs)
+        yellow = [
+            1
+            for y in range(196, 352)
+            for x in range(rgba.width)
+            if rgba.getpixel((x, y))[0] > 200 and rgba.getpixel((x, y))[1] > 160 and rgba.getpixel((x, y))[2] < 90
+        ]
+        self.assertTrue(yellow, "the sketch has yellow pixels")
+        order = ["white", "green", "pink", "yellow", "blue", "orange"]
+        self.assertEqual(sorted(mean_x, key=mean_x.get), order)
+
+    def test_panel_layout_labels_do_not_overlap(self):
+        sys.path.insert(0, str(ROOT / "Plugins" / "DesertTownArcade"))
+        import render_help_slide as rs
+
+        text = rs.load_slide_text()
+        face = rs.font("hebrew.ttf", 14)
+        for labels, box, scale in (
+            (rs.slide_labels(text), rs.SLIDE_BOX, 1),
+            (rs.doc_labels(text), rs.DOC_BOX, 2),
+        ):
+            layout = rs.panel_layout(box, labels, face, scale)
+            self.assertEqual(set(layout["caps"]), set(rs.CAP_FRACTIONS))
+            boxes = list(layout["labels"].items())
+            for i, (name_a, a) in enumerate(boxes):
+                for name_b, b in boxes[i + 1:]:
+                    apart = a[2] <= b[0] or b[2] <= a[0] or a[3] <= b[1] or b[3] <= a[1]
+                    self.assertTrue(apart, f"labels {name_a} and {name_b} overlap")
+            caps = list(layout["caps"].items())
+            for i, (name_a, (ax, ay, ar)) in enumerate(caps):
+                for name_b, (bx, by, br) in caps[i + 1:]:
+                    if "joystick" in (name_a, name_b):
+                        continue
+                    self.assertGreater(((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5, ar + br, f"caps {name_a}/{name_b} touch")
+
+    def test_no_red_button_in_hints(self):
+        import json
+
+        data = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
+        checked = 0
+        for key, entry in data.items():
+            if not ("_HINT" in key or key.startswith("AW_HOWTO_") or key == "TEMPLE_KB_HINT"):
+                continue
+            checked += 1
+            self.assertNotIn("אדום", entry.get("he", ""), key)
+            self.assertNotRegex(entry.get("en", ""), r"\bRed\b", key)
+        self.assertGreater(checked, 9)
 
     def assert_logical_hebrew_starts_on_the_right(self):
         """ריצה must paint resh (ר) on the right. A second bidi pass paints it on the left."""

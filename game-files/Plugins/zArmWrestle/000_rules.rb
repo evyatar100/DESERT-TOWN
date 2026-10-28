@@ -87,7 +87,7 @@ module ArmWrestleRules
     [c[:perfect] * widen(bout), c[:good] * widen(bout)]
   end
 
-  # Advances dt seconds; red/blue are this frame's button triggers. Returns the events.
+  # Advances dt seconds; red:/blue: = confirm/back button (Yellow/Blue on the panel). Returns the events.
   def self.step(bout, dt, red: false, blue: false)
     return [] if bout[:over]
     ev = []

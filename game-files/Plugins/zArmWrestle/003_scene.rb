@@ -1,6 +1,6 @@
 #===============================================================================
 # Arm wrestling - the close-up: how-to card, 3-2-1-GO, the bout, the pin, the end card.
-# Red pushes on the beat, Blue braces. BGM is never touched. Returns {outcome:}.
+# Yellow pushes on the beat, Blue braces. BGM is never touched. Returns {outcome:}.
 #===============================================================================
 
 module ArmWrestle
@@ -31,6 +31,7 @@ module ArmWrestle
     COUNT_STEP = 0.6
     GOLD = [248, 216, 104].freeze
     RED = [181, 72, 63].freeze
+    YELLOW = [232, 196, 64].freeze
     BLUE = [79, 114, 184].freeze
     INK = [24, 18, 28].freeze
     TEXT = [248, 240, 224].freeze
@@ -321,7 +322,7 @@ module ArmWrestle
       @gold.src_rect.set(0, 0, A::RING_BOX, A::RING_BOX)
       show_rings(false)
       @bang = sprite(own(A.bang), 32, 0, 44)
-      @btn = [own(A.button(RED)), own(A.button(BLUE))]
+      @btn = [own(A.button(YELLOW)), own(A.button(BLUE))]
       @blue_icon = sprite(own(A.button(BLUE)), 33)
       @puff_bmp = own(A.puff)
       @vignette = sprite(own(A.vignette), 35)
@@ -424,7 +425,7 @@ module ArmWrestle
     end
 
     def draw_howto(bmp)
-      [["AW_HOWTO_1", RED], ["AW_HOWTO_2", BLUE]].each_with_index do |(key, rgb), i|
+      [["AW_HOWTO_1", YELLOW], ["AW_HOWTO_2", BLUE]].each_with_index do |(key, rgb), i|
         y = 120 + i * 48
         bmp.blt(370, y + 2, @btn[i], @btn[i].rect) if @btn
         text(bmp, 104, y, 260, 36, _INTL(key), 26, TEXT, 2)

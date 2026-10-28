@@ -1961,12 +1961,12 @@
       "he": "ג'ויסטיק: הסתכלות / כחול: יציאה"
     },
     "TEMPLE_HINT_HAND": {
-      "en": "Orange: sticker / Red: stick / Blue: leave",
-      "he": "כתום: מדבקה / אדום: הדבקה / כחול: יציאה"
+      "en": "Orange: sticker / Yellow: stick / Blue: leave",
+      "he": "כתום: מדבקה / צהוב: הדבקה / כחול: יציאה"
     },
     "TEMPLE_HINT_PLACE": {
-      "en": "Joystick: spot / Red: stick / Blue: back",
-      "he": "ג'ויסטיק: מקום / אדום: הדבקה / כחול: חזרה"
+      "en": "Joystick: spot / Yellow: stick / Blue: back",
+      "he": "ג'ויסטיק: מקום / צהוב: הדבקה / כחול: חזרה"
     },
     "TEMPLE_HINT_STAFF": {
       "en": "White: staff menu",
@@ -1989,8 +1989,8 @@
       "he": "סיום"
     },
     "TEMPLE_KB_HINT": {
-      "en": "Red: type / Blue: delete / Orange: letters / White: space / Green: done",
-      "he": "אדום: הקלדה / כחול: מחיקה / כתום: אותיות / לבן: רווח / ירוק: סיום"
+      "en": "Yellow: type / Blue: delete / Orange: letters / White: space / Green: done",
+      "he": "צהוב: הקלדה / כחול: מחיקה / כתום: אותיות / לבן: רווח / ירוק: סיום"
     },
     "TEMPLE_STAFF_ON": {
       "en": "Staff mode is on.",
@@ -3691,8 +3691,8 @@
       "he": "חישוק כדורסל, בין הפסלים. לזרוק?"
     },
     "HOOP_HINT": {
-      "en": "Red: shoot / Blue: leave",
-      "he": "אדום: זריקה / כחול: יציאה"
+      "en": "Yellow: shoot / Blue: leave",
+      "he": "צהוב: זריקה / כחול: יציאה"
     },
     "HOOP_SHOT": {
       "en": "{1}/{2}",
@@ -4205,8 +4205,8 @@
       "draft": "Yotam"
     },
     "AW_HOWTO_1": {
-      "en": "Red on the beat: push",
-      "he": "אדום על הקצב: דוחפים",
+      "en": "Yellow on the beat: push",
+      "he": "צהוב על הקצב: דוחפים",
       "draft": "Yotam"
     },
     "AW_HOWTO_2": {
@@ -4215,8 +4215,8 @@
       "draft": "Yotam"
     },
     "AW_HOWTO_START": {
-      "en": "Red: start · Blue: back",
-      "he": "אדום: מתחילים · כחול: חזרה",
+      "en": "Yellow: start · Blue: back",
+      "he": "צהוב: מתחילים · כחול: חזרה",
       "draft": "Yotam"
     },
     "AW_GO": {
@@ -4450,8 +4450,8 @@
       "he": "טופס {1}/{2}"
     },
     "TOAST_DESK_HINT": {
-      "en": "Red = approved · Blue = rejected",
-      "he": "אדום = מאושר · כחול = נדחה"
+      "en": "Yellow = approved · Blue = rejected",
+      "he": "צהוב = מאושר · כחול = נדחה"
     },
     "TOAST_DESK_STAMP_OK": {
       "en": "Approved",
@@ -4526,8 +4526,8 @@
       "he": "מכונת קפה"
     },
     "TOAST_VAULT_HINT": {
-      "en": "Joystick = move · Red = stamp · Blue = quit",
-      "he": "ג'ויסטיק = הזזה · אדום = חותמת · כחול = יציאה"
+      "en": "Joystick = move · Yellow = stamp · Blue = quit",
+      "he": "ג'ויסטיק = הזזה · צהוב = חותמת · כחול = יציאה"
     },
     "TOAST_VAULT_WASTE": {
       "en": "Wasted stamp",
@@ -4762,8 +4762,8 @@
       "he": "פתק בקלפי"
     },
     "ALLA_RUSH_HINT": {
-      "en": "Joystick = topping · Red = serve · Blue = bin",
-      "he": "ג'ויסטיק = תוספת · אדום = הגשה · כחול = לפח"
+      "en": "Joystick = topping · Yellow = serve · Blue = bin",
+      "he": "ג'ויסטיק = תוספת · צהוב = הגשה · כחול = לפח"
     },
     "ALLA_RUSH_OK": {
       "en": "Tasty and legal",

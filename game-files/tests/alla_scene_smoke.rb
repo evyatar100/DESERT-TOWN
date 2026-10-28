@@ -164,7 +164,7 @@ gap = out[:decide][1][1] - out[:decide][0][1]
 check((gap - (R.window(3) + R::RESULT_TIME + R::SLIDE_TIME)).abs < 0.1, "rush: the window eases to 11 s (#{gap.round(2)})")
 
 out = rush(:spam)
-check(out[:result][:shown] >= 3 && out[:result][:correct] <= out[:result][:shown], "rush: spamming Red serves wrongly and the rush ends (#{out[:result].inspect})")
+check(out[:result][:shown] >= 3 && out[:result][:correct] <= out[:result][:shown], "rush: spamming Yellow serves wrongly and the rush ends (#{out[:result].inspect})")
 $all.clear
 
 # Red held through an order is ignored for the first 0.15 s of the window.

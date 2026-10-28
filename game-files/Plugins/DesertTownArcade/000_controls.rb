@@ -4,10 +4,10 @@
 # One map from cabinet color to keyboard key. Raspberry Pi GPIO wiring is not
 # done here: point each physical button at the key in docs/controls.md.
 #
-# C, X, and Z are not in this map and are not rebound.
-#   C (and Enter, Space) stays Use / talk / confirm.
-#   X (and Esc) stays Back: cancel, and hold to run.
-#   Z (and Shift) stays Action: the pause menu.
+# C, X, and Z are not rebound; the colors mirror them (see MIRROR_INPUT).
+#   Yellow follows C (and Enter, Space): Use / talk / confirm.
+#   Blue follows X (and Esc): Back, cancel, and hold to run.
+#   Pink follows Z (and Shift): Action, the pause menu.
 # B stays the existing raw key that opens the Bag (001_bag_button.rb).
 #
 # A, S, and D were the proposed keys. They are already Essentials inputs
@@ -17,18 +17,21 @@
 
 module DesertTownControls
   COLORS = {
-    red:    { key: :H, role: :action },
+    yellow: { key: :H, role: :action },
     blue:   { key: :J, role: :run },
     orange: { key: :K, role: :bag },
     white:  { key: :F, role: :help },
-    green:  { key: :G, role: :world_map }
+    green:  { key: :G, role: :world_map },
+    pink:   { key: :N, role: :menu }
   }.freeze
 
-  # Same input the stock key already produces. Red follows C everywhere C
+  # Same input the stock key already produces. Yellow follows C everywhere C
   # works. Blue follows X, including hold-to-run (Game_Player#can_run?).
+  # Pink follows Z (the pause menu).
   MIRROR_INPUT = {
-    red: :USE,
-    blue: :BACK
+    yellow: :USE,
+    blue: :BACK,
+    pink: :ACTION
   }.freeze
 
   # Default RGSS1 bindings (mkxp keybindings.cpp) plus raw keys this game

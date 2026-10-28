@@ -1,5 +1,7 @@
 Noam Peretz | 2026-10-27 | TG14 Arm wrestling with cowboy Shirpaz (dt-game)
 
+> Buttons: Red became Yellow on the final panel (TG27, `docs/specs/cabinet-buttons-final.md`).
+
 Decisions: dec:tg-29 (founder: wins give bags), dec:tg-30 (design), dec:tg-31 (QA fix round: early Red consumes its beat, Blue in the tell lead-in is ignored).
 
 ## Goal

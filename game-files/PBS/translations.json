@@ -4944,6 +4944,10 @@
     "TUTA_PAUSE_HINT": {
       "en": "Yellow: leave · Blue: keep playing",
       "he": "צהוב: יציאה · כחול: ממשיכים"
+    },
+    "HOOP_EVYATAR_HINT": {
+      "en": "Look for Evyatar on the Playa. Tell him Shira sent you.",
+      "he": "חפש את אביתר על הפלאיה, תגיד ששירה שלחה אותך"
     }
   }
 }

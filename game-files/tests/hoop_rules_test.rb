@@ -223,7 +223,7 @@ DesertTalk.name_key = "NAME_STALE" if DesertTalk.respond_to?(:name_key=)
 frames_before = $hoop_frames
 hoop_play.call(true, { finished: true, made: 3 })
 msgs = $hoop_log.select { |e| e.is_a?(Array) && e[0] == :msg }
-check(msgs.length == 1 && msgs[0][1] == "HOOP_EVYATAR_LINE", "hoop: the first finished round shows exactly one box, the line")
+check(msgs.length == 2 && msgs[0][1] == "HOOP_EVYATAR_LINE" && msgs[1][1] == "HOOP_EVYATAR_HINT", "hoop: the first finished round shows the line, then the Playa hint")
 check(msgs[0][2] == "NAME_F90D4DE9", "hoop: Evyatar's line shows his name plate (#{msgs[0][2].inspect})")
 check(msgs[0][3] == [7, 13, 4, "dt_f90d4de9"] && msgs[0][4] == [6, 13, 6],
       "hoop: Evyatar stands at (7,13) facing left, the player faces him")
@@ -247,7 +247,7 @@ check($hoop_log.none? { |e| e.is_a?(Array) && e[0] == :msg } && saves == [:templ
       $PokemonGlobal.temple_hoop == { evyatar_seen: true, plays: 2, best: 5 }, "hoop: the second round is only the game")
 $PokemonGlobal = PokemonGlobalMetadata.new
 hoop_play.call(true, { finished: true, made: 0 })
-check($hoop_log.count { |e| e.is_a?(Array) && e[0] == :msg } == 1, "hoop: a new game brings Evyatar again, at any score")
+check($hoop_log.count { |e| e.is_a?(Array) && e[0] == :msg } == 2, "hoop: a new game brings Evyatar again, at any score (line + Playa hint)")
 $PokemonGlobal = PokemonGlobalMetadata.new
 $PokemonGlobal.temple_hoop = { evyatar_seen: true, plays: 1, best: 2 }
 hoop_play.call(true, { finished: true, made: 4 })

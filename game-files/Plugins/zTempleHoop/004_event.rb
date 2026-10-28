@@ -63,6 +63,7 @@ module TempleHoop
     pbWait(0.4)
     pbDesertSpeaker(VISITOR_ID)
     pbMessage(_INTL("HOOP_EVYATAR_LINE"))
+    pbMessage(_INTL("HOOP_EVYATAR_HINT"))
     TempleHoopRules.mark_visitor!(state)
     DesertTownAutosave.save_now(:temple_hoop) if defined?(DesertTownAutosave)
     pbWait(0.3)

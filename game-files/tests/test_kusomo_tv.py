@@ -75,7 +75,7 @@ class KusomoTVTest(unittest.TestCase):
                 ends = ogg_stream_ends(ROOT / (base + ".ogv"))
                 self.assertIn("video", ends, base)
                 self.assertIn("audio", ends, base)
-                self.assertGreaterEqual(ends["audio"], ends["video"], f"{base}: {ends}")
+                self.assertGreaterEqual(ends["audio"], ends["video"] + 0.5, f"{base}: audio must outlast video by 0.5 s: {ends}")
         old = ogg_stream_ends(ROOT / "Movies" / "kusomo_mushrooms.ogv")
         self.assertLess(old["audio"], old["video"], "the checker must flag the old single-file mushrooms")
 

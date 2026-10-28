@@ -61,7 +61,7 @@ The configuration file is located at `assets-factory/desert-town-mapgen/backend/
 
 | Variable | Description | Default / Notes |
 |---|---|---|
-| `DESERTTOWN_PASSWORD` | Single admin password gate. **Required.** Routes return 503 if empty. | Default set to `deserttown` |
+| `DESERTTOWN_PASSWORD` | Single admin password gate. **Required.** Routes return 503 if empty. | No default. The live value is in the server environment where mapgen runs (not in git); ask the founder. |
 | `MAP_GEN_AI_ENABLED` | Enables generative AI map & sprite generation routes (`1` or `0`). | `0` (disabled by default) |
 | `GEMINI_API_KEY` | Google Gemini API key used when `MAP_GEN_AI_ENABLED=1`. | Optional |
 | `ENABLE_API_DOCS` | Serves `/docs` and `/openapi.json`. | `1` for local dev |

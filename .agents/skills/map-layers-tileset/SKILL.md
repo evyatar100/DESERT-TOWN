@@ -60,7 +60,7 @@ Useful flags (all in `assets-factory/create_tileset.py`):
 python assets-factory/create_map_from_layers.py assets-factory/map_layers/PARTY
 ```
 
-> `create_map_from_layers.py` is **not in the repo yet** (checked 2026-10-02). Until it exists, build the tileset with `create_tileset.py` above, then paint the map in the RPG Maker XP editor, or edit the `.rxdata` with the `rpgxp-map-tools` skill (`.agents/skills/rpgxp-map-tools`).
+> `assets-factory/create_map_from_layers.py` builds the tileset and writes a tileset slot and a map: by default a new slot and map id `max(MapInfos)+1`, or the ids given with `--tileset-id` / `--map-id`. It refuses while RPGXP.exe runs unless `-f`. For a folder already in the game, use `desert-town-map-resize` or `desert-town-tileset-resync`; registering a `maps/` folder is covered by `desert-town-game-maps`.
 
 ## Things to check before running
 

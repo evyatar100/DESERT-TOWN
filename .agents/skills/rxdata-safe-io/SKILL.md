@@ -16,6 +16,9 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 
 `R=.agents/skills/rxdata-safe-io/scripts/rxdata_io.rb`
 
+This is the one real script. `.claude/skills/rxdata-safe-io/scripts/rxdata_io.rb` only `load`s it, and `.claude/skills/rxdata-safe-io/SKILL.md` is a byte copy of this file. Edit here, then copy the SKILL.md across.
+After changing the script, run `sh .agents/skills/rxdata-safe-io/scripts/smoke_test.sh`: every command on a temp copy of Map095, 16 checks.
+
 | Task | Command |
 |---|---|
 | Events to JSON | `ruby $R dump game-files/Data/Map095.rxdata [--out f.json]` |
@@ -24,13 +27,14 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 | Autonomous movement | `ruby $R set-move MAP --id 4 --move-type 1 --move-speed 3 --move-frequency 4` (repeat `--id` for several events). Type 0 fixed, 1 random, 2 approach, 3 custom. Speed 3 is Slow, frequency 4 is High. |
 | Retarget in place | `ruby $R retarget MAP --spec spec.json`. Keeps the event id and tile. `graphic` is set on every page. `talk` prepends `pbDesertSpeaker` / `pbDesertTalk` and drops Show Text lines listed in `drop_text`. `line_key` uses the override form `pbDesertTalk(id, key)`. `replace_text` swaps exact command strings, including choice labels. `insert_before_end` adds commands before the final end command. `page` limits talk / insert edits to one page. |
 | Delete | `ruby $R delete MAP --id 5` |
+| Replace one page's command list | `ruby $R set-list MAP --id 10 [--page 1] --spec list.json [--dry-run]` (spec `{"commands": [...]}`, the full list; string and array parameters only; `--page` counts from 1). Refuses if anything else in the event would change. |
 | Read-only check | `ruby $R verify MAP` (BYTE_EXACT or SEMANTIC_EQUAL is good; MISMATCH exits 3) |
 
 | Option | Meaning |
 |---|---|
 | `--out FILE` | write commands save to FILE instead of the input map (backup applies to FILE) |
 | `--scratch-copy` | skip the editor-running gate for files outside a game project (any ancestor folder with `Game.ini` is refused) |
-| `--dry-run` | add only: report, write nothing |
+| `--dry-run` | add, retarget and set-list: report, write nothing |
 | `--allow-overlap` | add/move onto a tile another event holds |
 
 ## Add spec (JSON, UTF-8)
@@ -47,6 +51,7 @@ Ruby is at `C:\Ruby31-x64\bin`; prepend it in Git Bash: `export PATH="/c/Ruby31-
 - `id` defaults to max+1; after a delete that can reuse the deleted id, and the tool warns if any backup held it. Pin a fresh `id` in the spec if anything refers to events by id. Action Button trigger, direction 2, unless `trigger` or `direction` is given.
 - A JSON array adds every object in one write. Tiles and ids are checked against events already on the map and against earlier objects in the array.
 - `route` is a custom move route: `[[35, []], [14, [0, 0]], [15, [6]], [4, []]]`. Code 14 is Jump, code 15 is Wait, codes 1–4 are Down/Left/Right/Up. `move_type` 3 plays it. `skippable`, `route_repeat`, `move_speed`, `move_frequency`, `direction_fix`, `walk_anime`, `step_anime`, and `through` set the page. Omitted fields keep the standing talk-event defaults.
+- `switch1: <id>` makes the page wait on that switch.
 - Refuses: existing id, tile outside the map, tile held by another event.
 
 ## Safety gates (built in)

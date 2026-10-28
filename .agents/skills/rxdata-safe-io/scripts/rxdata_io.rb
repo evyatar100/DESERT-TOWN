@@ -1,5 +1,5 @@
 # Safe RPG Maker XP map event I/O through real Ruby Marshal (see ../SKILL.md).
-# Usage: ruby rxdata_io.rb <dump|add|move|set-move|retarget|delete|verify> MAP.rxdata [options]
+# Usage: ruby rxdata_io.rb <dump|add|move|set-move|retarget|delete|set-list|verify> MAP.rxdata [options]
 require 'json'
 require 'optparse'
 require 'fileutils'
@@ -178,8 +178,10 @@ end
 def build_talk_event(id, spec)
   g = newobj('RPG::Event::Page::Graphic', tile_id: 0, character_name: bin(spec['graphic'] || ''),
              character_hue: 0, direction: spec['direction'] || 2, pattern: 0, opacity: 255, blend_type: 0)
-  cond = newobj('RPG::Event::Page::Condition', switch1_valid: false, switch2_valid: false, variable_valid: false,
-                self_switch_valid: false, switch1_id: 1, switch2_id: 1, variable_id: 1, variable_value: 0,
+  sw = spec['switch1']   # optional page condition: switch id
+  fail!('switch1 must be a positive integer') unless sw.nil? || (sw.is_a?(Integer) && sw > 0)
+  cond = newobj('RPG::Event::Page::Condition', switch1_valid: !sw.nil?, switch2_valid: false, variable_valid: false,
+                self_switch_valid: false, switch1_id: sw || 1, switch2_id: 1, variable_id: 1, variable_value: 0,
                 self_switch_ch: bin('A'))
   route = build_route(spec)
   page = newobj('RPG::Event::Page', condition: cond, graphic: g,
@@ -487,6 +489,44 @@ def cmd_delete(path, o)
   puts "deleted #{event_summary(e)}"
 end
 
+def deep_bin(v)
+  case v
+  when String then bin(v)
+  when Array then v.map { |x| deep_bin(x) }
+  when Hash then fail!('set-list: object parameters (move routes, audio files) are not supported')
+  else v
+  end
+end
+
+# Replaces one page's command list (spec {"commands": [...]}, the full list).
+# After the write, the event must equal the old one with only that list swapped.
+def cmd_set_list(path, o)
+  fail!('set-list needs --id N --spec FILE.json [--page N]') unless o[:id] && o[:spec]
+  cmds = JSON.parse(File.read(o[:spec], encoding: 'UTF-8'))['commands']
+  fail!('spec needs a non-empty "commands" list') unless cmds.is_a?(Array) && !cmds.empty?
+  map = load_map(path)
+  e = iv(map, :events)[o[:id]] or fail!("no event #{o[:id]}")
+  page_no = o[:page] || 1
+  page = iv(e, :pages)[page_no - 1] or fail!("event #{o[:id]} has no page #{page_no}")
+  list = cmds.map do |c|
+    fail!('each command needs an integer "code"') unless c.is_a?(Hash) && c['code'].is_a?(Integer)
+    cmd(c['code'], deep_bin(c['parameters'] || []), c['indent'] || 0)
+  end
+  list << cmd(0, []) unless iv(list.last, :code) == 0 && iv(list.last, :indent) == 0
+  expected = Marshal.load(Marshal.dump(e))
+  iv(expected, :pages)[page_no - 1].instance_variable_set(:@list, list)
+  before = fingerprint(map)
+  old_n = iv(page, :list).size
+  ivs(page, list: list)
+  fail!("set-list: event #{o[:id]} would differ beyond page #{page_no}'s list") unless canon(e) == canon(expected)
+  if o[:dry]
+    puts "DRY RUN would replace #{event_summary(e)} page #{page_no} list (#{old_n} -> #{list.size} commands)"
+    return
+  end
+  safe_write(o[:out] || path, map, before, [o[:id]], o[:scratch])
+  puts "set-list #{event_summary(e)} page #{page_no}: #{old_n} -> #{list.size} commands; rest of the event identical"
+end
+
 # Read-only: load, dump, reload, compare. Never writes the input.
 def cmd_verify(path, _o)
   fail!("not found: #{path}") unless File.file?(path)
@@ -515,12 +555,14 @@ OptionParser.new do |op|
   op.on('--move-type N', Integer) { |v| o[:move_type] = v }
   op.on('--move-speed N', Integer) { |v| o[:move_speed] = v }
   op.on('--move-frequency N', Integer) { |v| o[:move_frequency] = v }
+  op.on('--page N', Integer) { |v| o[:page] = v }
   op.on('--out F') { |v| o[:out] = v }
   op.on('--dry-run') { o[:dry] = true }
   op.on('--allow-overlap') { o[:overlap] = true }
   op.on('--scratch-copy') { o[:scratch] = true }
 end.parse!(ARGV)
-path = ARGV.shift or fail!('usage: rxdata_io.rb <dump|add|move|set-move|retarget|delete|verify> MAP.rxdata [options]')
-cmds = { 'dump' => :cmd_dump, 'add' => :cmd_add, 'move' => :cmd_move, 'set-move' => :cmd_set_move, 'retarget' => :cmd_retarget, 'delete' => :cmd_delete, 'verify' => :cmd_verify }
+path = ARGV.shift or fail!('usage: rxdata_io.rb <dump|add|move|set-move|retarget|delete|set-list|verify> MAP.rxdata [options]')
+cmds = { 'dump' => :cmd_dump, 'add' => :cmd_add, 'move' => :cmd_move, 'set-move' => :cmd_set_move, 'retarget' => :cmd_retarget, 'delete' => :cmd_delete,
+         'set-list' => :cmd_set_list, 'verify' => :cmd_verify }
 fail!("unknown command #{sub.inspect}") unless cmds[sub]
 send(cmds[sub], path, o)

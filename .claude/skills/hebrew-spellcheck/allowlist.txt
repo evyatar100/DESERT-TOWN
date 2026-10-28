@@ -1,0 +1,72 @@
+# One word per line (UTF-8). A word also matches with 1-2 Hebrew prefix letters (ב ה ו כ ל מ ש).
+# "re:<regex>" lines are full-word patterns. NAME_* Hebrew values are allowed automatically.
+
+# Place and event names
+מידברן
+פלאיה
+בורנר
+דזרטאון
+קאמפ
+קראחנה
+קוסומו
+פוקדורים
+פוקמונים
+
+# Camp slang and character-ish names
+תפוצ'יפס
+צ׳יקיטיטה
+צ'אנגה
+גורושה
+חמוריקו
+זרמוטה
+שונטל
+שונטאל
+אורנניא
+אימוש
+ואבאלה
+אמאלה
+סעמק
+גליטר
+גיפט
+דיבאג
+בלאגן
+אוקיי
+אנג'לאייז
+פלייסהולדר
+פרזנטון
+
+# Elongated interjections: whole words built only from these letters (yaaa, heyyy, hmmm, hahaha).
+# Do not widen to "any repeated letter"; that hides typos such as שלוווום.
+re:[יאוה]{3,}
+re:[אמה]{3,}
+# Specific stretched words seen in the dialogue
+בהההה
+אבאאא
+קאאאקיייי
+פליייייז
+
+# Dictionary false positives: valid words the Windows he-IL dictionary flags
+הכל
+ממש
+איתו
+אבא
+ניצחתי
+הו
+
+# Quest words (TG18 MOOP/Yunik/Noodles; Yotam's deliberate spellings)
+חשל"ש
+יוניק
+הנודלס
+מפוקסלים
+סאונדצ'ק
+השה-מובייל
+מההההה
+אאוץ'
+דרופ
+טוטה
+הטוט
+סלורפ
+לשייק
+מאריו
+עלא
+הנקנקיה

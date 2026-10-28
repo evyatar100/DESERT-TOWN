@@ -4824,6 +4824,126 @@
     "MSG_FC898478_LINE": {
       "en": "HOUSE LISTEN IN YOUR HOUSE",
       "he": "HOUSE LISTEN IN YOUR HOUSE"
+    },
+    "TUTA_STATUE_PROMPT": {
+      "en": "A statue: a little dog on a giant strawberry. The plaque: \"She loved strawberries. Some say she still does.\" Pet her?",
+      "he": "פסל: כלבה קטנה על תות ענק. בשלט: \"היא אהבה תותים. יש אומרים שעדיין.\" ללטף?"
+    },
+    "TUTA_STATUE_PROMPT_WON": {
+      "en": "The statue looks pleased with itself. A strawberry seed is stuck in its whiskers. Pet her again?",
+      "he": "הפסל נראה מרוצה מעצמו. בשפם נתקע גרעין של תות. ללטף שוב?"
+    },
+    "TUTA_STATUE_LATER": {
+      "en": "The statue keeps staring at you with one cloudy eye.",
+      "he": "הפסל ממשיך לבהות בך בעין אחת עכורה."
+    },
+    "TUTA_TITLE": {
+      "en": "The Dog Who Loved Strawberries",
+      "he": "הטוט שאהב תות"
+    },
+    "TUTA_INTRO_1": {
+      "en": "Dolly's dog, Tuta, found a bowl of strawberries on the table, left \"for later\".",
+      "he": "הכלבה של דולי, טוטה, מצאה על השולחן קערת תותים \"לאחר כך\"."
+    },
+    "TUTA_INTRO_2": {
+      "en": "Tuta does not believe in \"later\". The Parents' Committee has opened a chase.",
+      "he": "טוטה לא מאמינה ב\"אחר כך\". ועד ההורים פתח במרדף."
+    },
+    "TUTA_INTRO_3": {
+      "en": "Help Dolly's Tuta get all the strawberries",
+      "he": "עזרו לטוטה של דולי להשיג את כל התותים"
+    },
+    "TUTA_HOWTO": {
+      "en": "Joystick: run · eat it all · gold: aww",
+      "he": "ג'ויסטיק: ריצה · אוכלים הכול · זהב: אווו"
+    },
+    "TUTA_START": {
+      "en": "Yellow: start · Blue: back",
+      "he": "צהוב: התחלה · כחול: חזרה"
+    },
+    "TUTA_READY": {
+      "en": "READY",
+      "he": "מוכנים"
+    },
+    "TUTA_GO": {
+      "en": "GO",
+      "he": "קדימה"
+    },
+    "TUTA_COUNTER": {
+      "en": "Berries {1}/{2}",
+      "he": "תותים {1}/{2}"
+    },
+    "TUTA_GOLDEN_POP": {
+      "en": "Awww",
+      "he": "אווו"
+    },
+    "TUTA_LICK_POP": {
+      "en": "Slurp",
+      "he": "סלורפ"
+    },
+    "TUTA_CATCH_MAN_1": {
+      "en": "Caught. Penalty: one kiss.",
+      "he": "נתפסת. עונש: נשיקה."
+    },
+    "TUTA_CATCH_MAN_2": {
+      "en": "That was for my smoothie.",
+      "he": "זה היה לשייק שלי."
+    },
+    "TUTA_CATCH_MAN_3": {
+      "en": "Dad's not angry. Dad's kissing.",
+      "he": "אבא לא כועס. אבא מנשק."
+    },
+    "TUTA_CATCH_WOMAN_1": {
+      "en": "I cut you off.",
+      "he": "חתכתי לך את הדרך."
+    },
+    "TUTA_CATCH_WOMAN_2": {
+      "en": "Gotcha. Kiss tax.",
+      "he": "תפסתי. מס נשיקות."
+    },
+    "TUTA_CATCH_WOMAN_3": {
+      "en": "Mom sees even mid-wink.",
+      "he": "אמא רואה גם בקריצה."
+    },
+    "TUTA_WIN_TITLE": {
+      "en": "Bowl: empty",
+      "he": "הקערה ריקה"
+    },
+    "TUTA_WIN_LINE": {
+      "en": "Every strawberry is in the belly. Tuta regrets nothing. The Parents' Committee regrets the bowl.",
+      "he": "כל התותים בבטן. טוטה לא מתחרטת על כלום. ועד ההורים מתחרט על הקערה."
+    },
+    "TUTA_LOSE_TITLE": {
+      "en": "Caught red-pawed",
+      "he": "נתפסה על תות"
+    },
+    "TUTA_LOSE_LINE": {
+      "en": "Tuta was smothered in kisses. The sentence: one selfie. The strawberries are waiting.",
+      "he": "טוטה כוסתה בנשיקות. גזר הדין: סלפי. התותים מחכים."
+    },
+    "TUTA_TIME": {
+      "en": "Time {1}",
+      "he": "זמן {1}"
+    },
+    "TUTA_BEST": {
+      "en": "Best {1}",
+      "he": "שיא {1}"
+    },
+    "TUTA_NEW_BEST": {
+      "en": "New record",
+      "he": "שיא חדש"
+    },
+    "TUTA_AGAIN": {
+      "en": "Yellow: again · Blue: leave",
+      "he": "צהוב: עוד סיבוב · כחול: יציאה"
+    },
+    "TUTA_PAUSE": {
+      "en": "Leave the game?",
+      "he": "לעזוב את המשחק?"
+    },
+    "TUTA_PAUSE_HINT": {
+      "en": "Yellow: leave · Blue: keep playing",
+      "he": "צהוב: יציאה · כחול: ממשיכים"
     }
   }
 }

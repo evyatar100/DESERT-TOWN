@@ -55,3 +55,7 @@ temple_wall*.dat.*
 
 # Share page build output (share-page/build_share_page.py)
 share-page/out/
+
+# Kusomo TV quit-after-video diagnostics (TG49): trace and engine output, written by the game
+/game-files/kusomo_trace.log
+/game-files/mkxp_stdout.log

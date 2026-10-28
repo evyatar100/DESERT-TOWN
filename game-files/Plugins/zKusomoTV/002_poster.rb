@@ -9,6 +9,7 @@ module KusomoTV
   # Blocks for POSTER_SECONDS with no skip; every button press is swallowed. No-op if the PNG is missing.
   def self.show_poster
     path = pbResolveBitmap(POSTER)
+    trace("poster: resolved #{path.inspect}")
     return false if !path
     vp = Viewport.new(0, 0, Graphics.width, Graphics.height)
     vp.z = 99999
@@ -21,12 +22,14 @@ module KusomoTV
       pic = Sprite.new(vp)
       pic.bitmap = Bitmap.new(path)
       sprites << pic
+      trace("poster: bitmap #{pic.bitmap.width}x#{pic.bitmap.height}")
       ui = Sprite.new(vp)
       ui.bitmap = Bitmap.new(Graphics.width, Graphics.height)
       ui.z = 1
       sprites << ui
       start = System.uptime
       shown = nil
+      frames = 0
       loop do
         left = POSTER_SECONDS - (System.uptime - start)
         break if left <= 0
@@ -34,13 +37,17 @@ module KusomoTV
         if n != shown
           shown = n
           draw_countdown(ui.bitmap, n)
+          trace("poster: countdown #{n} frame #{frames}")
         end
         Graphics.update
         Input.update
+        frames += 1
       end
+      trace("poster: loop done after #{frames} frames")
     ensure
       sprites.each { |s| s.bitmap&.dispose; s.dispose }
       vp.dispose
+      trace("poster: disposed")
     end
     Input.update
     return true

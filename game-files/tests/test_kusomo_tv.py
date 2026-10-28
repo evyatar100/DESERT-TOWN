@@ -98,6 +98,15 @@ class KusomoPosterTest(unittest.TestCase):
         self.assertNotIn("FAIL", output)
         self.assertGreaterEqual(output.count("PASS"), 11, output)
 
+    @unittest.skipUnless(shutil.which("ruby"), "Ruby is not installed")
+    def test_countdown_hebrew_through_real_hooks(self):
+        done = subprocess.run(["ruby", str(ROOT / "tests" / "kusomo_hebrew_smoke.rb")], cwd=str(ROOT),
+                              capture_output=True, text=True, encoding="utf-8", check=False, timeout=120)
+        output = (done.stdout or "") + (done.stderr or "")
+        self.assertEqual(done.returncode, 0, output)
+        self.assertNotIn("FAIL", output)
+        self.assertGreaterEqual(output.count("PASS"), 13, output)
+
 
 if __name__ == "__main__":
     unittest.main()

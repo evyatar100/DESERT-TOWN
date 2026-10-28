@@ -6664,6 +6664,14 @@ Price = 0
 Flags = KeyItem
 Description = A state hot dog. Decree printed on the wrapper: all toppings are legal today.
 #-------------------------------
+[MUSICBAG]
+Name = Music Bag
+NamePlural = Music Bags
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A black tote bag that hums a bassline when nobody's talking. Not yours. Someone on the Playa wants it back.
+#-------------------------------
 [EVENTPROGRAM]
 Name = Event Program
 NamePlural = Event Programs

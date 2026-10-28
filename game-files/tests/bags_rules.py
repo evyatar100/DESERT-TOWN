@@ -98,11 +98,42 @@ def ask(state):
     return True
 
 
-def hand_over(state, bag):
-    if state["inbar"] == "done" or bag.quantity("SURPRISEBAG") < NEED:
+# Mirror of BagsRules::INBAR_BAGS: what Inbar counts, in the order she takes them (TG40).
+INBAR_BAGS = (("SURPRISEBAG", None), ("MUSICBAG", 1))
+GATED = ("MUSICBAG",)
+
+
+def inbar_counted(bag, delivered=False):
+    out = {}
+    for item, cap in INBAR_BAGS:
+        n = 0 if item in GATED and not delivered else bag.quantity(item)
+        out[item] = min(n, cap) if cap else n
+    return out
+
+
+def inbar_count(bag, delivered=False):
+    return sum(inbar_counted(bag, delivered).values())
+
+
+def music_not_yet(state, bag, delivered):
+    return (state["inbar"] != "done" and not delivered and bag.quantity("MUSICBAG") > 0
+            and inbar_count(bag, delivered) < NEED)
+
+
+def hand_over(state, bag, delivered=False):
+    counted = inbar_counted(bag, delivered)
+    if state["inbar"] == "done" or sum(counted.values()) < NEED:
         return False
-    if not bag.remove("SURPRISEBAG", NEED):
+    left, plan = NEED, []
+    for item, n in counted.items():
+        take = min(n, left)
+        left -= take
+        if take:
+            plan.append((item, take))
+    if not all(bag.quantity(item) >= take for item, take in plan):
         return False
+    for item, take in plan:
+        bag.remove(item, take)
     state["inbar"] = "done"
     return True
 

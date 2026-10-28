@@ -40,12 +40,14 @@ module Bags
 
   def self.inbar_talk
     st = state
-    qty = $bag ? $bag.quantity(:SURPRISEBAG) : 0
+    qty = inbar_count   # every bag Inbar accepts right now (Surprise Bags, and the Music Bag after its delivery)
     case BagsRules.inbar_decide(st, qty)
     when :intro
       BagsRules.ask!(st)
       lines([["BAGS_INBAR_ASK_1", :inbar], ["BAGS_INBAR_ASK_2", :inbar], ["BAGS_INBAR_ASK_3", :inbar]])
-    when :short then say("BAGS_INBAR_NOTENOUGH", :inbar, qty)
+    when :short
+      say("BAGS_INBAR_MUSICBAG_NOT_YET", :inbar) if BagsRules.music_not_yet?(st, $bag, music_delivered?)
+      say("BAGS_INBAR_NOTENOUGH", :inbar, qty)
     when :offer then inbar_offer
     when :party then lines([["BAGS_INBAR_PARTY_1", :inbar], ["BAGS_INBAR_PARTY_2", :inbar]])
     end

@@ -46,10 +46,47 @@ module BagsRules
     true
   end
 
-  # Removes exactly NEED bags and marks :done in one step; a repeat is a no-op.
-  def self.hand_over!(state, bag)
-    return false if state[:inbar] == :done || bag.quantity(:SURPRISEBAG) < NEED
-    return false unless bag.remove(:SURPRISEBAG, NEED)
+  # The one list of what Inbar counts, in the order she takes them (TG40, founder: the Music
+  # Bag counts as a bag). The Music Bag counts once, and only after its Playa delivery.
+  INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1 }.freeze
+  GATED = %i[MUSICBAG].freeze
+
+  # item -> how many Inbar would count now; delivered = the DJ quest's delivery is done.
+  def self.inbar_counted(bag, delivered = false)
+    return {} unless bag
+    INBAR_BAGS.to_h do |item, cap|
+      n = GATED.include?(item) && !delivered ? 0 : bag.quantity(item).to_i
+      [item, cap ? [n, cap].min : n]
+    end
+  end
+
+  def self.inbar_count(bag, delivered = false) = inbar_counted(bag, delivered).values.sum
+
+  # Holding the Music Bag before its delivery while still short: Inbar says it is not hers.
+  def self.music_not_yet?(state, bag, delivered)
+    state[:inbar] != :done && !delivered && bag && bag.quantity(:MUSICBAG).to_i > 0 &&
+      inbar_count(bag, delivered) < NEED
+  end
+
+  # Removes exactly NEED counted bags (Surprise Bags first) and marks :done in one step; a repeat is a no-op.
+  def self.hand_over!(state, bag, delivered = false)
+    counted = inbar_counted(bag, delivered)
+    return false if state[:inbar] == :done || counted.values.sum < NEED
+    left = NEED
+    plan = counted.filter_map do |item, n|
+      take = [n, left].min
+      left -= take
+      [item, take] if take > 0
+    end
+    return false unless plan.all? { |item, take| bag.quantity(item) >= take }   # all or nothing
+    done = []
+    plan.each do |item, take|
+      unless bag.remove(item, take)
+        done.each { |i, t| bag.add(i, t) }
+        return false
+      end
+      done << [item, take]
+    end
     state[:inbar] = :done
     true
   end

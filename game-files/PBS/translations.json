@@ -2294,8 +2294,8 @@
       "draft": "Yotam"
     },
     "BAGS_INBAR_NOTENOUGH": {
-      "en": "Surprise bags on you: {1}. They need two. Not one more, not one less. That's stars for you.",
-      "he": "שקיות הפתעה אצלך: {1}. הן צריכות שתיים. לא אחת יותר, לא אחת פחות. ככה זה עם כוכבות.",
+      "en": "Bags on you: {1}. They need two. Not one more, not one less. That's stars for you.",
+      "he": "שקיות אצלך: {1}. הן צריכות שתיים. לא אחת יותר, לא אחת פחות. ככה זה עם כוכבות.",
       "draft": "Yotam"
     },
     "BAGS_INBAR_GIVE_ASK": {
@@ -4948,6 +4948,294 @@
     "HOOP_EVYATAR_HINT": {
       "en": "Look for Evyatar on the Playa. Tell him Shira sent you.",
       "he": "חפש את אביתר על הפלאיה, תגיד ששירה שלחה אותך"
+    },
+    "DJRUSH_JAM_HONK": {
+      "en": "The Sheep-mobile honks. The bass swallows the honk. Someone in the crowd starts dancing to it.",
+      "he": "השה-מובייל צופר. הצפירה נבלעת בבס. מישהו בקהל מתחיל לרקוד לפיה."
+    },
+    "DJRUSH_JAM_ALIEN": {
+      "en": "We're not moving. This is our song. Every song is our song.",
+      "he": "אנחנו לא זזים. זה השיר שלנו. כל שיר זה השיר שלנו."
+    },
+    "DJRUSH_JAM_DJ": {
+      "en": "I'm on in five minutes, and the whole floor is parked on my sheep.",
+      "he": "אני עולה בעוד חמש דקות, וכל הרחבה חונה לי על השה."
+    },
+    "DJRUSH_JAM_PROMPT": {
+      "en": "Clear a path for the Sheep-mobile?",
+      "he": "לפנות דרך לשה-מובייל?"
+    },
+    "DJRUSH_JAM_PROMPT_AGAIN": {
+      "en": "The Sheep-mobile is still stuck. Floor {1}/3. Keep clearing?",
+      "he": "השה-מובייל עדיין תקוע. רחבה {1}/3. להמשיך לפנות?"
+    },
+    "DJRUSH_JAM_LATER": {
+      "en": "The crowd sways in place. It is not impressed.",
+      "he": "הקהל מתנדנד במקום. הוא לא התרשם."
+    },
+    "DJRUSH_TITLE": {
+      "en": "DJ Rush Hour",
+      "he": "פקק על הרחבה"
+    },
+    "DJRUSH_HOWTO_1": {
+      "en": "Goal: get the Sheep-mobile out through the gap on the right. The crowd will not help.",
+      "he": "המטרה: להוציא את השה-מובייל דרך הפתח מימין. הקהל לא יעזור."
+    },
+    "DJRUSH_HOWTO_2": {
+      "en": "The joystick moves the cursor. Yellow grabs someone; Yellow again lets go.",
+      "he": "ג'ויסטיק מזיז את הסמן. צהוב תופס מישהו, ועוד צהוב משחרר."
+    },
+    "DJRUSH_HOWTO_3": {
+      "en": "Everyone moves only along their own line. Blue: let go or pause. Hold Blue: start over.",
+      "he": "כל אחד זז רק בקו שלו. כחול: משחרר או עוצר. להחזיק כחול: מהתחלה."
+    },
+    "DJRUSH_HOWTO_BAR": {
+      "en": "Yellow: grab · Blue: pause · hold Blue: restart",
+      "he": "צהוב: תפיסה · כחול: עצירה · להחזיק כחול: מהתחלה"
+    },
+    "DJRUSH_LEVEL": {
+      "en": "Floor {1}/3",
+      "he": "רחבה {1}/3"
+    },
+    "DJRUSH_LEVEL_NAME_1": {
+      "en": "Warm-up",
+      "he": "חימום"
+    },
+    "DJRUSH_LEVEL_NAME_2": {
+      "en": "Peak Time",
+      "he": "שעת שיא"
+    },
+    "DJRUSH_LEVEL_NAME_3": {
+      "en": "Afters",
+      "he": "אפטר"
+    },
+    "DJRUSH_EXIT": {
+      "en": "Exit",
+      "he": "יציאה"
+    },
+    "DJRUSH_MOVES": {
+      "en": "Moves: {1}",
+      "he": "מהלכים: {1}"
+    },
+    "DJRUSH_BEST": {
+      "en": "Best: {1}",
+      "he": "שיא: {1}"
+    },
+    "DJRUSH_MIN": {
+      "en": "Minimum: {1}",
+      "he": "מינימום: {1}"
+    },
+    "DJRUSH_PAUSE_RESUME": {
+      "en": "Resume",
+      "he": "ממשיכים"
+    },
+    "DJRUSH_PAUSE_HINT": {
+      "en": "Hint",
+      "he": "רמז"
+    },
+    "DJRUSH_PAUSE_RESTART": {
+      "en": "Restart",
+      "he": "מתחילים מחדש"
+    },
+    "DJRUSH_PAUSE_LEAVE": {
+      "en": "Leave",
+      "he": "יציאה"
+    },
+    "DJRUSH_HOLD_RESTART": {
+      "en": "Hold to restart",
+      "he": "החזיקו להתחלה מחדש"
+    },
+    "DJRUSH_SOLVED": {
+      "en": "The sheep got through",
+      "he": "השה עבר"
+    },
+    "DJRUSH_SOLVED_PERFECT": {
+      "en": "Exactly as the DJ planned it",
+      "he": "בדיוק כמו שהדיג'יי תכנן"
+    },
+    "DJRUSH_NEXT": {
+      "en": "Yellow: next floor",
+      "he": "צהוב: לרחבה הבאה"
+    },
+    "DJRUSH_FREED": {
+      "en": "The Sheep-mobile is free. The drop is on its way.",
+      "he": "השה-מובייל חופשי. הדרופ בדרך."
+    },
+    "DJRUSH_R_COUPLE_1": {
+      "en": "Wait, we're mid-hug",
+      "he": "רגע, אנחנו באמצע"
+    },
+    "DJRUSH_R_COUPLE_2": {
+      "en": "That was our spot",
+      "he": "זה היה המקום שלנו"
+    },
+    "DJRUSH_R_COUPLE_3": {
+      "en": "Not letting go",
+      "he": "לא עוזבים את היד"
+    },
+    "DJRUSH_R_SLEEPER_1": {
+      "en": "Five more minutes…",
+      "he": "עוד חמש דקות…"
+    },
+    "DJRUSH_R_SLEEPER_2": {
+      "en": "Wake me for the drop",
+      "he": "תעירו אותי בדרופ"
+    },
+    "DJRUSH_R_SLEEPER_3": {
+      "en": "Drop yet? No.",
+      "he": "הדרופ הגיע? לא."
+    },
+    "DJRUSH_R_CONGA_1": {
+      "en": "A conga does not stop",
+      "he": "קונגה לא עוצרת"
+    },
+    "DJRUSH_R_CONGA_2": {
+      "en": "Who's leading?",
+      "he": "מי מוביל פה?"
+    },
+    "DJRUSH_R_CONGA_3": {
+      "en": "The tail doesn't know yet",
+      "he": "הזנב עוד לא יודע"
+    },
+    "DJRUSH_R_QUEUE_1": {
+      "en": "Nobody gives up their place",
+      "he": "לא מוותרים על התור"
+    },
+    "DJRUSH_R_QUEUE_2": {
+      "en": "The queue moved? Suspicious.",
+      "he": "התור זז? חשוד."
+    },
+    "DJRUSH_R_QUEUE_3": {
+      "en": "Save my place",
+      "he": "שמרו לי מקום"
+    },
+    "DJRUSH_R_BUMP_1": {
+      "en": "Ouch",
+      "he": "אאוץ'"
+    },
+    "DJRUSH_R_BUMP_2": {
+      "en": "No room",
+      "he": "אין מקום"
+    },
+    "DJRUSH_R_BUMP_3": {
+      "en": "There are people here",
+      "he": "יש פה אנשים"
+    },
+    "DJRUSH_R_CAR_1": {
+      "en": "Baaaa",
+      "he": "מההההה"
+    },
+    "DJRUSH_R_CAR_2": {
+      "en": "The sheep is moving",
+      "he": "השה זז"
+    },
+    "DJRUSH_DJ_HELLO": {
+      "en": "You cleared my floor. HOUSE LISTEN IN YOUR HOUSE. That's how I say thanks.",
+      "he": "פיניתם לי את הרחבה. HOUSE LISTEN IN YOUR HOUSE. ככה אני אומר תודה."
+    },
+    "DJRUSH_DJ_MIRROR": {
+      "en": "Wait. Are you... me? Doesn't matter. The set must go on.",
+      "he": "רגע. אתם... אני? לא משנה. הסט חייב להימשך."
+    },
+    "DJRUSH_DJ_BAG_1": {
+      "en": "Someone left a Music Bag on my decks. It only plays for its owner.",
+      "he": "מישהו השאיר על הדקים שלי שקית מוזיקה. היא מנגנת רק לבעלים שלה."
+    },
+    "DJRUSH_DJ_BAG_2": {
+      "en": "Take it into the Playa and find who it belongs to. Someone out there keeps asking everyone for a password.",
+      "he": "קחו אותה לפלאיה ותמצאו של מי היא. יש שם מישהו ששואל את כולם סיסמה."
+    },
+    "DJRUSH_DJ_PHRASE": {
+      "en": "Say exactly: \"The pixelated DJ sent me.\" Everyone here is pixelated. I'm the most.",
+      "he": "תגידו בדיוק: \"הדיג'יי המפוקסל שלח אותי\". כולם פה מפוקסלים. אני הכי."
+    },
+    "DJRUSH_DJ_REMIND": {
+      "en": "The bag is waiting for its owner on the Playa. Exactly like this: \"The pixelated DJ sent me.\"",
+      "he": "השקית מחכה לבעלים שלה על הפלאיה. בדיוק ככה: \"הדיג'יי המפוקסל שלח אותי\"."
+    },
+    "DJRUSH_DJ_REISSUE": {
+      "en": "No problem. Music Bags breed in the dark. Here. \"The pixelated DJ sent me,\" word for word.",
+      "he": "לא נורא. שקיות מוזיקה מתרבות בחושך. הנה. \"הדיג'יי המפוקסל שלח אותי\", מילה במילה."
+    },
+    "DJRUSH_DJ_AFTER": {
+      "en": "Johnny's online? Then my work here is done.",
+      "he": "ג׳וני מחובר? אז העבודה שלי פה נגמרה."
+    },
+    "DJRUSH_REPLAY_PROMPT": {
+      "en": "Another round on the floor?",
+      "he": "עוד סיבוב על הרחבה?"
+    },
+    "DJRUSH_REPLAY_PICK": {
+      "en": "Which floor?",
+      "he": "איזו רחבה?"
+    },
+    "DJRUSH_JOHNNY_ASK": {
+      "en": "The Music Bag hums louder next to Johnny. Say something?",
+      "he": "שקית המוזיקה מזמזמת חזק יותר ליד ג׳וני. להגיד משהו?"
+    },
+    "DJRUSH_SAY_PHRASE": {
+      "en": "The pixelated DJ sent me",
+      "he": "הדיג'יי המפוקסל שלח אותי"
+    },
+    "DJRUSH_SAY_WRONG_1": {
+      "en": "The blurry DJ sent me",
+      "he": "הדיג'יי המטושטש שלח אותי"
+    },
+    "DJRUSH_SAY_WRONG_2": {
+      "en": "She Se sent me",
+      "he": "שה סה שלח אותי"
+    },
+    "DJRUSH_SAY_NOTHING": {
+      "en": "Say nothing",
+      "he": "לא להגיד כלום"
+    },
+    "DJRUSH_JOHNNY_WRONG": {
+      "en": "That's not the password. I've tried that one too.",
+      "he": "זאת לא הסיסמה. גם את זה כבר ניסיתי."
+    },
+    "DJRUSH_JOHNNY_OK_1": {
+      "en": "Wait. That's the code. That's my bag. I've been looking for it since soundcheck.",
+      "he": "רגע. זה הקוד. זאת השקית שלי. אני מחפש אותה מאז הסאונדצ'ק."
+    },
+    "DJRUSH_JOHNNY_OK_2": {
+      "en": "The bass is still in there. Just the way I left it.",
+      "he": "הבס עוד בפנים. בדיוק איך שהשארתי אותו."
+    },
+    "DJRUSH_JOHNNY_OK_3": {
+      "en": "And on the tag... the WiFi password. HOUSE LISTEN IN YOUR HOUSE. I had it the whole time.",
+      "he": "ועל התווית... הסיסמה ל-WiFi. HOUSE LISTEN IN YOUR HOUSE. היא הייתה אצלי כל הזמן."
+    },
+    "DJRUSH_JOHNNY_AFTER": {
+      "en": "Wait. I know it now. Sorry, habit.",
+      "he": "רגע. אני יודע אותה עכשיו. סליחה, הרגל."
+    },
+    "DJRUSH_JOHNNY_PARTY_HINT": {
+      "en": "Too loud for passwords here. Find me on the Playa.",
+      "he": "רועש פה מדי בשביל סיסמאות. תמצאו אותי על הפלאיה."
+    },
+    "MUSICBAG": {
+      "en": "Music Bag",
+      "he": "שקית מוזיקה"
+    },
+    "Music Bag": {
+      "en": "Music Bag",
+      "he": "שקית מוזיקה"
+    },
+    "Music Bags": {
+      "en": "Music Bags",
+      "he": "שקיות מוזיקה"
+    },
+    "MUSICBAG_DESC": {
+      "en": "A black tote. Hums a bassline when nobody's talking. Not yours. Someone on the Playa wants it back.",
+      "he": "שקית בד שחורה. מזמזמת קו בס כשאף אחד לא מדבר. לא שלכם. מישהו על הפלאיה רוצה אותה בחזרה."
+    },
+    "DJRUSH_JOHNNY_RETURN": {
+      "en": "The bag? Keep it. I only needed the password on the tag. Someone in Kusomo is celebrating with bags.",
+      "he": "השקית? תשמרו אותה. הייתי צריך רק את הסיסמה מהתווית. בקוסומו מישהו חוגג עם שקיות."
+    },
+    "BAGS_INBAR_MUSICBAG_NOT_YET": {
+      "en": "A Music Bag? That belongs to someone on the Playa. Their agent doesn't take stolen goods. Deliver it, then come back.",
+      "he": "שקית מוזיקה? זאת של מישהו על הפלאיה. הסוכן שלהן לא מקבל סחורה גנובה. תמסרו ותחזרו."
     }
   }
 }

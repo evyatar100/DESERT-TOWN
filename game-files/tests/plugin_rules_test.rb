@@ -1016,6 +1016,8 @@ load File.join(__dir__, "arm_rules_test.rb")
 load File.join(__dir__, "alla_rules_test.rb")
 # TG31 Tuta maze rules, fairness and AI cases, and the scene smoke run, same pattern.
 load File.join(__dir__, "tuta_rules_test.rb")
+# TG40 DJ Rush Hour rules, solver, quest, Johnny/Inbar flow and the scene smoke run, same pattern.
+load File.join(__dir__, "djrush_rules_test.rb")
 check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
 check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
       "battle: loss tile is (25, 3) facing down")

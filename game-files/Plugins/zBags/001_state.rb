@@ -37,9 +37,18 @@ module Bags
     $game_map.need_refresh = true if $game_map
   end
 
+  # TG40: the Music Bag counts for Inbar once the DJ quest's Playa delivery is done.
+  def self.music_delivered?
+    !!(defined?(DJRush) && DJRush.delivery_done?)
+  end
+
+  def self.inbar_count
+    BagsRules.inbar_count($bag, music_delivered?)
+  end
+
   # Removes 2 bags, sets :done and S106 in one call, before any message.
   def self.hand_over!
-    return false if !$bag || !BagsRules.hand_over!(state, $bag)
+    return false if !$bag || !BagsRules.hand_over!(state, $bag, music_delivered?)
     sync_switch
     true
   end

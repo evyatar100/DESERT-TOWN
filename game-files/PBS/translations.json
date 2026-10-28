@@ -3990,8 +3990,8 @@
       "he": "המערער ממונה לחבר ועדה זמני. מוקצית לו חותמת. בהשאלה."
     },
     "TOAST_CLERK_WIN_3": {
-      "en": "Confiscated appliances are in the vault: the casino under the Old City. Go down through the cave entrance here in town. The toaster is on the golden altar.",
-      "he": "המכשירים המוחרמים בכספת: הקזינו מתחת לעיר העתיקה. יורדים בפתח המערה כאן בעיר. הטוסטר על המזבח המוזהב.",
+      "en": "Confiscated appliances are in the vault, in the casino. Go down through the galaxy hole in the wooden structure south of the Old City. The toaster is on the golden altar.",
+      "he": "המכשירים המוחרמים בכספת, בקזינו. יורדים דרך החור עם הגלקסיה, במבנה העץ שמדרום לעיר העתיקה. הטוסטר על המזבח המוזהב.",
       "draft": "Yotam"
     },
     "TOAST_CLERK_WIN_4": {
@@ -4004,8 +4004,8 @@
       "he": "ערעור על הדחייה: בכפוף לתקנה 404. הדלפק פתוח."
     },
     "TOAST_CLERK_REMIND": {
-      "en": "The form has been issued. Go down through the cave entrance here in the Old City, to the casino. The toaster is on the golden altar at the top of the hall.",
-      "he": "הטופס הונפק. יורדים בפתח המערה כאן בעיר העתיקה, אל הקזינו. הטוסטר על המזבח המוזהב בראש האולם.",
+      "en": "The form has been issued. South of the Old City, in the wooden structure: jump into the galaxy hole. The toaster is on the golden altar at the top of the hall.",
+      "he": "הטופס הונפק. דרומה מהעיר העתיקה, במבנה העץ: קופצים לחור עם הגלקסיה. הטוסטר על המזבח המוזהב בראש האולם.",
       "draft": "Yotam"
     },
     "TOAST_CLERK_REISSUE": {
@@ -4310,8 +4310,8 @@
       "he": "העיר העתיקה, חבוב. יוניק. ובשקט, כן? אני פה, עם הסיר. הסיר לא חושד בכלום."
     },
     "TOAST_NOODLE_REMIND_VAULT": {
-      "en": "A form is nice. A form is not a toaster. The vault is in the casino, under the Old City. My friend is getting nervous.",
-      "he": "טופס זה יפה. טופס זה לא טוסטר. הכספת בקזינו, מתחת לעיר העתיקה. החבר מתחיל לדאוג."
+      "en": "A form is nice. A form is not a toaster. The vault is in the casino: the galaxy hole, south of the Old City. My friend is getting nervous.",
+      "he": "טופס זה יפה. טופס זה לא טוסטר. הכספת בקזינו: החור עם הגלקסיה, דרומה מהעיר העתיקה. החבר מתחיל לדאוג."
     },
     "TOAST_NOODLE_REMIND_ALTAR": {
       "en": "I heard you have the toaster. I don't see a toaster. Neither does my friend. Back to the altar in the casino, buddy.",

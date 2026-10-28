@@ -139,20 +139,47 @@ class ArtAndCopyTests(unittest.TestCase):
         self.assertEqual(sizes, want)
         self.assertIn('STATUE = ["Graphics/Characters/tuta_statue", 192, 320]', src)
 
-    def test_placeholder_script_writes_the_same_files(self):
+    @staticmethod
+    def _tp():
         sys.path.insert(0, str(REPO / "assets-factory"))
         try:
             import tuta_placeholders as tp
         finally:
             sys.path.pop(0)
+        return tp
+
+    def test_installed_art_passes_the_lint_and_size_contract(self):
+        tp = self._tp()
         self.assertEqual({rel: size for rel, size in tp.ASSETS.values()},
                          {rel.replace("Graphics/", "", 1): size for rel, size in ART.items()})
+        for name, (rel, size) in tp.ASSETS.items():
+            with Image.open(ROOT / "Graphics" / rel) as im:
+                self.assertEqual(tp.lint(im, size, tp.clear_top_rule(name)), [], rel)
+
+    def test_placeholder_script_is_lint_clean_and_never_touches_graphics(self):
+        tp = self._tp()
         with tempfile.TemporaryDirectory() as tmp:
             with contextlib.redirect_stdout(io.StringIO()):
-                self.assertEqual(tp.main(["--root", tmp]), 0)
-            for rel, size in tp.ASSETS.values():
-                with Image.open(Path(tmp) / rel) as a, Image.open(ROOT / "Graphics" / rel) as b:
-                    self.assertEqual(a.convert("RGBA").tobytes(), b.convert("RGBA").tobytes(), rel)
+                self.assertEqual(tp.main(["--out", tmp]), 0)
+            for name, (rel, size) in tp.ASSETS.items():
+                with Image.open(Path(tmp) / rel) as im:
+                    self.assertEqual(tp.lint(im, size, tp.clear_top_rule(name)), [], rel)
+        with contextlib.redirect_stdout(io.StringIO()):
+            self.assertEqual(tp.main(["--out", str(ROOT / "Graphics")]), 2)
+        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+            tp.main([])
+
+    def test_install_script_reproduces_the_installed_art(self):
+        sys.path.insert(0, str(REPO / "assets-factory"))
+        try:
+            import tuta_install_art as ti
+        finally:
+            sys.path.pop(0)
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(ti.main(["--out", tmp]), 0)
+            for rel, _size in ti.tp.ASSETS.values():
+                self.assertEqual((Path(tmp) / rel).read_bytes(), (ROOT / "Graphics" / rel).read_bytes(), rel)
 
     def test_statue_lint_rejects_art_in_the_top_rows(self):
         sys.path.insert(0, str(REPO / "assets-factory"))

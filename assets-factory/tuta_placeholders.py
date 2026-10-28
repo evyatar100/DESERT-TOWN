@@ -4,8 +4,10 @@ The generated art later overwrites the same files with no code change. Every out
 alpha, at most 32 colours, no text; the statue keeps the top 16 rows of each frame clear.
 Run from the repo root:
 
-    python assets-factory/tuta_placeholders.py            # writes into game-files/Graphics
-    python assets-factory/tuta_placeholders.py --root DIR # writes into DIR/Pictures/Tuta, DIR/Characters
+    python assets-factory/tuta_placeholders.py --out DIR  # writes into DIR/Pictures/Tuta, DIR/Characters
+
+--out is required: the real art in game-files/Graphics is installed by tuta_install_art.py, and this
+script refuses to write over it.
 """
 
 from __future__ import annotations
@@ -286,8 +288,11 @@ def build(name):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
-    ap.add_argument("--root", type=Path, default=GRAPHICS, help="Graphics folder to write into")
+    ap.add_argument("--out", type=Path, required=True, help="folder to write into (never the game's Graphics)")
     args = ap.parse_args(argv)
+    if args.out.resolve() == GRAPHICS.resolve():
+        print("refusing to overwrite the installed art in %s; use tuta_install_art.py" % GRAPHICS)
+        return 2
     bad = []
     for name, (rel, size) in ASSETS.items():
         im = build(name)
@@ -295,7 +300,7 @@ def main(argv=None):
         if problems:
             bad.append((name, problems))
             continue
-        out = args.root / rel
+        out = args.out / rel
         out.parent.mkdir(parents=True, exist_ok=True)
         im.save(out)
         print("%s %dx%d" % (rel, size[0], size[1]))

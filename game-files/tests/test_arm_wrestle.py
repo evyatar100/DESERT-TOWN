@@ -341,6 +341,49 @@ class ArmGameDataTests(unittest.TestCase):
         with Image.open(ROOT / "Graphics" / "Characters" / "dt_670f79e3.png") as image:
             self.assertEqual(image.size, (128, 192), "the bust fallback's map sprite")
 
+    @staticmethod
+    def _installer():
+        sys.path.insert(0, str(ROOT.parent / "assets-factory"))
+        try:
+            import arm_wrestle_install_art as installer
+        finally:
+            sys.path.pop(0)
+        return installer
+
+    def test_installed_art_passes_the_cut_lint(self):
+        installer = self._installer()
+        for name in installer.SIZES:
+            with Image.open(ROOT / "Graphics" / "Pictures" / "ArmWrestle" / (name + ".png")) as image:
+                self.assertEqual(installer.lint(name, image), [], name)
+
+    def test_install_script_reproduces_the_installed_art(self):
+        import contextlib
+        import io
+        import tempfile
+        installer = self._installer()
+        with tempfile.TemporaryDirectory() as tmp:
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(installer.main(["--out", tmp]), 0)
+            for name in installer.SIZES:
+                self.assertEqual((Path(tmp) / (name + ".png")).read_bytes(),
+                                 (ROOT / "Graphics" / "Pictures" / "ArmWrestle" / (name + ".png")).read_bytes(), name)
+
+    def test_arm_strip_pivot_and_frames(self):
+        installer = self._installer()
+        with Image.open(ROOT / "Graphics" / "Pictures" / "ArmWrestle" / "aw_arms.png") as image:
+            alpha = image.convert("RGBA").getchannel("A")
+        cw, ch = installer.ARM_CELL
+        for frame in (0, 24, 48):
+            r, c = divmod(frame, installer.ARM_COLS)
+            cell = alpha.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch))
+            self.assertIsNotNone(cell.getbbox(), frame)
+        # Upright frame 24: the elbows end on the pivot row and the arms never reach the cell's top or sides.
+        r, c = divmod(24, installer.ARM_COLS)
+        box = alpha.crop((c * cw, r * ch, (c + 1) * cw, (r + 1) * ch)).getbbox()
+        self.assertEqual(box[3], installer.ARM_PIVOT[1])
+        self.assertGreater(box[1], 0)
+        self.assertTrue(0 < box[0] and box[2] < cw)
+
 
 if __name__ == "__main__":
     unittest.main()

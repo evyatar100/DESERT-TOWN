@@ -3990,8 +3990,8 @@
       "he": "המערער ממונה לחבר ועדה זמני. מוקצית לו חותמת. בהשאלה."
     },
     "TOAST_CLERK_WIN_3": {
-      "en": "Confiscated appliances are stored in the vault: the casino under the Old City. Entry through the cave.",
-      "he": "המכשירים המוחרמים מאוחסנים בכספת: הקזינו מתחת לעיר העתיקה. הכניסה דרך המערה.",
+      "en": "Confiscated appliances are in the vault: the casino under the Old City. Go down through the cave entrance here in town. The toaster is on the golden altar.",
+      "he": "המכשירים המוחרמים בכספת: הקזינו מתחת לעיר העתיקה. יורדים בפתח המערה כאן בעיר. הטוסטר על המזבח המוזהב.",
       "draft": "Yotam"
     },
     "TOAST_CLERK_WIN_4": {
@@ -4004,8 +4004,8 @@
       "he": "ערעור על הדחייה: בכפוף לתקנה 404. הדלפק פתוח."
     },
     "TOAST_CLERK_REMIND": {
-      "en": "The form has been issued. The vault is in the casino, under the Old City. The archive staff are not supposed to touch.",
-      "he": "הטופס הונפק. הכספת בקזינו, מתחת לעיר העתיקה. צוות הארכיון לא אמור לגעת.",
+      "en": "The form has been issued. Go down through the cave entrance here in the Old City, to the casino. The toaster is on the golden altar at the top of the hall.",
+      "he": "הטופס הונפק. יורדים בפתח המערה כאן בעיר העתיקה, אל הקזינו. הטוסטר על המזבח המוזהב בראש האולם.",
       "draft": "Yotam"
     },
     "TOAST_CLERK_REISSUE": {

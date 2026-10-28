@@ -254,7 +254,7 @@ class PlanetRulesMirrorTests(unittest.TestCase):
 
         chunks = pr.build_chunks(lines, measure)
         self.assertTrue(all(len(c["rows"]) <= pr.CHUNK_ROWS for c in chunks))
-        self.assertEqual(sum(1 for c in chunks if lines[c["line"]]["passage"] == "P10"), 2)
+        self.assertGreaterEqual(sum(1 for c in chunks if lines[c["line"]]["passage"] == "P10"), 2)
         for k in range(int(timing["duration"] / 0.05) + 1):
             t = k * 0.05
             a, _ = pr.crawl_at(chunks, t)
@@ -268,6 +268,19 @@ class PlanetRulesMirrorTests(unittest.TestCase):
         self.assertEqual(pr.crawl_at(chunks, 500.0), (None, None))
         self.assertEqual(pr.crawl_at(chunks, 557.0)[0], len(chunks) - 1)
         self.assertEqual(pr.glue(["Nature", "Astrology,", "הירח"]), [False, True, False])
+        # TG38: the active line is the one being spoken, word- or line-timed; none in the gap
+        for wordy in (True, False):
+            li = next(i for i, l in enumerate(lines) if bool(l.get("words")) == wordy)
+            mid = (lines[li]["start"] + lines[li]["end"]) / 2
+            self.assertEqual(pr.active_line(chunks, mid), li)
+            self.assertNotEqual(pr.active_line(chunks, lines[li]["end"] + pr.LINE_TAIL + 0.01), li)
+        self.assertIsNone(pr.active_line(chunks, 500.0))
+        self.assertTrue(1.35 <= pr.FONT_SIZE / pr.BASE_SIZE <= 1.5)
+        self.assertEqual(min(pr.LINE_SIZES), pr.BASE_SIZE)
+        zooms = [pr.active_zoom(a / 20, pr.ZOOM_END) for a in range(0, 6)]
+        self.assertEqual(zooms, sorted(zooms))
+        self.assertAlmostEqual(zooms[0], pr.ZOOM_END)
+        self.assertAlmostEqual(zooms[-1], 1.0)
 
     def test_scenes_and_countdown(self):
         timing, _ = pr.parse_timing(timing_doc())

@@ -21,6 +21,8 @@ module Planet
       @slots = {}
       @measure = Bitmap.new(16, 16)
       @chunks = R.build_chunks(@lines) { |li, size| measure(@words[li], size) }
+      @line_start = {}
+      @chunks.each { |c| @line_start[c[:line]] ||= c[:start] }
     rescue StandardError
       @measure&.dispose
       raise
@@ -29,8 +31,8 @@ module Planet
     def update(t)
       active, receding = R.crawl_at(@chunks, t)
       (@slots.keys - [active, receding]).each { |i| drop(i) }
-      place(active, t, nil) if active
-      place(receding, t, t - @chunks[receding][:leave]) if receding
+      act_top = active ? place(active, t, nil, nil) : nil
+      place(receding, t, t - @chunks[receding][:leave], act_top) if receding
     end
 
     def dispose
@@ -59,18 +61,23 @@ module Planet
       [words.map { |w| @measure.text_size(w).width }, @measure.text_size(" ").width]
     end
 
-    def place(i, t, recede_age)
+    # Returns the block's on-screen top. A receding block is pushed up out of the active one's way.
+    def place(i, t, recede_age, active_top)
       c = @chunks[i]
       rows = (@slots[i] ||= build(c))
       rh = R.row_h(c[:size])
-      top = R.chunk_top(rows.length, c[:size])
-      cy = top + rows.length * rh / 2.0
+      n = rows.length
+      top = R.chunk_top(n, c[:size])
+      cy = top + n * rh / 2.0
+      rest = R.rest_zoom(c[:size])
+      grown = ->(at) { R.active_zoom(at - @line_start[c[:line]], rest) }
       if recede_age
-        shift, zoom, opacity = R.recede(recede_age)
+        shift, zoom, opacity = R.recede(recede_age, rest, grown.call(c[:leave]))
         dy = -shift
+        dy += R.push_above(R.chunk_box(n, c[:size], zoom, dy)[1], active_top) if active_top
       else
         dy = R.rise_offset(t - c[:start])
-        zoom = 1.0
+        zoom = grown.call(t)
         opacity = 255
       end
       refresh_masks(rows, R.word_at(@lines[c[:line]], t))
@@ -82,6 +89,7 @@ module Planet
           s.opacity = opacity
         end
       end
+      R.chunk_box(n, c[:size], zoom, dy)[0]
     end
 
     def refresh_masks(rows, spoken)

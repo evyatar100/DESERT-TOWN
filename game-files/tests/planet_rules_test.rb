@@ -111,20 +111,20 @@ widths_ok = chunks.all? do |c|
 end
 check(widths_ok && chunks.all? { |c| c[:rows].length <= PR::CHUNK_ROWS }, "planet: rows <= 464 px, chunks <= 3 rows")
 p10 = chunks.select { |c| lines[c[:line]][:passage] == "P10" }
-check(p10.length == 2, "planet: P10's 49-word sentence is 2 chunks in word mode (#{p10.length})")
+check(p10.length >= 2, "planet: P10's 49-word sentence splits into several chunks in word mode (#{p10.length})")
 joined = lines.each_index.map do |li|
   w = lines[li][:text].split(" ")
   chunks.select { |c| c[:line] == li }.flat_map { |c| c[:rows] }.map { |r| r.map { |i| w[i] }.join(" ") }.join(" ")
 end
 check(joined == lines.map { |l| l[:text] }, "planet: the chunks' rows rebuild every line exactly")
 line_mode = { passage: "P10", text: lines.find { |l| l[:passage] == "P10" }[:text], start: 0, end: 9, words: nil }
-wide = ->(s) { ws, sp = measure.call(line_mode[:text].split(" "), s); [ws.map { |w| w * 5 / 4 }, sp] }
+wide = ->(s) { measure.call(line_mode[:text].split(" "), s) }
 plan = PR.plan_line(line_mode, &wide)
 check(plan[:line_mode] && plan[:chunks].length == 1 && plan[:size] < PR::FONT_SIZE && plan[:rows].length <= PR::LINE_ROWS,
       "planet: line mode shrinks the font to fit <= 6 rows, one block (size #{plan[:size]}, #{plan[:rows].length} rows)")
 tiny = ->(_s) { [Array.new(300, 40), 4] }
 plan = PR.plan_line({ text: "x", words: nil }, &tiny)
-check(plan[:size] == PR::LINE_SIZES.last && plan[:chunks].length == 1, "planet: line mode stops shrinking at 18 px")
+check(plan[:size] == PR::LINE_SIZES.last && plan[:chunks].length == 1, "planet: line mode stops shrinking at the base size (#{PR::BASE_SIZE} px)")
 
 early = []
 late = []
@@ -147,10 +147,70 @@ gap_t = 500.0
 check(PR.crawl_at(chunks, gap_t) == [nil, nil], "planet: the band is empty in the silent gap")
 check(PR.rise_offset(0) > 0 && PR.rise_offset(PR::RISE).abs < 1e-9 && PR.rise_offset(-1) > 0, "planet: rows rise in over 0.25 s")
 r0, r1, r2 = PR.recede(0), PR.recede(PR::RECEDE), PR.recede(PR::RECEDE + PR::FADE)
-check(r0 == [0.0, 1.0, 255] && r1[0] == 120 && (r1[1] - 0.7).abs < 1e-9 && r1[2] == 110 && r2[2] == 0,
-      "planet: receding rows move 120 px up, zoom 1.0 -> 0.7, opacity 255 -> 110 -> 0")
+check(r0 == [0.0, 1.0, 255] && r1[0] == 120 && (r1[1] - PR::ZOOM_END).abs < 1e-9 && r1[2] == 110 && r2[2] == 0,
+      "planet: receding rows move 120 px up, zoom 1.0 -> base size (#{PR::ZOOM_END.round(3)}), opacity 255 -> 110 -> 0")
 check(PR.word_at(lines[0], lines[0][:start] - 1) == -1 && PR.word_at(lines[0], lines[0][:end]) == lines[0][:words].length - 1 &&
       PR.word_at({ words: nil }, 1).nil?, "planet: word_at counts spoken words; nil in line mode")
+
+#-------------------------------------------------------------------------------
+# TG38: the line being spoken is drawn larger; pure choice, ease and spacing
+#-------------------------------------------------------------------------------
+word_li = lines.index { |l| l[:words] }
+low_li = lines.index { |l| l[:words].nil? }
+check(word_li && low_li, "planet: the timing has word-timed and line-timed (low_confidence) lines")
+bad = []
+[word_li, low_li].each do |li|
+  l = lines[li]
+  mid = (l[:start] + l[:end]) / 2
+  bad << [:mid, li] unless PR.active_line(chunks, mid) == li
+  bad << [:before, li] if PR.active_line(chunks, l[:start] - 0.01) == li
+  bad << [:after, li] if PR.active_line(chunks, l[:end] + PR::LINE_TAIL + 0.01) == li
+end
+check(bad.empty?, "planet: active_line is the line being spoken, word-timed and line-timed alike (#{bad.inspect})")
+check(PR.active_line(chunks, 0.0).nil? && PR.active_line(chunks, 500.0).nil?, "planet: no active line before the first line or in the silent gap")
+wrong = []
+(0..(timing[:duration] / 0.05).to_i).each do |k|
+  t = k * 0.05
+  al = PR.active_line(chunks, t)
+  next unless al
+  wrong << t unless t >= lines[al][:start] && t < lines[al][:end] + PR::LINE_TAIL
+end
+check(wrong.empty?, "planet: the active line's time span always holds t (#{wrong.first(3).inspect})")
+check(PR::FONT_SIZE >= (PR::BASE_SIZE * 1.35).floor && PR::FONT_SIZE <= PR::BASE_SIZE * 1.5 &&
+      PR::LINE_SIZES.first == PR::FONT_SIZE && PR::LINE_SIZES.min >= PR::BASE_SIZE,
+      "planet: active size #{PR::FONT_SIZE} px is 1.35-1.5x the base #{PR::BASE_SIZE}; line mode never goes under the base")
+rz = PR.rest_zoom(PR::FONT_SIZE)
+z = [0.0, 0.05, 0.1, 0.15, 0.2, 0.5].map { |a| PR.active_zoom(a, rz) }
+check((z[0] - rz).abs < 1e-9 && (z[4] - 1.0).abs < 1e-9 && z == z.sort && z[1] > z[0] && z[1] < z[3] && PR.rest_zoom(PR::BASE_SIZE) == 1.0,
+      "planet: the size grows monotonically from the base size to the active size in #{PR::GROW} s, no jump")
+# no overlap: sweep every chunk change; the receding block never reaches the active one
+over = []
+hi_px = []
+chunks.each_with_index do |c, i|
+  n = c[:rows].length
+  rest = PR.rest_zoom(c[:size])
+  next unless i > 0
+  prev = chunks[i - 1]
+  pn = prev[:rows].length
+  prest = PR.rest_zoom(prev[:size])
+  0.step(2.1, 0.05) do |age|
+    a_dy = PR.rise_offset(age)
+    a_zoom = PR.active_zoom(age, rest)
+    a_top = PR.chunk_box(n, c[:size], a_zoom, a_dy)[0]
+    shift, r_zoom, = PR.recede(age, prest, 1.0)
+    r_dy = -shift
+    r_box = PR.chunk_box(pn, prev[:size], r_zoom, r_dy)
+    settled = r_box[1] <= a_top - PR::GAP + 1e-6
+    over << [i, age, :settled] if age >= PR::RECEDE && !settled   # it clears the active block by itself
+    r_dy += PR.push_above(r_box[1], a_top)
+    over << [i, age] if PR.chunk_box(pn, prev[:size], r_zoom, r_dy)[1] > a_top - PR::GAP + 1e-6
+    hi_px << [i, age] if PR.chunk_box(n, c[:size], 1.0, 0)[1] > 384
+  end
+end
+check(over.empty?, "planet: the receding block stays GAP px above the active one at every step, and clears it unaided once receded (#{over.first(3).inspect})")
+check(hi_px.empty?, "planet: a resting active block ends above the screen bottom (#{hi_px.first(3).inspect})")
+all_in = chunks.all? { |c| PR.chunk_box(c[:rows].length, c[:size], 1.0, 0)[1] <= PR::BOTTOM_LIMIT }
+check(all_in, "planet: every resting block fits above the screen bottom")
 
 #-------------------------------------------------------------------------------
 # 7: scenes and countdown

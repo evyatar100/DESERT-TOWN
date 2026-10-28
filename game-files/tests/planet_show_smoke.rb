@@ -144,6 +144,10 @@ show = Show.prepare
 max_sprites = 0
 early = []
 digits_out = []
+big_px = []
+small_px = []
+overlap = []
+active_px = []
 crawl = nil
 seen_play = nil
 $frame_hook = lambda do
@@ -156,6 +160,26 @@ $frame_hook = lambda do
   max_sprites = [max_sprites, live_count].max
   c.instance_variable_get(:@slots).each_key do |i|
     early << [i, t] if c.chunks[i][:start] > t + 0.11   # one frame of audio is 0.1 s here
+  end
+  # TG38: the block of each live slot, from its sprites (rows are rh tall, zoomed about the centre)
+  boxes = c.instance_variable_get(:@slots).map do |i, rows|
+    sp = rows.flat_map { |r| r[:sprites] }
+    h = sp[0].bitmap.height - 4
+    size = c.chunks[i][:size]
+    [i, sp[0].zoom_y, size, sp.map { |s| s.y - h * s.zoom_y / 2.0 }.min, sp.map { |s| s.y + h * s.zoom_y / 2.0 }.max, sp[0].opacity]
+  end
+  al = R.active_line(c.chunks, t)
+  boxes.each do |i, zoom, size, top, bot, op|
+    next unless c.chunks[i][:line] == al && c.chunks[i][:leave] > t
+    active_px << size * zoom if t - c.chunks[i][:start] > R::GROW + 0.11
+    big_px << [i, t, size * zoom] if size * zoom > R::FONT_SIZE + 0.5
+    bot_max = bot
+    big_px << [i, t, :off_screen] if bot_max > 384 && op > 0 && t - c.chunks[i][:start] > R::RISE + 0.11
+  end
+  boxes.each { |i, zoom, size, *| small_px << [i, t, size * zoom] if size * zoom < R::BASE_SIZE - 0.5 }
+  boxes.combination(2) do |a, b|
+    hi, lo = a[3] < b[3] ? [a, b] : [b, a]
+    overlap << [hi[0], lo[0], t] if hi[4] > lo[3] + 1.0
   end
   sky = sh.instance_variable_get(:@sky)
   digit = sky.instance_variable_get(:@digit)
@@ -176,6 +200,11 @@ check(all_disposed?, "smoke: every sprite, bitmap and the viewport are disposed"
 check(max_sprites <= 120, "smoke: at most 120 sprites at once (#{max_sprites})")
 check(early.empty?, "smoke: no row is on screen before its chunk's start (#{early.first(3).inspect})")
 check(digits_out.empty?, "smoke: countdown digits only in the last 10 s of the gap (#{digits_out.first(3).inspect})")
+check(active_px.any? && active_px.max >= R::BASE_SIZE * 1.35 && active_px.all? { |px| px >= R::BASE_SIZE },
+      "smoke TG38: the active line is drawn at its full size once grown (max #{active_px.max&.round(1)} px, base #{R::BASE_SIZE})")
+check(big_px.empty?, "smoke TG38: nothing is drawn above the active size or below the screen (#{big_px.first(3).inspect})")
+check(small_px.empty?, "smoke TG38: no row is ever drawn under the base size #{R::BASE_SIZE} px (#{small_px.first(3).inspect})")
+check(overlap.empty?, "smoke TG38: the active block and the receding one never overlap (#{overlap.first(3).inspect})")
 check($frames.between?(5000, 6000), "smoke: frames follow the audio clock (#{$frames})")
 check($cleared, "smoke: the name plate is cleared first")
 

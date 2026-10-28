@@ -205,8 +205,10 @@ module PlanetRules
   #-----------------------------------------------------------------------------
 
   MAX_W = 464
-  FONT_SIZE = 22
-  LINE_SIZES = [22, 20, 18].freeze
+  BASE_SIZE = 22                 # the size every non-active line is shown at
+  ACTIVE_SCALE = 1.4             # the line being spoken is drawn this much larger
+  FONT_SIZE = (BASE_SIZE * ACTIVE_SCALE).round   # rows are drawn and wrapped at the active size
+  LINE_SIZES = [31, 28, 25, BASE_SIZE].freeze    # line mode shrinks to fit, never below the base
   CHUNK_ROWS = 3
   LINE_ROWS = 6
   LINE_TAIL = 0.4      # text leaves at the line's end + this, or at the next chunk
@@ -216,12 +218,32 @@ module PlanetRules
   BAND_TOP = 270
   BAND_BOTTOM = 370
   RECEDE_TOP = 150
-  ZOOM_END = 0.7
+  ZOOM_END = BASE_SIZE.to_f / FONT_SIZE   # a chunk drawn at FONT_SIZE ends at the base size
+  GROW = 0.2                     # a line grows from its resting size to the active size
+  GAP = 6                        # least px between the active block and the receding one
+  BOTTOM_LIMIT = 376
+  RISE_DIST = 130
   OPACITY_END = 110
   DIM = 0.7            # upcoming words in word mode
 
   def self.row_h(size)
     size + 8
+  end
+
+  # Index of the line being spoken, nil in a gap or before the first line.
+  def self.active_line(chunks, t)
+    i = crawl_at(chunks, t)[0]
+    i && chunks[i][:line]
+  end
+
+  # Zoom of the active line `age` s after its first chunk appeared: eases from `rest` to 1.
+  def self.active_zoom(age, rest = ZOOM_END)
+    rest + (1.0 - rest) * ease(age / GROW)
+  end
+
+  # Resting zoom of a chunk drawn at `size`, so non-active text lands at BASE_SIZE.
+  def self.rest_zoom(size)
+    [BASE_SIZE.to_f / size, 1.0].min
   end
 
   # A Latin or number word glued to the Latin/number word before it ("Nature Astrology",
@@ -322,22 +344,34 @@ module PlanetRules
   end
 
   # Pixels still below the band while a chunk rises in (0 once risen).
-  def self.rise_offset(age, screen_h = 384)
-    return screen_h - BAND_TOP if age < 0
-    (1 - ease(age / RISE)) * (screen_h - BAND_TOP)
+  def self.rise_offset(age)
+    return RISE_DIST if age < 0
+    (1 - ease(age / RISE)) * RISE_DIST
   end
 
   # [upward shift px, zoom, opacity] for a chunk that started receding `age` seconds ago.
-  def self.recede(age)
+  def self.recede(age, end_zoom = ZOOM_END, from_zoom = 1.0)
     f = ease(age / RECEDE)
     opacity = OPACITY_END + (255 - OPACITY_END) * (1 - f)
     opacity = OPACITY_END * (1 - ((age - RECEDE) / FADE).clamp(0.0, 1.0)) if age > RECEDE
-    [(BAND_TOP - RECEDE_TOP) * f, 1.0 - (1.0 - ZOOM_END) * f, opacity.round]
+    [(BAND_TOP - RECEDE_TOP) * f, from_zoom - (from_zoom - end_zoom) * f, opacity.round]
   end
 
   # Top y of a chunk of n rows in the band, centred on the band's middle.
   def self.chunk_top(n, size)
-    ((BAND_TOP + BAND_BOTTOM) / 2.0 - n * row_h(size) / 2.0).round
+    [((BAND_TOP + BAND_BOTTOM) / 2.0 - n * row_h(size) / 2.0).round, BOTTOM_LIMIT - n * row_h(size)].min
+  end
+
+  # [top, bottom] on screen of a chunk's n rows, zoomed about its centre and shifted down by dy.
+  def self.chunk_box(n, size, zoom, dy)
+    h = n * row_h(size)
+    cy = chunk_top(n, size) + h / 2.0 + dy
+    [cy - h * zoom / 2.0, cy + h * zoom / 2.0]
+  end
+
+  # Extra (<= 0) upward shift keeping a receding block's bottom GAP px above the active block's top.
+  def self.push_above(recede_bottom, active_top)
+    [active_top - GAP - recede_bottom, 0.0].min
   end
 
   #-----------------------------------------------------------------------------

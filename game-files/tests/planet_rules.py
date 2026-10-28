@@ -14,8 +14,12 @@ EPS = 0.001
 PASSAGE_RE = re.compile(r"\AP\d\d[a-z]?\Z")
 AUDIO_DURATION = 558.141
 MAX_W = 464
-FONT_SIZE = 22
-LINE_SIZES = (22, 20, 18)
+BASE_SIZE = 22
+ACTIVE_SCALE = 1.4
+FONT_SIZE = round(BASE_SIZE * ACTIVE_SCALE)
+LINE_SIZES = (31, 28, 25, BASE_SIZE)
+ZOOM_END = BASE_SIZE / FONT_SIZE
+GROW = 0.2
 CHUNK_ROWS = 3
 LINE_ROWS = 6
 LINE_TAIL = 0.4
@@ -283,6 +287,24 @@ def crawl_at(chunks, t, recede=0.6, fade=1.5):
         elif t < c["leave"] + recede + fade:
             receding = i
     return active, receding
+
+
+def active_line(chunks, t):
+    i = crawl_at(chunks, t)[0]
+    return None if i is None else chunks[i]["line"]
+
+
+def ease(f):
+    f = min(max(f, 0.0), 1.0)
+    return 1 - (1 - f) ** 3
+
+
+def active_zoom(age, rest=ZOOM_END):
+    return rest + (1.0 - rest) * ease(age / GROW)
+
+
+def rest_zoom(size):
+    return min(BASE_SIZE / size, 1.0)
 
 
 # --- sky ---------------------------------------------------------------------

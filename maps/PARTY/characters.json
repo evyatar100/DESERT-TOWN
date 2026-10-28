@@ -406,5 +406,13 @@
     "y": 12,
     "graphic": "dt_cace0cde",
     "notes": "hops along custom move route; jumps in place"
+  },
+  {
+    "id": "50d0eeb7",
+    "name": "שירה ו",
+    "x": 26,
+    "y": 14,
+    "graphic": "dt_50d0eeb7",
+    "notes": "hops along custom move route; moves left and right"
   }
-]
+]

@@ -2821,6 +2821,18 @@
       "actions": [
         "starts the Hot-Dog Stand quest (zAllaStand)"
       ]
+    },
+    {
+      "character_id": "50d0eeb7",
+      "map_id": 93,
+      "event_id": 86,
+      "x": 26,
+      "y": 14,
+      "line_key": null,
+      "actions": [
+        "hops along custom move route",
+        "moves left and right"
+      ]
     }
   ]
-}
+}

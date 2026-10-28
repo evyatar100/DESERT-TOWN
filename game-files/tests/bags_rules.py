@@ -98,15 +98,22 @@ def ask(state):
     return True
 
 
-# Mirror of BagsRules::INBAR_BAGS: what Inbar counts, in the order she takes them (TG40).
-INBAR_BAGS = (("SURPRISEBAG", None), ("MUSICBAG", 1))
-GATED = ("MUSICBAG",)
+# Mirror of BagsRules::INBAR_BAGS: what Inbar counts, in the order she takes them (TG40, TG48).
+INBAR_BAGS = (("SURPRISEBAG", None), ("MUSICBAG", 1), ("WEDDINGBAG", 1))
+GATED = ("MUSICBAG", "WEDDINGBAG")
+
+
+def gate_open(gates, item):
+    """gates: {item: open}, or a bool (old callers) = the Music Bag's delivery."""
+    if isinstance(gates, dict):
+        return bool(gates.get(item))
+    return item == "MUSICBAG" and bool(gates)
 
 
 def inbar_counted(bag, delivered=False):
     out = {}
     for item, cap in INBAR_BAGS:
-        n = 0 if item in GATED and not delivered else bag.quantity(item)
+        n = 0 if item in GATED and not gate_open(delivered, item) else bag.quantity(item)
         out[item] = min(n, cap) if cap else n
     return out
 
@@ -116,7 +123,7 @@ def inbar_count(bag, delivered=False):
 
 
 def music_not_yet(state, bag, delivered):
-    return (state["inbar"] != "done" and not delivered and bag.quantity("MUSICBAG") > 0
+    return (state["inbar"] != "done" and not gate_open(delivered, "MUSICBAG") and bag.quantity("MUSICBAG") > 0
             and inbar_count(bag, delivered) < NEED)
 
 

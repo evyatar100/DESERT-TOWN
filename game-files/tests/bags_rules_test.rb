@@ -898,3 +898,26 @@ SongR.stop
 failed = SongR.start(duo: true)
 check(failed == false && SongR.current.nil? && $game_temp.followers.list.empty? && $PokemonGlobal.followers.empty? && Bags.state[:duo] == :gone,
       "bags rev2: a join that raises for Shirpaz leaves no half duo (no followers, :gone, no run)")
+
+#-------------------------------------------------------------------------------
+# TG48 T14: Inbar counts Shira's Wedding Bag (at most 1, only once it is given), taken last
+#-------------------------------------------------------------------------------
+WG = { MUSICBAG: false, WEDDINGBAG: true }.freeze
+wb = BagsTestBag.new(WEDDINGBAG: 3, SURPRISEBAG: 1)
+check(BagsRules.inbar_count(wb, WG) == 2 && BagsRules.inbar_count(wb, { WEDDINGBAG: false }) == 1 && BagsRules.inbar_count(wb, true) == 1,
+      "bags/wedding: the Wedding Bag counts at most 1, and only when its gate is open (a boolean opens only the Music Bag)")
+sw = BagsTestBag.new(SURPRISEBAG: 1, WEDDINGBAG: 1)
+s48 = BagsRules.normalize({ inbar: :asked })
+check(BagsRules.hand_over!(s48, sw, WG) && sw.quantity(:SURPRISEBAG) == 0 && sw.quantity(:WEDDINGBAG) == 0 && s48[:inbar] == :done,
+      "bags/wedding: Surprise + Wedding = 2, both taken")
+ssw = BagsTestBag.new(SURPRISEBAG: 2, WEDDINGBAG: 1)
+s48b = BagsRules.normalize({ inbar: :asked })
+check(BagsRules.hand_over!(s48b, ssw, WG) && ssw.quantity(:SURPRISEBAG) == 0 && ssw.quantity(:WEDDINGBAG) == 1,
+      "bags/wedding: 2 Surprise + Wedding: the Wedding Bag stays (taken last)")
+mw = BagsTestBag.new(MUSICBAG: 1, WEDDINGBAG: 1)
+s48c = BagsRules.normalize({ inbar: :asked })
+check(BagsRules.hand_over!(s48c, mw, { MUSICBAG: true, WEDDINGBAG: true }) && mw.items.values.sum.zero?,
+      "bags/wedding: Music + Wedding = 2 with both gates open")
+check(!BagsRules.music_not_yet?(BagsRules.normalize({ inbar: :asked }), mw, { MUSICBAG: true }) &&
+      BagsRules.music_not_yet?(BagsRules.normalize({ inbar: :asked }), BagsTestBag.new(MUSICBAG: 1), { MUSICBAG: false, WEDDINGBAG: true }),
+      "bags/wedding: music_not_yet? reads the Music gate from a gates hash")

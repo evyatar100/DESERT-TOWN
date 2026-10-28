@@ -48,14 +48,20 @@ module BagsRules
 
   # The one list of what Inbar counts, in the order she takes them (TG40, founder: the Music
   # Bag counts as a bag). The Music Bag counts once, and only after its Playa delivery.
-  INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1 }.freeze
-  GATED = %i[MUSICBAG].freeze
+  # TG48: Shira's Wedding Bag counts once, from the moment she gives it; taken last.
+  INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1, WEDDINGBAG: 1 }.freeze
+  GATED = %i[MUSICBAG WEDDINGBAG].freeze
 
-  # item -> how many Inbar would count now; delivered = the DJ quest's delivery is done.
+  # gates: { item => open } per gated item, or a boolean (old callers) = the Music Bag's delivery.
+  def self.gate_open?(gates, item)
+    gates.is_a?(Hash) ? !!gates[item] : (item == :MUSICBAG && !!gates)
+  end
+
+  # item -> how many Inbar would count now.
   def self.inbar_counted(bag, delivered = false)
     return {} unless bag
     INBAR_BAGS.to_h do |item, cap|
-      n = GATED.include?(item) && !delivered ? 0 : bag.quantity(item).to_i
+      n = GATED.include?(item) && !gate_open?(delivered, item) ? 0 : bag.quantity(item).to_i
       [item, cap ? [n, cap].min : n]
     end
   end
@@ -64,7 +70,7 @@ module BagsRules
 
   # Holding the Music Bag before its delivery while still short: Inbar says it is not hers.
   def self.music_not_yet?(state, bag, delivered)
-    state[:inbar] != :done && !delivered && bag && bag.quantity(:MUSICBAG).to_i > 0 &&
+    state[:inbar] != :done && !gate_open?(delivered, :MUSICBAG) && bag && bag.quantity(:MUSICBAG).to_i > 0 &&
       inbar_count(bag, delivered) < NEED
   end
 

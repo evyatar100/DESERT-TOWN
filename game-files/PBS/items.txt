@@ -6672,6 +6672,14 @@ Price = 0
 Flags = KeyItem
 Description = A black tote bag that hums a bassline when nobody's talking. Not yours. Someone on the Playa wants it back.
 #-------------------------------
+[WEDDINGBAG]
+Name = Wedding Bag
+NamePlural = Wedding Bags
+Pocket = 8
+Price = 0
+Flags = KeyItem
+Description = A lilac paper bag with a tiny gold heart. Smells of the reception. Shira says it counts as a bag.
+#-------------------------------
 [EVENTPROGRAM]
 Name = Event Program
 NamePlural = Event Programs

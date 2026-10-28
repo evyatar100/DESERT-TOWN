@@ -224,8 +224,8 @@ class QuestMirrorTests(unittest.TestCase):
 
     def test_ruby_bags_rules_list_the_music_bag(self):
         src = (ROOT / "Plugins" / "zBags" / "000_rules.rb").read_text(encoding="utf-8")
-        self.assertIn("INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1 }.freeze", src)
-        self.assertEqual(br.INBAR_BAGS, (("SURPRISEBAG", None), ("MUSICBAG", 1)))
+        self.assertIn("INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1, WEDDINGBAG: 1 }.freeze", src)
+        self.assertEqual(br.INBAR_BAGS[:2], (("SURPRISEBAG", None), ("MUSICBAG", 1)))
 
 
 class ArtItemCopyTests(unittest.TestCase):

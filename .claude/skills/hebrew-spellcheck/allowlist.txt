@@ -70,3 +70,5 @@ re:[אמה]{3,}
 מאריו
 עלא
 הנקנקיה
+# TG48 founder's final line (SHIRA_FINAL), kept exactly as written
+אתהןם

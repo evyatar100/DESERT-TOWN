@@ -356,6 +356,37 @@ class BagRev2MirrorTests(unittest.TestCase):
         self.assertIn('"BAGS_UNICORN_SONG_END"', src)
         self.assertNotIn("BAGS_SONG_SKIP", src)
 
+class WeddingBagCountTests(unittest.TestCase):
+    """TG48 T14: Shira's Wedding Bag counts once, gated on it being given, taken last."""
+
+    GATES = {"MUSICBAG": False, "WEDDINGBAG": True}
+
+    def test_counted_once_and_only_when_given(self):
+        bag = br.Bag(WEDDINGBAG=3, SURPRISEBAG=1)
+        self.assertEqual(br.inbar_count(bag, self.GATES), 2)
+        self.assertEqual(br.inbar_count(bag, {"WEDDINGBAG": False}), 1)
+        self.assertEqual(br.inbar_count(bag, True), 1)
+
+    def test_hand_over_takes_the_wedding_bag_last(self):
+        both = br.Bag(SURPRISEBAG=1, WEDDINGBAG=1)
+        st = br.new_state()
+        st["inbar"] = "asked"
+        self.assertTrue(br.hand_over(st, both, self.GATES))
+        self.assertEqual((both.quantity("SURPRISEBAG"), both.quantity("WEDDINGBAG")), (0, 0))
+        extra = br.Bag(SURPRISEBAG=2, WEDDINGBAG=1)
+        st2 = br.new_state()
+        st2["inbar"] = "asked"
+        self.assertTrue(br.hand_over(st2, extra, self.GATES))
+        self.assertEqual((extra.quantity("SURPRISEBAG"), extra.quantity("WEDDINGBAG")), (0, 1))
+
+    def test_ruby_gates_wedding_on_shira(self):
+        rules = (ROOT / "Plugins" / "zBags" / "000_rules.rb").read_text(encoding="utf-8")
+        state = (ROOT / "Plugins" / "zBags" / "001_state.rb").read_text(encoding="utf-8")
+        self.assertIn("INBAR_BAGS = { SURPRISEBAG: nil, MUSICBAG: 1, WEDDINGBAG: 1 }.freeze", rules)
+        self.assertIn("GATED = %i[MUSICBAG WEDDINGBAG].freeze", rules)
+        self.assertIn("defined?(ShiraWedding) && ShiraWedding.bag_given?", state)
+        self.assertEqual(br.INBAR_BAGS, (("SURPRISEBAG", None), ("MUSICBAG", 1), ("WEDDINGBAG", 1)))
+
 
 if __name__ == "__main__":
     unittest.main()

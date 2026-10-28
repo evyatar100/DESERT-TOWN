@@ -42,13 +42,23 @@ module Bags
     !!(defined?(DJRush) && DJRush.delivery_done?)
   end
 
+  # TG48: the Wedding Bag counts once Shira has given it (guarded one-way read).
+  def self.wedding_given?
+    !!(defined?(ShiraWedding) && ShiraWedding.bag_given?)
+  end
+
+  # Per-item gates for BagsRules (the order of GATED does not matter).
+  def self.gates
+    { MUSICBAG: music_delivered?, WEDDINGBAG: wedding_given? }
+  end
+
   def self.inbar_count
-    BagsRules.inbar_count($bag, music_delivered?)
+    BagsRules.inbar_count($bag, gates)
   end
 
   # Removes 2 bags, sets :done and S106 in one call, before any message.
   def self.hand_over!
-    return false if !$bag || !BagsRules.hand_over!(state, $bag, music_delivered?)
+    return false if !$bag || !BagsRules.hand_over!(state, $bag, gates)
     sync_switch
     true
   end

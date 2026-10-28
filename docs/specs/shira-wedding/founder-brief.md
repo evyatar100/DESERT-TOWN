@@ -1,0 +1,14 @@
+# Founder brief (2026-10-28, summary of the pasted brief): החתונה של שירה ואביתר
+
+- **Shira** is the existing NPC `50d0eeb7` (שירה ו). She has a sprite but is not placed on any map yet. Two reference photos are in `external_files/shira_wedding.jpg` and `external_files/shira_wedding2.jpg`:
+  1. Long dark-brown hair pulled back, small hoop earrings, a heart necklace, a lilac ruffled dress, a bracelet.
+  2. Dark hair in a messy top bun with loose strands, big hoop earrings, a coin pendant, a black jumpsuit with a tie belt.
+- **The wedding:** Shira marries Eviatar (אביתר, f90d4de9, the temple hoop visitor) in two weeks. Context: Eviatar's hoop line already says "חפש את אביתר על הפלאיה, תגיד ששירה שלחה אותך".
+- **Wandering:** every few minutes a scheduled check with 50% probability; on success she crosses the visible screen at a moderate, purposeful speed. She respects collision, never interrupts dialogue, never traps the player, and costs little performance. The 50% is per check, not per frame.
+- **Talking to her:** she has no time, the wedding to Eviatar is in two weeks, and she desperately needs help. Then the player accepts and the mini-game starts. After completion she acknowledges the help and doesn't restart the task.
+- **Mini-game "סידורי הושבה בגיהינום":** a small seating puzzle with guests, tables and funny constraints (enemies apart, must sit next to X, not near the DJ or dance floor, best bar access, an adult who insists on the kids' table). Select a guest, then a seat, with arcade controls (joystick, Yellow, Blue). Violation feedback, a success check, retry, solvable in 1-2 min, and at least one solution, verified.
+- **Reward "שקית חתונה":** no such item exists yet (checked items.txt and translations). Create it ONCE in the shared item system, and make Inbar's bags quest count it as one of her bags (like MUSICBAG, via `BagsRules::INBAR_BAGS`). Given exactly once, never duplicated, survives map transitions. Shira says a funny line on giving it.
+- **Final line, EXACT, after the reward, shown at the right point and not repeated forever:** "ואם אתהןם רואים אותי בפלאיה שם בחוץ - תגידו לי ולאביתר מזל טוב מעדו!" Keep אתהןם, בפלאיה שם בחוץ and מזל טוב מעדו uncorrected.
+- **Image generation: up to 5,** for whatever adds most (Shira's sprite or frames from the 2 photos, seating-puzzle visuals, guests). Save the budget if existing assets suffice. The workflow is the droplet drop → root Claudet → desert-town.
+- **Tests:** the 13 checks in the brief (present and talkable, 50% check interval, crossing speed and collision, intro, mini-game playable, solvable and success detected, retry, correct bag, no duplication, the exact final line at the right point, state survives leaving the map, assets render, nothing else broken).
+- **Final report:** where Shira appears and how she moves, how to play, the puzzle, the bag item, how the photos were used, the generations used out of 5, and the tests.

@@ -1,0 +1,270 @@
+{
+  "SHIRA_INTRO_1": {
+    "he": "אין לי זמן, אין לי זמן! החתונה שלי ושל אביתר עוד שבועיים.",
+    "en": "No time, no time! Eviatar and I are getting married in two weeks."
+  },
+  "SHIRA_INTRO_2": {
+    "he": "ועוד לא סגרתי כלום. הקייטרינג הושיב שני ילדים ליד הבר.",
+    "en": "And I haven't closed anything. The caterer seated two kids at the bar."
+  },
+  "SHIRA_INTRO_3": {
+    "he": "רגע, אולי אתם יכולים לעזור לי במשהו? חמש דקות. מקסימום שבועיים.",
+    "en": "Wait, maybe you could help me with something? Five minutes. Two weeks, tops."
+  },
+  "SHIRA_HELP_PROMPT": {
+    "he": "לעזור לשירה עם סידורי ההושבה?",
+    "en": "Help Shira with the seating chart?"
+  },
+  "SHIRA_YES": {
+    "he": "וואלה דווקא כן",
+    "en": "Actually, yeah"
+  },
+  "SHIRA_NO": {
+    "he": "אין לי זמן",
+    "en": "I have no time"
+  },
+  "SHIRA_DECLINE": {
+    "he": "בסדר. כולם יושבים על הרחבה. גם סבתא.",
+    "en": "Fine. Everyone sits on the dance floor. Grandma too."
+  },
+  "SHIRA_ASK_AGAIN": {
+    "he": "חזרתם! הסידור עדיין בוער. מישהו שם עליו נר.",
+    "en": "You're back! The chart is still on fire. Someone put a candle on it."
+  },
+  "SHIRA_QUIT_LINE": {
+    "he": "אוקיי. אני הולכת לבכות קצת על הפלאיה. תחזרו.",
+    "en": "OK. I'm going to cry on the Playa for a bit. Come back."
+  },
+  "SHIRA_MIRROR": {
+    "he": "אביתר?! אתה אמור לעשות את זה איתי. טוב, תקשיב כמו כולם.",
+    "en": "Eviatar?! You're supposed to do this WITH me. Fine, listen like everyone else."
+  },
+  "SHIRA_THANKS": {
+    "he": "כולם יושבים ואף אחד לא בוכה. אפילו אני. כמעט.",
+    "en": "Everyone's seated and nobody's crying. Not even me. Almost."
+  },
+  "SHIRA_BAG_JOKE": {
+    "he": "זאת שקית, לא מעטפה. את המעטפה אתם מביאים לחתונה.",
+    "en": "It's a bag, not an envelope. The envelope, you bring to the wedding."
+  },
+  "SHIRA_FINAL": {
+    "he": "ואם אתהןם רואים אותי בפלאיה שם בחוץ - תגידו לי ולאביתר מזל טוב מעדו!",
+    "en": "ואם אתהןם רואים אותי בפלאיה שם בחוץ - תגידו לי ולאביתר מזל טוב מעדו!"
+  },
+  "SHIRA_AFTER": {
+    "he": "אין לי זמן! הסידור סגור. עכשיו חסרה רק שמלה. וחופה. ודי-ג׳יי.",
+    "en": "No time! The chart is done. Now I only need a dress. And a chuppah. And a DJ."
+  },
+  "SHIRA_REISSUE": {
+    "he": "איבדתם את השקית? אל תגידו לאביתר. הנה עוד אחת.",
+    "en": "You lost the bag? Don't tell Eviatar. Here's another one."
+  },
+  "SHIRA_REPLAY_PROMPT": {
+    "he": "לעשות את הסידור שוב? גם הגרסה השנייה גיהינום.",
+    "en": "Do the chart again? Version two is also hell."
+  },
+  "SHIRA_EV_SENT": {
+    "he": "שירה שלחה אותי",
+    "en": "Shira sent me"
+  },
+  "SHIRA_EV_PASS": {
+    "he": "סתם עוברים",
+    "en": "Just passing"
+  },
+  "SHIRA_EV_MAZALTOV": {
+    "he": "מזל טוב!",
+    "en": "Mazal tov!"
+  },
+  "SHIRA_EV_CALL_1": {
+    "he": "שירה שלחה אתכם? היא שולחת את כולם. אותי היא שלחה לעמוד פה.",
+    "en": "Shira sent you? She sends everyone. She sent me to stand here."
+  },
+  "SHIRA_EV_CALL_2": {
+    "he": "שירההה! יש פה מישהו שרוצה לעזור!",
+    "en": "SHIRAAA! Someone here wants to help!"
+  },
+  "SHIRA_EV_SENT_DONE": {
+    "he": "נגמרו לה המשימות. בינתיים. אל תגידו לה שראיתם אותי פנוי.",
+    "en": "She's out of tasks. For now. Don't tell her you saw me free."
+  },
+  "SHIRA_EV_THANKS_1": {
+    "he": "תודה. כשהצעתי לה, היא אמרה \"וואלה דווקא כן\". רומנטיקנית.",
+    "en": "Thanks. When I proposed, she said \"actually, yeah.\" A romantic."
+  },
+  "SHIRA_EV_THANKS_2": {
+    "he": "ואני עדיין לא מבין למה אנג'לאייז ג'וניור יושב בשולחן הילדים. הוא אמר שזה בשם.",
+    "en": "And I still don't get why Angel Eyes Junior sits at the kids' table. He says it's in the name."
+  },
+  "SHIRA_EV_MIRROR": {
+    "he": "רגע, אתה אני? אז אתה יודע שהיא מתרוצצת פה. וזוז, אתה מסתיר לי את השמש.",
+    "en": "Wait, are you me? Then you know she's running around here. And move, you're blocking my sun."
+  },
+  "SHIRA_TITLE": {
+    "he": "סידורי הושבה בגיהינום",
+    "en": "Seating Chart From Hell"
+  },
+  "SHIRA_HOWTO_1": {
+    "he": "המטרה: אפס תלונות. כל ! אדום הוא אורח לא מרוצה.",
+    "en": "Goal: zero complaints. Every red ! is an unhappy guest."
+  },
+  "SHIRA_HOWTO_2": {
+    "he": "ג׳ויסטיק מזיז את הסמן. צהוב בוחר אורח, וצהוב על כיסא אחר מחליף.",
+    "en": "The joystick moves the cursor. Yellow picks a guest; Yellow on another seat swaps."
+  },
+  "SHIRA_HOWTO_3": {
+    "he": "הסמן על אורח מראה מה הוא דורש. כחול: ביטול או עצירה.",
+    "en": "Point at a guest to see their demands. Blue: cancel or pause."
+  },
+  "SHIRA_HOWTO_BAR": {
+    "he": "צהוב: בחירה והחלפה · כחול: ביטול ועצירה",
+    "en": "Yellow: pick and swap · Blue: cancel and pause"
+  },
+  "SHIRA_COMPLAINTS": {
+    "he": "תלונות: {1}",
+    "en": "Complaints: {1}"
+  },
+  "SHIRA_SWAPS": {
+    "he": "החלפות: {1}",
+    "en": "Swaps: {1}"
+  },
+  "SHIRA_MIN": {
+    "he": "מינימום: {1}",
+    "en": "Minimum: {1}"
+  },
+  "SHIRA_LBL_DJ": {
+    "he": "די-ג׳יי",
+    "en": "DJ"
+  },
+  "SHIRA_LBL_DANCE": {
+    "he": "רחבה",
+    "en": "Dance floor"
+  },
+  "SHIRA_LBL_BAR": {
+    "he": "בר",
+    "en": "Bar"
+  },
+  "SHIRA_LBL_KIDS": {
+    "he": "שולחן ילדים",
+    "en": "Kids' table"
+  },
+  "SHIRA_TABLE_A": {
+    "he": "ליד הדי-ג׳יי",
+    "en": "By the DJ"
+  },
+  "SHIRA_TABLE_B": {
+    "he": "ליד הרחבה",
+    "en": "By the dance floor"
+  },
+  "SHIRA_TABLE_C": {
+    "he": "ליד הבר",
+    "en": "By the bar"
+  },
+  "SHIRA_RULE_ANGEL_KIDS": {
+    "he": "שולחן ילדים. ולא להדליק חושך.",
+    "en": "Kids' table. And don't turn on the dark."
+  },
+  "SHIRA_RULE_YAARUL_KIDS": {
+    "he": "אבא אבא אבאאא, שולחן ילדים!",
+    "en": "Daddy daddy daddyyy, kids' table!"
+  },
+  "SHIRA_RULE_TORLI_LAMP": {
+    "he": "סבא הוא חנוכייה. רק הכיסא ליד המנורה.",
+    "en": "Grandpa is a hanukkiah. Only the seat by the lamp."
+  },
+  "SHIRA_RULE_KIDS_APART": {
+    "he": "יערול ותור לי אור לא יושבים צמוד. מניסיון.",
+    "en": "Yaarul and Tor Li Or don't sit side by side. From experience."
+  },
+  "SHIRA_RULE_JOHNNY_BAR": {
+    "he": "שולחן ליד הבר. שם הראוטר.",
+    "en": "The table by the bar. That's where the router is."
+  },
+  "SHIRA_RULE_DJ_NOT_DJ": {
+    "he": "לא ליד הדי-ג׳יי. בבית שלי מקשיבים רק לי.",
+    "en": "Not by the DJ. In my house, you listen to me."
+  },
+  "SHIRA_RULE_FOOD_FIGHT": {
+    "he": "גברי וטל לא באותו שולחן. פיצה מול נקניקייה.",
+    "en": "Gavri and Tal, not at the same table. Pizza vs. sausage."
+  },
+  "SHIRA_RULE_GAVRI_DJ": {
+    "he": "לא באותו שולחן עם שה סה. הבס הפיל לי משולש.",
+    "en": "Not at She Se's table. His bass knocked over my slice."
+  },
+  "SHIRA_RULE_CHEN_TOGA": {
+    "he": "חתונה לא, טוגה כן. רק בשולחן שלו.",
+    "en": "Wedding, no. Toga, yes. Only at his table."
+  },
+  "SHIRA_RULE_TOGA_NONE": {
+    "he": "טוב לי בכל מקום. רק אל תסתירו לי את השמש.",
+    "en": "I'm fine anywhere. Just don't block my sun."
+  },
+  "SHIRA_R_HAPPY_1": {
+    "he": "סוף סוף!",
+    "en": "Finally!"
+  },
+  "SHIRA_R_HAPPY_2": {
+    "he": "פה טוב לי",
+    "en": "I like it here"
+  },
+  "SHIRA_R_HAPPY_3": {
+    "he": "תגידו לשירה תודה",
+    "en": "Tell Shira thanks"
+  },
+  "SHIRA_R_ANGRY_1": {
+    "he": "מה?! פה?!",
+    "en": "What?! Here?!"
+  },
+  "SHIRA_R_ANGRY_2": {
+    "he": "איפה שירה?!",
+    "en": "Where's Shira?!"
+  },
+  "SHIRA_R_ANGRY_3": {
+    "he": "זה לא הכיסא שלי",
+    "en": "This isn't my seat"
+  },
+  "SHIRA_PAUSE_RESUME": {
+    "he": "ממשיכים",
+    "en": "Resume"
+  },
+  "SHIRA_PAUSE_HINT": {
+    "he": "רמז",
+    "en": "Hint"
+  },
+  "SHIRA_PAUSE_RESTART": {
+    "he": "מתחילים מחדש",
+    "en": "Restart"
+  },
+  "SHIRA_PAUSE_LEAVE": {
+    "he": "יציאה",
+    "en": "Leave"
+  },
+  "SHIRA_SOLVED": {
+    "he": "כולם ישובים!",
+    "en": "Everyone's seated!"
+  },
+  "SHIRA_SOLVED_PERFECT": {
+    "he": "מינימום החלפות. שירה בוכה מאושר.",
+    "en": "Minimum swaps. Shira is crying with joy."
+  },
+  "SHIRA_CONTINUE": {
+    "he": "צהוב: חזרה לשירה",
+    "en": "Yellow: back to Shira"
+  },
+  "WEDDINGBAG": {
+    "he": "שקית חתונה",
+    "en": "Wedding Bag"
+  },
+  "Wedding Bag": {
+    "he": "שקית חתונה",
+    "en": "Wedding Bag"
+  },
+  "Wedding Bags": {
+    "he": "שקיות חתונה",
+    "en": "Wedding Bags"
+  },
+  "WEDDINGBAG_DESC": {
+    "he": "שקית נייר בצבע לילך עם לב זהב קטן. מריחה כמו קבלת פנים. בפנים: מגנט של הזוג וסוכרייה.",
+    "en": "A lilac paper bag with a tiny gold heart. Smells like a wedding reception. Inside: a magnet of the couple and a candy."
+  }
+}

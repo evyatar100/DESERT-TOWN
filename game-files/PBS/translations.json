@@ -4569,6 +4569,10 @@
       "en": "The screen only shows static. Maybe come back later.",
       "he": "המסך מראה רק שלג. אולי כדאי לחזור אחר כך."
     },
+    "KUSOMO_TV_RESUME": {
+      "en": "The game resumes in {1}",
+      "he": "המשחק ממשיך בעוד {1}"
+    },
     "ALLA_ASK_1": {
       "en": "The stand is closed. I didn't close it. The people haven't decided yet.",
       "he": "הדוכן סגור. לא אני סגרתי. העם עוד לא החליט."

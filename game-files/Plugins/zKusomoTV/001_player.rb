@@ -6,7 +6,7 @@ module KusomoTV
     return FileTest.exist?(base + ".ogv") ? base + ".ogv" : nil
   end
 
-  # Plays the video skippable with the action/cancel button. Returns true if it played.
+  # Plays the video (skippable), then the poster for 10 s. Returns true if the video played.
   def self.play(id)
     path = movie_path(id)
     return false if !path
@@ -20,6 +20,7 @@ module KusomoTV
       echoln("KusomoTV: #{e.class}: #{e.message}")
       ok = false
     end
+    KusomoTV.show_poster if ok
     $game_system.bgm_play_internal(bgm, pos) if bgm
     Input.update
     return ok

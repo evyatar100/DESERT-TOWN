@@ -16,6 +16,12 @@ module FlamingoBandRules
   INTRO_Y      = (26..29).freeze
   ROLL_INTERVAL = 90
   ROLL_CHANCE   = 0.25
+  LATE_AFTER    = 600
+  LATE_CHANCE   = 0.5
+  SCREEN_W      = 512
+  SCREEN_H      = 384
+  OFFSCREEN_PAD_X = 24
+  OFFSCREEN_PAD_Y = 64
   SKIP_CHANCE   = 0.2
   SPAWN_MIN     = 4
   SPAWN_MAX     = 6
@@ -31,7 +37,7 @@ module FlamingoBandRules
 
   def new_state
     return { intro_done: false, stage: 0, consumed: [], procession: false, next_roll_at: nil,
-             escape_attempts: 0 }
+             procession_started_at: nil, escape_attempts: 0 }
   end
 
   # Saves from the build that kept a permanent :finished flag load as a fresh quest.
@@ -67,11 +73,33 @@ module FlamingoBandRules
     return state[:stage]
   end
 
+  # Chance per roll: ROLL_CHANCE for the first LATE_AFTER seconds of the procession, then LATE_CHANCE.
+  def chance_at(elapsed)
+    return elapsed >= LATE_AFTER ? LATE_CHANCE : ROLL_CHANCE
+  end
+
   # [next_roll_at, interrupt?]. Calls rng (returns 0...1) only when a roll is due.
-  def roll(now, next_roll_at, rng)
+  # started_at nil (old save) counts as "just started".
+  def roll(now, next_roll_at, rng, started_at = nil)
     return [now + ROLL_INTERVAL, false] if next_roll_at.nil?
     return [next_roll_at, false] if now < next_roll_at
-    return [now + ROLL_INTERVAL, rng.call < ROLL_CHANCE]
+    elapsed = started_at.nil? ? 0 : now - started_at
+    return [now + ROLL_INTERVAL, rng.call < chance_at(elapsed)]
+  end
+
+  # Directions (2/4/6/8) to try for walking off screen, away from the player on the longer axis first.
+  def exit_directions(ex, ey, px, py)
+    dx = ex - px
+    dy = ey - py
+    h = dx < 0 ? 4 : 6
+    v = dy < 0 ? 8 : 2
+    return (dx.abs > dy.abs) ? [h, v, (v == 8 ? 2 : 8)] : [v, h, (h == 4 ? 6 : 4)]
+  end
+
+  # True when a character at screen pixel (sx = centre, sy = feet) is fully outside the 512x384 view.
+  def off_screen?(sx, sy)
+    return sx < -OFFSCREEN_PAD_X || sx > SCREEN_W + OFFSCREEN_PAD_X ||
+           sy < 0 || sy > SCREEN_H + OFFSCREEN_PAD_Y
   end
 
   # Music on map entry: :original, :silence, or a BGM name.

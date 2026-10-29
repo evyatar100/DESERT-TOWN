@@ -587,6 +587,19 @@ check(FlamingoBandRules.roll(200, 200, rng) == [200 + interval, true] && calls =
 check(FlamingoBandRules.roll(900, 200, lambda { FlamingoBandRules::ROLL_CHANCE }) == [900 + interval, false], "band: ROLL_CHANCE is not a hit")
 check(FlamingoBandRules.roll(900, 200, lambda { FlamingoBandRules::ROLL_CHANCE - 0.0001 })[1], "band: below ROLL_CHANCE is a hit")
 check(FlamingoBandRules.roll(50, nil, rng) == [50 + interval, false] && calls == 1, "band: first schedule does not roll")
+check(FlamingoBandRules::LATE_AFTER == 600 && FlamingoBandRules::LATE_CHANCE == 0.5, "band: 50% after 10 minutes")
+check(FlamingoBandRules.chance_at(599) == 0.25 && FlamingoBandRules.chance_at(600) == 0.5, "band: chance switches at 600 s")
+check(FlamingoBandRules.roll(1000, 900, lambda { 0.4 }, 100)[1] && !FlamingoBandRules.roll(1000, 900, lambda { 0.4 }, 401)[1],
+      "band: 40% roll hits only after 10 minutes")
+check(!FlamingoBandRules.roll(99999, 900, lambda { 0.4 }, nil)[1], "band: old save without start time rolls at 25%")
+check(!FlamingoBandRules.normalize({ intro_done: true, stage: 4, consumed: [], procession: true, next_roll_at: 5 }).key?(:procession_started_at),
+      "band: normalize leaves an old running save alone")
+check(FlamingoBandRules.exit_directions(10, 5, 5, 5)[0] == 6 && FlamingoBandRules.exit_directions(2, 5, 5, 5)[0] == 4 &&
+      FlamingoBandRules.exit_directions(5, 9, 5, 5)[0] == 2 && FlamingoBandRules.exit_directions(5, 1, 5, 5)[0] == 8,
+      "band: exit walks away from the player")
+check(FlamingoBandRules.exit_directions(5, 5, 5, 5).uniq.length == 3, "band: exit has fallbacks on other axis")
+check(FlamingoBandRules.off_screen?(-30, 100) && FlamingoBandRules.off_screen?(100, -1) && FlamingoBandRules.off_screen?(600, 100) &&
+      !FlamingoBandRules.off_screen?(256, 192), "band: off-screen bounds")
 check(!FlamingoBandRules.skip_step?(true, 1, 0.0, true), "band: never two misses in a row")
 check(!FlamingoBandRules.skip_step?(false, 2, 0.0, true), "band: never skip when 2 tiles behind")
 check(!FlamingoBandRules.skip_step?(false, 1, 0.0, false), "band: never skip on a corner")
@@ -1043,6 +1056,8 @@ load File.join(__dir__, "shira_wedding_rules_test.rb")
 load File.join(__dir__, "desert_screens_rules_test.rb")
 # TG64 LilyHappy rules and the scene smoke run, same pattern.
 load File.join(__dir__, "lily_happy_rules_test.rb")
+# TG65 QuestMarks rules, registry and the overlay smoke run, same pattern.
+load File.join(__dir__, "quest_marks_rules_test.rb")
 check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
 check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
       "battle: loss tile is (25, 3) facing down")

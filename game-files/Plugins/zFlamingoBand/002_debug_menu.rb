@@ -7,13 +7,19 @@ module FlamingoBand
   DOOR_X      = 16
   DOOR_Y      = 26
 
+  def self.roll_chance_now
+    started = state[:procession_started_at]
+    return FlamingoBandRules::ROLL_CHANCE if !state[:procession] || started.nil? || !$stats
+    return FlamingoBandRules.chance_at($stats.play_time - started)
+  end
+
   def self.debug_state_text
     st = state
     roll_in = st[:next_roll_at] && $stats ? (st[:next_roll_at] - $stats.play_time).to_i : nil
     return sprintf("Intro done: %s\nStage: %d\nConsumed: %s\nProcession: %s\nEscape attempts: %d\n" \
                    "Next roll in: %s s\nInterrupt pending: %s",
                    st[:intro_done].to_s, st[:stage], st[:consumed].join(", "), st[:procession].to_s,
-                   st[:escape_attempts].to_i, roll_in.nil? ? "-" : roll_in.to_s, interrupt_pending?.to_s)
+                   st[:escape_attempts].to_i, roll_in.nil? ? "-" : roll_in.to_s, (roll_chance_now * 100).round, interrupt_pending?.to_s)
   end
 end
 
@@ -74,7 +80,7 @@ MenuHandlers.add(:debug_menu, :flamingo_band_stage4, {
 MenuHandlers.add(:debug_menu, :flamingo_band_interrupt, {
   "name"        => "Force interruption now",
   "parent"      => :flamingo_band_menu,
-  "description" => "Queue the visitor scene without the 25% roll. It starts once the map is free.",
+  "description" => "Queue the visitor scene without the dice roll. It starts once the map is free.",
   "always_show" => true,
   "effect"      => proc {
     if !$PokemonGlobal

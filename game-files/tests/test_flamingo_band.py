@@ -45,6 +45,8 @@ MAPS = (int(ruby_const(RULES_SRC, "OUTSIDE_MAP")), int(ruby_const(RULES_SRC, "TE
 FINAL_STAGE = int(ruby_const(RULES_SRC, "FINAL_STAGE"))
 ROLL_INTERVAL = int(ruby_const(RULES_SRC, "ROLL_INTERVAL"))
 ROLL_CHANCE = float(ruby_const(RULES_SRC, "ROLL_CHANCE"))
+LATE_AFTER = int(ruby_const(RULES_SRC, "LATE_AFTER"))
+LATE_CHANCE = float(ruby_const(RULES_SRC, "LATE_CHANCE"))
 SKIP_CHANCE = float(ruby_const(RULES_SRC, "SKIP_CHANCE"))
 TRACK_PREFIX = ruby_const(RULES_SRC, "TRACK_PREFIX").strip('"')
 
@@ -102,12 +104,17 @@ def music_for(state, map_id):
     return "silence" if state["stage"] <= 0 else TRACK_PREFIX + str(state["stage"])
 
 
-def roll(now, next_roll_at, rng):
+def chance_at(elapsed):
+    return LATE_CHANCE if elapsed >= LATE_AFTER else ROLL_CHANCE
+
+
+def roll(now, next_roll_at, rng, started_at=None):
     if next_roll_at is None:
         return now + ROLL_INTERVAL, False
     if now < next_roll_at:
         return next_roll_at, False
-    return now + ROLL_INTERVAL, rng() < ROLL_CHANCE
+    elapsed = 0 if started_at is None else now - started_at
+    return now + ROLL_INTERVAL, rng() < chance_at(elapsed)
 
 
 def skip_step(missed_last, distance, chance_roll, straight):
@@ -199,6 +206,29 @@ class FlamingoBandRuleTests(unittest.TestCase):
         self.assertEqual(len(calls), 1)
         self.assertEqual(ROLL_INTERVAL, 90, "interruption roll every 1.5 minutes")
         self.assertEqual(ROLL_CHANCE, 0.25, "quest spec value")
+
+    def test_chance_rises_after_ten_minutes(self):
+        self.assertEqual((LATE_AFTER, LATE_CHANCE), (600, 0.5))
+        self.assertEqual(chance_at(599), ROLL_CHANCE)
+        self.assertEqual(chance_at(600), LATE_CHANCE)
+        self.assertTrue(roll(1000, 900, lambda: 0.4, 100)[1], "40% hits after 10 min")
+        self.assertFalse(roll(1000, 900, lambda: 0.4, 401)[1], "40% misses before 10 min")
+        self.assertFalse(roll(1000, 900, lambda: 0.5, 100)[1], "50% is not a hit")
+
+    def test_old_save_without_start_time_counts_from_now(self):
+        self.assertIn("procession_started_at: nil", RULES_SRC.split("def new_state", 1)[1].split("end", 1)[0])
+        self.assertFalse(roll(99999, 900, lambda: 0.4, None)[1], "no start time: early 25% chance")
+        main = MAIN_RB.read_text(encoding="utf-8")
+        self.assertIn("st[:procession_started_at] ||= $stats.play_time", main)
+        self.assertIn("st[:procession_started_at] = $stats.play_time", main)
+
+    def test_walk_off_screen(self):
+        main = MAIN_RB.read_text(encoding="utf-8")
+        scene = main.split("def self.interrupt_scene", 1)[1].split("def self.finish_quest", 1)[0]
+        self.assertIn("walk_off_screen(event, map)", scene)
+        self.assertNotIn("opacity", scene, "no fade")
+        self.assertIn("EXIT_STEP_CAP", main)
+        self.assertIn("off_screen?", main)
 
     def test_quest_end_resets(self):
         fresh = new_state()

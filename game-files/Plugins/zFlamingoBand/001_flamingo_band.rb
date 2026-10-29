@@ -17,6 +17,7 @@ module FlamingoBand
   FOLLOWER_ID_BASE = 9000
   WALK_STEP_CAP    = 60
   STEP_FRAME_CAP   = 120
+  EXIT_STEP_CAP    = 40
   FOLLOWER_PREFIX  = "flamingo_band_"
 
   # Stands in for a map event so the stock follower system can copy its fields.
@@ -370,6 +371,7 @@ module FlamingoBand
     return if st[:procession]
     st[:procession]   = true
     st[:next_roll_at] = $stats.play_time + FlamingoBandRules::ROLL_INTERVAL
+    st[:procession_started_at] = $stats.play_time
     add_band_followers
     hide_band_events($game_map)
     play_stage(FlamingoBandRules::FINAL_STAGE)
@@ -441,7 +443,9 @@ module FlamingoBand
 
   def self.check_interrupt
     st = state
-    next_at, hit = FlamingoBandRules.roll($stats.play_time, st[:next_roll_at], -> { rand })
+    st[:procession_started_at] ||= $stats.play_time   # old saves count from now
+    next_at, hit = FlamingoBandRules.roll($stats.play_time, st[:next_roll_at], -> { rand },
+                                          st[:procession_started_at])
     st[:next_roll_at] = next_at
     @interrupt_pending = true if hit
   end
@@ -485,6 +489,26 @@ module FlamingoBand
     sprite.dispose if !sprite.disposed?
   end
 
+  def self.exit_code(dir)
+    return { 2 => PBMoveRoute::DOWN, 4 => PBMoveRoute::LEFT,
+             6 => PBMoveRoute::RIGHT, 8 => PBMoveRoute::UP }[dir]
+  end
+
+  # Walk away from the player until fully off screen; the step cap means it never hangs.
+  def self.walk_off_screen(event, map)
+    EXIT_STEP_CAP.times do
+      break if $game_map != map || map.events[event.id] != event
+      break if FlamingoBandRules.off_screen?(event.screen_x, event.screen_y)
+      dirs = FlamingoBandRules.exit_directions(event.x, event.y, $game_player.x, $game_player.y)
+      moved = dirs.any? do |dir|
+        old = [event.x, event.y]
+        force_step(event, exit_code(dir), false)
+        [event.x, event.y] != old
+      end
+      force_step(event, exit_code(dirs[0]), true) if !moved && $game_map == map
+    end
+  end
+
   def self.interrupt_scene
     return true if @busy
     @busy = true
@@ -504,11 +528,7 @@ module FlamingoBand
           break if $game_map != map
           force_step(event, PBMoveRoute::AWAY_FROM_PLAYER, true)
         end
-        10.times do
-          break if $game_map != map
-          event.opacity = [event.opacity - 26, 0].max
-          update_frame
-        end
+        walk_off_screen(event, map)
       end
     ensure
       remove_visitor(map, event) if event

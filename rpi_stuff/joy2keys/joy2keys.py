@@ -25,7 +25,7 @@ BUTTON_KEYS = {
 # Axis index (js numbering) -> (key when value is low, key when value is high).
 # The stick is mounted rotated: axis 0 low = right, axis 1 low = up.
 AXIS_KEYS = {
-    0: ("KEY_RIGHT", "KEY_LEFT"),
+    0: ("KEY_LEFT", "KEY_RIGHT"),
     1: ("KEY_UP", "KEY_DOWN"),
 }
 PRESS_FRACTION = 0.5    # of half-range from centre, to press an arrow

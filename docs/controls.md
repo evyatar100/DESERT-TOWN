@@ -36,7 +36,7 @@ a virtual keyboard. The port script starts and stops it
 | Green | 3 | G |
 | Pink | 2 | N |
 
-The stick is mounted rotated. Axis 1 low is Up and high is Down. Axis 0 low is Right and high is Left. To rewire a button, change the table at the top of `joy2keys.py`.
+The stick is mounted rotated. Axis 1 low is Up and high is Down. Axis 0 low is Left and high is Right (swapped after the founder's in-game check). To rewire a button, change the table at the top of `joy2keys.py`.
 
 ## Color buttons
 

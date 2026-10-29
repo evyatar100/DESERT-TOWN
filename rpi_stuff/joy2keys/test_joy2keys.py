@@ -49,9 +49,9 @@ class TranslatorTest(unittest.TestCase):
         self.assertEqual(tr.feed(j.EV_ABS, 1, 127), [(K["KEY_UP"], 0)])
         self.assertEqual(tr.feed(j.EV_ABS, 1, 255), [(K["KEY_DOWN"], 1)])
         self.assertEqual(tr.feed(j.EV_ABS, 1, 0), [(K["KEY_DOWN"], 0), (K["KEY_UP"], 1)])
-        self.assertEqual(tr.feed(j.EV_ABS, 0, 255), [(K["KEY_LEFT"], 1)])
-        self.assertEqual(tr.feed(j.EV_ABS, 0, 128), [(K["KEY_LEFT"], 0)])
-        self.assertEqual(tr.feed(j.EV_ABS, 0, 0), [(K["KEY_RIGHT"], 1)])
+        self.assertEqual(tr.feed(j.EV_ABS, 0, 255), [(K["KEY_RIGHT"], 1)])
+        self.assertEqual(tr.feed(j.EV_ABS, 0, 128), [(K["KEY_RIGHT"], 0)])
+        self.assertEqual(tr.feed(j.EV_ABS, 0, 0), [(K["KEY_LEFT"], 1)])
 
     def test_deadzone_hysteresis(self):
         tr = translator()
@@ -66,7 +66,7 @@ class TranslatorTest(unittest.TestCase):
         self.assertEqual(tr.feed(j.EV_ABS, 16, -1), [])
         tr.feed(j.EV_KEY, 289, 1)
         tr.feed(j.EV_ABS, 0, 0)
-        self.assertEqual(sorted(tr.release_all()), sorted([(K["KEY_H"], 0), (K["KEY_RIGHT"], 0)]))
+        self.assertEqual(sorted(tr.release_all()), sorted([(K["KEY_H"], 0), (K["KEY_LEFT"], 0)]))
         self.assertEqual(tr.release_all(), [])
 
 

@@ -176,6 +176,7 @@ Noam Peretz | 2026-10-29 | TG64 "מה ישמח את לילי?": Lily's quest, 5 
 - **Recommended route** (the order doesn't matter): **A1:** the Playa (Loooo, Shorty), the ice line (Shorty, next to Lily) and Kim corner (Gufak, Turtle) already give 4 complainers within a minute of Lily, so the wheel unlocks without going anywhere far. The original loop (Escher → Cats → Glass Garden, plus Kusomo and the circus) stays for players who want the full report.
 
 ### D5a. The "!" mark (A1, founder decision 2026-10-29)
+> **TG65 (2026-10-29):** the drawing below moves into the shared `Plugins/QuestMarks/` (`docs/specs/quest-marks.md` D8). `008_marks.rb` becomes a ~15-line QuestMarks client; `mark?` is unchanged; Lily herself is also marked once `ready?` and in `:wheeled`.
 - **Rule (pure):** `LilyHappyRules.mark?(s, enc)` returns `camp_decide(s, enc) == :complain`, so it is true only in `:asked` and only for an encounter not yet heard. There is no mark in `:none`, `:wheeled` or `:done`, and none on a character at an unpinned (map, id) pair.
 - **Where:** `008_marks.rb` (new) aliases `Scene_Map#update` and `#dispose`, the same guarded pattern as `zBags/008_song.rb:255-270`. Each frame it:
   - skips everything unless `$scene.is_a?(Scene_Map)` and the state is `:asked`;

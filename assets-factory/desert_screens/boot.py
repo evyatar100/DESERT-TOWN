@@ -1,6 +1,6 @@
 """TG57 Batch 2: boot art. Writes Titles/splash1, title, start and UI/Load/bg, panels in place.
 
-The title is a placeholder (darkened world-map art + code-drawn logo) until Batch 5.
+Batch 5: title = generated illustration + official logo (splash keeps the code wordmark).
 Latin text only (Handjet); the one Hebrew line uses the arcade slide helper. Re-runnable.
 """
 import math
@@ -14,7 +14,11 @@ GF = ROOT / "game-files"
 sys.path.insert(0, str(GF / "Plugins" / "DesertTownArcade"))
 from slide_text import draw_text, font  # noqa: E402
 
-MAP_ART = ROOT / "assets-factory" / "worldmap_art" / "worldmap_call04_patch_composite_final512_quantized.png"
+ART = ROOT / "assets-factory" / "desert_screens" / "art"
+TITLE_ART = ART / "title_call02_g2_master_2048x1536.png"
+LOGO_ART = ART / "desertown-logo-transparent_1370x483.png"
+LOGO_WIDTH = 390
+LOGO_TOP = 44
 SIZE = (512, 384)
 INK = (42, 22, 8, 255)
 FRAME_DARK = (92, 48, 16, 255)
@@ -60,21 +64,23 @@ def splash1():
 
 
 def title():
-    art = Image.open(MAP_ART).convert("RGBA")
-    dark = Image.blend(art, Image.new("RGBA", SIZE, INK), 0.55)
-    shade = Image.new("L", SIZE, 0)
-    ImageDraw.Draw(shade).ellipse((-120, 20, SIZE[0] + 120, SIZE[1] + 160), fill=255)
-    shade = shade.filter(ImageFilter.GaussianBlur(60))
-    img = Image.composite(dark, Image.blend(dark, Image.new("RGBA", SIZE, INK), 0.6), shade)
-    d = ImageDraw.Draw(img, "RGBA")
-    d.rounded_rectangle((60, 66, 452, 190), radius=14, fill=(54, 28, 8, 215), outline=GOLD, width=2)
-    draw_logo(img, SIZE[0] // 2, 118, 92)
-    d.rectangle((0, 314, SIZE[0], 350), fill=(54, 28, 8, 215))
+    """Generated illustration (no text) with the official logo composited in the calm zone."""
+    img = Image.open(TITLE_ART).convert("RGBA").resize(SIZE, Image.LANCZOS)
+    logo = Image.open(LOGO_ART).convert("RGBA")
+    lw = LOGO_WIDTH
+    logo = logo.resize((lw, round(logo.height * lw / logo.width)), Image.LANCZOS)
+    pos = ((SIZE[0] - lw) // 2, LOGO_TOP)
+    shadow = Image.new("RGBA", SIZE, (0, 0, 0, 0))
+    mask = logo.getchannel("A").point(lambda a: a * 0.55)
+    shadow.paste((26, 12, 4, 255), (pos[0] + 2, pos[1] + 3), mask)
+    img.alpha_composite(shadow.filter(ImageFilter.GaussianBlur(2)))
+    img.alpha_composite(logo, pos)
     return img
 
 
 def start():
     img = Image.new("RGBA", (SIZE[0], 24), (0, 0, 0, 0))
+    ImageDraw.Draw(img).rounded_rectangle((176, 1, 336, 22), radius=8, fill=(54, 28, 8, 210))
     draw_text(ImageDraw.Draw(img), START_TEXT, (SIZE[0] // 2, 12), font("hebrew.ttf", 16), CREAM, True, "mm", shadow=INK)
     return img
 

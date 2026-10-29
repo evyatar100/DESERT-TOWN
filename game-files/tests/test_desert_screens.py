@@ -120,6 +120,34 @@ class DesertScreensBatch2(unittest.TestCase):
         self.assertIn('SPLASH_IMAGES = ["splash1"]', rules)
 
 
+class DesertScreensBatch5(unittest.TestCase):
+    ART = ROOT.parent / "assets-factory" / "desert_screens" / "art"
+
+    def test_title_sources_exist_with_expected_shape(self):
+        master = Image.open(self.ART / "title_call02_g2_master_2048x1536.png")
+        logo = Image.open(self.ART / "desertown-logo-transparent_1370x483.png")
+        self.assertEqual(master.size, (2048, 1536))
+        self.assertEqual(logo.mode, "RGBA")
+        self.assertEqual(logo.size, (1370, 483))
+
+    def test_title_is_the_illustration_with_the_logo_in_the_calm_zone(self):
+        title = png("Graphics/Titles/title.png")
+        self.assertEqual(title.size, (512, 384))
+        master = Image.open(self.ART / "title_call02_g2_master_2048x1536.png").convert("RGBA").resize((512, 384), Image.LANCZOS)
+        diff = lambda box: sum(a != b for a, b in zip(title.crop(box).tobytes(), master.crop(box).tobytes()))
+        self.assertGreater(diff((60, 40, 452, 170)), 20000, "logo area must differ from the bare illustration")
+        self.assertEqual(diff((0, 330, 512, 384)), 0, "bottom strip stays the bare illustration")
+        self.assertEqual(diff((0, 0, 512, 36)), 0, "top strip stays the bare illustration")
+        self.assertEqual(title.getpixel((256, 383))[3], 255)
+
+    def test_start_line_has_a_dark_backing(self):
+        start = png("Graphics/Titles/start.png")
+        self.assertEqual(start.size, (512, 24))
+        r, g, b, a = start.getpixel((180, 12))
+        self.assertGreater(a, 150)
+        self.assertLess(0.299 * r + 0.587 * g + 0.114 * b, 90)
+
+
 class DesertScreensBatch3(unittest.TestCase):
     def test_card_art_size_and_no_pokemon_blue(self):
         for name in ("card", "card_f", "bg", "bg_f"):

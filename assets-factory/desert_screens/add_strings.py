@@ -87,6 +87,19 @@ STRINGS = {
     "Name": "שם",
     "Started": "התחלה",
     "Depth": "עומק",
+    # Circus fight and duel labels (Batch 4)
+    "DEFEND": "הגנה",
+    "PRECISE ATTACK": "התקפה מדויקת",
+    "FIERCE ATTACK": "התקפה עזה",
+    "SPECIAL ATTACK": "התקפה מיוחדת",
+    "You're in charge, {1}!": "{1}, אתה אחראי!",
+    "Just a little more! Hang in there, {1}!": "עוד קצת! תחזיק מעמד, {1}!",
+    "Your opponent's weak! Get 'em, {1}!": "היריב חלש! לך עליו, {1}!",
+    "You couldn't get away!": "לא הצלחת לברוח!",
+    "Would you like to forfeit the match and quit now?": "לוותר על הקרב ולצאת עכשיו?",
+    "{1} forfeited the match!": "{1} ויתר על הקרב!",
+    "{1} has already been selected.": "{1} כבר נבחר.",
+    "There's no PP left for this move!": "נגמרו הכוחות למהלך הזה!",
 }
 
 

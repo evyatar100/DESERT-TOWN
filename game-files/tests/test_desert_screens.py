@@ -146,5 +146,47 @@ class DesertScreensBatch3(unittest.TestCase):
             self.assertTrue((PLUGIN / name).exists(), name)
 
 
+class DesertScreensBatch4(unittest.TestCase):
+    def test_circus_battleback_sizes(self):
+        for name, size in (("bg", (512, 288)), ("base0", (512, 64)), ("base1", (256, 128)), ("message", (512, 96))):
+            self.assertEqual(png(f"Graphics/Battlebacks/circus_{name}.png").size, size, name)
+
+    def test_battle_ui_has_no_stock_blue_or_green(self):
+        rels = [f"Graphics/UI/Battle/{n}.png" for n in ("overlay_message", "overlay_command", "overlay_fight", "databox_normal",
+                                                        "databox_normal_foe", "databox_thin", "databox_thin_foe")]
+        rels += ["Graphics/UI/Party/bg.png", "Graphics/UI/Party/panel_rect.png", "Graphics/UI/Party/panel_round_sel.png"]
+        rels += [f"Graphics/UI/Summary/bg_{i}.png" for i in range(1, 6)]
+        for rel in rels:
+            bad = [c for c in used_colours(rel) if c[2] > c[0] + 8 or c[1] > c[0] + 8]
+            self.assertFalse(bad, f"{rel} still has cool colours: {bad[:3]}")
+
+    def test_recolour_keeps_alpha_and_size(self):
+        sys.path.insert(0, str(ROOT.parent / "assets-factory" / "desert_screens"))
+        import battle
+        src = Image.new("RGBA", (4, 2), (60, 90, 200, 128))
+        out = battle.recolour(src)
+        self.assertEqual(out.size, (4, 2))
+        self.assertEqual(out.getpixel((0, 0))[3], 128)
+        self.assertGreater(out.getpixel((0, 0))[0], out.getpixel((0, 0))[2])
+
+    def test_victory_bgm_is_a_copy_of_the_me(self):
+        self.assertEqual((ROOT / "Audio/BGM/DT Victory.ogg").read_bytes(), (ROOT / "Audio/ME/Victory.ogg").read_bytes())
+
+    def test_battle_strings_are_hebrew_drafts(self):
+        tr = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
+        for key in ("DEFEND", "PRECISE ATTACK", "FIERCE ATTACK", "SPECIAL ATTACK", "You couldn't get away!"):
+            self.assertRegex(tr[key]["he"], "[א-ת]", key)
+            self.assertEqual(tr[key].get("draft"), "Yotam", key)
+
+    def test_ruin_maniac_is_gone_from_map105(self):
+        from tests.event_catalog import extract_map
+        from tests.rx_loader import load_rxdata
+        events = extract_map(load_rxdata(ROOT / "Data" / "Map105.rxdata"), 105)["events"]
+        self.assertNotIn(1, [e["id"] for e in events])
+
+    def test_batch4_plugin_file(self):
+        self.assertTrue((PLUGIN / "005_circus_battle.rb").exists())
+
+
 if __name__ == "__main__":
     unittest.main()

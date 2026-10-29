@@ -110,3 +110,45 @@ check(crows.map(&:first).select { |t| t.is_a?(String) } == ["Name", "Dor", "Time
 check(crows.map(&:first).none? { |t| t =~ /ID No|Money|Pok|Badge|TRAINER/i }, "screens: the card has no ID, money, Pokedex or badge row")
 check(DesertScreens.started_text(Time.new(2026, 3, 9)) == "9.3.2026", "screens: the start date is day.month.year")
 check(PokemonTrainerCard_Scene.ancestors.first == DesertScreens::TrainerCardRows, "screens: the card scene uses the Desert Town rows")
+
+# TG57 Batch 4: the circus fight gets a plain wipe, War, DT Victory and the circus arena; nothing else changes.
+module RPG; class AudioFile; attr_reader :name; def initialize(name, *_a) = (@name = name); end; end unless defined?(RPG::AudioFile)
+class DSGlobal; attr_accessor :nextBattleBGM, :nextBattleVictoryBGM; end
+$PokemonGlobal = DSGlobal.new
+module MomDadBattle
+  @ds_active = false
+  def self.active? = @ds_active
+  def self.active=(v)
+    @ds_active = v
+  end
+end
+module SpecialBattleIntroAnimations
+  @@ds = []
+  def self.register(name, priority, cond, anim) = @@ds.push([name, priority, cond, anim])
+  def self.registered = @@ds
+end
+$ds_rules = []
+$ds_seen = []
+def setBattleRule(*args) = $ds_rules.push(args)
+def pbBattleAnimationCore(anim, _vp, _loc) = ($ds_wipe = anim)
+def pbMomDadBattleIntro(_event) = $ds_seen.push([:intro, $PokemonGlobal.nextBattleBGM&.name])
+def pbMomDadBattleStart
+  $ds_seen.push([:start, $PokemonGlobal.nextBattleBGM&.name, $PokemonGlobal.nextBattleVictoryBGM&.name])
+  return 1
+end
+load File.join(ds_dir, "005_circus_battle.rb")
+
+reg = SpecialBattleIntroAnimations.registered.find { |n, *| n == "desert_circus_intro" }
+check(reg && reg[1] > 40 && reg[1] > 60, "screens: the circus wipe outranks the Rocket (40) and vs-trainer (60) intros")
+check(!reg[2].call(1, [], 1), "screens: other trainer fights keep their own intro")
+MomDadBattle.active = true
+check(reg[2].call(1, [], 1), "screens: the circus fight uses the circus wipe")
+reg[3].call(nil, 1, [], 1)
+check($ds_wipe == "SnakeSquares", "screens: the circus wipe is the stock SnakeSquares, no balls and no Rocket R")
+pbMomDadBattleIntro(nil)
+check($ds_seen.last == [:intro, "War"], "screens: War plays from the pan before the fight")
+check(pbMomDadBattleStart == 1 && $ds_seen.last == [:start, "War", "DT Victory"], "screens: the circus fight plays War and wins into DT Victory")
+check($ds_rules.include?(["backdrop", "circus"]), "screens: the circus battleback rule is set")
+check($PokemonGlobal.nextBattleBGM.nil? && $PokemonGlobal.nextBattleVictoryBGM.nil?, "screens: the circus music is cleared after the fight")
+check(File.exist?(File.join(ROOT, "Audio/BGM/DT Victory.ogg")) && File.exist?(File.join(ROOT, "Audio/BGM/War.ogg")), "screens: War and DT Victory exist on disk")
+%w[bg base0 base1 message].each { |n| check(File.exist?(File.join(ROOT, "Graphics/Battlebacks/circus_#{n}.png")), "screens: circus_#{n}.png exists") }

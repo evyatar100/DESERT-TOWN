@@ -36,4 +36,12 @@ module DesertScreens
   # Options rows that only mean something for Pokemon battles, boxes and frame choice (003_options.rb).
   HIDDEN_OPTION_IDS = [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames,
                        :speech_frame, :menu_frame, :text_input_style, :screen_size].freeze
+
+  # Circus fight (Map089, MomDadBattle.active?): plain wipe, War, Victory, tent-stripe arena.
+  CIRCUS_BGM = "War"
+  CIRCUS_VICTORY_BGM = "DT Victory"
+  CIRCUS_BACKDROP = "circus"
+  CIRCUS_WIPE = "SnakeSquares"
+  CIRCUS_INTRO_PRIORITY = 70   # above the stock vs-trainer (60) and Rocket grunt (40) intros
+  CIRCUS_INTRO_NAME = "desert_circus_intro"
 end

@@ -5875,6 +5875,66 @@
       "en": "Depth",
       "he": "עומק",
       "draft": "Yotam"
+    },
+    "DEFEND": {
+      "en": "DEFEND",
+      "he": "הגנה",
+      "draft": "Yotam"
+    },
+    "PRECISE ATTACK": {
+      "en": "PRECISE ATTACK",
+      "he": "התקפה מדויקת",
+      "draft": "Yotam"
+    },
+    "FIERCE ATTACK": {
+      "en": "FIERCE ATTACK",
+      "he": "התקפה עזה",
+      "draft": "Yotam"
+    },
+    "SPECIAL ATTACK": {
+      "en": "SPECIAL ATTACK",
+      "he": "התקפה מיוחדת",
+      "draft": "Yotam"
+    },
+    "You're in charge, {1}!": {
+      "en": "You're in charge, {1}!",
+      "he": "{1}, אתה אחראי!",
+      "draft": "Yotam"
+    },
+    "Just a little more! Hang in there, {1}!": {
+      "en": "Just a little more! Hang in there, {1}!",
+      "he": "עוד קצת! תחזיק מעמד, {1}!",
+      "draft": "Yotam"
+    },
+    "Your opponent's weak! Get 'em, {1}!": {
+      "en": "Your opponent's weak! Get 'em, {1}!",
+      "he": "היריב חלש! לך עליו, {1}!",
+      "draft": "Yotam"
+    },
+    "You couldn't get away!": {
+      "en": "You couldn't get away!",
+      "he": "לא הצלחת לברוח!",
+      "draft": "Yotam"
+    },
+    "Would you like to forfeit the match and quit now?": {
+      "en": "Would you like to forfeit the match and quit now?",
+      "he": "לוותר על הקרב ולצאת עכשיו?",
+      "draft": "Yotam"
+    },
+    "{1} forfeited the match!": {
+      "en": "{1} forfeited the match!",
+      "he": "{1} ויתר על הקרב!",
+      "draft": "Yotam"
+    },
+    "{1} has already been selected.": {
+      "en": "{1} has already been selected.",
+      "he": "{1} כבר נבחר.",
+      "draft": "Yotam"
+    },
+    "There's no PP left for this move!": {
+      "en": "There's no PP left for this move!",
+      "he": "נגמרו הכוחות למהלך הזה!",
+      "draft": "Yotam"
     }
   }
 }

@@ -5466,8 +5466,8 @@
       "he": "לא באותו שולחן עם שה סה. הבס הפיל לי משולש."
     },
     "SHIRA_RULE_CHEN_TOGA": {
-      "en": "Wedding, no. Toga, yes. Only at his table.",
-      "he": "חתונה לא, טוגה כן. רק בשולחן שלו."
+      "en": "Wedding, no. Toga, yes. Seat me at Toga's table.",
+      "he": "חתונה לא, טוגה כן. תושיבו אותי בשולחן של טוגה."
     },
     "SHIRA_RULE_TOGA_NONE": {
       "en": "I'm fine anywhere. Just don't block my sun.",
@@ -5969,8 +5969,8 @@
       "he": "יופי. תשאלו מה עושה להם טוב, ותרשמו הכל. אני אחכה פה, בסדר גמור."
     },
     "LILY_GO_CAMPS": {
-      "en": "Kusomo, Mom-and-Dad, the Cats camp, Escher's house and the Glass Garden. Four will do.",
-      "he": "קוסומו, אמאל'ה ואבאל'ה, קאמפ החתולים, הבית של אשר וגן הזכוכית. ארבעה מספיקים."
+      "en": "Complaints are everywhere. Anyone with one has a \"!\" over them. Closest: the Playa, the ice line, Kim corner.",
+      "he": "תלונות יש בכל מקום. מעל מי שמתלונן יש \"!\". הכי קרוב: הפלאיה, תור הקרח ופינת קים."
     },
     "LILY_DECLINE": {
       "en": "Fine. That's fine too. Everything's fine.",
@@ -6185,8 +6185,8 @@
       "he": "ארבע. תמשיכו. כבר שתי דקות לא התלוננתי על כלום."
     },
     "LILY_REACT_5": {
-      "en": "Five of five. I need to sit down. It's not the heat.",
-      "he": "חמש מתוך חמש. אני צריכה לשבת. זה לא החום."
+      "en": "Five. I need to sit down. It's not the heat.",
+      "he": "חמש. אני צריכה לשבת. זה לא החום."
     },
     "LILY_REPORT_WHEEL": {
       "en": "Then the Wheel of Happiness. Best: {1} of 6 happy at once. Laps: {2}.",
@@ -6461,8 +6461,8 @@
       "he": "צהוב: בוחרים · כחול: ממשיכים"
     },
     "LILY_HEARD_EXTRA": {
-      "en": "The survey already has enough. Back to Lily.",
-      "he": "כבר יש מספיק בסקר. חוזרים ללילי.",
+      "en": "Logged in the survey. That's already enough; you can head back to Lily.",
+      "he": "נרשם בסקר. כבר יש מספיק, אפשר לחזור ללילי.",
       "draft": "Yotam"
     },
     "LILY_REACT_WHEEL_LOW": {
@@ -6473,6 +6473,191 @@
     "LILY_REPLAY_AFTER_LOW": {
       "en": "{1} of 6 happy. Less than half a wheel. Still fine.",
       "he": "{1} מתוך 6 מאושרים. פחות מחצי גלגל. עדיין הכל בסדר.",
+      "draft": "Yotam"
+    },
+    "LILY_LEFT_MORE": {
+      "en": "Still missing: {1} and more.",
+      "he": "חסרים לי עדיין: {1} ועוד.",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_SHORTY": {
+      "en": "the ice line",
+      "he": "תור הקרח",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_LOOOO": {
+      "en": "the Playa",
+      "he": "הפלאיה",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_GUFAK": {
+      "en": "Kim corner",
+      "he": "פינת קים",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_TURTLE": {
+      "en": "Kim corner",
+      "he": "פינת קים",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_RAZIT": {
+      "en": "the Temple of Dots",
+      "he": "מקדש הנקודות",
+      "draft": "Yotam"
+    },
+    "LILY_CAMP_SUSHI": {
+      "en": "Kusomo",
+      "he": "קוסומו",
+      "draft": "Yotam"
+    },
+    "LILY_SHORTY_1": {
+      "en": "Third hour in the ice line. I forgave myself. I forgave the ice guy. I forgave the ice.",
+      "he": "שעה שלישית בתור לקרח. סלחתי לעצמי. סלחתי למוכר. סלחתי לקרח.",
+      "draft": "Yotam"
+    },
+    "LILY_SHORTY_2": {
+      "en": "Then the ice melted. That one I haven't forgiven yet. I'm working on it.",
+      "he": "ואז הקרח נמס. על זה עוד אין לי סליחה. אני עובד על זה.",
+      "draft": "Yotam"
+    },
+    "LILY_SHORTY_AGAIN": {
+      "en": "Still in line. I've forgiven everyone already. There's no one left to forgive.",
+      "he": "עדיין בתור. סלחתי כבר לכולם. לא נשאר פה למי לסלוח.",
+      "draft": "Yotam"
+    },
+    "LILY_LOOOO_1": {
+      "en": "Here everyone says yes to everything. I said Nope once.",
+      "he": "פה כולם אומרים כן להכל. אני אמרתי פעם אחת Nope.",
+      "draft": "Yotam"
+    },
+    "LILY_LOOOO_2": {
+      "en": "So they signed me up for three workshops on how to say no. I couldn't say no.",
+      "he": "אז רשמו אותי לשלוש סדנאות על איך להגיד לא. לא הצלחתי להגיד לא.",
+      "draft": "Yotam"
+    },
+    "LILY_LOOOO_3": {
+      "en": "At the first workshop I said Nope. They signed me up for another one.",
+      "he": "בסדנה הראשונה אמרתי Nope. רשמו אותי לעוד אחת.",
+      "draft": "Yotam"
+    },
+    "LILY_LOOOO_AGAIN": {
+      "en": "Nope. That's workshop number five.",
+      "he": "Nope. זאת כבר סדנה חמישית.",
+      "draft": "Yotam"
+    },
+    "LILY_GUFAK_1": {
+      "en": "At the camp meeting we reached full consensus: hold another meeting.",
+      "he": "באספת הקאמפ הגענו להסכמה מלאה: לקיים עוד אספה.",
+      "draft": "Yotam"
+    },
+    "LILY_GUFAK_2": {
+      "en": "At that one we'll agree when the next one is. Nobody objected. Nobody ever objects.",
+      "he": "באספה ההיא נסכים מתי האספה הבאה. אף אחד לא התנגד. אף פעם אף אחד לא מתנגד.",
+      "draft": "Yotam"
+    },
+    "LILY_GUFAK_AGAIN": {
+      "en": "The meeting's still going. We've reached item one: what's on the agenda.",
+      "he": "האספה עוד נמשכת. הגענו לסעיף הראשון: מה בסדר היום.",
+      "draft": "Yotam"
+    },
+    "LILY_TURTLE_1": {
+      "en": "It was much better here in the first year.",
+      "he": "בשנה הראשונה היה פה הרבה יותר טוב.",
+      "draft": "Yotam"
+    },
+    "LILY_TURTLE_2": {
+      "en": "I wasn't here in the first year. But everyone says so.",
+      "he": "לא הייתי פה בשנה הראשונה. אבל כולם אומרים.",
+      "draft": "Yotam"
+    },
+    "LILY_TURTLE_3": {
+      "en": "The ones who say it weren't there either. That's the first year for you. Nobody was there.",
+      "he": "גם מי שאומרים את זה לא היו. ככה זה עם השנה הראשונה. אף אחד לא היה בה.",
+      "draft": "Yotam"
+    },
+    "LILY_TURTLE_AGAIN": {
+      "en": "In the first year there were dinosaurs here too. So they say.",
+      "he": "בשנה הראשונה היו פה גם דינוזאורים. ככה מספרים.",
+      "draft": "Yotam"
+    },
+    "LILY_RAZIT_1": {
+      "en": "I brought light everywhere. So did everyone else.",
+      "he": "הבאתי אור לכל מקום. גם כולם הביאו.",
+      "draft": "Yotam"
+    },
+    "LILY_RAZIT_2": {
+      "en": "Now it's so bright nobody can see anybody.",
+      "he": "עכשיו כל כך מואר שאף אחד לא רואה אף אחד.",
+      "draft": "Yotam"
+    },
+    "LILY_RAZIT_3": {
+      "en": "So I brought sunglasses. So did everyone else.",
+      "he": "אז הבאתי משקפי שמש. גם כולם הביאו.",
+      "draft": "Yotam"
+    },
+    "LILY_RAZIT_AGAIN": {
+      "en": "Still bright. I'm looking for a dark corner to bring light to.",
+      "he": "עדיין מואר. אני מחפשת פינה חשוכה להביא אליה אור.",
+      "draft": "Yotam"
+    },
+    "LILY_SUSHI_1": {
+      "en": "I came with zero MOOP. No glitter, no feathers, nothing.",
+      "he": "באתי עם אפס חשל\"ש. בלי גליטר, בלי נוצות, בלי כלום.",
+      "draft": "Yotam"
+    },
+    "LILY_SUSHI_2": {
+      "en": "Then I found out the desert itself is glitter. The whole Playa.",
+      "he": "ואז גיליתי שהמדבר עצמו גליטר. כל הפלאיה.",
+      "draft": "Yotam"
+    },
+    "LILY_SUSHI_3": {
+      "en": "Three days of collecting. There's a little left. About one desert.",
+      "he": "אספתי שלושה ימים. נשאר עוד קצת. בערך מדבר.",
+      "draft": "Yotam"
+    },
+    "LILY_SUSHI_AGAIN": {
+      "en": "Another day of collecting. If you find a feather, it isn't mine.",
+      "he": "עוד יום של איסוף. אם תמצאו נוצה, היא לא שלי.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_SHORTY": {
+      "en": "In the ice line, Shorty forgave himself, the ice guy and the ice. Then the ice melted.",
+      "he": "בתור לקרח, שורטי סלח לעצמו, למוכר ולקרח. ואז הקרח נמס.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_LOOOO": {
+      "en": "On the Playa, Loooo said Nope once and got signed up for three workshops on saying no.",
+      "he": "בפלאיה, Loooo אמרה פעם אחת Nope, ורשמו אותה לשלוש סדנאות על איך להגיד לא.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_GUFAK": {
+      "en": "At Kim corner, Gufak's meeting decided unanimously: another meeting.",
+      "he": "בפינת קים, האספה של גופק החליטה פה אחד: עוד אספה.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_TURTLE": {
+      "en": "At Kim corner, the Sea Turtle misses the first year. He wasn't there.",
+      "he": "בפינת קים, צב-הים מתגעגע לשנה הראשונה. הוא לא היה בה.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_RAZIT": {
+      "en": "By the Temple of Dots, everyone brought light like Razit. Now nobody can see anybody.",
+      "he": "ליד מקדש הנקודות, כולם הביאו אור כמו רזית. עכשיו אף אחד לא רואה אף אחד.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_SUSHI": {
+      "en": "At Kusomo, Sushi has zero MOOP. Except the desert, which is glitter.",
+      "he": "בקוסומו, אצל סושי אפס חשל\"ש. חוץ מהמדבר, שהוא גליטר.",
+      "draft": "Yotam"
+    },
+    "LILY_REPORT_MORE": {
+      "en": "More complaints in the survey: {1}. Roughly the same, just somewhere else.",
+      "he": "תלונות נוספות בסקר: {1}. בערך אותו דבר, רק במקום אחר.",
+      "draft": "Yotam"
+    },
+    "LILY_REACT_MORE": {
+      "en": "More? I need a new notebook.",
+      "he": "עוד? אני צריכה מחברת חדשה.",
       "draft": "Yotam"
     }
   }

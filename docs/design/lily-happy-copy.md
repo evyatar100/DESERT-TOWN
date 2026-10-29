@@ -13,6 +13,8 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 - Limits: dialogue ≤ 90 characters (2 message lines of ~45). Strip line 1 is name + C/HALF, so C ≤ 22; strip line 2 (F, N, COMP, MOOP, NOCOMP*) ≤ 44 and measured in Handjet 22 px under the 480 px strip text width (widest: N4 he 311 px, en 464 px). Card lines measured against the 400 px card (REALIZE wraps to 2 lines). `{1}`/`{2}` are `_INTL` placeholders.
 - `en`: written English for every key (the camp characters' own default lines stay he=en, as they already ship).
 - Default lines play first (hook `after_talk`), so each speaker's first key continues their own line.
+- A1 speakers, checked in metadata: Shorty (f9348fd0, "גבוה מאוד ושובב") masculine; Loooo (6b53f14c, "כלבה", a dog) feminine; Sea Turtle (8d654949, "כשאני הייתי קטן") masculine; Razit (64aeedbe, "מביאה אור") feminine. Gufak (1be29576) and Sushi (b201fb8a) have no gender in their metadata, so, as with Neta, their lines use only gender-unmarked forms (past tense, first person plural). Gufak's REPORT is about his meeting, not him.
+- "אספה" (Academy spelling of אֲסֵפָה), not "אסיפה".
 
 
 
@@ -28,7 +30,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 | LILY_ACCEPT_YES | choice | אני אברר | I'll find out | ≤ 14: 8 |
 | LILY_ACCEPT_NO | choice | לא עכשיו | Not now | ≤ 14: 8 |
 | LILY_GO_1 | Lily | יופי. תשאלו מה עושה להם טוב, ותרשמו הכל. אני אחכה פה, בסדר גמור. | Good. Ask what does them good, and write it all down. I'll wait here. Totally fine. | ≤ 90: 64 |
-| LILY_GO_CAMPS | Lily | קוסומו, אמאל'ה ואבאל'ה, קאמפ החתולים, הבית של אשר וגן הזכוכית. ארבעה מספיקים. | Kusomo, Mom-and-Dad, the Cats camp, Escher's house and the Glass Garden. Four will do. | ≤ 90: 77 |
+| LILY_GO_CAMPS | Lily | תלונות יש בכל מקום. מעל מי שמתלונן יש "!". הכי קרוב: הפלאיה, תור הקרח ופינת קים. | Complaints are everywhere. Anyone with one has a "!" over them. Closest: the Playa, the ice line, Kim corner. | ≤ 90: 80 (A1) |
 | LILY_DECLINE | Lily | בסדר. גם זה בסדר. הכל בסדר. | Fine. That's fine too. Everything's fine. | ≤ 90: 27 |
 
 ## Lily: back too early
@@ -118,7 +120,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 |---|---|---|---|---|
 | LILY_HEARD | narration | נרשם בסקר: {1} מתוך 4. | Logged in the survey: {1} of 4. | ≤ 90: 22 |
 | LILY_HEARD_ALL | narration | 4 מתוך 4. הסקר מלא. חוזרים ללילי. | 4 of 4. The survey is full. Back to Lily. | ≤ 90: 33 |
-| LILY_HEARD_EXTRA | narration | כבר יש מספיק בסקר. חוזרים ללילי. | The survey already has enough. Back to Lily. | ≤ 90: 32 |
+| LILY_HEARD_EXTRA | narration | נרשם בסקר. כבר יש מספיק, אפשר לחזור ללילי. | Logged in the survey. That's already enough; you can head back to Lily. | ≤ 90: 42 (A1) |
 
 ## Payoff (D9)
 
@@ -134,7 +136,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 | LILY_REACT_2 | Lily | עוד אחת? חכו, אני רושמת. | Another one? Hold on, I'm writing this down. | ≤ 90: 24 |
 | LILY_REACT_3 | Lily | שלוש. זה כבר דפוס. אני אוהבת דפוסים. | Three. That's a pattern now. I love a pattern. | ≤ 90: 36 |
 | LILY_REACT_4 | Lily | ארבע. תמשיכו. כבר שתי דקות לא התלוננתי על כלום. | Four. Keep going. I haven't complained about anything for two minutes. | ≤ 90: 47 |
-| LILY_REACT_5 | Lily | חמש מתוך חמש. אני צריכה לשבת. זה לא החום. | Five of five. I need to sit down. It's not the heat. | ≤ 90: 41 |
+| LILY_REACT_5 | Lily | חמש. אני צריכה לשבת. זה לא החום. | Five. I need to sit down. It's not the heat. | ≤ 90: 32 (A1) |
 | LILY_REPORT_WHEEL | narration | ואז גלגל האושר. שיא: {1} מתוך 6 מאושרים בבת אחת. סיבובים: {2}. | Then the Wheel of Happiness. Best: {1} of 6 happy at once. Laps: {2}. | ≤ 90: 62 |
 | LILY_REACT_WHEEL | Lily | חצי גלגל? גם כשנותנים לכל אחד בדיוק מה שביקש? | Half a wheel? Even when everyone gets exactly what they asked for? | ≤ 90: 45 |
 | LILY_REACT_WHEEL_LOW | Lily | פחות מחצי גלגל? גם זה ממצא. אני רושמת. | Less than half a wheel? That's a finding too. I'm writing it down. | ≤ 90: 38 |
@@ -245,3 +247,95 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 - QA follow-up (TG64): `LILY_REACT_WHEEL` / `LILY_REPLAY_AFTER` keep "half a wheel" only for a peak of 3; a lower peak uses the `_LOW` variants. `LILY_PAUSE_HINT` now matches the pause (Yellow picks a row, Blue resumes) and is drawn on the pause panel.
 
 Wordplay that might not land on a skim: KUSOMO_1 "התחלתי מהחלק של 'כמוך'" picks up Mor's own line "ואהבת לרעך כמוך" (love your neighbour *as yourself*: he started with the self). GLASS_3: the "other dog" howling back is Changa's reflection in the glass.
+
+# Amendment 1 (2026-10-29): six more complainers
+
+Spec: `docs/specs/lily-happy-quest.md` Amendment 1 (D4 LEFT, D5 A1 rows, D9 report cap). The three rewritten keys (GO_CAMPS, REACT_5, HEARD_EXTRA) are changed in place above and marked A1.
+
+## Lily: places (A1)
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_LEFT_MORE | Lily | חסרים לי עדיין: {1} ועוד. | Still missing: {1} and more. | ≤ 90: 25 |
+| LILY_CAMP_SHORTY | list | תור הקרח | the ice line | ≤ 16: 8 |
+| LILY_CAMP_LOOOO | list | הפלאיה | the Playa | ≤ 16: 6 |
+| LILY_CAMP_GUFAK | list | פינת קים | Kim corner | ≤ 16: 8 |
+| LILY_CAMP_TURTLE | list | פינת קים | Kim corner | ≤ 16: 8 |
+| LILY_CAMP_RAZIT | list | מקדש הנקודות | the Temple of Dots | ≤ 16: 12 |
+| LILY_CAMP_SUSHI | list | קוסומו | Kusomo | ≤ 16: 6 |
+
+## Ice line and Playa: Shorty (f9348fd0), masculine, after "אבל הכי חשוב שתצליח לסלוח לעצמך…"
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_SHORTY_1 | Shorty | שעה שלישית בתור לקרח. סלחתי לעצמי. סלחתי למוכר. סלחתי לקרח. | Third hour in the ice line. I forgave myself. I forgave the ice guy. I forgave the ice. | ≤ 90: 59 |
+| LILY_SHORTY_2 | Shorty | ואז הקרח נמס. על זה עוד אין לי סליחה. אני עובד על זה. | Then the ice melted. That one I haven't forgiven yet. I'm working on it. | ≤ 90: 53 |
+| LILY_SHORTY_AGAIN | Shorty | עדיין בתור. סלחתי כבר לכולם. לא נשאר פה למי לסלוח. | Still in line. I've forgiven everyone already. There's no one left to forgive. | ≤ 90: 50 |
+
+## Playa: Loooo (6b53f14c, a dog), feminine, after "Nope"
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_LOOOO_1 | Loooo | פה כולם אומרים כן להכל. אני אמרתי פעם אחת Nope. | Here everyone says yes to everything. I said Nope once. | ≤ 90: 47 |
+| LILY_LOOOO_2 | Loooo | אז רשמו אותי לשלוש סדנאות על איך להגיד לא. לא הצלחתי להגיד לא. | So they signed me up for three workshops on how to say no. I couldn't say no. | ≤ 90: 62 |
+| LILY_LOOOO_3 | Loooo | בסדנה הראשונה אמרתי Nope. רשמו אותי לעוד אחת. | At the first workshop I said Nope. They signed me up for another one. | ≤ 90: 45 |
+| LILY_LOOOO_AGAIN | Loooo | Nope. זאת כבר סדנה חמישית. | Nope. That's workshop number five. | ≤ 90: 26 |
+
+## Kim corner: Gufak (1be29576), gender-unmarked, after "לפעמים אין תקוה"
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_GUFAK_1 | Gufak | באספת הקאמפ הגענו להסכמה מלאה: לקיים עוד אספה. | At the camp meeting we reached full consensus: hold another meeting. | ≤ 90: 46 |
+| LILY_GUFAK_2 | Gufak | באספה ההיא נסכים מתי האספה הבאה. אף אחד לא התנגד. אף פעם אף אחד לא מתנגד. | At that one we'll agree when the next one is. Nobody objected. Nobody ever objects. | ≤ 90: 73 |
+| LILY_GUFAK_AGAIN | Gufak | האספה עוד נמשכת. הגענו לסעיף הראשון: מה בסדר היום. | The meeting's still going. We've reached item one: what's on the agenda. | ≤ 90: 50 |
+
+## Kim corner: Sea Turtle (8d654949), masculine, after "כשאני הייתי קטן, הייתי גור דינוזאורים"
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_TURTLE_1 | Sea Turtle | בשנה הראשונה היה פה הרבה יותר טוב. | It was much better here in the first year. | ≤ 90: 34 |
+| LILY_TURTLE_2 | Sea Turtle | לא הייתי פה בשנה הראשונה. אבל כולם אומרים. | I wasn't here in the first year. But everyone says so. | ≤ 90: 42 |
+| LILY_TURTLE_3 | Sea Turtle | גם מי שאומרים את זה לא היו. ככה זה עם השנה הראשונה. אף אחד לא היה בה. | The ones who say it weren't there either. That's the first year for you. Nobody was there. | ≤ 90: 69 |
+| LILY_TURTLE_AGAIN | Sea Turtle | בשנה הראשונה היו פה גם דינוזאורים. ככה מספרים. | In the first year there were dinosaurs here too. So they say. | ≤ 90: 46 |
+
+## Temple of Dots: Razit (64aeedbe), feminine, after "מביאה אור לכל מקום זאת נכנסת אליו"
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_RAZIT_1 | Razit | הבאתי אור לכל מקום. גם כולם הביאו. | I brought light everywhere. So did everyone else. | ≤ 90: 34 |
+| LILY_RAZIT_2 | Razit | עכשיו כל כך מואר שאף אחד לא רואה אף אחד. | Now it's so bright nobody can see anybody. | ≤ 90: 40 |
+| LILY_RAZIT_3 | Razit | אז הבאתי משקפי שמש. גם כולם הביאו. | So I brought sunglasses. So did everyone else. | ≤ 90: 34 |
+| LILY_RAZIT_AGAIN | Razit | עדיין מואר. אני מחפשת פינה חשוכה להביא אליה אור. | Still bright. I'm looking for a dark corner to bring light to. | ≤ 90: 48 |
+
+## Kusomo: Sushi (b201fb8a), gender-unmarked, after "לא אבק, זה גליטר של המדבר."
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_SUSHI_1 | Sushi | באתי עם אפס חשל"ש. בלי גליטר, בלי נוצות, בלי כלום. | I came with zero MOOP. No glitter, no feathers, nothing. | ≤ 90: 50 |
+| LILY_SUSHI_2 | Sushi | ואז גיליתי שהמדבר עצמו גליטר. כל הפלאיה. | Then I found out the desert itself is glitter. The whole Playa. | ≤ 90: 40 |
+| LILY_SUSHI_3 | Sushi | אספתי שלושה ימים. נשאר עוד קצת. בערך מדבר. | Three days of collecting. There's a little left. About one desert. | ≤ 90: 42 |
+| LILY_SUSHI_AGAIN | Sushi | עוד יום של איסוף. אם תמצאו נוצה, היא לא שלי. | Another day of collecting. If you find a feather, it isn't mine. | ≤ 90: 44 |
+
+## Payoff (A1)
+
+| key | speaker | he | en | limit |
+|---|---|---|---|---|
+| LILY_REPORT_SHORTY | narration | בתור לקרח, שורטי סלח לעצמו, למוכר ולקרח. ואז הקרח נמס. | In the ice line, Shorty forgave himself, the ice guy and the ice. Then the ice melted. | ≤ 90: 54 |
+| LILY_REPORT_LOOOO | narration | בפלאיה, Loooo אמרה פעם אחת Nope, ורשמו אותה לשלוש סדנאות על איך להגיד לא. | On the Playa, Loooo said Nope once and got signed up for three workshops on saying no. | ≤ 90: 73 |
+| LILY_REPORT_GUFAK | narration | בפינת קים, האספה של גופק החליטה פה אחד: עוד אספה. | At Kim corner, Gufak's meeting decided unanimously: another meeting. | ≤ 90: 49 |
+| LILY_REPORT_TURTLE | narration | בפינת קים, צב-הים מתגעגע לשנה הראשונה. הוא לא היה בה. | At Kim corner, the Sea Turtle misses the first year. He wasn't there. | ≤ 90: 53 |
+| LILY_REPORT_RAZIT | narration | ליד מקדש הנקודות, כולם הביאו אור כמו רזית. עכשיו אף אחד לא רואה אף אחד. | By the Temple of Dots, everyone brought light like Razit. Now nobody can see anybody. | ≤ 90: 71 |
+| LILY_REPORT_SUSHI | narration | בקוסומו, אצל סושי אפס חשל"ש. חוץ מהמדבר, שהוא גליטר. | At Kusomo, Sushi has zero MOOP. Except the desert, which is glitter. | ≤ 90: 52 |
+| LILY_REPORT_MORE | narration | תלונות נוספות בסקר: {1}. בערך אותו דבר, רק במקום אחר. | More complaints in the survey: {1}. Roughly the same, just somewhere else. | ≤ 90: 53 |
+| LILY_REACT_MORE | Lily | עוד? אני צריכה מחברת חדשה. | More? I need a new notebook. | ≤ 90: 26 |
+
+## Notes for the coder (A1)
+
+- `LILY_CAMP_SUSHI` is the exact text of `LILY_CAMP_KUSOMO` in both languages, and `LILY_CAMP_GUFAK` equals `LILY_CAMP_TURTLE`, so the dedupe in LEFT shows each place once.
+- `LILY_LEFT_MORE` takes the same `{1}` as LEFT; the places join with ", " and the line itself adds " ועוד" (no comma before ו).
+- `LILY_REPORT_MORE` takes `{1}` = `heard.size - 5`. It is phrased as a count label so it reads right for 1 through 6.
+- `LILY_HEARD_EXTRA` now opens with "נרשם בסקר": the 5th to 11th complaints are logged and reach the payoff (D9), and the old "already enough" alone read as if they weren't. No count, as the spec says.
+- `_3` is written for Loooo, Turtle, Razit and Sushi; Shorty and Gufak have `_1..2` only.
+- Loooo's metadata says "Quest usable: no". The spec already seats her on the wheel and now makes her an encounter, so I wrote her lines; flagging it in case that field is meant to block this.
+
+Wordplay that might not land on a skim: GUFAK_AGAIN, the meeting reached item one, "what's on the agenda" (מה בסדר היום). TURTLE_AGAIN calls back his own line about being a dinosaur cub.

@@ -42,7 +42,7 @@ done = BR.normalize({ inbar: :done })
 check(!BR.ask!(done) && done[:inbar] == :done, "bags: ask! never moves a finished quest back")
 hook_files = Dir.glob(File.join(bags_dir, "*.rb")).sort.reject { |f| f.end_with?("000_rules.rb") }
 hooks_src = hook_files.map { |f| File.read(f, encoding: "utf-8") }.join("\n")
-check(hook_files.length == 9 && !hooks_src.match?(/st(ate)?\[:\w+\]\s*=(?!=)/), "bags: no file outside BagsRules writes a quest-state key")
+check(hook_files.length == 10 && !hooks_src.match?(/st(ate)?\[:\w+\]\s*=(?!=)/), "bags: no file outside BagsRules writes a quest-state key")
 # Layers: 000 <- 001 <- 005 <- 009 <- 008 <- 003 (Song.start); 002, 004 <- 009; 006 overlay <- 000 only;
 # 007_debug on top. A unit may not name anything in a layer above it.
 above_low = /pbBagsToga|pbBagsUnicorn|ItemHandlers|bags_pbDesertTalk|Bags\.reset|dt_bags/

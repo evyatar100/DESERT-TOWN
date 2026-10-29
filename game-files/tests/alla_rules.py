@@ -94,6 +94,27 @@ def hotdog(state, bag):
     return True
 
 
+# --- QuestMarks (TG65): Alla and the unvoted campers, Playa (98) only ---------
+MARK_MAP = 98
+MARK_ALLA = "dt_4c4e039d"
+MARK_CAMPERS = {"tal": "dt_9b3660d1", "elias": "dt_788b2614", "mario": "dt_bb70b1dd"}
+
+
+def marks(state, map_id):
+    if map_id != MARK_MAP:
+        return {}
+    stage = state["stage"]
+    if stage == "none":
+        return {"giver": [MARK_ALLA]}
+    if stage == "campaign":
+        if len(state["votes"]) >= VOTES_NEEDED:
+            return {"next": [MARK_ALLA]}
+        return {"next": [MARK_CAMPERS[c] for c in CAMPERS if c not in state["votes"]]}
+    if stage == "rush":
+        return {"next": [MARK_ALLA]}
+    return {} if state["hotdog_given"] else {"next": [MARK_ALLA]}
+
+
 def apply_law(law, toppings, voted):
     t = list(toppings)
     if law == 1:

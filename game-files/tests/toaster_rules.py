@@ -87,6 +87,35 @@ def plug_for(pick):
     return {0: "ac", 1: "pot"}.get(pick)
 
 
+# --- QuestMarks (TG65); ctx = {"permit": bool, "toaster": bool} ---------------
+MARK_NOODLES = (95, "dt_c081cd67")
+MARK_CLERK = (80, "dt_326f5ab5")
+MARK_ALTAR = (94, "toaster_altar")
+
+
+def mark_target(state, ctx):
+    stage = state["stage"]
+    if stage == "asked":
+        return MARK_NOODLES
+    if stage == "lead":
+        return MARK_CLERK
+    if stage == "permit":
+        return MARK_ALTAR if ctx.get("permit") else MARK_CLERK
+    if stage == "toaster":
+        return MARK_NOODLES if ctx.get("toaster") else MARK_ALTAR
+    if stage == "done":
+        return None if state["crumb_given"] else MARK_NOODLES
+    return None
+
+
+def marks(state, map_id, ctx=None):
+    ctx = ctx or {}
+    if state["stage"] == "none" and map_id == MARK_NOODLES[0]:
+        return {"giver": [MARK_NOODLES[1]]}
+    target = mark_target(state, ctx)
+    return {"next": [target[1]]} if target and target[0] == map_id else {}
+
+
 def _add(bag, item):
     bag[item] = bag.get(item, 0) + 1
     return True

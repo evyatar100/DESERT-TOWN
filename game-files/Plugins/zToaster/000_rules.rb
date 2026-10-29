@@ -157,6 +157,29 @@ module ToasterRules
     true
   end
 
+  #-----------------------------------------------------------------------------
+  # QuestMarks (TG65): ctx = {permit:, toaster:} held flags read by the adapter.
+  #-----------------------------------------------------------------------------
+  MARK_NOODLES = [95, "dt_c081cd67"].freeze
+  MARK_CLERK = [80, "dt_326f5ab5"].freeze
+  MARK_ALTAR = [94, "toaster_altar"].freeze
+
+  def self.mark_target(state, ctx)
+    case state[:stage]
+    when :asked then MARK_NOODLES
+    when :lead then MARK_CLERK
+    when :permit then ctx[:permit] ? MARK_ALTAR : MARK_CLERK
+    when :toaster then ctx[:toaster] ? MARK_NOODLES : MARK_ALTAR
+    when :done then state[:crumb_given] ? nil : MARK_NOODLES
+    end
+  end
+
+  def self.marks(state, map_id, ctx = {})
+    return { giver: [MARK_NOODLES[1]] } if state[:stage] == :none && map_id == MARK_NOODLES[0]
+    target = mark_target(state, ctx)
+    target && target[0] == map_id ? { next: [target[1]] } : {}
+  end
+
   # F9 only: that stage, holding exactly that stage's item. Never :done.
   def self.debug_jump!(state, bag, stage)
     return false unless JUMP_STAGES.include?(stage) && bag

@@ -155,6 +155,23 @@ def talk_decide(state):
     return {"none": "intro", "asked": "ask_again", "seated": "reward", "bag": "final", "done": "after"}[state["stage"]]
 
 
+# QuestMarks (TG65), Playa only: Eviatar and Shira's event (drawn only while she crosses).
+MARK_MAP = 98
+MARK_EVIATAR = "shira_eviatar"
+MARK_SHIRA = "shira_wedding"
+
+
+def marks(state, map_id):
+    if map_id != MARK_MAP:
+        return {}
+    stage = state["stage"]
+    if stage == "none":
+        return {"giver": [MARK_EVIATAR]}
+    if stage in ("asked", "seated", "bag"):
+        return {"next": [MARK_EVIATAR, MARK_SHIRA]}
+    return {}
+
+
 # --- scheduler ----------------------------------------------------------------------
 INTERVAL = 180.0
 CHANCE = 0.5

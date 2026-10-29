@@ -234,6 +234,23 @@ def car_decide(st, held):
     return "after"
 
 
+# QuestMarks (TG65): the art car until the bag is held, then Johnny on the Playa.
+MARK_CAR = (PARTY_MAP, "djrush_car")
+MARK_JOHNNY = (98, "dt_4b08e38a")
+
+
+def marks(st, map_id, bag_held):
+    s = st["stage"]
+    if s == "none":
+        return {"giver": [MARK_CAR[1]]} if map_id == MARK_CAR[0] else {}
+    target = None
+    if s in ("intro", "freed"):
+        target = MARK_CAR
+    elif s == "bag":
+        target = MARK_JOHNNY if bag_held else MARK_CAR
+    return {"next": [target[1]]} if target and target[0] == map_id else {}
+
+
 def complaint_key(last_key, roll):
     pool = [k for k in COMPLAIN_KEYS if k != last_key]
     return pool[int(roll * 1000) % len(pool)]

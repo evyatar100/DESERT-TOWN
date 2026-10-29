@@ -92,6 +92,21 @@ def claim(state, char_id, map_id):
     return state["stage"]
 
 
+MARK_CAPS = {"708d6c34": 1}
+
+
+def marks(state, map_id):
+    """QuestMarks (TG65) mirror of FlamingoBandRules.marks."""
+    if not state["intro_done"] or state.get("procession") or state["stage"] >= FINAL_STAGE:
+        return {}
+    if map_id not in MAPS:
+        return {}
+    ids = [i for i in FLAMINGOS if i != HOST and i not in state["consumed"]]
+    if not ids:
+        return {}
+    return {"next": [["dt_" + i, MARK_CAPS[i]] if i in MARK_CAPS else "dt_" + i for i in ids]}
+
+
 def rolling(state):
     return bool(state.get("procession"))
 

@@ -281,6 +281,20 @@ module DJRushRules
     nil
   end
 
+  # QuestMarks (TG65): the art car (event "djrush_car", She Se from :freed) until the bag is
+  # held, then Johnny on the Playa; the party Johnny only hints and is never marked.
+  MARK_CAR = [PARTY_MAP, "djrush_car"].freeze
+  MARK_JOHNNY = [PLAYA_MAP, "dt_#{JOHNNY}"].freeze
+
+  def self.marks(state, map_id, bag_held)
+    return map_id == MARK_CAR[0] ? { giver: [MARK_CAR[1]] } : {} if state[:stage] == :none
+    target = case state[:stage]
+             when :intro, :freed then MARK_CAR
+             when :bag then bag_held ? MARK_JOHNNY : MARK_CAR
+             end
+    target && target[0] == map_id ? { next: [target[1]] } : {}
+  end
+
   def self.say_result(index)
     return :phrase if index == PHRASE_INDEX
     [0, 2].include?(index) ? :wrong : :nothing

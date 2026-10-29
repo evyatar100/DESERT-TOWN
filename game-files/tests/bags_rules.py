@@ -238,6 +238,30 @@ def open_surprise(state, bag, n):
     return outcome
 
 
+# QuestMarks (TG65): ctx = {"count": Inbar's count, "payable": Pixel can be paid}.
+MARK_INBAR = (95, "dt_c414cf08")
+MARK_COWBOY = (95, "dt_670f79e3")
+MARK_TOGA = (98, "dt_7a2a022c")
+MARK_PIXEL = (109, "dt_d5383627")
+
+
+def marks(state, map_id, ctx):
+    if state["inbar"] == "none":
+        return {"giver": [MARK_INBAR[1]]} if map_id == MARK_INBAR[0] else {}
+    if state["inbar"] == "done":
+        return {}
+    if int(ctx.get("count") or 0) >= NEED:
+        targets = [MARK_INBAR]
+    else:
+        targets = [MARK_COWBOY]
+        if not state["toga_gift"]:
+            targets.append(MARK_TOGA)
+        if ctx.get("payable"):
+            targets.append(MARK_PIXEL)
+    found = [name for m, name in targets if m == map_id]
+    return {"next": found} if found else {}
+
+
 def toga_branch(state, holds_desert):
     if not state["toga_gift"]:
         return "gift"

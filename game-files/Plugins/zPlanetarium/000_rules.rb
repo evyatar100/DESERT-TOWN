@@ -47,6 +47,19 @@ module PlanetRules
     end
   end
 
+  # QuestMarks (TG65): Hagar until the ram is held, then Eyal (deliver, then the show).
+  MARK_EYAL = [33, "planet_eyal"].freeze
+  MARK_HAGAR = [95, "dt_b19b1f15"].freeze
+
+  def self.marks(state, map_id, has)
+    return map_id == MARK_EYAL[0] ? { giver: [MARK_EYAL[1]] } : {} if state[:stage] == :none
+    target = case state[:stage]
+             when :asked, :got then has ? MARK_EYAL : MARK_HAGAR
+             when :delivered then MARK_EYAL
+             end
+    target && target[0] == map_id ? { next: [target[1]] } : {}
+  end
+
   def self.ask!(state)
     return false unless state[:stage] == :none
     state[:stage] = :asked

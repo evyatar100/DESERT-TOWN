@@ -340,7 +340,7 @@ check((c[:t] - 41.0).abs < 1e-9, "planet clock: a silent debug start counts from
 #-------------------------------------------------------------------------------
 planet_src = Dir.glob(File.join(planet_dir, "*.rb")).sort.to_h { |f| [File.basename(f, ".rb"), File.read(f, encoding: "utf-8")] }
 writers = planet_src.reject { |n, _| n == "000_rules" }.select { |_, s| s.match?(/\b(st|state)\[:\w+\]\s*=(?!=)|planet_quest\[/) }.keys
-check(planet_src.length == 7 && writers.empty?, "planet: only PlanetRules writes the quest state (#{writers.inspect})")
+check(planet_src.length == 8 && writers.empty?, "planet: only PlanetRules writes the quest state (#{writers.inspect})")
 check(!planet_src["000_rules"].gsub(/#.*$/, "").match?(/\b(pb[A-Z]\w*|Graphics|Audio|Sprite|Bitmap|\$game_\w+|\$bag|\$PokemonGlobal|_INTL)\b/),
       "planet: 000_rules makes no engine calls")
 upward = {

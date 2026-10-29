@@ -76,6 +76,23 @@ def hagar_decide(state, has):
     return {"delivered": "sent", "shown": "after"}.get(stage)
 
 
+# QuestMarks (TG65): Hagar until the ram is held, then Eyal (deliver, then the show).
+MARK_EYAL = (33, "planet_eyal")
+MARK_HAGAR = (95, "dt_b19b1f15")
+
+
+def marks(state, map_id, has):
+    stage = state["stage"]
+    if stage == "none":
+        return {"giver": [MARK_EYAL[1]]} if map_id == MARK_EYAL[0] else {}
+    target = None
+    if stage in ("asked", "got"):
+        target = MARK_EYAL if has else MARK_HAGAR
+    elif stage == "delivered":
+        target = MARK_EYAL
+    return {"next": [target[1]]} if target and target[0] == map_id else {}
+
+
 def ask(state):
     if state["stage"] != "none":
         return False

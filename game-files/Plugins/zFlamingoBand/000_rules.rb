@@ -73,6 +73,18 @@ module FlamingoBandRules
     return state[:stage]
   end
 
+  # QuestMarks (TG65): every member still to play, on 77/99, until stage 4 or the procession.
+  # 708d6c34 stands 13 times on 77, so only its lowest event id (by the intro zone) is marked.
+  MARK_CAPS = { "708d6c34" => 1 }.freeze
+
+  def marks(state, map_id)
+    return {} if !state[:intro_done] || state[:procession] || state[:stage] >= FINAL_STAGE
+    return {} if !MAPS.include?(map_id)
+    ids = FLAMINGOS - [HOST] - state[:consumed]
+    return {} if ids.empty?
+    return { next: ids.map { |id| MARK_CAPS[id] ? ["dt_#{id}", MARK_CAPS[id]] : "dt_#{id}" } }
+  end
+
   # Chance per roll: ROLL_CHANCE for the first LATE_AFTER seconds of the procession, then LATE_CHANCE.
   def chance_at(elapsed)
     return elapsed >= LATE_AFTER ? LATE_CHANCE : ROLL_CHANCE

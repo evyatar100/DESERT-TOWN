@@ -92,6 +92,25 @@ module AllaRules
     true
   end
 
+  #-----------------------------------------------------------------------------
+  # QuestMarks (TG65): Alla and the unvoted campers, Playa (98) only.
+  #-----------------------------------------------------------------------------
+  MARK_MAP = 98
+  MARK_ALLA = "dt_4c4e039d"
+  MARK_CAMPERS = { tal: "dt_9b3660d1", elias: "dt_788b2614", mario: "dt_bb70b1dd" }.freeze
+
+  def self.marks(state, map_id)
+    return {} unless map_id == MARK_MAP
+    case state[:stage]
+    when :none then { giver: [MARK_ALLA] }
+    when :campaign
+      return { next: [MARK_ALLA] } if state[:votes].length >= VOTES_NEEDED
+      { next: missing(state).map { |c| MARK_CAMPERS[c] } }
+    when :rush then { next: [MARK_ALLA] }
+    else state[:hotdog_given] ? {} : { next: [MARK_ALLA] }
+    end
+  end
+
   # F9 only. :done counts as given when the bag already holds the item.
   def self.debug_jump!(state, stage, bag = nil)
     return false unless JUMP_STAGES.include?(stage)

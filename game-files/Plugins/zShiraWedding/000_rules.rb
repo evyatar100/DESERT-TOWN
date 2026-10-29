@@ -175,6 +175,21 @@ module ShiraWeddingRules
     bag_given?(state) && !!bag && !held?(bag) && !inbar_done
   end
 
+  # QuestMarks (TG65), Playa only: Eviatar (always findable, summons her) and Shira's event,
+  # which the overlay draws only while she is visibly crossing (blank page = no mark).
+  MARK_MAP = 98
+  MARK_EVIATAR = "shira_eviatar"
+  MARK_SHIRA = "shira_wedding"
+
+  def self.marks(state, map_id)
+    return {} unless map_id == MARK_MAP
+    case state[:stage]
+    when :none then { giver: [MARK_EVIATAR] }
+    when :asked, :seated, :bag then { next: [MARK_EVIATAR, MARK_SHIRA] }
+    else {}
+    end
+  end
+
   # Mutators: state and item change together, before any message.
   def self.start!(state)
     return false unless state[:stage] == :none

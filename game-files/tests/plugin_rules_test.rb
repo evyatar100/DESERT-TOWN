@@ -1058,6 +1058,8 @@ load File.join(__dir__, "desert_screens_rules_test.rb")
 load File.join(__dir__, "lily_happy_rules_test.rb")
 # TG65 QuestMarks rules, registry and the overlay smoke run, same pattern.
 load File.join(__dir__, "quest_marks_rules_test.rb")
+# TG65 Batches 2-3: every quest client's marks(...) across the target table (T7).
+load File.join(__dir__, "quest_marks_clients_test.rb")
 check(MomDadBattleRules::MAP_ID == 89, "battle: loss returns to mom-dad-in")
 check([MomDadBattleRules::LOSE_X, MomDadBattleRules::LOSE_Y, MomDadBattleRules::LOSE_DIR] == [25, 3, 2],
       "battle: loss tile is (25, 3) facing down")

@@ -173,6 +173,26 @@ module BagsRules
     outcome
   end
 
+  # QuestMarks (TG65): ctx = {count: Inbar's count, payable: Pixel can be paid}. Inbar once
+  # the count is in; while short, the cowboy, Toga before his gift and Pixel when payable.
+  MARK_INBAR = [95, "dt_c414cf08"].freeze
+  MARK_COWBOY = [95, "dt_670f79e3"].freeze
+  MARK_TOGA = [98, "dt_7a2a022c"].freeze
+  MARK_PIXEL = [109, "dt_d5383627"].freeze
+
+  def self.marks(state, map_id, ctx)
+    case state[:inbar]
+    when :none then return map_id == MARK_INBAR[0] ? { giver: [MARK_INBAR[1]] } : {}
+    when :done then return {}
+    end
+    targets = if ctx[:count].to_i >= NEED then [MARK_INBAR]
+              else
+                [MARK_COWBOY, (MARK_TOGA unless state[:toga_gift]), (MARK_PIXEL if ctx[:payable])].compact
+              end
+    found = targets.select { |m, _| m == map_id }.map(&:last)
+    found.empty? ? {} : { next: found }
+  end
+
   def self.toga_branch(state, holds_desert)
     return :gift unless state[:toga_gift]
     return :desert_offer if holds_desert && !state[:toga_desert]

@@ -164,6 +164,8 @@ out = lily(93)
 check($msgs[2][1] == "LILY_PROGRESS|3" && $msgs[3][1] == "LILY_LEFT|LILY_CAMP_ESCHER, LILY_CAMP_GLASS", "back early: 3/4 and the two camps left")
 talk(110, "b3fb6767")
 check($msgs.last == [nil, "LILY_HEARD_ALL"] && LilyHappyRules.ready?(st), "T20: the 4th complaint says HEARD_ALL")
+talk(109, "661f55e6")
+check($msgs.last == [nil, "LILY_HEARD_EXTRA"] && st[:heard].size == 5, "a 5th complaint says HEARD_EXTRA, not 4 of 4")
 
 # --- the wheel from Lily -----------------------------------------------------------------------
 Bags::Song.active = true
@@ -197,10 +199,10 @@ me0 = $me.size
 saves0 = $saves.size
 out = lily(91)
 expect = [LILY_LINE, "LILY_REPORT_OPEN", "LILY_REPORT_KUSOMO", "LILY_REACT_1", "LILY_REPORT_CIRCUS", "LILY_REACT_2",
-          "LILY_REPORT_CATS", "LILY_REACT_3", "LILY_REPORT_ESCHER", "LILY_REACT_4", "LILY_REPORT_WHEEL", "LILY_REACT_WHEEL",
-          "LILY_PAYOFF_1", "LILY_PAYOFF_2", "LILY_PAYOFF_3"]
+          "LILY_REPORT_CATS", "LILY_REACT_3", "LILY_REPORT_ESCHER", "LILY_REACT_4", "LILY_REPORT_GLASS", "LILY_REACT_5", "LILY_REPORT_WHEEL",
+          st[:best] >= 3 ? "LILY_REACT_WHEEL" : "LILY_REACT_WHEEL_LOW", "LILY_PAYOFF_1", "LILY_PAYOFF_2", "LILY_PAYOFF_3"]
 check(out == expect, "T4/T20: :wheeled replays the whole payoff on the next talk (#{out.inspect})")
-check(faces == %i[grumpy curious giggle giggle giggle giggle beam], "the portrait goes grumpy -> curious -> giggle -> beam (#{faces.inspect})")
+check(faces == %i[grumpy curious giggle giggle giggle giggle giggle beam], "the portrait goes grumpy -> curious -> giggle -> beam (#{faces.inspect})")
 check($me.size == me0 + 1 && $me.last == "Slots big win" && st[:stage] == :done && $saves.size == saves0 + 1, "T20: one jingle, :done, autosaved")
 check($msgs.find { |_p, t| t.start_with?("LILY_REPORT_WHEEL") }[1] == "LILY_REPORT_WHEEL|#{st[:best]},#{st[:laps]}", "REPORT_WHEEL carries best and laps")
 narr = %w[LILY_REPORT_OPEN LILY_REPORT_KUSOMO LILY_PAYOFF_3]
@@ -213,7 +215,8 @@ out = lily(93, [1])
 check(out == [LILY_LINE, "LILY_IDLE", "LILY_REPLAY_Q"] && $me.size == me_done, "T20: :done -> IDLE + replay offer, no second payoff")
 best = st[:best]
 out = lily(98, [0])
-check(out.last == "LILY_REPLAY_AFTER" && st[:stage] == :done && st[:best] >= best, "a replay in :done: REPLAY_AFTER, best only (#{st.inspect})")
+peak = $msgs.last[1].split("|")[1].to_i
+check(out.last == (peak >= 3 ? "LILY_REPLAY_AFTER" : "LILY_REPLAY_AFTER_LOW") && st[:stage] == :done && st[:best] >= best, "a replay in :done: REPLAY_AFTER, best only (#{st.inspect})")
 check(talk(109, "661f55e6") == ["MSG_661F55E6_LINE"] && talk(95, "a715ed37") == ["MSG_A715ED37_LINE"], "camps say nothing extra in :done")
 
 # --- mirror ----------------------------------------------------------------------------------------

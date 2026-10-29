@@ -65,6 +65,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 | LILY_REPLAY_YES | choice | לסובב | Spin | ≤ 14: 5 |
 | LILY_REPLAY_NO | choice | לא עכשיו | Not now | ≤ 14: 8 |
 | LILY_REPLAY_AFTER | Lily | {1} מתוך 6 מאושרים. חצי גלגל. הכל בסדר. | {1} of 6 happy. Half a wheel. Everything's fine. | ≤ 90: 39 |
+| LILY_REPLAY_AFTER_LOW | Lily | {1} מתוך 6 מאושרים. פחות מחצי גלגל. עדיין הכל בסדר. | {1} of 6 happy. Less than half a wheel. Still fine. | ≤ 90: 47 |
 
 ## Kusomo: Mor (a715ed37), masculine, after his line "ואהבת לרעך כמוך"
 
@@ -117,6 +118,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 |---|---|---|---|---|
 | LILY_HEARD | narration | נרשם בסקר: {1} מתוך 4. | Logged in the survey: {1} of 4. | ≤ 90: 22 |
 | LILY_HEARD_ALL | narration | 4 מתוך 4. הסקר מלא. חוזרים ללילי. | 4 of 4. The survey is full. Back to Lily. | ≤ 90: 33 |
+| LILY_HEARD_EXTRA | narration | כבר יש מספיק בסקר. חוזרים ללילי. | The survey already has enough. Back to Lily. | ≤ 90: 32 |
 
 ## Payoff (D9)
 
@@ -135,6 +137,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 | LILY_REACT_5 | Lily | חמש מתוך חמש. אני צריכה לשבת. זה לא החום. | Five of five. I need to sit down. It's not the heat. | ≤ 90: 41 |
 | LILY_REPORT_WHEEL | narration | ואז גלגל האושר. שיא: {1} מתוך 6 מאושרים בבת אחת. סיבובים: {2}. | Then the Wheel of Happiness. Best: {1} of 6 happy at once. Laps: {2}. | ≤ 90: 62 |
 | LILY_REACT_WHEEL | Lily | חצי גלגל? גם כשנותנים לכל אחד בדיוק מה שביקש? | Half a wheel? Even when everyone gets exactly what they asked for? | ≤ 90: 45 |
+| LILY_REACT_WHEEL_LOW | Lily | פחות מחצי גלגל? גם זה ממצא. אני רושמת. | Less than half a wheel? That's a finding too. I'm writing it down. | ≤ 90: 38 |
 | LILY_PAYOFF_1 | Lily | רגע. כולם? גם אלה שמנצנצים?... הכל בסדר סעמק. לא, באמת. הכל בסדר. | Wait. Everyone? Even the sparkly ones?... Everything's fine, damn. No, really. Fine. | ≤ 90: 65 |
 | LILY_PAYOFF_2 | Lily | יש לי חול בגרביים. אני חייבת לספר למישהו. | I've got sand in my socks. I have to tell someone. | ≤ 90: 41 |
 | LILY_PAYOFF_3 | narration | מה ישמח את לילי? הסקר הושלם. | What will make Lily happy? Survey complete. | ≤ 90: 28 |
@@ -230,7 +233,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 | LILY_PAUSE_RESUME | pause | ממשיכים | Resume | ≤ 16: 7 |
 | LILY_PAUSE_RESTART | pause | מתחילים מחדש | Restart | ≤ 16: 12 |
 | LILY_PAUSE_QUIT | pause | יוצאים | Quit | ≤ 16: 6 |
-| LILY_PAUSE_HINT | pause | צהוב: ממשיכים · כחול: יציאה | Yellow: resume · Blue: quit | ≤ 40: 27 |
+| LILY_PAUSE_HINT | pause | צהוב: בוחרים · כחול: ממשיכים | Yellow: choose · Blue: resume | ≤ 40: 27 |
 
 ## Notes for the coder
 
@@ -238,6 +241,7 @@ Spec: `docs/specs/lily-happy-quest.md` (D4, D5, D7, D9, "Translation keys"). Con
 - Not written: the scaffold tap-game placeholders `LILY_HUD`, `LILY_HELP`, `LILY_PROMPT`, `LILY_WIN`, `LILY_LOSE`. D7 replaces them (HUD_HAPPY/HUD_GOAL, HOW_*, WHEEL_Q, no win/lose). `test_lily_happy.CopyTests` will fail on them until the scaffold code that uses them is gone.
 - `LILY_LEFT` takes the joined `LILY_CAMP_*` names as `{1}`; the camp names carry no prefix letter, so the join stays grammatical.
 - `LILY_LATER` doubles as the busy line (bags song); it reads fine for both.
-- `LILY_HEARD_ALL` says "4 מתוך 4", so it must fire only on the talk that first reaches `ready?` (as D5 says).
+- `LILY_HEARD_ALL` says "4 מתוך 4", so it must fire only on the talk that first reaches `ready?` (as D5 says). A 5th complaint heard while still `:asked` says `LILY_HEARD_EXTRA` instead.
+- QA follow-up (TG64): `LILY_REACT_WHEEL` / `LILY_REPLAY_AFTER` keep "half a wheel" only for a peak of 3; a lower peak uses the `_LOW` variants. `LILY_PAUSE_HINT` now matches the pause (Yellow picks a row, Blue resumes) and is drawn on the pause panel.
 
 Wordplay that might not land on a skim: KUSOMO_1 "התחלתי מהחלק של 'כמוך'" picks up Mor's own line "ואהבת לרעך כמוך" (love your neighbour *as yourself*: he started with the self). GLASS_3: the "other dog" howling back is Changa's reflection in the glass.

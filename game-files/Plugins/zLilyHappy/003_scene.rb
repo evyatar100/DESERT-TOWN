@@ -15,7 +15,9 @@ module LilyHappy
     FIX_SHOW_F = 48                    # the fix line, then the new complaint (1.6 s in all)
     FLOAT_F = 36                       # 0.6 s
     TIMER = [156, 10, 200, 8].freeze
-    HUB_W = 64                         # "lap N" label inside the chain ring
+    HUB_W = 80                         # "lap N" plate inside the chain ring
+    HUB_H = 28
+    HUD_H = 40                         # the backdrop is dark to y=40
     CHAIN_R = 42
     STRIP = [8, 318, 496, 64].freeze
     CARD = [56, 82, 400, 220].freeze
@@ -206,8 +208,8 @@ module LilyHappy
       @seats.each_with_index { |s, i| s.x, s.y = seat_xy(i).map(&:round) }   # wheel at rest behind the title
       @names = R::SEAT_IDS.map { |id| _INTL("NAME_#{id.upcase}") }
       @overlay = sprite(own(Bitmap.new(Graphics.width, Graphics.height)), 500)
-      @hud = sprite(own(Bitmap.new(Graphics.width, 40)), 600)   # the backdrop keeps 0-40 dark
-      @hub = sprite(own(Bitmap.new(HUB_W, 24)), 600, A::RING[0] - HUB_W / 2, A::RING[1] - 12)
+      @hud = sprite(own(Bitmap.new(Graphics.width, HUD_H)), 600)
+      @hub = sprite(own(Bitmap.new(HUB_W, HUB_H)), 600, A::RING[0] - HUB_W / 2, A::RING[1] - HUB_H / 2)
       @strip = sprite(own(Bitmap.new(STRIP[2], STRIP[3])), 600, STRIP[0], STRIP[1])
       @floats = Array.new(4) { { bmp: own(Bitmap.new(40, 20)), t: 0, seat: 0 } }
       @float_sprites = @floats.map { |f| sprite(f[:bmp], 700) }
@@ -240,6 +242,7 @@ module LilyHappy
     #--- drawing -----------------------------------------------------------------
     def col(rgb, alpha = 255) = A.color(rgb, alpha)
 
+    # The Handjet glyphs sit about y-4..y+8 of the rect, whatever h is: pass y = wanted centre - 1.
     def text(bmp, x, y, w, h, str, size, base = A::TEXT, align = 1)   # RGSS align: 1 centre, 2 right
       bmp.font.size = size
       pbDrawShadowText(bmp, x, y, w, h, str, col(base), col(A::INK), align)
@@ -355,15 +358,18 @@ module LilyHappy
       bmp = @hud.bitmap
       bmp.clear
       text(bmp, 360, 2, 148, 24, _INTL("LILY_W_TITLE"), 20, A::YELLOW, 2)
-      text(bmp, 4, 3, 146, 22, _INTL("LILY_HUD_HAPPY", R.happy(@game)), 18, A::TEXT, 2)
-      text(bmp, 4, 20, 146, 20, _INTL("LILY_HUD_GOAL"), 16, A::YELLOW, 2)
+      text(bmp, 4, 10, 146, 20, _INTL("LILY_HUD_HAPPY", R.happy(@game)), 18, A::TEXT, 2)
+      text(bmp, 4, 29, 146, 20, _INTL("LILY_HUD_GOAL"), 16, A::YELLOW, 2)
     end
 
     def draw_hub
       return if @hub_key == @game[:laps]
       @hub_key = @game[:laps]
-      @hub.bitmap.clear
-      text(@hub.bitmap, 0, 0, HUB_W, 24, _INTL("LILY_HUB_LAP", @game[:laps] + 1), 16)
+      bmp = @hub.bitmap
+      bmp.clear
+      bmp.fill_rect(0, 0, HUB_W, HUB_H, col(A::YELLOW))
+      bmp.fill_rect(2, 2, HUB_W - 4, HUB_H - 4, col(A::INK, 235))
+      text(bmp, 0, 13, HUB_W, 16, _INTL("LILY_HUB_LAP", @game[:laps] + 1), 16)
     end
 
     def draw_strip
@@ -407,13 +413,14 @@ module LilyHappy
     end
 
     def draw_pause(bmp)
-      box(bmp, 116, 110, 280, 164)
+      box(bmp, 116, 110, 280, 196)
       text(bmp, 116, 122, 280, 32, _INTL("LILY_PAUSE"), 28, A::YELLOW)
       PAUSE_ROWS.each_with_index do |k, i|
         sel = i == @pause_sel
         bmp.fill_rect(140, 166 + i * 34, 232, 30, col(A::YELLOW, 80)) if sel
         text(bmp, 140, 168 + i * 34, 232, 28, _INTL(k), 22, sel ? A::YELLOW : A::TEXT)
       end
+      text(bmp, 116, 274, 280, 24, _INTL("LILY_PAUSE_HINT"), 16, A::TEXT)
     end
 
     def draw_card(bmp)

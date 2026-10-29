@@ -96,6 +96,6 @@ module LilyHappy
     end
     say("LILY_REPORT_WHEEL", nil, st[:best] || 0, st[:laps])
     Portrait.show(:giggle)
-    say("LILY_REACT_WHEEL")
+    say((st[:best] || 0) >= R::CAP ? "LILY_REACT_WHEEL" : "LILY_REACT_WHEEL_LOW")
   end
 end

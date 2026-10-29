@@ -6457,8 +6457,23 @@
       "he": "יוצאים"
     },
     "LILY_PAUSE_HINT": {
-      "en": "Yellow: resume · Blue: quit",
-      "he": "צהוב: ממשיכים · כחול: יציאה"
+      "en": "Yellow: choose · Blue: resume",
+      "he": "צהוב: בוחרים · כחול: ממשיכים"
+    },
+    "LILY_HEARD_EXTRA": {
+      "en": "The survey already has enough. Back to Lily.",
+      "he": "כבר יש מספיק בסקר. חוזרים ללילי.",
+      "draft": "Yotam"
+    },
+    "LILY_REACT_WHEEL_LOW": {
+      "en": "Less than half a wheel? That's a finding too. I'm writing it down.",
+      "he": "פחות מחצי גלגל? גם זה ממצא. אני רושמת.",
+      "draft": "Yotam"
+    },
+    "LILY_REPLAY_AFTER_LOW": {
+      "en": "{1} of 6 happy. Less than half a wheel. Still fine.",
+      "he": "{1} מתוך 6 מאושרים. פחות מחצי גלגל. עדיין הכל בסדר.",
+      "draft": "Yotam"
     }
   }
 }

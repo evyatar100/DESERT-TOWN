@@ -87,7 +87,9 @@ class QuestRulesTests(unittest.TestCase):
     def test_t5_normalize(self):
         held = {"stage": "weird", "heard": ["cats", "cats", "nope", "glass"], "best": 7, "laps": "x", "junk": 1}
         self.assertIs(rules.normalize(held), held)
-        self.assertEqual(held, {"stage": "none", "heard": ["cats", "glass"], "best": 3, "laps": 0})
+        self.assertEqual(held, {"stage": "none", "heard": [], "best": 3, "laps": 0})
+        kept = rules.normalize({"stage": "asked", "heard": ["cats", "glass"], "best": None, "laps": 0})
+        self.assertEqual((kept["stage"], kept["heard"]), ("asked", ["cats", "glass"]))
         self.assertEqual(rules.normalize("garbage"), rules.new_state())
         self.assertEqual(rules.normalize({"stage": "done", "heard": [], "best": 2.5, "laps": -4})["best"], None)
 
@@ -208,11 +210,11 @@ def spec_keys():
     keys = ["LILY_MIRROR", "LILY_ACCEPT_Q", "LILY_ACCEPT_YES", "LILY_ACCEPT_NO", "LILY_GO_1", "LILY_GO_CAMPS",
             "LILY_DECLINE", "LILY_NOT_YET", "LILY_PROGRESS", "LILY_LEFT", "LILY_WHEEL_Q", "LILY_WHEEL_YES",
             "LILY_WHEEL_LATER", "LILY_WHEEL_QUIT", "LILY_LATER", "LILY_IDLE", "LILY_REPLAY_Q", "LILY_REPLAY_YES",
-            "LILY_REPLAY_NO", "LILY_REPLAY_AFTER", "LILY_HEARD", "LILY_HEARD_ALL", "LILY_REPORT_OPEN",
-            "LILY_REPORT_WHEEL", "LILY_REACT_WHEEL", "LILY_W_TITLE", "LILY_W_HOW_GOAL", "LILY_W_HOW_PAUSE",
+            "LILY_REPLAY_NO", "LILY_REPLAY_AFTER", "LILY_REPLAY_AFTER_LOW", "LILY_HEARD", "LILY_HEARD_ALL", "LILY_HEARD_EXTRA", "LILY_REPORT_OPEN",
+            "LILY_REPORT_WHEEL", "LILY_REACT_WHEEL", "LILY_REACT_WHEEL_LOW", "LILY_W_TITLE", "LILY_W_HOW_GOAL", "LILY_W_HOW_PAUSE",
             "LILY_W_HALF", "LILY_W_MOOP", "LILY_W_NOCOMPLAINT", "LILY_W_NOCOMP", "LILY_W_ALL", "LILY_W_REALIZE",
             "LILY_W_PEAK", "LILY_W_LAPS", "LILY_W_FIXES", "LILY_W_CAP", "LILY_HUD_HAPPY", "LILY_HUD_GOAL",
-            "LILY_HUB_LAP", "LILY_SKEPTIC_1", "LILY_SKEPTIC_2", "LILY_PAUSE", "LILY_PAUSE_RESUME",
+            "LILY_HUB_LAP", "LILY_SKEPTIC_1", "LILY_SKEPTIC_2", "LILY_PAUSE", "LILY_PAUSE_HINT", "LILY_PAUSE_RESUME",
             "LILY_PAUSE_RESTART", "LILY_PAUSE_QUIT", "LILY_W_START", "LILY_W_CONTINUE"]
     keys += ["LILY_INTRO_%d" % n for n in (1, 2, 3)] + ["LILY_PAYOFF_%d" % n for n in (1, 2, 3)]
     keys += ["LILY_REACT_%d" % n for n in range(1, 6)] + ["LILY_W_HOW_%d" % n for n in range(1, 5)]
@@ -242,7 +244,7 @@ class CopyTests(unittest.TestCase):
 
     def test_placeholders_follow_intl(self):
         data = self.data()
-        for key, n in (("LILY_PROGRESS", 1), ("LILY_HEARD", 1), ("LILY_REPLAY_AFTER", 1), ("LILY_REPORT_WHEEL", 2),
+        for key, n in (("LILY_PROGRESS", 1), ("LILY_HEARD", 1), ("LILY_REPLAY_AFTER", 1), ("LILY_REPLAY_AFTER_LOW", 1), ("LILY_REPORT_WHEEL", 2),
                        ("LILY_W_PEAK", 1), ("LILY_HUD_HAPPY", 1), ("LILY_HUB_LAP", 1), ("LILY_LEFT", 1)):
             if key in data:
                 for lang in ("he", "en"):

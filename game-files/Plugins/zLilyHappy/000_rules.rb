@@ -32,9 +32,12 @@ module LilyHappyRules
   def self.normalize(state)
     return new_state unless state.is_a?(Hash)
     state.keys.each { |k| state.delete(k) unless KEYS.include?(k) }
-    state[:stage] = :none unless STAGES.include?(state[:stage])
     heard = state[:heard].is_a?(Array) ? state[:heard] : []
     state[:heard] = heard.select { |e| ENCOUNTERS.key?(e) }.uniq
+    unless STAGES.include?(state[:stage])   # a bad stage restarts the quest: no half-heard survey
+      state[:stage] = :none
+      state[:heard] = []
+    end
     best = state[:best]
     state[:best] = best.is_a?(Integer) ? best.clamp(0, CAP) : nil
     state[:laps] = state[:laps].is_a?(Integer) ? state[:laps].clamp(0, MAX_LAPS) : 0
@@ -130,4 +133,11 @@ module LilyHappyRules
   def self.left(s)
     ENCOUNTERS.keys - s[:heard]
   end
+end
+
+# Shared by 004-007 so they do not depend on 004 loading first.
+module LilyHappy
+  R = LilyHappyRules
+  MAP_ID = 98
+  SPOT = [5, 3].freeze   # Lily on the Playa (Map098 ev2)
 end

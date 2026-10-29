@@ -4,10 +4,6 @@
 #===============================================================================
 
 module LilyHappy
-  R = LilyHappyRules
-  MAP_ID = 98
-  SPOT = [5, 3].freeze   # Lily on the Playa (Map098 ev2)
-
   # The wheel inside the fade. A quit or an F9 game (record: false) writes nothing.
   def self.play(state, record: true)
     result = nil
@@ -65,6 +61,6 @@ module LilyHappy
     res = play(st)
     return true unless res[:result] == :finished
     autosave
-    say("LILY_REPLAY_AFTER", :lily, res[:peak])
+    say(res[:peak] >= R::CAP ? "LILY_REPLAY_AFTER" : "LILY_REPLAY_AFTER_LOW", :lily, res[:peak])
   end
 end

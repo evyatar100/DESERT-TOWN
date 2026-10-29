@@ -26,6 +26,7 @@ module LilyHappy
       lines(keys, :keep)
       return false unless R.hear!(st, enc)
       autosave
+      return say("LILY_HEARD_EXTRA", nil) if st[:heard].size > R::NEED
       return say("LILY_HEARD_ALL", nil) if R.ready?(st)
       say("LILY_HEARD", nil, st[:heard].size)
     when :again then say("LILY_#{up}_AGAIN", :keep)

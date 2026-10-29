@@ -40,8 +40,10 @@ module LilyHappyTest
   check(!R.hear!(s, :glass) && R.camp_decide(s, :glass).nil?, "lily: camps say nothing extra in :done")
   # T5
   held = { stage: :weird, heard: [:cats, :cats, :nope, :glass], best: 7, laps: "x", junk: 1 }
-  check(R.normalize(held).equal?(held) && held == { stage: :none, heard: %i[cats glass], best: 3, laps: 0 },
+  check(R.normalize(held).equal?(held) && held == { stage: :none, heard: [], best: 3, laps: 0 },
         "lily T5: normalize repairs in place (#{held.inspect})")
+  kept = R.normalize({ stage: :asked, heard: %i[cats glass], best: nil, laps: 0 })
+  check(kept[:stage] == :asked && kept[:heard] == %i[cats glass], "lily T5: a valid stage keeps its heard list")
   check(R.normalize("garbage") == R.new_state && R.normalize(nil) == R.new_state, "lily T5: garbage / missing key loads fresh")
   check(R.normalize({ stage: :done, heard: [], best: 2.5, laps: -4 }) == { stage: :done, heard: [], best: nil, laps: 0 },
         "lily T5: non-integer best -> nil, laps clamped")

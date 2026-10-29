@@ -37,14 +37,15 @@ def normalize(state):
     for k in list(state):
         if k not in KEYS:
             del state[k]
-    if state.get("stage") not in STAGES:
-        state["stage"] = "none"
     heard = state.get("heard") if isinstance(state.get("heard"), list) else []
     seen = []
     for e in heard:
         if e in ENCOUNTERS and e not in seen:
             seen.append(e)
     state["heard"] = seen
+    if state.get("stage") not in STAGES:
+        state["stage"] = "none"
+        state["heard"] = []
     best = state.get("best")
     state["best"] = min(max(best, 0), CAP) if _is_int(best) else None
     laps = state.get("laps")

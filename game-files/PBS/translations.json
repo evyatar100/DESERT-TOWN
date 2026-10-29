@@ -5860,6 +5860,21 @@
       "en": "Close the screen.",
       "he": "סוגרים את המסך.",
       "draft": "Yotam"
+    },
+    "Name": {
+      "en": "Name",
+      "he": "שם",
+      "draft": "Yotam"
+    },
+    "Started": {
+      "en": "Started",
+      "he": "התחלה",
+      "draft": "Yotam"
+    },
+    "Depth": {
+      "en": "Depth",
+      "he": "עומק",
+      "draft": "Yotam"
     }
   }
 }

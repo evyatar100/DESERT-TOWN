@@ -85,3 +85,27 @@ check(st.include?("Player") && st.include?("Time") && st.include?("הפלאיה"
 check(st !~ /Badges|Pokédex/, "screens: Save has no Badges or Pokedex rows")
 check(PokemonLoadPanel.ancestors.first == DesertScreens::LoadPanelRows, "screens: the Load panel uses the Desert Town rows")
 check(PokemonSave_Scene.ancestors.first == DesertScreens::SaveSceneRows, "screens: the Save window uses the Desert Town rows")
+
+# TG57 Batch 3: Options loses six Pokemon-only rows; the card shows name, time, started, depth.
+class DSOptHandlers
+  attr_reader :removed
+  def initialize = (@removed = [])
+  def remove(menu, id) = @removed.push([menu, id])
+end
+class PokemonTrainerCard_Scene; end
+module MenuHandlers; def self.remove(*) = nil; end
+load File.join(ds_dir, "003_options.rb")
+module DesertTownArcade; def self.depth = 2; end
+load File.join(ds_dir, "004_card.rb")
+oh = DSOptHandlers.new
+DesertScreens.hide_option_rows(oh)
+check(oh.removed.map(&:last) == [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames, :speech_frame, :menu_frame] &&
+      oh.removed.all? { |m, _| m == :options_menu }, "screens: Options drops the six Pokemon-only rows")
+check(!DesertScreens::HIDDEN_OPTION_IDS.include?(:bgm_volume) && !DesertScreens::HIDDEN_OPTION_IDS.include?(:text_speed),
+      "screens: Options keeps the volume and text speed rows")
+crows = DesertScreens.card_rows("Dor", "5m", "1.2.2026", 3)
+check(crows.map(&:first).select { |t| t.is_a?(String) } == ["Name", "Dor", "Time", "5m", "Started", "1.2.2026", "Depth", "3"],
+      "screens: the card shows name, play time, started and depth in order")
+check(crows.map(&:first).none? { |t| t =~ /ID No|Money|Pok|Badge|TRAINER/i }, "screens: the card has no ID, money, Pokedex or badge row")
+check(DesertScreens.started_text(Time.new(2026, 3, 9)) == "9.3.2026", "screens: the start date is day.month.year")
+check(PokemonTrainerCard_Scene.ancestors.first == DesertScreens::TrainerCardRows, "screens: the card scene uses the Desert Town rows")

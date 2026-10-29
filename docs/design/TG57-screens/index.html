@@ -238,6 +238,20 @@
   </div>
 </div>
 
+<h2>Batch 3 (TG61): Options and the card, before and after</h2>
+<div class="card">
+  <b>Labels:</b> the "after" card is a PIL composite of the real <code>card.png</code> with the card text drawn in the same positions as <code>004_card.rb</code> (NOT an engine grab; no in-engine capture was run). The "before" is the stock asset file from git. Options has no picture: the row list below is read from the engine source (<code>UI_Options.rb</code>) and the plugin.
+  <div class="row" style="margin-top:12px">
+    <figure><img src="img/card_card.png" width="384"><figcaption>Before: Trainer Card (stock asset, text not drawn)</figcaption></figure>
+    <figure><img src="img/b3_after_card.png" width="384"><figcaption>After: Desert Town card (composite: name, play time, started, depth; no Badges, Pokédex or Poké Ball)</figcaption></figure>
+  </div>
+  <table>
+    <tr><th>Options row</th><th>Before</th><th>After</th></tr>
+    <tr><td>Music Volume, SE Volume, Text Speed, Default Movement, Text Entry, Screen Size</td><td>shown</td><td>shown (6 rows, Hebrew labels from Batch 1)</td></tr>
+    <tr><td>Battle Effects, Battle Style, Send to Boxes, Give Nicknames, Speech Frame, Menu Frame</td><td>shown</td><td>removed (<code>MenuHandlers.remove</code>)</td></tr>
+  </table>
+</div>
+
 <h2>Image generation count</h2>
 <div class="card">
   <table>

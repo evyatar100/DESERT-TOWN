@@ -32,4 +32,8 @@ module DesertScreens
     return nil if !defined?(AREA_NAMES)
     return AREA_NAMES[map_id.to_i]
   end
+
+  # Options rows that only mean something for Pokemon battles, boxes and frame choice (003_options.rb).
+  HIDDEN_OPTION_IDS = [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames,
+                       :speech_frame, :menu_frame].freeze
 end

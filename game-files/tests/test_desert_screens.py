@@ -120,5 +120,31 @@ class DesertScreensBatch2(unittest.TestCase):
         self.assertIn('SPLASH_IMAGES = ["splash1"]', rules)
 
 
+class DesertScreensBatch3(unittest.TestCase):
+    def test_card_art_size_and_no_pokemon_blue(self):
+        for name in ("card", "card_f", "bg", "bg_f"):
+            rel = f"Graphics/UI/Trainer Card/{name}.png"
+            blues = [c for c in used_colours(rel) if c[2] > c[0] + 20]
+            self.assertFalse(blues, f"{rel} still has stock blues: {blues[:3]}")
+        for name in ("card", "card_f"):
+            self.assertEqual(png(f"Graphics/UI/Trainer Card/{name}.png").size, (512, 384))
+
+    def test_card_bars_stay_light_for_dark_text(self):
+        card = png("Graphics/UI/Trainer Card/card.png")
+        lum = lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]
+        for y in (64, 112, 160, 208):
+            self.assertGreaterEqual(lum(card.getpixel((160, y + 15))), 170, f"bar at y={y}")
+
+    def test_card_text_labels_are_hebrew_drafts(self):
+        tr = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
+        for key in ("Name", "Started", "Depth"):
+            self.assertRegex(tr[key]["he"], "[א-ת]", key)
+            self.assertEqual(tr[key].get("draft"), "Yotam", key)
+
+    def test_batch3_plugin_files(self):
+        for name in ("003_options.rb", "004_card.rb"):
+            self.assertTrue((PLUGIN / name).exists(), name)
+
+
 if __name__ == "__main__":
     unittest.main()

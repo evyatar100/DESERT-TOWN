@@ -83,6 +83,10 @@ STRINGS = {
     "Full": "מלא",
     "Close": "סגירה",
     "Close the screen.": "סוגרים את המסך.",
+    # Trainer card (Batch 3)
+    "Name": "שם",
+    "Started": "התחלה",
+    "Depth": "עומק",
 }
 
 

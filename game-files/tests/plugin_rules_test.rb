@@ -38,6 +38,25 @@ check(reward_he.include?("8:00 & א") && HebrewText.visual_reverse(reward_he).in
       "bidi reward: the Hebrew address draws as 'שעה 8:00 & א' right to left")
 check(HebrewText.visual_reverse("שלום\n20 שקל") == "םולש\nלקש 20", "bidi menu: each line is reordered on its own")
 
+# TG58: SimpleJSONParser must match stdlib JSON on the game's files and stay linear (it was ~8 s quadratic).
+["PBS/translations.json", "Data/planetarium_timing.json", "Data/sakiyot_haftaa_timing.json"].each do |rel|
+  src = File.read(File.join(ROOT, rel), encoding: "utf-8")
+  t0 = Process.clock_gettime(Process::CLOCK_MONOTONIC)
+  got = SimpleJSONParser.parse(src)
+  dt = Process.clock_gettime(Process::CLOCK_MONOTONIC) - t0
+  check(got == JSON.parse(src), "json parser: #{rel} parses the same as stdlib JSON")
+  check(dt < 1.0, "json parser: #{rel} parses in under 1 s (took #{dt.round(3)} s)")
+end
+edge = '{"a": "x\"y\\\\z", "b": ["של", 1, -2.5, true, false, null], "c": {}, "d": [], "e": "\/\t"}'
+check(SimpleJSONParser.parse(edge) == JSON.parse(edge), "json parser: escapes, unicode, numbers and empty containers")
+bad = "{\"k\": {\"he\": \"\xFFשלום\"}}".dup.force_encoding("UTF-8")
+check(SimpleJSONParser.parse(bad).dig("k", "he")&.end_with?("שלום"), "json parser: a bad UTF-8 byte does not drop the file")
+check(SimpleJSONParser.parse("") == {} &&SimpleJSONParser.parse("[1]") == {}, "json parser: empty or non-object input gives {}")
+HebrewText.instance_variable_set(:@translations, nil)
+tr = HebrewText.translations
+reward = JSON.parse(File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8"))["translations"]["TEMPLE_REWARD_1"]
+check(tr["TEMPLE_REWARD_1"] == reward && tr[reward["en"]] == reward, "translations: keys and English text both look up the entry")
+
 # Equal-width synthetic fmtchars: [text, x, y, width, height, graphic].
 def bidi_fmt_visual(tokens)
   line = tokens.each_with_index.map do |t, i|

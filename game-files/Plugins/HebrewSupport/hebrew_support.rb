@@ -13,40 +13,14 @@ module SimpleJSONParser
     val.is_a?(Hash) ? val : {}
   end
 
+  # One regex pass: str[i] on a Hebrew (multibyte) string is O(i), which made the
+  # old char loop quadratic (~8 s for translations.json on the laptop).
+  TOKEN_RE = /"(?:\\(?:.|\z)|[^"\\])*"?|[{}\[\]:,]|[^ \t\n\r{}\[\]:,"][^ \t\n\r{}\[\]:,]*/m
+
   def self.tokenize(str)
-    tokens = []
-    i = 0
-    len = str.length
-    while i < len
-      case str[i]
-      when " ", "\t", "\n", "\r"
-        i += 1
-      when "{", "}", "[", "]", ":", ","
-        tokens << str[i]
-        i += 1
-      when '"'
-        j = i + 1
-        while j < len
-          if str[j] == '\\'
-            j += 2
-          elsif str[j] == '"'
-            break
-          else
-            j += 1
-          end
-        end
-        tokens << str[i..j]
-        i = j + 1
-      else
-        j = i
-        while j < len && ![" ", "\t", "\n", "\r", "{", "}", "[", "]", ":", ","].include?(str[j])
-          j += 1
-        end
-        tokens << str[i...j]
-        i = j
-      end
-    end
-    tokens
+    # scan raises on a bad UTF-8 byte; scrub it so one typo can't drop every translation.
+    str = str.scrub unless str.valid_encoding?
+    str.scan(TOKEN_RE)
   end
 
   def self.parse_value(tokens, pos)

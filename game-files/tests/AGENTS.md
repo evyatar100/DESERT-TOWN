@@ -47,6 +47,7 @@ Fix the game data when the failure is a mistake. Refresh a golden file only when
 
 Keep the decisions separate from messages and screen effects:
 
+- `SimpleJSONParser` in `Plugins/HebrewSupport/hebrew_support.rb` (TG58). It must give the same result as stdlib `JSON.parse` on `PBS/translations.json` and the planetarium and bags timing files, and parse each in under 1 s. It tokenizes in one regex pass; never index a Hebrew string char by char (`str[i]` is O(i) on UTF-8, the old loop took ~8 s on the title screen).
 - `IceSellerRules.decide(choice, bill_count)` in `Plugins/HebrewSupport/ice_seller.rb`. Five `TWENTYSHECKELBILL` is a purchase and gives `ICEBAG`. Fewer bills is `:not_enough`. Choices 4 and 5 leave the bag unchanged.
 - `IceInTimer.seconds_remaining` and `IceInTimer.rescue_destination` in `Plugins/HebrewSupport/ice_in_timer.rb`. The timer expires at 420 seconds on map 88. Rescue transfers once to map 91 at (41, 35) and must not start a second rescue while one is running.
 - `BurningManBag.normalize_starter_quantity` in `Plugins/BurningManBag/burning_man_bag.rb`. Zero, one, or many of `WHITEWATERBOTTLE`, `USBDISK`, and `EVENTPROGRAM` each end at one.

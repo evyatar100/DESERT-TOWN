@@ -5,13 +5,15 @@
 
 module LilyHappy
   WARP = [SPOT[0], SPOT[1] + 1, 8].freeze   # below Lily, facing up
+  ICE_MAP = 91
+  ICE_WARP = [26, 25, 8].freeze               # below Lily at the ice line (Map091 ev4 at 26,24)
   DEBUG_STAGES = { "none" => :none, "asked + 4 heard" => :asked, "wheeled" => :wheeled, "done" => :done }.freeze
 
-  def self.debug_warp
-    $game_temp.player_new_map_id    = MAP_ID
-    $game_temp.player_new_x         = WARP[0]
-    $game_temp.player_new_y         = WARP[1]
-    $game_temp.player_new_direction = WARP[2]
+  def self.debug_warp(map_id = MAP_ID, spot = WARP)
+    $game_temp.player_new_map_id    = map_id
+    $game_temp.player_new_x         = spot[0]
+    $game_temp.player_new_y         = spot[1]
+    $game_temp.player_new_direction = spot[2]
     $scene.transfer_player
     $game_map.refresh
   end
@@ -59,6 +61,19 @@ MenuHandlers.add(:debug_menu, :dt_lily_happy_warp, {
     next false unless LilyHappy.on_map?
     LilyHappy.close_debug_menu(sprites, viewport)
     LilyHappy.debug_warp
+    next true
+  }
+})
+
+MenuHandlers.add(:debug_menu, :dt_lily_happy_warp_ice, {
+  "name"        => "LilyHappy: warp to the ice line",
+  "parent"      => :desert_town_menu,
+  "description" => "Warps to Map091 below Lily (26,24), next to Shorty, facing up.",
+  "always_show" => true,
+  "effect"      => proc { |sprites, viewport|
+    next false unless LilyHappy.on_map?
+    LilyHappy.close_debug_menu(sprites, viewport)
+    LilyHappy.debug_warp(LilyHappy::ICE_MAP, LilyHappy::ICE_WARP)
     next true
   }
 })

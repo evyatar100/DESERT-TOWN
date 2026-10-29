@@ -1,0 +1,7 @@
+Name       = QuestMarks
+Version    = 1.0.0
+Essentials = 21.1
+Requires   = DesertTalk
+Requires   = DesertTownArcade
+Link       = https://github.com
+Credits    = RPG Midburn Team

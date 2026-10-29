@@ -1,6 +1,6 @@
 #===============================================================================
 # LilyHappy - after the usual pbDesertTalk line: Lily (648b924a) on maps 98/91/93, and the
-# five pinned camp encounters (spec D5). Every other (map, id) pair falls through.
+# eleven pinned camp encounters (spec D5, A1). Every other (map, id) pair falls through.
 #===============================================================================
 
 module LilyHappy

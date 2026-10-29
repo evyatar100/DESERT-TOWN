@@ -33,14 +33,12 @@ module LilyHappy
     true
   end
 
-  def self.camp_names(st)
-    R.left(st).map { |enc| _INTL("LILY_CAMP_#{enc.to_s.upcase}") }.join(", ")
-  end
-
+  # At most 3 places, deduplicated by their text (Kusomo once); LEFT_MORE when more remain.
   def self.not_yet(st)
     say("LILY_NOT_YET")
     say("LILY_PROGRESS", :lily, st[:heard].size)
-    say("LILY_LEFT", :lily, camp_names(st))
+    places, more = R.left_places(st) { |enc| _INTL("LILY_CAMP_#{enc.to_s.upcase}") }
+    say(more ? "LILY_LEFT_MORE" : "LILY_LEFT", :lily, places.join(", "))
   end
 
   # Finished -> wheel_done! (inside the scene) -> the payoff in the same talk.

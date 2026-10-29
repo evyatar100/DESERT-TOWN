@@ -49,8 +49,25 @@ module LilyHappyTest
         "lily T5: non-integer best -> nil, laps clamped")
   # T6/T7 at rules level (the hook itself runs in lily_happy_quest_smoke.rb)
   check(R::LILY_MAPS.all? { |m| R.lily_here?(m, R::LILY) } && !R.lily_here?(111, R::LILY), "lily T7: Lily fires on 98/91/93, not 111")
-  check(R::ENCOUNTERS.all? { |e, (m, id)| R.encounter_at(m, id) == e } && R.encounter_at(88, "a715ed37").nil? &&
-        R.encounter_at(85, "661f55e6").nil?, "lily T6: only the 5 pinned (map, id) pairs are encounters")
+  pairs = R::ENCOUNTERS.values.flatten(1)
+  check(pairs.uniq.size == 12 && R::ENCOUNTERS.all? { |e, ps| ps.all? { |m, id| R.encounter_at(m, id) == e } },
+        "lily T6: the 12 pinned (map, id) pairs are encounters (A1)")
+  check([[88, "a715ed37"], [85, "661f55e6"], [112, "8d654949"], [111, "f9348fd0"], [111, "6b53f14c"]].all? { |m, id| R.encounter_at(m, id).nil? },
+        "lily T6: Mor on 88, Changa on 85, Turtle on 112, Shorty and Loooo on 111 are not encounters")
+  # T21 (A1): the "!" rule
+  s = R.new_state
+  check(R::ENCOUNTERS.keys.none? { |e| R.mark?(s, e) }, "lily T21: no mark in :none")
+  R.start!(s)
+  check(R::ENCOUNTERS.keys.all? { |e| R.mark?(s, e) } && !R.mark?(s, :bogus), "lily T21: every unheard encounter is marked in :asked")
+  R.hear!(s, :shorty)
+  check(!R.mark?(s, :shorty) && R.marks(s, 91) == { next: [] } && R.marks(s, 97) == { next: %w[dt_1be29576 dt_8d654949] },
+        "lily T21: a heard encounter loses its mark on both of its maps (#{R.marks(s, 97).inspect})")
+  %i[loooo gufak turtle].each { |e| R.hear!(s, e) }
+  check(R.marks(s, 98) == { next: ["dt_648b924a"] }, "lily TG65 D8: ready in :asked marks Lily too")
+  check(%i[wheeled done].all? { |st| R::ENCOUNTERS.keys.none? { |e| R.mark?(R.state_at(st), e) } } &&
+        R.marks(R.state_at(:wheeled), 93) == { next: ["dt_648b924a"] } && R.marks(R.state_at(:done), 98) == { next: [] },
+        "lily T21: no complainer mark in :wheeled/:done; Lily marked in :wheeled only")
+  check(R.marks(R.new_state, 98) == { next: [], giver: ["dt_648b924a"] }, "lily TG65 D1: Lily is a giver in :none")
 
   # T9
   g = game_with

@@ -89,10 +89,16 @@ module LilyHappy
   def self.report(st)
     Portrait.show(:grumpy)
     say("LILY_REPORT_OPEN", nil)
-    st[:heard].each_with_index do |enc, i|
+    shown, more = R.report_list(st)
+    shown.each_with_index do |enc, i|
       say("LILY_REPORT_#{enc.to_s.upcase}", nil)
       Portrait.show(i.zero? ? :curious : :giggle)
       say("LILY_REACT_#{i + 1}")
+    end
+    if more > 0   # A1: one "and N more" beat, however many extras
+      say("LILY_REPORT_MORE", nil, more)
+      Portrait.show(:giggle)
+      say("LILY_REACT_MORE")
     end
     say("LILY_REPORT_WHEEL", nil, st[:best] || 0, st[:laps])
     Portrait.show(:giggle)

@@ -73,6 +73,7 @@ def main(argv=None):
         "tests.test_djrush",
         "tests.test_shira_wedding",
         "tests.test_lily_happy",
+        "tests.test_quest_marks",
         "tests.test_compiled_plugins",
         "tests.test_flamingo_band",
         "tests.test_plugin_rules",

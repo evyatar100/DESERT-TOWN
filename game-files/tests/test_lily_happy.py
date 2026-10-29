@@ -137,32 +137,116 @@ class MirrorTests(unittest.TestCase):
         lcg = rules.Lcg(12345)
         self.assertEqual([lcg.rand() for _ in range(8)], self.rb["lcg"])
 
+    def test_quest_samples_a1(self):
+        """A1/TG65: marks, left_places and report_list agree for every sample state and map."""
+        maps = [98, 91, 93, 95, 97, 96, 89, 78, 110, 109, 88, 85, 111, 112]
+        for want in self.rb["quest"]:
+            s = rules.new_state()
+            if want["stage"] != "none":
+                s = rules.state_at(want["stage"]) if want["stage"] in ("wheeled", "done") else s
+                if want["stage"] == "asked":
+                    rules.start(s)
+                    for e in want["heard"]:
+                        rules.hear(s, e)
+            self.assertEqual(s["heard"], want["heard"], want)
+            self.assertEqual([rules.marks(s, m) for m in maps], want["marks"], want["heard"])
+            label = lambda e: "kusomo" if e == "sushi" else e
+            self.assertEqual(rules.left_places(s, label), want["left"])
+            self.assertEqual(rules.report_list(s), want["report"])
+
     def test_event_logs(self):
         for (seed, script), want in zip([(11, "random:1"), (22, "random:2"), (33, "bot")], self.rb["runs"]):
             got = run_py(seed, script)
             self.assertEqual(got, want, script)
 
 
+# T8 (A1): the 6 seats and the 11 encounter characters, 11 unique ids.
+QUEST_IDS = sorted(set(rules.SEAT_IDS) | {cid for pairs in rules.ENCOUNTERS.values() for _m, cid in pairs})
+# Golden event ids of every pinned pair (spec D5 table): 13 events.
+PINNED_EVENTS = {
+    "kusomo": {95: [1]}, "circus": {89: [10]}, "cats": {78: [2]}, "escher": {110: [1]}, "glass": {109: [4]},
+    "shorty": {91: [5], 98: [12]}, "loooo": {98: [7, 11]}, "gufak": {97: [5]}, "turtle": {97: [3]},
+    "razit": {96: [10]}, "sushi": {95: [13]},
+}
+
+
 class QuestFreeTests(unittest.TestCase):
-    def test_t8_no_other_plugin_uses_the_wheel_people(self):
+    def test_t8_no_other_plugin_uses_the_quest_people(self):
+        self.assertEqual(len(QUEST_IDS), 11)
         hits = []
         for f in (ROOT / "Plugins").rglob("*.rb"):
             rel = f.relative_to(ROOT / "Plugins").as_posix()
             if rel.startswith("zLilyHappy/") or rel in ROSTER_FILES:
                 continue
             text = f.read_text(encoding="utf-8", errors="replace")
-            hits += ["%s: %s" % (rel, i) for i in rules.SEAT_IDS if i in text]
+            hits += ["%s: %s" % (rel, i) for i in QUEST_IDS if i in text]
         self.assertEqual(hits, [])
 
     def test_t6_pinned_events_are_plain_talk_events(self):
-        pinned = {enc: pair for enc, pair in rules.ENCOUNTERS.items()}
-        events = {"kusomo": 1, "circus": 10, "cats": 2, "escher": 1, "glass": 4}
-        for enc, (map_id, cid) in pinned.items():
-            data = json.loads((ROOT / "tests" / "golden" / ("Map%03d.json" % map_id)).read_text(encoding="utf-8"))
-            ev = next(e for e in data["events"] if e["id"] == events[enc])
-            self.assertEqual(len(ev["pages"]), 1, enc)
-            scripts = [c["parameters"][0] for c in ev["pages"][0]["commands"] if c["code"] == 355]
-            self.assertEqual(scripts, ['pbDesertSpeaker("%s")' % cid, 'pbDesertTalk("%s")' % cid], enc)
+        """12 distinct (map, id) pairs on 13 events (the spec says 15; its own table lists 13)."""
+        pairs = [(m, cid) for enc in rules.ENCOUNTERS for m, cid in rules.ENCOUNTERS[enc]]
+        self.assertEqual(len(set(pairs)), 12)
+        self.assertEqual(sum(len(v) for evs in PINNED_EVENTS.values() for v in evs.values()), 13)
+        for enc, plist in rules.ENCOUNTERS.items():
+            self.assertEqual(sorted(m for m, _c in plist), sorted(PINNED_EVENTS[enc]), enc)
+            for map_id, cid in plist:
+                data = json.loads((ROOT / "tests" / "golden" / ("Map%03d.json" % map_id)).read_text(encoding="utf-8"))
+                for ev_id in PINNED_EVENTS[enc][map_id]:
+                    ev = next(e for e in data["events"] if e["id"] == ev_id)
+                    self.assertEqual(ev["name"], "dt_" + cid, (enc, map_id, ev_id))
+                    self.assertEqual(len(ev["pages"]), 1, enc)
+                    scripts = [c["parameters"][0] for c in ev["pages"][0]["commands"] if c["code"] == 355]
+                    self.assertEqual(scripts, ['pbDesertSpeaker("%s")' % cid, 'pbDesertTalk("%s")' % cid], enc)
+
+
+class A1RulesTests(unittest.TestCase):
+    def asked(self, heard):
+        s = rules.new_state()
+        rules.start(s)
+        for e in heard:
+            rules.hear(s, e)
+        return s
+
+    def test_t21_mark_only_unheard_in_asked(self):
+        self.assertFalse(rules.mark(rules.new_state(), "shorty"))
+        s = self.asked([])
+        self.assertTrue(all(rules.mark(s, e) for e in rules.ENCOUNTERS))
+        rules.hear(s, "shorty")
+        self.assertFalse(rules.mark(s, "shorty"))
+        self.assertFalse(rules.mark(s, "bogus"))
+        for st in ("wheeled", "done"):
+            self.assertFalse(any(rules.mark(rules.state_at(st), e) for e in rules.ENCOUNTERS), st)
+
+    def test_t6_encounter_at_pairs_and_negatives(self):
+        self.assertEqual(rules.encounter_at(91, "f9348fd0"), "shorty")
+        self.assertEqual(rules.encounter_at(98, "f9348fd0"), "shorty")
+        self.assertEqual(rules.encounter_at(98, "6b53f14c"), "loooo")
+        for m, cid in ((88, "a715ed37"), (85, "661f55e6"), (112, "8d654949"), (111, "f9348fd0"), (111, "6b53f14c")):
+            self.assertIsNone(rules.encounter_at(m, cid), (m, cid))
+
+    def test_t23_left_places_and_report(self):
+        label = lambda e: "Kusomo" if e in ("kusomo", "sushi") else e
+        s = self.asked(["shorty", "loooo", "gufak", "turtle", "razit"])
+        self.assertEqual(rules.left_places(s, label), [["Kusomo", "cats", "escher"], True])
+        s = self.asked(["shorty", "loooo", "gufak", "turtle", "razit", "cats", "escher"])
+        self.assertEqual(rules.left_places(s, label), [["Kusomo", "glass", "circus"], False])
+        self.assertEqual(rules.report_list(self.asked(list(rules.ENCOUNTERS)))[1], 6)
+        self.assertEqual(rules.report_list(self.asked(["shorty", "loooo", "gufak", "turtle"])), [["shorty", "loooo", "gufak", "turtle"], 0])
+
+    def test_t23_old_save_with_the_five_originals_loads_unchanged(self):
+        old = {"stage": "asked", "heard": ["kusomo", "circus", "cats", "escher", "glass"], "best": None, "laps": 0}
+        self.assertEqual(rules.normalize(dict(old, heard=list(old["heard"]))), old)
+
+    def test_marks_lily_rows(self):
+        s = self.asked(["shorty", "loooo", "gufak"])
+        self.assertEqual(rules.marks(s, 98), {"next": []})
+        self.assertEqual(rules.marks(s, 97), {"next": ["dt_8d654949"]})
+        rules.hear(s, "turtle")
+        self.assertEqual(rules.marks(s, 91), {"next": ["dt_648b924a"]})
+        self.assertEqual(rules.marks(rules.new_state(), 98), {"next": [], "giver": ["dt_648b924a"]})
+        self.assertEqual(rules.marks(rules.state_at("wheeled"), 93), {"next": ["dt_648b924a"]})
+        self.assertEqual(rules.marks(rules.state_at("done"), 98), {"next": []})
+        self.assertEqual(rules.marks(self.asked([]), 111), {"next": []})
 
 
 class ArtTests(unittest.TestCase):
@@ -215,7 +299,8 @@ def spec_keys():
             "LILY_W_HALF", "LILY_W_MOOP", "LILY_W_NOCOMPLAINT", "LILY_W_NOCOMP", "LILY_W_ALL", "LILY_W_REALIZE",
             "LILY_W_PEAK", "LILY_W_LAPS", "LILY_W_FIXES", "LILY_W_CAP", "LILY_HUD_HAPPY", "LILY_HUD_GOAL",
             "LILY_HUB_LAP", "LILY_SKEPTIC_1", "LILY_SKEPTIC_2", "LILY_PAUSE", "LILY_PAUSE_HINT", "LILY_PAUSE_RESUME",
-            "LILY_PAUSE_RESTART", "LILY_PAUSE_QUIT", "LILY_W_START", "LILY_W_CONTINUE"]
+            "LILY_PAUSE_RESTART", "LILY_PAUSE_QUIT", "LILY_W_START", "LILY_W_CONTINUE",
+            "LILY_LEFT_MORE", "LILY_REPORT_MORE", "LILY_REACT_MORE"]
     keys += ["LILY_INTRO_%d" % n for n in (1, 2, 3)] + ["LILY_PAYOFF_%d" % n for n in (1, 2, 3)]
     keys += ["LILY_REACT_%d" % n for n in range(1, 6)] + ["LILY_W_HOW_%d" % n for n in range(1, 5)]
     keys += ["LILY_W_COMP_%d" % n for n in (1, 2, 3)]
@@ -245,7 +330,8 @@ class CopyTests(unittest.TestCase):
     def test_placeholders_follow_intl(self):
         data = self.data()
         for key, n in (("LILY_PROGRESS", 1), ("LILY_HEARD", 1), ("LILY_REPLAY_AFTER", 1), ("LILY_REPLAY_AFTER_LOW", 1), ("LILY_REPORT_WHEEL", 2),
-                       ("LILY_W_PEAK", 1), ("LILY_HUD_HAPPY", 1), ("LILY_HUB_LAP", 1), ("LILY_LEFT", 1)):
+                       ("LILY_W_PEAK", 1), ("LILY_HUD_HAPPY", 1), ("LILY_HUB_LAP", 1), ("LILY_LEFT", 1), ("LILY_LEFT_MORE", 1),
+                       ("LILY_REPORT_MORE", 1)):
             if key in data:
                 for lang in ("he", "en"):
                     self.assertIn("{%d}" % n, data[key][lang], "%s %s" % (key, lang))

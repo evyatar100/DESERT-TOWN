@@ -8,14 +8,24 @@ module LilyHappyRules
   LILY_NAME_KEY = "NAME_648B924A"
   LILY_CHARSET = "dt_648b924a"
   LILY_MAPS = [98, 91, 93].freeze
-  # Encounter -> [map id, character id] (spec D5); order = the order camps are named in.
+  # Encounter -> [[map id, character id], ...] (spec D5, A1); originals first, then the A1 rows.
   ENCOUNTERS = {
-    kusomo: [95, "a715ed37"],
-    circus: [89, "a4012984"],
-    cats: [78, "3dc31934"],
-    escher: [110, "b3fb6767"],
-    glass: [109, "661f55e6"]
+    kusomo: [[95, "a715ed37"]],
+    circus: [[89, "a4012984"]],
+    cats: [[78, "3dc31934"]],
+    escher: [[110, "b3fb6767"]],
+    glass: [[109, "661f55e6"]],
+    shorty: [[91, "f9348fd0"], [98, "f9348fd0"]],
+    loooo: [[98, "6b53f14c"]],
+    gufak: [[97, "1be29576"]],
+    turtle: [[97, "8d654949"]],
+    razit: [[96, "64aeedbe"]],
+    sushi: [[95, "b201fb8a"]]
   }.freeze
+  # LEFT names places in this order (D5), nearest to Lily first.
+  EASY_ORDER = %i[shorty loooo gufak turtle kusomo sushi razit cats escher glass circus].freeze
+  LEFT_CAP = 3
+  REPORT_CAP = 5
   # The wheel's six seats (D6): the five encounter characters plus Loooo.
   SEAT_IDS = %w[a715ed37 a4012984 3dc31934 b3fb6767 661f55e6 6b53f14c].freeze
   STAGES = %i[none asked wheeled done].freeze
@@ -50,7 +60,7 @@ module LilyHappyRules
   end
 
   def self.encounter_at(map_id, character_id)
-    ENCOUNTERS.each { |enc, pair| return enc if pair == [map_id, character_id] }
+    ENCOUNTERS.each { |enc, pairs| return enc if pairs.include?([map_id, character_id]) }
     nil
   end
 
@@ -132,6 +142,42 @@ module LilyHappyRules
   # Encounters not heard yet, in ENCOUNTERS order.
   def self.left(s)
     ENCOUNTERS.keys - s[:heard]
+  end
+
+  # LEFT (D4): at most LEFT_CAP distinct place labels from the unheard encounters in
+  # EASY_ORDER; the block gives an encounter's label. Returns [labels, more_left?].
+  def self.left_places(s)
+    labels = []
+    EASY_ORDER.each do |enc|
+      next if s[:heard].include?(enc)
+      label = yield(enc)
+      labels << label unless labels.include?(label)
+    end
+    [labels.first(LEFT_CAP), labels.size > LEFT_CAP]
+  end
+
+  # The payoff (D9): the first REPORT_CAP heard, reported one by one, and how many more.
+  def self.report_list(s)
+    [s[:heard].first(REPORT_CAP), [s[:heard].size - REPORT_CAP, 0].max]
+  end
+
+  #--- the "!" (D5a, TG65 D8) -----------------------------------------------------------
+  def self.mark?(s, enc)
+    camp_decide(s, enc) == :complain
+  end
+
+  # QuestMarks client: next = unheard complainers pinned on this map, plus Lily once
+  # ready (:asked) and in :wheeled; giver = Lily in :none. Targets are event names.
+  def self.marks(s, map_id)
+    nxt = []
+    ENCOUNTERS.each do |enc, pairs|
+      next unless mark?(s, enc)
+      pairs.each { |m, id| nxt << "dt_#{id}" if m == map_id }
+    end
+    return { next: nxt.uniq } unless LILY_MAPS.include?(map_id)
+    return { next: nxt.uniq, giver: [LILY_CHARSET] } if s[:stage] == :none
+    nxt << LILY_CHARSET if (s[:stage] == :asked && ready?(s)) || s[:stage] == :wheeled
+    { next: nxt.uniq }
   end
 end
 

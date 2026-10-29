@@ -9,12 +9,22 @@ from __future__ import annotations
 LILY = "648b924a"
 LILY_MAPS = [98, 91, 93]
 ENCOUNTERS = {
-    "kusomo": [95, "a715ed37"],
-    "circus": [89, "a4012984"],
-    "cats": [78, "3dc31934"],
-    "escher": [110, "b3fb6767"],
-    "glass": [109, "661f55e6"],
+    "kusomo": [[95, "a715ed37"]],
+    "circus": [[89, "a4012984"]],
+    "cats": [[78, "3dc31934"]],
+    "escher": [[110, "b3fb6767"]],
+    "glass": [[109, "661f55e6"]],
+    "shorty": [[91, "f9348fd0"], [98, "f9348fd0"]],
+    "loooo": [[98, "6b53f14c"]],
+    "gufak": [[97, "1be29576"]],
+    "turtle": [[97, "8d654949"]],
+    "razit": [[96, "64aeedbe"]],
+    "sushi": [[95, "b201fb8a"]],
 }
+EASY_ORDER = ["shorty", "loooo", "gufak", "turtle", "kusomo", "sushi", "razit", "cats", "escher", "glass", "circus"]
+LEFT_CAP = 3
+REPORT_CAP = 5
+LILY_CHARSET = "dt_648b924a"
 SEAT_IDS = ["a715ed37", "a4012984", "3dc31934", "b3fb6767", "661f55e6", "6b53f14c"]
 STAGES = ["none", "asked", "wheeled", "done"]
 NEED = 4
@@ -58,8 +68,8 @@ def lily_here(map_id, character_id):
 
 
 def encounter_at(map_id, character_id):
-    for enc, pair in ENCOUNTERS.items():
-        if pair == [map_id, character_id]:
+    for enc, pairs in ENCOUNTERS.items():
+        if [map_id, character_id] in pairs:
             return enc
     return None
 
@@ -135,6 +145,44 @@ def camp_decide(s, enc):
 
 def left(s):
     return [e for e in ENCOUNTERS if e not in s["heard"]]
+
+
+def left_places(s, label):
+    labels = []
+    for enc in EASY_ORDER:
+        if enc in s["heard"]:
+            continue
+        text = label(enc)
+        if text not in labels:
+            labels.append(text)
+    return [labels[:LEFT_CAP], len(labels) > LEFT_CAP]
+
+
+def report_list(s):
+    return [s["heard"][:REPORT_CAP], max(len(s["heard"]) - REPORT_CAP, 0)]
+
+
+def mark(s, enc):
+    return camp_decide(s, enc) == "complain"
+
+
+def marks(s, map_id):
+    nxt = []
+    for enc, pairs in ENCOUNTERS.items():
+        if not mark(s, enc):
+            continue
+        for m, cid in pairs:
+            name = "dt_" + cid
+            if m == map_id and name not in nxt:
+                nxt.append(name)
+    if map_id not in LILY_MAPS:
+        return {"next": nxt}
+    if s["stage"] == "none":
+        return {"next": nxt, "giver": [LILY_CHARSET]}
+    if (s["stage"] == "asked" and ready(s)) or s["stage"] == "wheeled":
+        if LILY_CHARSET not in nxt:
+            nxt.append(LILY_CHARSET)
+    return {"next": nxt}
 
 
 # --- wheel (000_wheel_rules.rb) -------------------------------------------------

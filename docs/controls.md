@@ -19,6 +19,25 @@ The panel has 6 buttons and a joystick. There is no Red button; the panel
 surface itself is red. The empty hole at the lower right is not a button.
 Regenerate the picture with `render_help_slide.py` (see Slides).
 
+## On the cabinet: USB encoder and translator
+
+The cabinet panel is wired to a USB joystick encoder ("DragonRise Inc. Generic
+USB Joystick"), not a keyboard board. While the game runs, the Pi's
+`rpi_stuff/joy2keys/joy2keys.py` grabs the encoder and types the keys below on
+a virtual keyboard. The port script starts and stops it
+(`rpi_stuff/INSTALLATION_LOG.md`, Stage 10). The game code is unchanged.
+
+| Color | js button | Key |
+| --- | --- | --- |
+| Yellow | 1 | H |
+| Blue | 0 | J |
+| Orange | 4 | K |
+| White | 11 | F |
+| Green | 3 | G |
+| Pink | 2 | N |
+
+The stick is mounted rotated. Axis 1 low is Up and high is Down. Axis 0 low is Right and high is Left. To rewire a button, change the table at the top of `joy2keys.py`.
+
 ## Color buttons
 
 | Color | Key | What it does |

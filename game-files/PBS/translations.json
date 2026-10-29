@@ -5935,6 +5935,530 @@
       "en": "There's no PP left for this move!",
       "he": "נגמרו הכוחות למהלך הזה!",
       "draft": "Yotam"
+    },
+    "LILY_MIRROR": {
+      "en": "Hold on, is that me? Doesn't count. I'm not a representative sample.",
+      "he": "רגע, זאת אני? לא נחשב. אני לא מדגם מייצג."
+    },
+    "LILY_INTRO_1": {
+      "en": "Sand in my socks, the stars are a mess, and my quiet starts at six a.m.",
+      "he": "החול בגרביים, הכוכבים מבולגנים, והשקט שלי מתחיל רק בשש בבוקר."
+    },
+    "LILY_INTRO_2": {
+      "en": "And everyone around me sparkles and hugs. What do they know that I don't?",
+      "he": "ומסביב כולם מנצנצים ומתחבקים. מה הם יודעים שאני לא יודעת?"
+    },
+    "LILY_INTRO_3": {
+      "en": "Find out what makes people happy here. Maybe I'll copy it.",
+      "he": "תבדקו לי מה משמח אנשים פה. אולי אעתיק."
+    },
+    "LILY_ACCEPT_Q": {
+      "en": "Run a little survey of the camps for me?",
+      "he": "תעשו לי סקר קטן בקאמפים?"
+    },
+    "LILY_ACCEPT_YES": {
+      "en": "I'll find out",
+      "he": "אני אברר"
+    },
+    "LILY_ACCEPT_NO": {
+      "en": "Not now",
+      "he": "לא עכשיו"
+    },
+    "LILY_GO_1": {
+      "en": "Good. Ask what does them good, and write it all down. I'll wait here. Totally fine.",
+      "he": "יופי. תשאלו מה עושה להם טוב, ותרשמו הכל. אני אחכה פה, בסדר גמור."
+    },
+    "LILY_GO_CAMPS": {
+      "en": "Kusomo, Mom-and-Dad, the Cats camp, Escher's house and the Glass Garden. Four will do.",
+      "he": "קוסומו, אמאל'ה ואבאל'ה, קאמפ החתולים, הבית של אשר וגן הזכוכית. ארבעה מספיקים."
+    },
+    "LILY_DECLINE": {
+      "en": "Fine. That's fine too. Everything's fine.",
+      "he": "בסדר. גם זה בסדר. הכל בסדר."
+    },
+    "LILY_NOT_YET": {
+      "en": "Not yet? So everyone's happy except me. Great. Damn.",
+      "he": "עוד לא? אז כולם מאושרים חוץ ממני. מעולה. סעמק."
+    },
+    "LILY_PROGRESS": {
+      "en": "So far the survey has {1} of 4.",
+      "he": "בסקר יש בינתיים {1} מתוך 4."
+    },
+    "LILY_LEFT": {
+      "en": "Still missing: {1}.",
+      "he": "חסרים לי עדיין: {1}."
+    },
+    "LILY_CAMP_KUSOMO": {
+      "en": "Kusomo",
+      "he": "קוסומו"
+    },
+    "LILY_CAMP_CIRCUS": {
+      "en": "Mom-and-Dad",
+      "he": "אמאל'ה ואבאל'ה"
+    },
+    "LILY_CAMP_CATS": {
+      "en": "the Cats camp",
+      "he": "קאמפ החתולים"
+    },
+    "LILY_CAMP_ESCHER": {
+      "en": "Escher's house",
+      "he": "הבית של אשר"
+    },
+    "LILY_CAMP_GLASS": {
+      "en": "the Glass Garden",
+      "he": "גן הזכוכית"
+    },
+    "LILY_SKEPTIC_1": {
+      "en": "Four complaints? Maybe nobody ever tried fixing things for them.",
+      "he": "ארבע תלונות? אולי פשוט אף אחד לא ניסה לתקן להם."
+    },
+    "LILY_SKEPTIC_2": {
+      "en": "Give each of them exactly what they asked for. Then we'll see who complains.",
+      "he": "תנו לכל אחד בדיוק מה שביקש. אז נראה מי מתלונן."
+    },
+    "LILY_WHEEL_Q": {
+      "en": "I built a wheel for this. The Wheel of Happiness. Shall we spin?",
+      "he": "בניתי לזה גלגל. גלגל האושר. מסובבים?"
+    },
+    "LILY_WHEEL_YES": {
+      "en": "Spin the Wheel of Happiness",
+      "he": "לסובב את גלגל האושר"
+    },
+    "LILY_WHEEL_LATER": {
+      "en": "Later",
+      "he": "אחר כך"
+    },
+    "LILY_WHEEL_QUIT": {
+      "en": "Stopped halfway? The wheel isn't offended. It's the only one here that doesn't complain.",
+      "he": "עצרתם באמצע? הגלגל לא נעלב. הוא היחיד פה שלא מתלונן."
+    },
+    "LILY_LATER": {
+      "en": "Fine. The wheel will wait. It's built to come back to the same spot.",
+      "he": "בסדר. הגלגל יחכה. הוא בנוי לחזור לאותה נקודה."
+    },
+    "LILY_IDLE": {
+      "en": "The sun here is insane. So nice to have someone to complain with.",
+      "he": "השמש פה מטורפת. איזה כיף שיש עם מי להתלונן."
+    },
+    "LILY_REPLAY_Q": {
+      "en": "Another spin? Maybe this time it'll work. Kidding. Come on, though.",
+      "he": "עוד סיבוב בגלגל? אולי הפעם זה יעבוד. סתם. אבל בואו."
+    },
+    "LILY_REPLAY_YES": {
+      "en": "Spin",
+      "he": "לסובב"
+    },
+    "LILY_REPLAY_NO": {
+      "en": "Not now",
+      "he": "לא עכשיו"
+    },
+    "LILY_REPLAY_AFTER": {
+      "en": "{1} of 6 happy. Half a wheel. Everything's fine.",
+      "he": "{1} מתוך 6 מאושרים. חצי גלגל. הכל בסדר."
+    },
+    "LILY_KUSOMO_1": {
+      "en": "So I started with the \"as yourself\" part. I came to the desert to connect with myself.",
+      "he": "אז התחלתי מהחלק של \"כמוך\". באתי למדבר להתחבר לעצמי."
+    },
+    "LILY_KUSOMO_2": {
+      "en": "We connected. We went through everything. Turns out I mostly want air conditioning.",
+      "he": "התחברנו. עברנו על הכל. מסתבר שאני בן אדם שבעיקר רוצה מזגן."
+    },
+    "LILY_KUSOMO_3": {
+      "en": "Now I love my neighbour as myself. He wants air conditioning too.",
+      "he": "עכשיו אני אוהב את השכן שלי כמוני. גם הוא רוצה מזגן."
+    },
+    "LILY_KUSOMO_AGAIN": {
+      "en": "Still no air conditioning. My neighbour offered to blow on me. I'm considering it.",
+      "he": "עדיין אין מזגן. השכן הציע לנשוף עליי. אני שוקל."
+    },
+    "LILY_CIRCUS_1": {
+      "en": "Nobody's here to hear it. I planned the kids a perfect festival, and it worked.",
+      "he": "אין מי שישמע. תכננתי לילדים פסטיבל מושלם, והוא עבד."
+    },
+    "LILY_CIRCUS_2": {
+      "en": "They're having so much fun they don't come back to camp. Not even for a snack.",
+      "he": "הם נהנים כל כך שהם לא חוזרים לקאמפ. אפילו לא בשביל חטיף."
+    },
+    "LILY_CIRCUS_3": {
+      "en": "I waited up for them with sunscreen until sunrise. In the end I put it on myself. Twice.",
+      "he": "חיכיתי להם עם קרם הגנה עד הזריחה. בסוף מרחתי את עצמי. פעמיים."
+    },
+    "LILY_CIRCUS_AGAIN": {
+      "en": "Still not back. Proud of them. The sunscreen is all on me.",
+      "he": "עדיין לא חזרו. גאה בהם. הקרם כולו עליי."
+    },
+    "LILY_CATS_1": {
+      "en": "I found the clinic. They have hugs and sunscreen.",
+      "he": "מצאתי את המרפאה. יש שם חיבוקים וקרם הגנה."
+    },
+    "LILY_CATS_2": {
+      "en": "I asked for a medic. I got a long hug and a question: what is the burn trying to tell me?",
+      "he": "ביקשתי חובש. קיבלתי חיבוק ארוך ושאלה: מה הכוויה מנסה להגיד לי?"
+    },
+    "LILY_CATS_3": {
+      "en": "The burn says \"ouch\". That's all it says.",
+      "he": "הכוויה אומרת \"אאוץ'\". זה כל מה שהיא אומרת."
+    },
+    "LILY_CATS_AGAIN": {
+      "en": "Still a burn. But now it's been hugged.",
+      "he": "עדיין כוויה. אבל עכשיו היא מחובקת."
+    },
+    "LILY_ESCHER_1": {
+      "en": "I asked the sunrise for consent to photograph it. It didn't answer.",
+      "he": "ביקשתי מהזריחה הסכמה לצלם אותה. היא לא ענתה."
+    },
+    "LILY_ESCHER_2": {
+      "en": "So I didn't shoot. I enjoyed the moment, like I tell everyone to.",
+      "he": "אז לא צילמתי. נהניתי מהרגע, כמו שאני אומר לכולם."
+    },
+    "LILY_ESCHER_3": {
+      "en": "The moment's gone and all I have is a memory. A photo you can't show anyone.",
+      "he": "הרגע נגמר ונשאר לי רק זיכרון. זה כמו תמונה, רק שאי אפשר להראות לאף אחד."
+    },
+    "LILY_ESCHER_AGAIN": {
+      "en": "Tomorrow I ask again. This time I left the sunrise a note.",
+      "he": "מחר אני מבקש שוב. הפעם השארתי לזריחה פתק."
+    },
+    "LILY_GLASS_1": {
+      "en": "All the art here burns at the end. That's the whole point. But glass doesn't burn.",
+      "he": "כל האמנות פה נשרפת בסוף. זה כל הקטע. אבל זכוכית לא נשרפת."
+    },
+    "LILY_GLASS_2": {
+      "en": "It just... exists. I howled at it all night. It still exists.",
+      "he": "היא פשוט... קיימת. יללתי עליה כל הלילה. היא עדיין קיימת."
+    },
+    "LILY_GLASS_3": {
+      "en": "And in every pane there's another dog howling back at me. She's not happy either.",
+      "he": "ובכל זכוכית יש עוד כלבה שמייללת עליי בחזרה. גם היא לא מרוצה."
+    },
+    "LILY_GLASS_AGAIN": {
+      "en": "Hawoooo. The dog in the glass is still here too. We howl in shifts.",
+      "he": "האוווו. גם הכלבה בזכוכית עדיין פה. אנחנו מייללות במשמרות."
+    },
+    "LILY_HEARD": {
+      "en": "Logged in the survey: {1} of 4.",
+      "he": "נרשם בסקר: {1} מתוך 4."
+    },
+    "LILY_HEARD_ALL": {
+      "en": "4 of 4. The survey is full. Back to Lily.",
+      "he": "4 מתוך 4. הסקר מלא. חוזרים ללילי."
+    },
+    "LILY_REPORT_OPEN": {
+      "en": "You tell Lily about the survey, from the start.",
+      "he": "מספרים ללילי על הסקר, מההתחלה."
+    },
+    "LILY_REPORT_KUSOMO": {
+      "en": "At Kusomo, Mor connected with himself and found out he wants air conditioning.",
+      "he": "בקוסומו, מור התחבר לעצמו וגילה שהוא רוצה מזגן."
+    },
+    "LILY_REPORT_CIRCUS": {
+      "en": "At Mom-and-Dad, the kids' festival worked so well they never come back.",
+      "he": "באמאל'ה ואבאל'ה, הפסטיבל של הילדים הצליח כל כך שהם לא חוזרים."
+    },
+    "LILY_REPORT_CATS": {
+      "en": "At the Cats camp, Bakina asked for a medic and got a hug.",
+      "he": "בקאמפ החתולים, בקינה ביקשה חובש וקיבלה חיבוק."
+    },
+    "LILY_REPORT_ESCHER": {
+      "en": "At Escher's house, the sunrise wouldn't agree to be photographed.",
+      "he": "בבית של אשר, הזריחה לא הסכימה להצטלם."
+    },
+    "LILY_REPORT_GLASS": {
+      "en": "In the Glass Garden, Changa howls at art that won't burn.",
+      "he": "בגן הזכוכית, צ'אנגה מייללת על אמנות שלא נשרפת."
+    },
+    "LILY_REACT_1": {
+      "en": "Wait. There too? Keep going.",
+      "he": "רגע. גם שם? תמשיכו."
+    },
+    "LILY_REACT_2": {
+      "en": "Another one? Hold on, I'm writing this down.",
+      "he": "עוד אחת? חכו, אני רושמת."
+    },
+    "LILY_REACT_3": {
+      "en": "Three. That's a pattern now. I love a pattern.",
+      "he": "שלוש. זה כבר דפוס. אני אוהבת דפוסים."
+    },
+    "LILY_REACT_4": {
+      "en": "Four. Keep going. I haven't complained about anything for two minutes.",
+      "he": "ארבע. תמשיכו. כבר שתי דקות לא התלוננתי על כלום."
+    },
+    "LILY_REACT_5": {
+      "en": "Five of five. I need to sit down. It's not the heat.",
+      "he": "חמש מתוך חמש. אני צריכה לשבת. זה לא החום."
+    },
+    "LILY_REPORT_WHEEL": {
+      "en": "Then the Wheel of Happiness. Best: {1} of 6 happy at once. Laps: {2}.",
+      "he": "ואז גלגל האושר. שיא: {1} מתוך 6 מאושרים בבת אחת. סיבובים: {2}."
+    },
+    "LILY_REACT_WHEEL": {
+      "en": "Half a wheel? Even when everyone gets exactly what they asked for?",
+      "he": "חצי גלגל? גם כשנותנים לכל אחד בדיוק מה שביקש?"
+    },
+    "LILY_PAYOFF_1": {
+      "en": "Wait. Everyone? Even the sparkly ones?... Everything's fine, damn. No, really. Fine.",
+      "he": "רגע. כולם? גם אלה שמנצנצים?... הכל בסדר סעמק. לא, באמת. הכל בסדר."
+    },
+    "LILY_PAYOFF_2": {
+      "en": "I've got sand in my socks. I have to tell someone.",
+      "he": "יש לי חול בגרביים. אני חייבת לספר למישהו."
+    },
+    "LILY_PAYOFF_3": {
+      "en": "What will make Lily happy? Survey complete.",
+      "he": "מה ישמח את לילי? הסקר הושלם."
+    },
+    "LILY_W_TITLE": {
+      "en": "Wheel of Happiness",
+      "he": "גלגל האושר"
+    },
+    "LILY_W_HOW_1": {
+      "en": "Joystick left/right: turn the wheel",
+      "he": "ג'ויסטיק ימינה/שמאלה: מסובבים את הגלגל"
+    },
+    "LILY_W_HOW_2": {
+      "en": "Yellow: give the one in front exactly what they asked for",
+      "he": "צהוב: נותנים למי שמקדימה בדיוק מה שביקש"
+    },
+    "LILY_W_HOW_3": {
+      "en": "Up: compromise with the one opposite",
+      "he": "למעלה: מתפשרים עם מי שממול"
+    },
+    "LILY_W_HOW_4": {
+      "en": "Down: throw the problem away",
+      "he": "למטה: זורקים את הבעיה"
+    },
+    "LILY_W_HOW_GOAL": {
+      "en": "Goal: 6 happy out of 6",
+      "he": "המטרה: 6 מאושרים מתוך 6"
+    },
+    "LILY_W_HOW_PAUSE": {
+      "en": "Blue: pause",
+      "he": "כחול: עצירה"
+    },
+    "LILY_W_START": {
+      "en": "Yellow: start · Blue: back",
+      "he": "צהוב: מתחילים · כחול: חזרה"
+    },
+    "LILY_W_C1": {
+      "en": "Hot.",
+      "he": "חם."
+    },
+    "LILY_W_F1": {
+      "en": "Put up shade.",
+      "he": "מקימים צל."
+    },
+    "LILY_W_N1": {
+      "en": "Now I can't see the sunset.",
+      "he": "עכשיו לא רואים את השקיעה."
+    },
+    "LILY_W_C2": {
+      "en": "Can't see the sunset.",
+      "he": "לא רואים שקיעה."
+    },
+    "LILY_W_F2": {
+      "en": "Build a lookout tower.",
+      "he": "בונים מגדל תצפית."
+    },
+    "LILY_W_N2": {
+      "en": "There's a queue for the sunset.",
+      "he": "יש תור לשקיעה."
+    },
+    "LILY_W_C3": {
+      "en": "There's a queue.",
+      "he": "יש תור."
+    },
+    "LILY_W_F3": {
+      "en": "A sign-up sheet.",
+      "he": "גיליון הרשמה מראש."
+    },
+    "LILY_W_N3": {
+      "en": "Who brought bureaucracy? We came to let go.",
+      "he": "מי הביא ביורוקרטיה? באנו להשתחרר."
+    },
+    "LILY_W_C4": {
+      "en": "Bureaucracy.",
+      "he": "ביורוקרטיה."
+    },
+    "LILY_W_F4": {
+      "en": "Scrap all the rules.",
+      "he": "מבטלים את כל הכללים."
+    },
+    "LILY_W_N4": {
+      "en": "Someone took my chair, and there's no rule to complain under.",
+      "he": "לקחו לי את הכיסא, ואין כלל להתלונן לפיו."
+    },
+    "LILY_W_C5": {
+      "en": "No one to complain to.",
+      "he": "אין למי להתלונן."
+    },
+    "LILY_W_F5": {
+      "en": "Set up a complaints committee.",
+      "he": "מקימים ועדת תלונות."
+    },
+    "LILY_W_N5": {
+      "en": "The committee meets in the middle of my set.",
+      "he": "הוועדה מתכנסת באמצע הסט שלי."
+    },
+    "LILY_W_C6": {
+      "en": "Committee mid-set.",
+      "he": "ועדה באמצע הסט."
+    },
+    "LILY_W_F6": {
+      "en": "Move the committee to the dance floor.",
+      "he": "הוועדה עוברת לרחבה."
+    },
+    "LILY_W_N6": {
+      "en": "Now everyone's dancing, and I've got no rhythm.",
+      "he": "עכשיו כולם רוקדים, ולי אין קצב."
+    },
+    "LILY_W_C7": {
+      "en": "No rhythm.",
+      "he": "אין לי קצב."
+    },
+    "LILY_W_F7": {
+      "en": "A dance workshop.",
+      "he": "סדנת ריקוד."
+    },
+    "LILY_W_N7": {
+      "en": "The workshop is full of people with rhythm.",
+      "he": "הסדנה מלאה באנשים שיש להם קצב."
+    },
+    "LILY_W_C8": {
+      "en": "Everyone has rhythm but me.",
+      "he": "לכולם יש קצב חוץ ממני."
+    },
+    "LILY_W_F8": {
+      "en": "A private party, just for you.",
+      "he": "מסיבה פרטית, רק בשבילך."
+    },
+    "LILY_W_N8": {
+      "en": "A party of one. Where is everyone?",
+      "he": "מסיבה של אחד. איפה כולם?"
+    },
+    "LILY_W_C9": {
+      "en": "Where is everyone?",
+      "he": "איפה כולם?"
+    },
+    "LILY_W_F9": {
+      "en": "Invite all of Desert Town.",
+      "he": "מזמינים את כל דזרטאון."
+    },
+    "LILY_W_N9": {
+      "en": "Crowded, and too many stars. They make me feel small.",
+      "he": "צפוף, ויש יותר מדי כוכבים. זה מקטין אותי."
+    },
+    "LILY_W_C10": {
+      "en": "Too many stars.",
+      "he": "יותר מדי כוכבים."
+    },
+    "LILY_W_F10": {
+      "en": "Switch off a few stars.",
+      "he": "מכבים כמה כוכבים."
+    },
+    "LILY_W_N10": {
+      "en": "Dark. Can someone switch on the sun?",
+      "he": "חושך. מישהו יכול להדליק את השמש?"
+    },
+    "LILY_W_C11": {
+      "en": "Switch on the sun.",
+      "he": "תדליקו את השמש."
+    },
+    "LILY_W_F11": {
+      "en": "Switch on the sun.",
+      "he": "מדליקים את השמש."
+    },
+    "LILY_W_N11": {
+      "en": "Hot.",
+      "he": "חם."
+    },
+    "LILY_W_HALF": {
+      "en": "I only got half.",
+      "he": "קיבלתי רק חצי."
+    },
+    "LILY_W_COMP_1": {
+      "en": "Half shade: hot on one side, half a sunset.",
+      "he": "חצי צל: חם רק מצד אחד, ורואים חצי שקיעה."
+    },
+    "LILY_W_COMP_2": {
+      "en": "Bass, no melody. Sounds like someone else's heartbeat.",
+      "he": "בס בלי מלודיה. נשמע כמו דופק של מישהו אחר."
+    },
+    "LILY_W_COMP_3": {
+      "en": "One rule: no rules. So who enforces it?",
+      "he": "כלל אחד: אין כללים. אז מי אוכף את זה?"
+    },
+    "LILY_W_MOOP": {
+      "en": "That's MOOP.",
+      "he": "זה חשל\"ש."
+    },
+    "LILY_W_NOCOMPLAINT": {
+      "en": "No complaint here. Yet.",
+      "he": "פה אין תלונה. עדיין."
+    },
+    "LILY_W_NOCOMP": {
+      "en": "A compromise needs two sides complaining.",
+      "he": "לפשרה צריך שני צדדים שמתלוננים."
+    },
+    "LILY_W_ALL": {
+      "en": "Everyone's complaining. All at once.",
+      "he": "כולם מתלוננים. בבת אחת."
+    },
+    "LILY_HUD_HAPPY": {
+      "en": "Happy: {1}/6",
+      "he": "מאושרים: {1}/6"
+    },
+    "LILY_HUD_GOAL": {
+      "en": "Goal: 6/6",
+      "he": "המטרה: 6/6"
+    },
+    "LILY_HUB_LAP": {
+      "en": "Lap {1}",
+      "he": "סיבוב {1}"
+    },
+    "LILY_W_REALIZE": {
+      "en": "The wheel went all the way round. Everyone complains just like at the start, only together.",
+      "he": "הגלגל עשה סיבוב שלם. כולם מתלוננים בדיוק כמו בהתחלה, רק ביחד."
+    },
+    "LILY_W_PEAK": {
+      "en": "Most happy at once: {1}/6",
+      "he": "שיא מאושרים: {1}/6"
+    },
+    "LILY_W_LAPS": {
+      "en": "Laps: {1}",
+      "he": "סיבובים: {1}"
+    },
+    "LILY_W_FIXES": {
+      "en": "Fixes: {1}",
+      "he": "תיקונים: {1}"
+    },
+    "LILY_W_CAP": {
+      "en": "The wheel never gets past half. That's how it's built.",
+      "he": "הגלגל לא עולה מעל חצי. ככה הוא בנוי."
+    },
+    "LILY_W_CONTINUE": {
+      "en": "Yellow: continue",
+      "he": "צהוב: ממשיכים"
+    },
+    "LILY_PAUSE": {
+      "en": "Paused",
+      "he": "עצירה"
+    },
+    "LILY_PAUSE_RESUME": {
+      "en": "Resume",
+      "he": "ממשיכים"
+    },
+    "LILY_PAUSE_RESTART": {
+      "en": "Restart",
+      "he": "מתחילים מחדש"
+    },
+    "LILY_PAUSE_QUIT": {
+      "en": "Quit",
+      "he": "יוצאים"
+    },
+    "LILY_PAUSE_HINT": {
+      "en": "Yellow: resume · Blue: quit",
+      "he": "צהוב: ממשיכים · כחול: יציאה"
     }
   }
 }

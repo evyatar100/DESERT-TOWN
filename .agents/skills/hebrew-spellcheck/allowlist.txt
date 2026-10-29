@@ -76,3 +76,7 @@ re:[אמה]{3,}
 פוקדקס
 מיידי
 אפקטי
+# TG64 Lily quest: camp name with geresh (the existing entries are without it) and the plural of קאמפ
+אמאל'ה
+אבאל'ה
+קאמפים

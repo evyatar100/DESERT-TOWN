@@ -99,8 +99,9 @@ module DesertTownArcade; def self.depth = 2; end
 load File.join(ds_dir, "004_card.rb")
 oh = DSOptHandlers.new
 DesertScreens.hide_option_rows(oh)
-check(oh.removed.map(&:last) == [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames, :speech_frame, :menu_frame] &&
-      oh.removed.all? { |m, _| m == :options_menu }, "screens: Options drops the six Pokemon-only rows")
+check(oh.removed.map(&:last) == [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames, :speech_frame, :menu_frame,
+                                   :text_input_style, :screen_size] &&
+      oh.removed.all? { |m, _| m == :options_menu }, "screens: Options keeps 4 rows (volumes, text speed, movement)")
 check(!DesertScreens::HIDDEN_OPTION_IDS.include?(:bgm_volume) && !DesertScreens::HIDDEN_OPTION_IDS.include?(:text_speed),
       "screens: Options keeps the volume and text speed rows")
 crows = DesertScreens.card_rows("Dor", "5m", "1.2.2026", 3)

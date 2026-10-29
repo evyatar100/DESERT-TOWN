@@ -35,5 +35,5 @@ module DesertScreens
 
   # Options rows that only mean something for Pokemon battles, boxes and frame choice (003_options.rb).
   HIDDEN_OPTION_IDS = [:battle_animations, :battle_style, :send_to_boxes, :give_nicknames,
-                       :speech_frame, :menu_frame].freeze
+                       :speech_frame, :menu_frame, :text_input_style, :screen_size].freeze
 end

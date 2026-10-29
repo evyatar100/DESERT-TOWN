@@ -16,4 +16,20 @@ module DesertScreens
   def self.hide_quit?(ruby_platform = RUBY_PLATFORM)
     return cabinet_platform?(ruby_platform)
   end
+
+  # One short Desert Town splash (it carries the engine credit) replaces the two stock ones.
+  SPLASH_IMAGES = ["splash1"].freeze
+  SPLASH_HOLD_SECONDS = 0.2
+
+  # Fade in + hold + fade out per splash; the stock scene fades 8 ticks at 20 ticks a second.
+  def self.splash_total_seconds(fade_ticks = 8, ticks_per_second = 20)
+    fade = fade_ticks.to_f / ticks_per_second
+    return SPLASH_IMAGES.length * (fade * 2 + SPLASH_HOLD_SECONDS)
+  end
+
+  # Founder-approved Hebrew area label for a map id (002a_area_names.rb); nil keeps the stock name.
+  def self.area_name(map_id)
+    return nil if !defined?(AREA_NAMES)
+    return AREA_NAMES[map_id.to_i]
+  end
 end

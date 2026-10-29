@@ -51,3 +51,37 @@ check(DesertScreens.strip_quit(["Continue", "Options"]) == %w[Continue Options],
 ls = PokemonLoad_Scene.new
 ls.pbStartScene(cmds.dup)
 check(ls.started == cmds, "screens: the laptop load screen still lists Quit Game")
+
+# TG57 Batch 2 (the _INTL stub above echoes "text|args"): one short splash, Hebrew area labels, Load/Save rows without Badges or Pokedex.
+class IntroEventScene
+  SPLASH_IMAGES = ["splash1", "splash2"] unless const_defined?(:SPLASH_IMAGES)
+  SECONDS_PER_SPLASH = 2 unless const_defined?(:SECONDS_PER_SPLASH)
+end
+class PokemonLoadPanel; end
+class PokemonSave_Scene; end
+load File.join(ds_dir, "001a_splash.rb")
+load File.join(ds_dir, "002a_area_names.rb")
+load File.join(ds_dir, "002_load_save.rb")
+
+check(IntroEventScene::SPLASH_IMAGES == ["splash1"], "screens: the boot shows one splash, not two")
+check(IntroEventScene::SECONDS_PER_SPLASH == 0.2, "screens: the splash holds 0.2 s")
+check((DesertScreens.splash_total_seconds - 1.0).abs < 1e-9, "screens: splash + fades total about one second")
+check(File.exist?(File.join(ROOT, "Graphics/Titles/splash1.png")), "screens: the splash image exists")
+
+check(DesertScreens.area_name(98) == "הפלאיה", "screens: the Playa map shows its approved Hebrew label")
+check(DesertScreens.area_name(87) == "בתוך החללית", "screens: a map named like a label takes it")
+check(DesertScreens.area_name(101) == "דיפ פלאיה" && DesertScreens.area_name(33) == "דיפ פלאיה", "screens: deep-playa maps share one label")
+check(DesertScreens.area_name(92) == "מחנה הקרח", "screens: an unlabelled child takes its parent's label")
+check(DesertScreens.area_name(111).nil? && DesertScreens.area_name(0).nil?, "screens: a map with no label keeps the stock name")
+check(DesertScreens::AREA_NAMES.values.uniq.length == 24, "screens: all 24 approved area labels are reachable")
+
+rows = DesertScreens.continue_rows("Continue", "Dor", "הפלאיה", 3725)
+texts = rows.map(&:first)
+check(texts == ["Continue", "Dor", "הפלאיה", "Time:", "{1}h {2}m|1,2"], "screens: Continue shows title, name, area and play time only")
+check(texts.none? { |t| t =~ /Badges|Pokédex/ }, "screens: Continue has no Badges or Pokedex rows")
+check(DesertScreens.play_time_text(300) == "{1}m|5", "screens: play time under an hour shows minutes only")
+st = DesertScreens.save_text("הפלאיה", "Dor", 90, "<L>", "<T>")
+check(st.include?("Player") && st.include?("Time") && st.include?("הפלאיה"), "screens: Save shows area, player and time")
+check(st !~ /Badges|Pokédex/, "screens: Save has no Badges or Pokedex rows")
+check(PokemonLoadPanel.ancestors.first == DesertScreens::LoadPanelRows, "screens: the Load panel uses the Desert Town rows")
+check(PokemonSave_Scene.ancestors.first == DesertScreens::SaveSceneRows, "screens: the Save window uses the Desert Town rows")

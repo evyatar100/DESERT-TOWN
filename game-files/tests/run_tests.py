@@ -77,6 +77,7 @@ def main(argv=None):
         "tests.test_plugin_rules",
         "tests.test_starter_items",
         "tests.test_translations",
+        "tests.test_desert_screens",
     ):
         suite.addTests(loader.loadTestsFromName(module_name))
     result = unittest.TextTestRunner(verbosity=1).run(suite)

@@ -74,5 +74,51 @@ class DesertScreensBatch1(unittest.TestCase):
         self.assertTrue((ROOT / "Audio" / "BGM" / "Deep Playa Psychedelic 2.ogg").exists())
 
 
+def used_colours(rel):
+    return {p[:3] for p in png(rel).get_flattened_data() if p[3]}
+
+
+class DesertScreensBatch2(unittest.TestCase):
+    def test_boot_art_sizes_and_no_pokemon_blue(self):
+        for rel, size in [("Graphics/Titles/splash1.png", (512, 384)), ("Graphics/Titles/title.png", (512, 384)),
+                          ("Graphics/Titles/start.png", (512, 24)), ("Graphics/UI/Load/bg.png", (512, 384)),
+                          ("Graphics/UI/Load/panels.png", (408, 536))]:
+            self.assertEqual(png(rel).size, size, rel)
+        for rel in ["Graphics/Titles/splash1.png", "Graphics/UI/Load/bg.png", "Graphics/UI/Load/panels.png"]:
+            blues = [c for c in used_colours(rel) if c[2] > c[0] + 20]
+            self.assertFalse(blues, f"{rel} still has stock blues/greys: {blues[:3]}")
+
+    def test_load_panels_stay_dark_so_the_cream_text_reads(self):
+        for y in (60, 120, 282, 340, 466, 512):
+            r, g, b, _ = png("Graphics/UI/Load/panels.png").getpixel((200, y))
+            self.assertLess(0.299 * r + 0.587 * g + 0.114 * b, 110, y)
+
+    def test_bag_art_keeps_geometry_and_drops_stock_colours(self):
+        for rel, size in [("Graphics/UI/Bag/bg_8.png", (512, 384)), ("Graphics/UI/Bag/icon_pocket.png", (224, 48)),
+                          ("Graphics/UI/Bag/cursor.png", (282, 68)), ("Graphics/UI/Bag/icon_slider.png", (72, 76))]:
+            self.assertEqual(png(rel).size, size, rel)
+            self.assertFalse(used_colours(rel) & {(0, 112, 248), (224, 0, 0), (96, 136, 248), (248, 248, 248)}, rel)
+
+    def test_pocket_icon_sheet_only_has_the_key_items_badge(self):
+        sheet = png("Graphics/UI/Bag/icon_pocket.png")
+        self.assertIsNone(sheet.crop((0, 0, 196, 28)).getbbox(), "pockets 1-7 must stay empty")
+        self.assertIsNone(sheet.crop((0, 28, 140, 48)).getbbox(), "pockets 1-7 must stay empty")
+        self.assertIsNotNone(sheet.crop((196, 0, 224, 28)).getbbox())
+        self.assertIsNotNone(sheet.crop((140, 28, 160, 48)).getbbox())
+
+    def test_bag_text_areas_keep_contrast(self):
+        bg = png("Graphics/UI/Bag/bg_8.png")
+        lum = lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]
+        self.assertGreaterEqual(lum(bg.getpixel((300, 100))), 160, "item list stays light for dark text")
+        self.assertLessEqual(lum(bg.getpixel((300, 340))), 130, "description area stays dark for white text")
+        self.assertLessEqual(lum(bg.getpixel((20, 200))), 190, "pocket-name band stays darker for white text")
+
+    def test_one_splash_and_new_plugin_files(self):
+        for name in ("001a_splash.rb", "002_load_save.rb", "002a_area_names.rb"):
+            self.assertTrue((PLUGIN / name).exists(), name)
+        rules = (PLUGIN / "000_rules.rb").read_text(encoding="utf-8")
+        self.assertIn('SPLASH_IMAGES = ["splash1"]', rules)
+
+
 if __name__ == "__main__":
     unittest.main()

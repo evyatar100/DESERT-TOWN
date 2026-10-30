@@ -25,7 +25,7 @@ module DesertCharSelect
   #-----------------------------------------------------------------------------
   class Scene
     def initialize
-      @index = 0
+      @index = rand(PLAYABLE.length)
       @frame = 0
       @frame_timer = 0
       @sprites = {}

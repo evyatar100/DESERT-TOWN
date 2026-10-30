@@ -296,6 +296,34 @@ def bag_toggle(bag_open, pressed):
     return "close" if bag_open else "open"
 
 
+def menu_code_presses(colors):
+    """White x10, then green, then white. Other colors and a second green cancel."""
+    whites = 0
+    armed = False
+    actions = []
+    for color in colors:
+        if color == "white":
+            if armed:
+                whites = 0
+                armed = False
+                actions.append("pause")
+            else:
+                whites = min(whites + 1, 10)
+                actions.append("help")
+        elif color == "green":
+            if armed or whites < 10:
+                whites = 0
+                armed = False
+            else:
+                armed = True
+            actions.append("map")
+        else:
+            whites = 0
+            armed = False
+            actions.append(None)
+    return actions
+
+
 def slide_should_close(inputs, raw_keys):
     if any(name in SLIDE_INPUTS for name in inputs):
         return True
@@ -498,6 +526,26 @@ class PluginRuleTests(unittest.TestCase):
         self.assertEqual(bag_toggle(False, True), "open")
         self.assertEqual(bag_toggle(True, True), "close")
         self.assertEqual(bag_toggle(True, False), "none")
+        self.assertEqual(
+            menu_code_presses(["white"] * 10 + ["green", "white"]),
+            ["help"] * 10 + ["map", "pause"],
+        )
+        self.assertEqual(
+            menu_code_presses(["white"] * 12 + ["green", "white"]),
+            ["help"] * 12 + ["map", "pause"],
+        )
+        self.assertEqual(
+            menu_code_presses(["white"] * 9 + ["green", "white"]),
+            ["help"] * 9 + ["map", "help"],
+        )
+        self.assertEqual(
+            menu_code_presses(["white"] * 10 + ["yellow", "green", "white"]),
+            ["help"] * 10 + [None, "map", "help"],
+        )
+        self.assertEqual(
+            menu_code_presses(["white"] * 10 + ["green", "green", "white"]),
+            ["help"] * 10 + ["map", "map", "help"],
+        )
         for name in ("USE", "BACK", "ACTION", "UP", "DOWN", "LEFT", "RIGHT", "JUMPUP", "JUMPDOWN", "SPECIAL"):
             self.assertTrue(slide_should_close([name], []))
         for key in ("A", "S", "D", "C", "X", "Z", "F", "G", "H", "J", "K", "N"):

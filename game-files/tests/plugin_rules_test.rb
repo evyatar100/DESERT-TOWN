@@ -554,6 +554,77 @@ show = show.split("def self.slide_closed_now?", 2).first
   check(!show.include?(token), "slide code does not call #{token}")
 end
 
+# White ten times, then green, then white opens the pause menu.
+# Extra whites before green still count. Any other color, or a second green, cancels it.
+def dt_menu_code(colors)
+  DesertTownControls.reset_menu_code
+  colors.map { |color| DesertTownControls.menu_code_press(color) }
+end
+
+check(dt_menu_code([:white] * 10 + [:green, :white]) == [:help] * 10 + [:map, :pause],
+      "white x10, green, white requests the pause menu")
+check(dt_menu_code([:white] * 12 + [:green, :white]) == [:help] * 12 + [:map, :pause],
+      "more than ten whites still arms the pause code")
+check(dt_menu_code([:white] * 9 + [:green, :white]) == [:help] * 9 + [:map, :help],
+      "nine whites then green does not open the pause menu")
+check(dt_menu_code([:white] * 10 + [:yellow, :green, :white]) == [:help] * 10 + [nil, :map, :help],
+      "another color cancels the pause code")
+check(dt_menu_code([:white] * 10 + [:green, :green, :white]) == [:help] * 10 + [:map, :map, :help],
+      "a second green cancels the pause code")
+check(dt_menu_code([:white] * 10 + [:green, :white, :white]) == [:help] * 10 + [:map, :pause, :help],
+      "the pause code resets after it fires")
+
+class << $game_temp
+  attr_accessor :in_menu, :player_transferring, :menu_calling, :menu_beep
+end
+$game_temp.in_menu = false
+$game_temp.player_transferring = false
+$game_temp.menu_calling = false
+$game_temp.menu_beep = false
+$game_system.menu_disabled = false
+$game_player = Object.new
+def $game_player.moving?
+  false
+end
+$PokemonGlobal = Object.new
+def $PokemonGlobal.forced_movement?
+  false
+end
+was_interpreter = $map_interpreter_running
+$map_interpreter_running = false
+$dt_slides = []
+class << DesertTownControls
+  alias_method :dt_real_show_slide, :show_slide
+  def show_slide(path)
+    $dt_slides << path
+    false
+  end
+end
+$dt_raw_trigger = :F
+check(DesertTownControls.show_slide_if_requested? == false && $dt_slides == [DesertTownControls::HELP_BITMAP],
+      "one white press still opens help")
+DesertTownControls.reset_menu_code
+10.times do
+  $dt_raw_trigger = :F
+  DesertTownControls.show_slide_if_requested?
+end
+$dt_raw_trigger = :G
+DesertTownControls.show_slide_if_requested?
+$dt_slides.clear
+$game_temp.menu_calling = false
+$dt_raw_trigger = :F
+opened = DesertTownControls.show_slide_if_requested?
+check(opened == false && $dt_slides.empty? && $game_temp.menu_calling && $game_temp.menu_beep,
+      "the last white opens the pause menu instead of help")
+slide_body = slide_src.split("def self.show_slide(", 2).last.split("\n  def self.", 2).first
+check(slide_body.include?("menu_code_press("),
+      "closing a slide counts that button toward the pause code")
+$dt_raw_trigger = nil
+$map_interpreter_running = was_interpreter
+class << DesertTownControls
+  alias_method :show_slide, :dt_real_show_slide
+end
+
 load File.join(ROOT, "Plugins/zFlamingoBand/000_rules.rb")
 load File.join(ROOT, "Plugins/MomDadBattle/000_rules.rb")
 band = FlamingoBandRules.new_state

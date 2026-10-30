@@ -8,6 +8,9 @@
 #   Yellow follows C (and Enter, Space): Use / talk / confirm.
 #   Blue follows X (and Esc): Back, cancel, and hold to run.
 #   Pink follows Z (and Shift): Action, the pause menu.
+# White ten times, then green once, then white again also opens the pause
+# menu. Each of those presses still counts while it closes a slide. Another
+# color, or a second green, cancels the sequence.
 # B stays the existing raw key that opens the Bag (001_bag_button.rb).
 #
 # A, S, and D were the proposed keys. They are already Essentials inputs
@@ -72,6 +75,7 @@ module DesertTownControls
 
   HELP_BITMAP = "Graphics/Pictures/DesertTownHelp.png"
   WORLD_BITMAP = "Graphics/Pictures/DesertTownWorldMap.png"
+  MENU_CODE_WHITES = 10
 
   @bag_screen_open = false
   @bag_close = false
@@ -152,6 +156,53 @@ module DesertTownControls
     false
   end
 
+  def self.reset_menu_code
+    @menu_whites = 0
+    @menu_armed = false
+  end
+
+  # :help, :map, :pause, or nil. Ten whites, one green, then white is :pause.
+  # Whites past ten stay ready for green. Another color, or a second green, clears it.
+  def self.menu_code_press(color)
+    @menu_whites = 0 if @menu_whites.nil?
+    @menu_armed = false if @menu_armed.nil?
+    case color
+    when :white
+      if @menu_armed
+        reset_menu_code
+        return :pause
+      end
+      @menu_whites += 1
+      @menu_whites = MENU_CODE_WHITES if @menu_whites > MENU_CODE_WHITES
+      :help
+    when :green
+      if @menu_armed || @menu_whites < MENU_CODE_WHITES
+        reset_menu_code
+      else
+        @menu_armed = true
+      end
+      :map
+    else
+      reset_menu_code
+      nil
+    end
+  end
+
+  # Same gates as the stock Z / pink menu. Sets the flag Scene_Map#update opens.
+  def self.open_pause_menu?
+    return false unless defined?($game_temp) && $game_temp
+    return false unless defined?($game_system) && $game_system
+    return false if $game_system.menu_disabled
+    return false unless defined?($game_player) && $game_player
+    return false if $game_player.moving?
+    if defined?($PokemonGlobal) && $PokemonGlobal && $PokemonGlobal.respond_to?(:forced_movement?)
+      return false if $PokemonGlobal.forced_movement?
+    end
+    $game_temp.menu_calling = true
+    $game_temp.menu_beep = true
+    true
+  end
+
   # Field gate for the slides. Dialogue, battles, and events keep the screen.
   def self.slide_allowed?
     return false unless defined?($game_temp) && $game_temp
@@ -171,12 +222,25 @@ module DesertTownControls
   # This method never starts, stops, fades, or pauses BGM. Playback stays on
   # the audio device while Graphics.update runs.
   def self.show_slide_if_requested?
-    return false unless slide_allowed?
+    unless slide_allowed?
+      reset_menu_code
+      return false
+    end
     if raw_triggered?(key(:white))
+      if menu_code_press(:white) == :pause && open_pause_menu?
+        return false
+      end
       return show_slide(HELP_BITMAP)
     end
     if raw_triggered?(key(:green))
+      menu_code_press(:green)
       return show_slide(WORLD_BITMAP)
+    end
+    %i[yellow blue orange pink].each do |color|
+      if raw_triggered?(key(color))
+        menu_code_press(:other)
+        break
+      end
     end
     false
   end
@@ -187,6 +251,7 @@ module DesertTownControls
     viewport = Viewport.new(0, 0, Graphics.width, Graphics.height)
     viewport.z = 999_999
     sprite = Sprite.new(viewport)
+    reason = nil
     begin
       sprite.bitmap = Bitmap.new(bitmap_path)
       sprite.x = (Graphics.width - sprite.bitmap.width) / 2
@@ -194,27 +259,40 @@ module DesertTownControls
       loop do
         Graphics.update
         Input.update
-        break if slide_closed_now?
+        reason = slide_close_reason
+        break if reason
       end
     ensure
       sprite.bitmap.dispose if sprite.bitmap && !sprite.bitmap.disposed?
       sprite.dispose
       viewport.dispose
     end
+    open_pause_menu? if reason && menu_code_press(reason) == :pause
     true
   end
 
-  def self.slide_closed_now?
-    return false unless defined?(Input)
+  # :white, :green, :other, or nil. White and green stay part of the pause code
+  # when they are the press that closes the slide.
+  def self.slide_close_reason
+    return nil unless defined?(Input)
+    return :white if raw_triggered?(key(:white))
+    return :green if raw_triggered?(key(:green))
+    %i[yellow blue orange pink].each do |color|
+      return :other if raw_triggered?(key(color))
+    end
     SLIDE_CLOSE_INPUTS.each do |name|
       next unless Input.const_defined?(name)
-      return true if Input.trigger?(Input.const_get(name))
+      return :other if Input.trigger?(Input.const_get(name))
     end
-    return false unless Input.respond_to?(:triggerex?)
-    SLIDE_CLOSE_KEYS.each do |key|
-      return true if Input.triggerex?(key)
+    return nil unless Input.respond_to?(:triggerex?)
+    SLIDE_CLOSE_KEYS.each do |key_name|
+      return :other if Input.triggerex?(key_name)
     end
-    false
+    nil
+  end
+
+  def self.slide_closed_now?
+    !slide_close_reason.nil?
   end
 end
 

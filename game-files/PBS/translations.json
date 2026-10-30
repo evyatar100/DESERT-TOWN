@@ -5565,6 +5565,14 @@
       "he": "יציאה מהמשחק",
       "draft": "Yotam"
     },
+    "Restart": {
+      "en": "Restart",
+      "he": "אתחול"
+    },
+    "MSG_PAUSE_RESTART_RPI_CONFIRM": {
+      "en": "Restart the console?",
+      "he": "לאתחל את הקונסולה?"
+    },
     "Badges:": {
       "en": "Badges:",
       "he": "תגים:",

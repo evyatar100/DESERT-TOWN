@@ -218,3 +218,12 @@ class DesertScreensBatch4(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DesertScreensTG67(unittest.TestCase):
+    def test_menus_file_and_translation(self):
+        self.assertTrue((PLUGIN / "006_menus.rb").exists())
+        tr = json.loads((ROOT / "PBS" / "translations.json").read_text(encoding="utf-8"))["translations"]
+        key = "Start a new game? Progress since your last save will be lost."
+        self.assertEqual(tr[key]["he"], "להתחיל משחק חדש? התקדמות שלא נשמרה תאבד.")
+        self.assertRegex(tr["New Game"]["he"], "[א-ת]")

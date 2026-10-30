@@ -152,3 +152,50 @@ check($ds_rules.include?(["backdrop", "circus"]), "screens: the circus battlebac
 check($PokemonGlobal.nextBattleBGM.nil? && $PokemonGlobal.nextBattleVictoryBGM.nil?, "screens: the circus music is cleared after the fight")
 check(File.exist?(File.join(ROOT, "Audio/BGM/DT Victory.ogg")) && File.exist?(File.join(ROOT, "Audio/BGM/War.ogg")), "screens: War and DT Victory exist on disk")
 %w[bg base0 base1 message].each { |n| check(File.exist?(File.join(ROOT, "Graphics/Battlebacks/circus_#{n}.png")), "screens: circus_#{n}.png exists") }
+
+# TG67: the load screen keeps one command; New Game joins the pause menu behind a default-No confirm.
+$ds_menu = []
+module MenuHandlers; def self.add(menu, id, hash) = $ds_menu.push([menu, id, hash]); end
+class Scene_DesertNewGameStub; end
+$ds_pb = []
+def pbMessage(text, cmds = nil, cancel = 0, skin = nil, default = 0) = ($ds_pb.push([text, cmds, cancel, default]); $ds_answer)
+load File.join(ds_dir, "006_menus.rb")
+
+check(DesertScreens.primary_load_command(["Continue", "Mystery Gift", "New Game", "Options", "Quit Game"]) == ["Continue"],
+      "screens: with a save the load screen lists only Continue")
+check(DesertScreens.primary_load_command(["New Game", "Options", "Quit Game"]) == ["New Game"],
+      "screens: with no save the load screen lists only New Game")
+cl = ["New Game"]
+check(DesertScreens.primary_load_command(cl).equal?(cl) && cl == ["New Game"], "screens: a single row stays and the list is trimmed in place")
+ls2 = PokemonLoad_Scene.new
+full = ["Continue", "New Game", "Options", "Quit Game"]
+ls2.pbStartScene(full)
+check(ls2.started == ["Continue"] && full == ["Continue"], "screens: the load scene trims the caller's own list before it builds panels")
+check(PokemonLoad_Scene.ancestors.first == DesertScreens::LoadSceneOneCommand, "screens: the load scene uses the one-command list")
+
+nh = $ds_menu.find { |_m, id, _h| id == :new_game }
+check(nh && nh[0] == :pause_menu && nh[2]["name"] == "New Game", "screens: the pause menu gets a New Game entry")
+check(nh[2]["order"] > 60 && nh[2]["order"] < 70 && nh[2]["order"] != 0, "screens: New Game sits below Save and above Options, never first")
+
+class DSMenu
+  attr_reader :log
+  def initialize = (@log = [])
+  def pbHideMenu = @log.push(:hide)
+  def pbShowMenu = @log.push(:show)
+  def pbRefresh = @log.push(:refresh)
+  def pbEndScene = @log.push(:end)
+end
+$ds_answer = 1
+$scene = nil
+m = DSMenu.new
+check(nh[2]["effect"].call(m) == false && m.log == [:hide, :refresh, :show], "screens: answering No keeps the pause menu open")
+check($ds_pb.last[3] == 1 && $ds_pb.last[0].start_with?("Start a new game?"), "screens: the confirm highlights No by default")
+check($ds_pb.last[1] == ["Yes", "No"], "screens: the confirm offers Yes and No")
+check(!$scene, "screens: No starts no new game")
+$ds_answer = 0
+m2 = DSMenu.new
+check(nh[2]["effect"].call(m2) == true && m2.log == [:hide, :end] && $scene.is_a?(Scene_DesertNewGame),
+      "screens: Yes closes the menu and hands off to the new-game scene")
+tr67 = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
+check(tr67.include?("\"Start a new game? Progress since your last save will be lost.\"") && tr67.include?("להתחיל משחק חדש? התקדמות שלא נשמרה תאבד."),
+      "screens: the confirm has its Hebrew line")

@@ -5551,6 +5551,10 @@
       "he": "משחק חדש",
       "draft": "Yotam"
     },
+    "Start a new game? Progress since your last save will be lost.": {
+      "en": "Start a new game? Progress since your last save will be lost.",
+      "he": "להתחיל משחק חדש? התקדמות שלא נשמרה תאבד."
+    },
     "Options": {
       "en": "Options",
       "he": "אפשרויות",

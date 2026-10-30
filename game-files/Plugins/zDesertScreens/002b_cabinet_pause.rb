@@ -7,7 +7,7 @@
 #===============================================================================
 
 MenuHandlers.add(:pause_menu, :dt_new_game, {
-  "name"      => _INTL("New Game"),
+  "name"      => _INTL("Game in a Game"),
   "order"     => 85,
   "condition" => proc { next DesertScreens.cabinet_platform? && $player != nil },
   "effect"    => proc { |menu|

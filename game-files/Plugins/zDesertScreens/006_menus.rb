@@ -59,7 +59,7 @@ class Scene_DesertNewGame
 end
 
 MenuHandlers.add(:pause_menu, :new_game, {
-  "name"      => _INTL("New Game"),
+  "name"      => _INTL("Start Over"),
   "order"     => DesertScreens::PAUSE_NEW_GAME_ORDER,
   "effect"    => proc { |menu| next DesertScreens.pause_new_game(menu) }
 })

@@ -174,7 +174,7 @@ check(ls2.started == ["Continue"] && full == ["Continue"], "screens: the load sc
 check(PokemonLoad_Scene.ancestors.first == DesertScreens::LoadSceneOneCommand, "screens: the load scene uses the one-command list")
 
 nh = $ds_menu.find { |_m, id, _h| id == :new_game }
-check(nh && nh[0] == :pause_menu && nh[2]["name"] == "New Game", "screens: the pause menu gets a New Game entry")
+check(nh && nh[0] == :pause_menu && nh[2]["name"] == "Start Over", "screens: the pause menu gets a Start Over entry")
 check(nh[2]["order"] > 60 && nh[2]["order"] < 70 && nh[2]["order"] != 0, "screens: New Game sits below Save and above Options, never first")
 
 class DSMenu

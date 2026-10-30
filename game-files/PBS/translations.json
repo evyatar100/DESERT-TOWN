@@ -5551,6 +5551,14 @@
       "he": "משחק חדש",
       "draft": "Yotam"
     },
+    "Start Over": {
+      "en": "Start Over",
+      "he": "להתחיל מחדש"
+    },
+    "Game in a Game": {
+      "en": "Game in a Game",
+      "he": "משחק בתוך משחק"
+    },
     "Start a new game? Progress since your last save will be lost.": {
       "en": "Start a new game? Progress since your last save will be lost.",
       "he": "להתחיל משחק חדש? התקדמות שלא נשמרה תאבד."

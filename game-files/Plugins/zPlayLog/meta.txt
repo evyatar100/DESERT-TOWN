@@ -1,0 +1,5 @@
+Name       = PlayLog
+Version    = 1.0.0
+Essentials = 21.1
+Requires   = DesertTownArcade,DesertCharSelect
+Credits    = RPG Midburn Team

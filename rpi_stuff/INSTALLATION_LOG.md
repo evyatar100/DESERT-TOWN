@@ -261,3 +261,20 @@ To run Pokémon Essentials v21 natively on the Pi inside RetroPie:
   - Real encoder: the daemon logged js 0,1,2,3,4,11 -> BTN 288,289,290,291,292,299 -> J,H,N,G,K,F. udev tags the virtual device `ID_INPUT_KEYBOARD=1`. A second grab returns `EBUSY`, and the grab is free again after exit.
   - Launched through the port script: mkxp-z held `/dev/input/event1` (virtual keyboard) and `event0` (the grabbed encoder, which gets no events). After the game exited, neither process was left and the keyboard was gone. The save md5 was unchanged.
 - **Not yet verified**: live presses in the game (needs someone at the panel).
+
+### Stage 11: Boot into the game, then the RetroPie menu (2026-10-31)
+- **Behaviour**: power-on starts Pokémon Essentials. Quitting the game opens EmulationStation and leaves it there. The game does not start again until the next boot. Restart Pi from the pause menu reboots the cabinet, so the game starts again.
+- **File** on `pi@10.0.0.10` (`retropie`): `/opt/retropie/configs/all/autostart.sh`. RetroPie runs this on the tty1 login. Edited on the Pi; this log is the copy of record.
+- **Previous contents**, saved as `/opt/retropie/configs/all/autostart.sh.bak-before-game`:
+  ```bash
+  emulationstation #auto
+  ```
+- **Current contents**:
+  ```bash
+  bash "/home/pi/RetroPie/roms/ports/Pokemon Essentials.sh"
+  emulationstation #auto
+  ```
+- The first line is the same launcher the Ports entry uses (`bash %ROM%` in `/etc/emulationstation/es_systems.cfg`). joy2keys still starts with the game and is killed when mkxp-z exits. `runcommand.sh` is not used.
+- When the launcher script returns, the shell runs `emulationstation #auto`. Quit Game from the pause menu is what ends mkxp-z.
+- **Rollback**: `cp -a /opt/retropie/configs/all/autostart.sh.bak-before-game /opt/retropie/configs/all/autostart.sh`, then reboot.
+- **Verification (2026-10-31)**: after `sudo reboot`, the running processes were `bash .../Pokemon Essentials.sh`, `joy2keys.py --parent` of that shell, and `./mkxp-z`. EmulationStation was not running. `~/pokemon-game/game.log` showed RGSS1 on V3D 4.2 / GL 2.1 Mesa 19.3.2.

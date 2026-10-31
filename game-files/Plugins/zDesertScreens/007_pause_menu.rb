@@ -73,12 +73,12 @@ module DesertScreens
     cabinet = cabinet_platform? if cabinet.nil?
     menu.pbHideMenu
     unless cabinet
-      pbMessage(_INTL("MSG_PAUSE_RESTART_PI_LAPTOP"))
+      pbMessage("זה לא עובד כאן.")
       menu.pbRefresh
       menu.pbShowMenu
       return false
     end
-    if confirm?(_INTL("MSG_PAUSE_RESTART_RPI_CONFIRM")) && reboot_pi
+    if confirm?("לאתחל את הפיי?") && reboot_pi
       menu.pbEndScene
       return true
     end
@@ -89,7 +89,7 @@ module DesertScreens
 
   def self.pause_wipe(menu)
     menu.pbHideMenu
-    unless confirm?(_INTL("MSG_PAUSE_WIPE_CONFIRM"))
+    unless confirm?("למחוק את כל הנתונים, כולל עומק המשחק?")
       menu.pbRefresh
       menu.pbShowMenu
       return false
@@ -103,16 +103,21 @@ module DesertScreens
     return true
   end
 
+  # A proc is drawn as-is. _INTL would look the label up again and put the English key back.
+  def self.pause_name(hebrew)
+    return proc { next hebrew }
+  end
+
   def self.pause_commands
     order = PAUSE_ORDER
     return [
       [:dt_close, {
-        "name"   => _INTL("MSG_PAUSE_CLOSE"),
+        "name"   => pause_name("סגור תפריט"),
         "order"  => order[:dt_close],
         "effect" => proc { |menu| next DesertScreens.pause_close(menu) }
       }],
       [:dt_new_game, {
-        "name"   => _INTL("Game in a Game"),
+        "name"   => pause_name("משחק חדש"),
         "order"  => order[:dt_new_game],
         "effect" => proc { |menu| next DesertScreens.pause_nested(menu) }
       }],
@@ -122,12 +127,12 @@ module DesertScreens
         "effect" => proc { |menu| next DesertScreens.pause_quit(menu) }
       }],
       [:dt_restart_rpi, {
-        "name"   => _INTL("MSG_PAUSE_RESTART_PI"),
+        "name"   => pause_name("אתחול פיי"),
         "order"  => order[:dt_restart_rpi],
         "effect" => proc { |menu| next DesertScreens.pause_restart(menu) }
       }],
       [:dt_wipe_game, {
-        "name"   => _INTL("Start Over"),
+        "name"   => pause_name("משחק חדש לגמרי"),
         "order"  => order[:dt_wipe_game],
         "effect" => proc { |menu| next DesertScreens.pause_wipe(menu) }
       }]

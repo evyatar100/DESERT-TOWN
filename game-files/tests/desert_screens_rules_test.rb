@@ -205,10 +205,10 @@ check(shown == DesertScreens::PAUSE_ORDER.keys,
       "screens: pause order is close, name, bag, save, game in a game, quit, restart pi, start over")
 check(seed.rows[:dt_close]["order"] < seed.rows[:trainer_card]["order"],
       "screens: Close Menu is the first pause row")
-check(seed.rows[:dt_close]["name"] == "MSG_PAUSE_CLOSE", "screens: the first row is Close Menu")
-check(seed.rows[:dt_new_game]["name"] == "Game in a Game", "screens: nested New Game is labeled Game in a Game")
-check(seed.rows[:dt_restart_rpi]["name"] == "MSG_PAUSE_RESTART_PI", "screens: Restart Pi has its own label")
-check(seed.rows[:dt_wipe_game]["name"] == "Start Over", "screens: full wipe is labeled Start Over")
+check(seed.rows[:dt_close]["name"].call == "סגור תפריט", "screens: the first row is סגור תפריט")
+check(seed.rows[:dt_new_game]["name"].call == "משחק חדש", "screens: the nested game row is משחק חדש")
+check(seed.rows[:dt_restart_rpi]["name"].call == "אתחול פיי", "screens: the restart row is אתחול פיי")
+check(seed.rows[:dt_wipe_game]["name"].call == "משחק חדש לגמרי", "screens: the wipe row is משחק חדש לגמרי")
 check(seed.rows.values.none? { |h| h["condition"] }, "screens: every pause row shows on the laptop and the Pi")
 
 class DSMenu
@@ -267,7 +267,7 @@ $ds_answer = 0
 m = DSMenu.new
 check(DesertScreens.pause_restart(m, false) == false && m.log == [:hide, :refresh, :show] && $ds_reboots == 0,
       "screens: Restart Pi on a laptop only says it does not work here")
-check($ds_pb.last[0] == "MSG_PAUSE_RESTART_PI_LAPTOP", "screens: the laptop message is the restart-pi line")
+check($ds_pb.last[0] == "זה לא עובד כאן.", "screens: the laptop message is the restart-pi line")
 $ds_answer = 1
 m = DSMenu.new
 check(DesertScreens.pause_restart(m, true) == false && m.log == [:hide, :refresh, :show] && $ds_reboots == 0,
@@ -298,7 +298,7 @@ m = DSMenu.new
 check(DesertScreens.pause_wipe(m) == false && m.log == [:hide, :refresh, :show] &&
       DesertTownArcade.state.depth == 4 && SaveData.ds_file,
       "screens: No on full New Game keeps the save and the depth")
-check($ds_pb.last[0] == "MSG_PAUSE_WIPE_CONFIRM" && $ds_pb.last[3] == 1,
+check($ds_pb.last[0] == "למחוק את כל הנתונים, כולל עומק המשחק?" && $ds_pb.last[3] == 1,
       "screens: full New Game asks, with No highlighted")
 $ds_answer = 0
 m = DSMenu.new

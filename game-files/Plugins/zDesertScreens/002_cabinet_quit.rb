@@ -1,14 +1,14 @@
 #===============================================================================
-# DesertScreens (TG57) - Quit Game is hidden on the Pi cabinet only.
-# Pause menu: the handler is removed at load. Load screen: the row is dropped
-# from the command list (it is always last, so no other index moves).
+# DesertScreens (TG57) - the load screen drops Quit Game on the Pi cabinet.
+# The pause menu keeps Quit Game on the laptop and on the Pi (10.0.0.10).
+# Load screen: the row is dropped from the command list (it is always last,
+# so no other index moves).
 #===============================================================================
 
 module DesertScreens
-  def self.hide_pause_quit(handlers, ruby_platform = RUBY_PLATFORM)
-    return false if !hide_quit?(ruby_platform)
-    handlers.remove(:pause_menu, :quit_game)
-    return true
+  # Kept so older callers do not strip Quit from the pause menu.
+  def self.hide_pause_quit(_handlers, _ruby_platform = RUBY_PLATFORM)
+    return false
   end
 
   def self.strip_quit(commands)
@@ -23,8 +23,6 @@ module DesertScreens
     end
   end
 end
-
-DesertScreens.hide_pause_quit(MenuHandlers)
 
 class PokemonLoad_Scene
   prepend DesertScreens::LoadSceneNoQuit

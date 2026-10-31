@@ -5577,9 +5577,29 @@
       "en": "Restart",
       "he": "אתחול"
     },
+    "MSG_PAUSE_CLOSE": {
+      "en": "Close Menu",
+      "he": "סגור תפריט"
+    },
+    "MSG_PAUSE_RESTART_PI": {
+      "en": "Restart Pi",
+      "he": "אתחול פיי"
+    },
+    "MSG_PAUSE_RESTART_PI_LAPTOP": {
+      "en": "This does not work here.",
+      "he": "זה לא עובד כאן."
+    },
     "MSG_PAUSE_RESTART_RPI_CONFIRM": {
-      "en": "Restart the console?",
-      "he": "לאתחל את הקונסולה?"
+      "en": "Restart the Pi?",
+      "he": "לאתחל את הפיי?"
+    },
+    "MSG_PAUSE_WIPE": {
+      "en": "Full New Game",
+      "he": "משחק חדש לגמרי"
+    },
+    "MSG_PAUSE_WIPE_CONFIRM": {
+      "en": "Delete all saved data, including game depth?",
+      "he": "למחוק את כל הנתונים, כולל עומק המשחק?"
     },
     "Badges:": {
       "en": "Badges:",

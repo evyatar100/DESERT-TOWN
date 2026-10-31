@@ -16,7 +16,7 @@ MenuHandlers.add(:debug_menu, :desert_town_menu, {
 MenuHandlers.add(:debug_menu, :dt_full_pause_menu, {
   "name"        => "Full pause menu",
   "parent"      => :desert_town_menu,
-  "description" => "Open the stock pause menu (Pokedex, Pokemon, Pokegear, Trainer Card, Save, Options, Quit).",
+  "description" => "Open the pause menu.",
   "always_show" => true,
   "effect"      => proc {
     if !$player

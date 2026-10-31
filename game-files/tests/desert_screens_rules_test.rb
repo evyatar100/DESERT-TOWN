@@ -9,8 +9,11 @@ check(!DesertScreens.cabinet_platform?("x64-mingw-ucrt"), "screens: the Windows 
 check(!DesertScreens.cabinet_platform?("x86_64-linux"), "screens: an x86 Linux laptop is not the cabinet")
 check(!DesertScreens.cabinet_platform?("arm64-darwin23"), "screens: an Apple laptop is not the cabinet")
 check(!DesertScreens.cabinet_platform?(nil), "screens: no platform string is not the cabinet")
+check(DesertScreens.cabinet_platform? == !!(RUBY_PLATFORM.to_s =~ DesertScreens::CABINET_PLATFORM),
+      "screens: cabinet_platform? with no argument uses RUBY_PLATFORM")
+check(DesertScreens::PI_HOST == "10.0.0.10", "screens: the cabinet is 10.0.0.10")
 check(DesertScreens.hide_quit?("armv7l-linux-eabihf") && !DesertScreens.hide_quit?("x64-mingw-ucrt"),
-      "screens: Quit Game is hidden on the cabinet only")
+      "screens: the load screen hides Quit Game on the cabinet only")
 
 class IntroEventScene
   attr_reader :opened
@@ -42,9 +45,9 @@ class DSHandlers
   def remove(menu, option) = (@removed = [menu, option])
 end
 h = DSHandlers.new
-check(DesertScreens.hide_pause_quit(h, "armv7l-linux-eabihf") && h.removed == [:pause_menu, :quit_game], "screens: the cabinet loses the pause-menu Quit Game")
+check(!DesertScreens.hide_pause_quit(h, "armv7l-linux-eabihf") && h.removed.nil?, "screens: the pause menu keeps Quit Game on the cabinet")
 h2 = DSHandlers.new
-check(!DesertScreens.hide_pause_quit(h2, "x64-mingw-ucrt") && h2.removed.nil?, "screens: the laptop keeps the pause-menu Quit Game")
+check(!DesertScreens.hide_pause_quit(h2, "x64-mingw-ucrt") && h2.removed.nil?, "screens: the pause menu keeps Quit Game on the laptop")
 cmds = ["Continue", "New Game", "Options", "Quit Game"]
 check(DesertScreens.strip_quit(cmds.dup) == %w[Continue New\ Game Options], "screens: the load list drops a last Quit Game")
 check(DesertScreens.strip_quit(["Continue", "Options"]) == %w[Continue Options], "screens: a list without Quit Game is untouched")
@@ -173,9 +176,40 @@ ls2.pbStartScene(full)
 check(ls2.started == ["Continue"] && full == ["Continue"], "screens: the load scene trims the caller's own list before it builds panels")
 check(PokemonLoad_Scene.ancestors.first == DesertScreens::LoadSceneOneCommand, "screens: the load scene uses the one-command list")
 
-nh = $ds_menu.find { |_m, id, _h| id == :new_game }
-check(nh && nh[0] == :pause_menu && nh[2]["name"] == "Start Over", "screens: the pause menu gets a Start Over entry")
-check(nh[2]["order"] > 60 && nh[2]["order"] < 70 && nh[2]["order"] != 0, "screens: New Game sits below Save and above Options, never first")
+load File.join(ds_dir, "007_pause_menu.rb")
+check($ds_menu.none? { |_m, id, _h| id == :new_game }, "screens: the old pause-menu New Game is gone")
+
+class DSPauseHandlers
+  attr_reader :removed, :rows
+  def initialize(seed)
+    @rows = {}
+    seed.each { |id, order| @rows[id] = { "name" => id.to_s, "order" => order } }
+    @removed = []
+  end
+  def remove(menu, id)
+    @removed << [menu, id]
+    @rows.delete(id)
+  end
+  def add(_menu, id, hash) = (@rows[id] = hash)
+  def each(_menu) = @rows.each { |id, hash| yield id, hash }
+end
+seed = DSPauseHandlers.new({
+  pokedex: 10, party: 20, bag: 30, pokegear: 40, town_map: 40,
+  trainer_card: 50, save: 60, new_game: 65, options: 70, debug: 80, quit_game: 90
+})
+DesertScreens.install_pause_menu(seed)
+check(seed.removed.map(&:last).sort == DesertScreens::HIDDEN_PAUSE_IDS.sort,
+      "screens: the pause menu drops the Pokemon rows, Options, Debug and the old New Game")
+shown = seed.rows.sort_by { |_id, hash| hash["order"] }.map(&:first)
+check(shown == DesertScreens::PAUSE_ORDER.keys,
+      "screens: pause order is close, name, bag, save, game in a game, quit, restart pi, start over")
+check(seed.rows[:dt_close]["order"] < seed.rows[:trainer_card]["order"],
+      "screens: Close Menu is the first pause row")
+check(seed.rows[:dt_close]["name"] == "MSG_PAUSE_CLOSE", "screens: the first row is Close Menu")
+check(seed.rows[:dt_new_game]["name"] == "Game in a Game", "screens: nested New Game is labeled Game in a Game")
+check(seed.rows[:dt_restart_rpi]["name"] == "MSG_PAUSE_RESTART_PI", "screens: Restart Pi has its own label")
+check(seed.rows[:dt_wipe_game]["name"] == "Start Over", "screens: full wipe is labeled Start Over")
+check(seed.rows.values.none? { |h| h["condition"] }, "screens: every pause row shows on the laptop and the Pi")
 
 class DSMenu
   attr_reader :log
@@ -185,17 +219,97 @@ class DSMenu
   def pbRefresh = @log.push(:refresh)
   def pbEndScene = @log.push(:end)
 end
+
 $ds_answer = 1
-$scene = nil
 m = DSMenu.new
-check(nh[2]["effect"].call(m) == false && m.log == [:hide, :refresh, :show], "screens: answering No keeps the pause menu open")
-check($ds_pb.last[3] == 1 && $ds_pb.last[0].start_with?("Start a new game?"), "screens: the confirm highlights No by default")
-check($ds_pb.last[1] == ["Yes", "No"], "screens: the confirm offers Yes and No")
-check(!$scene, "screens: No starts no new game")
+check(seed.rows[:dt_close]["effect"].call(m) == true && m.log == [:end],
+      "screens: Close Menu closes the pause menu")
+
+def pbConfirmMessage(text)
+  $ds_pb.push([text])
+  return $ds_confirm
+end
+$ds_old_temp = $game_temp
+unless defined?(Game_Temp) && Game_Temp.method_defined?(:desert_town_restart_pending=)
+  class Game_Temp
+    attr_accessor :desert_town_restart_pending
+  end
+end
+$game_temp = Game_Temp.new
+$ds_confirm = false
+m = DSMenu.new
+check(DesertScreens.pause_nested(m) == false && m.log == [:hide, :refresh, :show],
+      "screens: No on nested New Game keeps the pause menu open")
+$ds_confirm = true
+m = DSMenu.new
+check(DesertScreens.pause_nested(m) == true && m.log == [:hide] && $game_temp.desert_town_restart_pending,
+      "screens: Yes on nested New Game starts a game inside this one")
+
+$scene = :playing
+$ds_answer = 1
+m = DSMenu.new
+check(DesertScreens.pause_quit(m) == false && m.log == [:hide, :refresh, :show] && $scene == :playing,
+      "screens: No on Quit stays in the game")
+check($ds_pb.last[3] == 1 && $ds_pb.last[1] == ["Yes", "No"], "screens: Quit highlights No")
 $ds_answer = 0
-m2 = DSMenu.new
-check(nh[2]["effect"].call(m2) == true && m2.log == [:hide, :end] && $scene.is_a?(Scene_DesertNewGame),
-      "screens: Yes closes the menu and hands off to the new-game scene")
+m = DSMenu.new
+check(DesertScreens.pause_quit(m) == true && m.log == [:hide, :end] && $scene.nil?,
+      "screens: Yes on Quit closes the game")
+
+$ds_reboots = 0
+class << DesertScreens
+  def reboot_pi
+    $ds_reboots += 1
+    return true
+  end
+end
+$ds_answer = 0
+m = DSMenu.new
+check(DesertScreens.pause_restart(m, false) == false && m.log == [:hide, :refresh, :show] && $ds_reboots == 0,
+      "screens: Restart Pi on a laptop only says it does not work here")
+check($ds_pb.last[0] == "MSG_PAUSE_RESTART_PI_LAPTOP", "screens: the laptop message is the restart-pi line")
+$ds_answer = 1
+m = DSMenu.new
+check(DesertScreens.pause_restart(m, true) == false && m.log == [:hide, :refresh, :show] && $ds_reboots == 0,
+      "screens: No on Restart Pi does not reboot")
+$ds_answer = 0
+m = DSMenu.new
+check(DesertScreens.pause_restart(m, true) == true && $ds_reboots == 1,
+      "screens: Yes on Restart Pi reboots the cabinet")
+check(File.read(File.join(ds_dir, "007_pause_menu.rb"), encoding: "utf-8").include?('system("sudo reboot")'),
+      "screens: the cabinet reboot is sudo reboot")
+
+module SaveData
+  class << self
+    attr_accessor :ds_file
+    def exists? = !!@ds_file
+    def delete_file
+      raise "no save" unless @ds_file
+      @ds_file = nil
+      return true
+    end
+  end
+end
+SaveData.ds_file = "Game.rxdata"
+prev_depth = DesertTownArcade.state.depth
+DesertTownArcade.state.depth = 4
+$ds_answer = 1
+m = DSMenu.new
+check(DesertScreens.pause_wipe(m) == false && m.log == [:hide, :refresh, :show] &&
+      DesertTownArcade.state.depth == 4 && SaveData.ds_file,
+      "screens: No on full New Game keeps the save and the depth")
+check($ds_pb.last[0] == "MSG_PAUSE_WIPE_CONFIRM" && $ds_pb.last[3] == 1,
+      "screens: full New Game asks, with No highlighted")
+$ds_answer = 0
+m = DSMenu.new
+check(DesertScreens.pause_wipe(m) == true && m.log == [:hide, :end] &&
+      DesertTownArcade.state.depth == 0 && SaveData.ds_file.nil? && $scene.is_a?(Scene_DesertNewGame),
+      "screens: Yes on full New Game deletes the save, clears depth and starts over")
+DesertTownArcade.state.depth = prev_depth
+$game_temp = $ds_old_temp
+
 tr67 = File.read(File.join(ROOT, "PBS/translations.json"), encoding: "utf-8")
-check(tr67.include?("\"Start a new game? Progress since your last save will be lost.\"") && tr67.include?("להתחיל משחק חדש? התקדמות שלא נשמרה תאבד."),
-      "screens: the confirm has its Hebrew line")
+check(tr67.include?("סגור תפריט") && tr67.include?("אתחול פיי") && tr67.include?("משחק חדש לגמרי") &&
+      tr67.include?("זה לא עובד כאן.") && tr67.include?("למחוק את כל הנתונים, כולל עומק המשחק?") &&
+      tr67.include?("לאתחל את הפיי?"),
+      "screens: the pause rows have their Hebrew lines")

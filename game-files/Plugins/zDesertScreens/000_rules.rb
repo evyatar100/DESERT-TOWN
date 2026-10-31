@@ -7,12 +7,15 @@ module DesertScreens
   TITLE_BGM = "Deep Playa Psychedelic 2"
   # The Pi runs a 32-bit or 64-bit ARM Linux Ruby; the laptop is Windows (x64-mingw).
   CABINET_PLATFORM = /\A(arm|aarch64)\S*-linux/i
+  # The cabinet on the playa network. Quit on that machine exits back to the Pi.
+  PI_HOST = "10.0.0.10"
 
-  def self.cabinet_platform?(ruby_platform)
+  # No argument means this machine. The pause menu calls it that way.
+  def self.cabinet_platform?(ruby_platform = RUBY_PLATFORM)
     return !!(ruby_platform.to_s =~ CABINET_PLATFORM)
   end
 
-  # Quit Game closes the game for good, which strands the arcade: hide it there only.
+  # Load screen only. The pause menu keeps Quit Game on the laptop and the Pi.
   def self.hide_quit?(ruby_platform = RUBY_PLATFORM)
     return cabinet_platform?(ruby_platform)
   end

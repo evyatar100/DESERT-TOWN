@@ -63,7 +63,7 @@ end
 
 module UnrealTime
   # Set false to disable this system (returns Time.now)
-  ENABLED = true
+  ENABLED = false
 
   # Time proportion here. 
   # So if it is 100, one second in real time will be 100 seconds in game.

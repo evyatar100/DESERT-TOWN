@@ -214,6 +214,11 @@ load File.join(ROOT, "Plugins/DesertTownArcade/001_bag_button.rb")
 load File.join(ROOT, "Plugins/DesertTownArcade/003_autosave.rb")
 load File.join(ROOT, "Plugins/DesertTownArcade/004_arcade_new_game.rb")
 
+require "tmpdir"
+load File.join(ROOT, "Plugins/zPlayLog/001_log.rb")
+PlayLog.log_path = File.join(Dir.mktmpdir("playlog"), "play_log.txt")
+PlayLog.reset_for_tests!
+
 class QuantityBag
   attr_reader :items
 
@@ -427,6 +432,54 @@ check(!DesertTownAutosave.inside_to_outside?(true, true), "outdoor to outdoor do
 check(!DesertTownAutosave.inside_to_outside?(false, false), "indoor to indoor does not save")
 check(DesertTownAutosave.inside_to_outside?(nil, true), "unknown old map counts as indoor")
 check(!DesertTownAutosave.inside_to_outside?(false, nil), "unknown new map counts as indoor")
+
+# --- play log ---
+idle = PlayLog::IDLE_SECONDS
+check(idle == 180, "play log idle window is 3 minutes")
+check(PlayLog.new_player?(1_000, nil), "first press after boot is a new player")
+check(!PlayLog.new_player?(1_000 + 179, Time.at(1_000)), "179 seconds later is the same player")
+check(PlayLog.new_player?(1_000 + 180, Time.at(1_000)), "180 seconds later is a new player")
+check(PlayLog.new_player?(1_000 + 5_000, Time.at(1_000)), "a long gap is a new player")
+check(!PlayLog.new_player?(nil, Time.at(1_000)), "no clock never starts a player")
+
+check(PlayLog.count_map_visit?(nil, 95), "first map of a run counts")
+check(PlayLog.count_map_visit?(0, 95), "map id 0 as old still counts the new map")
+check(PlayLog.count_map_visit?(80, 95), "leaving one map for another counts")
+check(!PlayLog.count_map_visit?(95, 95), "the same map twice in a row does not count")
+check(!PlayLog.count_map_visit?(95, nil), "a nil map does not count")
+check(!PlayLog.count_map_visit?(95, 0), "map id 0 does not count")
+
+check(PlayLog.strip_controls("Hello\\c[1] there\\n") == "Hello there",
+      "play log strips control codes from free text")
+check(PlayLog.translation_key?("MSG_CHARSEL_CONFIRM"), "MSG_ keys are translation keys")
+check(PlayLog.translation_key?("POPCORN_RESPONSE_THANKS"), "POPCORN_ keys are translation keys")
+check(!PlayLog.translation_key?("Hello there"), "plain text is not a translation key")
+check(PlayLog.message_key("שלום", [["MSG_HI", "שלום"]]) == "MSG_HI",
+      "message key prefers the matching _INTL key")
+check(PlayLog.message_key("Hello\\c[1]", []) == "Hello",
+      "message key falls back to stripped text when no _INTL match")
+check(PlayLog.message_key("MSG_RAW", []) == "MSG_RAW",
+      "a bare translation key in the box stays the key")
+
+round = {
+  players: 2,
+  last_press: Time.utc(2026, 10, 31, 20, 14, 0),
+  maps: { "95" => 4, "80" => 1 },
+  messages: { "MSG_HI" => 3 },
+  characters: { "idi4" => 2 }
+}
+text = PlayLog.format(round)
+back = PlayLog.parse(text)
+check(back[:players] == 2, "play log parse keeps player count")
+check(back[:last_press] == Time.utc(2026, 10, 31, 20, 14, 0), "play log parse keeps last_press")
+check(back[:maps] == { "80" => 1, "95" => 4 }, "play log parse keeps sorted map counts")
+check(back[:messages] == { "MSG_HI" => 3 }, "play log parse keeps message counts")
+check(back[:characters] == { "idi4" => 2 }, "play log parse keeps character counts")
+check(text.include?("maps\n80\t1\n95\t4\n"), "play log format sorts map ids")
+
+bumped = PlayLog.bump_count({ "idi4" => 1 }, "idi4")
+check(bumped["idi4"] == 2, "bump_count increments an existing key")
+check(PlayLog.bump_count({}, :f90d4de9)["f90d4de9"] == 1, "bump_count starts a missing key at 1")
 
 # --- arcade bag button ---
 check(DesertTownArcade.bag_button_allowed?(false, false, false, false, false), "idle map accepts the bag button")

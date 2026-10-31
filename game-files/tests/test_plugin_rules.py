@@ -261,6 +261,7 @@ def fmt_visual(tokens):
 
 
 AUTOSAVE_INTERVAL = 20 * 60
+PLAY_LOG_IDLE = 3 * 60
 
 
 def autosave_due(now, last_save, interval=AUTOSAVE_INTERVAL):
@@ -269,6 +270,47 @@ def autosave_due(now, last_save, interval=AUTOSAVE_INTERVAL):
     if last_save is None:
         return True
     return (now - last_save) >= interval
+
+
+def play_log_new_player(now, last_press, idle=PLAY_LOG_IDLE):
+    if now is None:
+        return False
+    if last_press is None:
+        return True
+    return (now - last_press) >= idle
+
+
+def play_log_count_map_visit(old_id, new_id):
+    if new_id is None or new_id == 0:
+        return False
+    if old_id is None or old_id == 0:
+        return True
+    return old_id != new_id
+
+
+def play_log_strip_controls(text):
+    import re
+
+    if text is None:
+        return ""
+    s = re.sub(r"\\[A-Za-z]+(\[[^\]]*\])?", "", str(text))
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def play_log_translation_key(key):
+    import re
+
+    return isinstance(key, str) and re.fullmatch(r"[A-Z][A-Z0-9_]*", key) is not None
+
+
+def play_log_message_key(box_text, recent):
+    box = "" if box_text is None else str(box_text)
+    for key, text in reversed(list(recent or [])):
+        if str(text) == box or play_log_strip_controls(text) == play_log_strip_controls(box):
+            if play_log_translation_key(str(key)):
+                return str(key)
+    stripped = play_log_strip_controls(box)
+    return stripped
 
 
 def inside_to_outside(old_outdoor, new_outdoor):
@@ -420,6 +462,15 @@ class PluginRuleTests(unittest.TestCase):
         autosave = (arcade_dir / "003_autosave.rb").read_text(encoding="utf-8")
         new_game = (arcade_dir / "004_arcade_new_game.rb").read_text(encoding="utf-8")
         bag_button = (arcade_dir / "001_bag_button.rb").read_text(encoding="utf-8")
+        play_log = (ROOT / "Plugins" / "zPlayLog" / "001_log.rb").read_text(encoding="utf-8")
+        self.assertIn("IDLE_SECONDS = 3 * 60", play_log)
+        self.assertIn("def self.new_player?", play_log)
+        self.assertIn("def self.count_map_visit?", play_log)
+        self.assertIn("def self.message_key", play_log)
+        self.assertIn("DesertCharSelect.apply!", play_log)
+        self.assertIn("play_log.txt", play_log)
+        self.assertIn("note_input_frame", play_log)
+        self.assertIn(":on_enter_map, :play_log_map_visit", play_log)
         self.assertIn("INTERVAL = 20 * 60", autosave)
         self.assertIn("due?(", autosave)
         self.assertIn("inside_to_outside?(", autosave)
@@ -507,6 +558,19 @@ class PluginRuleTests(unittest.TestCase):
         self.assertFalse(autosave_due(1000 + 1199, 1000))
         self.assertTrue(autosave_due(1000 + 1200, 1000))
         self.assertFalse(autosave_due(None, 1000))
+        self.assertTrue(play_log_new_player(1000, None))
+        self.assertFalse(play_log_new_player(1000 + 179, 1000))
+        self.assertTrue(play_log_new_player(1000 + 180, 1000))
+        self.assertFalse(play_log_new_player(None, 1000))
+        self.assertTrue(play_log_count_map_visit(None, 95))
+        self.assertTrue(play_log_count_map_visit(80, 95))
+        self.assertFalse(play_log_count_map_visit(95, 95))
+        self.assertFalse(play_log_count_map_visit(95, 0))
+        self.assertEqual(play_log_strip_controls(r"Hello\c[1] there\n"), "Hello there")
+        self.assertTrue(play_log_translation_key("MSG_CHARSEL_CONFIRM"))
+        self.assertFalse(play_log_translation_key("Hello there"))
+        self.assertEqual(play_log_message_key("שלום", [["MSG_HI", "שלום"]]), "MSG_HI")
+        self.assertEqual(play_log_message_key(r"Hello\c[1]", []), "Hello")
         self.assertTrue(inside_to_outside(False, True))
         self.assertTrue(inside_to_outside(None, True))
         self.assertFalse(inside_to_outside(True, False))

@@ -4,9 +4,12 @@
 
 module SimpleJSONParser
   def self.parse(source)
-    return {} if source.nil? || source.strip.empty?
+    return {} if source.nil? || source.empty?
     source = source.dup
     source.force_encoding('UTF-8') if source.respond_to?(:force_encoding)
+    # strip raises on invalid UTF-8; scrub first so one bad byte cannot drop the file.
+    source = source.scrub if source.respond_to?(:scrub) && !source.valid_encoding?
+    return {} if source.strip.empty?
     tokens = tokenize(source)
     return {} if tokens.empty?
     val, _ = parse_value(tokens, 0)

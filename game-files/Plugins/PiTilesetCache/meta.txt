@@ -1,0 +1,5 @@
+Name       = Pi Tileset Cache
+Version    = 1.0.0
+Essentials = 21.1
+Website    = https://github.com/evyatar100/DESERT-TOWN
+Credits    = Eviatar

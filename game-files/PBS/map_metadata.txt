@@ -438,8 +438,24 @@ Outdoor = true
 Name = Kim Area
 Outdoor = true
 #-------------------------------
+[090]   # mom-dad-out
+Name = mom-dad-out
+Outdoor = true
+#-------------------------------
+[091]   # Ice Camp
+Name = Ice Camp
+Outdoor = true
+#-------------------------------
+[095]   # kusomo2
+Name = kusomo2
+Outdoor = true
+#-------------------------------
 [098]   # Playa
 Name = Playa
+Outdoor = true
+#-------------------------------
+[110]   # Echer
+Name = Echer
 Outdoor = true
 #-------------------------------
 [077]   # flamingods-out

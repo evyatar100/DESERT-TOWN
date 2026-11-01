@@ -278,3 +278,12 @@ To run Pokémon Essentials v21 natively on the Pi inside RetroPie:
 - When the launcher script returns, the shell runs `emulationstation #auto`. Quit Game from the pause menu is what ends mkxp-z.
 - **Rollback**: `cp -a /opt/retropie/configs/all/autostart.sh.bak-before-game /opt/retropie/configs/all/autostart.sh`, then reboot.
 - **Verification (2026-10-31)**: after `sudo reboot`, the running processes were `bash .../Pokemon Essentials.sh`, `joy2keys.py --parent` of that shell, and `./mkxp-z`. EmulationStation was not running. `~/pokemon-game/game.log` showed RGSS1 on V3D 4.2 / GL 2.1 Mesa 19.3.2.
+
+### Stage 12: Frame-rate and rendering fixes (TG69, 2026-11-01)
+- **Status**: syncToRefreshrate fixed; day/night near spacesheep camp still under investigation.
+- **Symptoms**: (a) micro-stutters every few seconds, (b) day/night tone jumping — most visible near the spacesheep camp, (c) flashes of black lines at the bottom of the screen.
+- **Root cause (a + c)**: `"syncToRefreshrate": true` in `~/pokemon-game/mkxp.json` forced the game to render at **60 fps** (matching the 720p@60 Hz display). The RGSS1 engine's native rate is **40 fps**. The extra 50% CPU/GPU work on the Pi 4's ARM core and V3D 4.2 (Mesa 19.3.2) caused dropped frames, GC pressure and V3D FIFO underruns (black scanlines at the bottom). Note: `/boot/config.txt` was already set to 720p (`hdmi_mode:0=4`) rather than the Stage 7 1080p setting.
+- **Fix**: Set `"syncToRefreshrate": false` in the Pi's `~/pokemon-game/mkxp.json`. The game now runs at its native 40 fps. `vsync` stays true (no tearing). Each frame has 25 ms of budget instead of 16.7 ms, and the GPU renders 33% fewer frames per second.
+- **Result**: black-line flashes eliminated, micro-stutters greatly reduced.
+- **Backup**: `~/pi-engine/mkxp.json.before-framerate`. Rollback: `cp ~/pi-engine/mkxp.json.before-framerate ~/pokemon-game/mkxp.json`.
+- **Remaining**: day/night tone still jumps near the spacesheep camp (maps 86/87 area) even with party lights off. Under investigation — the jump happens at midnight when the tone should be constant, so it is not a tone-calculation step.

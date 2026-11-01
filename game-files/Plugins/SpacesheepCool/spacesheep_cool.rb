@@ -31,10 +31,13 @@ module SpacesheepCool
   end
 
   # Cancel any in-progress color blend and reset light state.
-  # duration 1 (not 0) so Game_Screen replaces @tone_target / @tone_timer_start.
+  # Only touches the screen tone when lights were actually on; avoids
+  # unnecessary start_tone_change calls during map entry/exit near the camp.
   def clear_lights
+    was_lit = @lit
     @lit = false
     @index = nil
+    return unless was_lit
     return unless defined?($game_screen) && $game_screen
     $game_screen.start_tone_change(NEUTRAL, 1)
   end

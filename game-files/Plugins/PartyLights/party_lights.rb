@@ -49,8 +49,10 @@ module PartyLights
   end
 
   def clear_lights
+    was_lit = @lit
     @lit = false
     @index = nil
+    return unless was_lit
     return unless defined?($game_screen) && $game_screen
     $game_screen.start_tone_change(NEUTRAL, 1)
   end

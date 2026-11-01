@@ -131,6 +131,12 @@ if defined?(EventHandlers)
   # The v21 hotfix does not start a normal Event Touch when the event is the
   # one that moves, so a mummy that walks up to the player would not fire.
   # Start it when that mummy is on the player's tile or facing the next tile.
+  #
+  # Optimized: cache mummy events per map so we skip the full-event scan each
+  # frame. The cache rebuilds when $game_map.map_id changes.
+  $desert_mummy_cache_map_id = nil
+  $desert_mummy_cache_events = []
+
   EventHandlers.add(:on_frame_update, :desert_mummy_touch,
     proc {
       next unless defined?($game_map) && $game_map && defined?($game_player) && $game_player
@@ -139,11 +145,16 @@ if defined?(EventHandlers)
       )
       next if defined?($game_system) && $game_system&.map_interpreter&.running?
       next if defined?(pbMapInterpreterRunning?) && pbMapInterpreterRunning?
+      if $game_map.map_id != $desert_mummy_cache_map_id
+        $desert_mummy_cache_map_id = $game_map.map_id
+        $desert_mummy_cache_events = $game_map.events.values.select { |e|
+          e.trigger == 2 && e.name == "dt_1820dc9d"
+        }
+      end
+      next if $desert_mummy_cache_events.empty?
       px = $game_player.x
       py = $game_player.y
-      $game_map.events.each_value do |event|
-        next if event.trigger != 2
-        next if event.name != "dt_1820dc9d"
+      $desert_mummy_cache_events.each do |event|
         next if event.starting || event.jumping?
         same = event.x == px && event.y == py
         nx = event.x + (event.direction == 6 ? 1 : event.direction == 4 ? -1 : 0)
